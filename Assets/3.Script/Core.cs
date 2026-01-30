@@ -13,7 +13,7 @@ namespace Core.Data {
 
     // 런타임에서 사용할 순수 데이터 구조체 (가볍게 유지)
     [Serializable]
-    public struct CellData {
+    public class CellData {
         public Vector2Int Coordinate;   //좌표
         public TileLogicType Type;
         public float Weight;            //확률 가중치 (Alpha Channel 값 등)

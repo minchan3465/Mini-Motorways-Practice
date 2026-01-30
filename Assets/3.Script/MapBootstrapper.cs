@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Core.System {
+namespace Core.Systems {
 	using Core.Data;
 
 	public class MapBootstrapper : MonoBehaviour {
@@ -14,11 +14,7 @@ namespace Core.System {
 		public static BoundsInt MapBounds { get; private set; }
 
 		private void Awake() {
-			if (_sourceTilemap == null) {
-				Debug.Log("[GDD] Source Tilemap is missing!");
-				return;
-			}
-
+			if (_sourceTilemap == null) return;
 			ExtractDataFromTilemap();
 		}
 
@@ -28,6 +24,7 @@ namespace Core.System {
 
 			_sourceTilemap.CompressBounds();    //타일맵 원점 보정. (Tilemap은 0,0 좌표가 중앙일 수 있음)
 			BoundsInt bounds = _sourceTilemap.cellBounds;   //현재 맵의 크기 저장.
+
 			Debug.Log($"<color=cyan>[MapBootstrapper]</color> Starting Extraction... Bounds: {bounds}");
 
 			int processedCount = 0;
@@ -36,7 +33,6 @@ namespace Core.System {
 			//전에 테스트하면서 적었던건데 왜 날렸을까...
 			//cellBounds = (타일이 있을 경우) 설치된 타일을 모두 감싸는 직사각형 크기
 			//allPositionWithin = 그 직사각형의 크기 내부에 있는 모든 타일의 위치
-
 			#region var 자료형에 관한 고찰
 			/*
 			var 자료형은 굉장한 많은 이야기가 있다.
@@ -64,11 +60,12 @@ namespace Core.System {
 			foreach (var pos in _sourceTilemap.cellBounds.allPositionsWithin) {
 				Vector3Int localPos = new Vector3Int(pos.x, pos.y, pos.z);
 
-				if (_sourceTilemap.HasTile(pos)) continue;
+				if (!_sourceTilemap.HasTile(localPos)) continue;
 
 				//해당 위치 타일 가져오기.
 				//+ 좌표 2차원화
-				TileBase tileBase = _sourceTilemap.GetTile(pos);
+				TileBase tileBase = _sourceTilemap.GetTile(localPos);
+
 				Vector2Int gridCoord = new Vector2Int(pos.x, pos.y);
 
 				//일단 타일 데이터 생성
@@ -84,10 +81,11 @@ namespace Core.System {
 					//데이터 파싱
 					cell.Type = smartTile.logicType;
 					cell.Weight = smartTile.spawnWeight;
+					Debug.Log($"[GDD Debug] {cell.Type}");
 				}
 
 				//Dictionary에 저장
-				if (!Grid.ContainsKey(gridCoord)) {
+				if (!Grid.ContainsKey(cell.Coordinate)) {
 					Grid.Add(gridCoord, cell);
 					processedCount++;
 				}
@@ -103,15 +101,14 @@ namespace Core.System {
 		private void OnDrawGizmos() {
 			if (Grid == null) return;
 
-
 			foreach(var kvp in Grid) {
 				CellData cell = kvp.Value;
-				if (!cell.Type.Equals(TileLogicType.Empty)) {
+				if (cell.Type != TileLogicType.Empty) {
 					Gizmos.color = cell.Type == TileLogicType.Obstacle ? Color.red :
 								   cell.Type == TileLogicType.Supply ? Color.blue : Color.yellow;
-
+					
 					// 시각적 확인을 위해 위치를 다시 월드로 변환해서 그리기
-					Vector3 worldPos = new Vector3(cell.Coordinate.x + 0.5f, cell.Coordinate.y + 0.5f, 0);
+					Vector3 worldPos = new Vector3(cell.Coordinate.x + 0.5f, 0, cell.Coordinate.y + 0.5f);
 					Gizmos.DrawWireCube(worldPos, Vector3.one * 0.9f);
 				}
 			}
