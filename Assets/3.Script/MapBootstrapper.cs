@@ -25,7 +25,7 @@ namespace Core.Systems {
 			_sourceTilemap.CompressBounds();    //타일맵 원점 보정. (Tilemap은 0,0 좌표가 중앙일 수 있음)
 			BoundsInt bounds = _sourceTilemap.cellBounds;   //현재 맵의 크기 저장.
 
-			Debug.Log($"<color=cyan>[MapBootstrapper]</color> Starting Extraction... Bounds: {bounds}");
+			//Debug.Log($"<color=cyan>[MapBootstrapper]</color> Starting Extraction... Bounds: {bounds}");
 
 			int processedCount = 0;
 
@@ -81,7 +81,6 @@ namespace Core.Systems {
 					//데이터 파싱
 					cell.Type = smartTile.logicType;
 					cell.Weight = smartTile.spawnWeight;
-					Debug.Log($"[GDD Debug] {cell.Type}");
 				}
 
 				//Dictionary에 저장
@@ -95,7 +94,7 @@ namespace Core.Systems {
 			// 시각적 타일맵은 이제 필요 없으므로 렌더러를 끄거나, 배경으로만 사용
 			// _sourceTilemap.GetComponent<TilemapRenderer>().enabled = false; 
 
-			Debug.Log($"<color=green>[MapBootstrapper]</color> Extraction Complete! Processed {processedCount} SmartTiles.");
+			//Debug.Log($"<color=green>[MapBootstrapper]</color> Extraction Complete! Processed {processedCount} SmartTiles.");
 		}
 
 		private void OnDrawGizmos() {
@@ -104,8 +103,22 @@ namespace Core.Systems {
 			foreach(var kvp in Grid) {
 				CellData cell = kvp.Value;
 				if (cell.Type != TileLogicType.Empty) {
-					Gizmos.color = cell.Type == TileLogicType.Obstacle ? Color.red :
-								   cell.Type == TileLogicType.Supply ? Color.blue : Color.yellow;
+					switch (cell.Type) {
+						case TileLogicType.Obstacle:
+							Gizmos.color = Color.red;
+							break;
+						case TileLogicType.Road:
+							Gizmos.color = Color.gray;
+							break;
+						case TileLogicType.Supply:
+							Gizmos.color = Color.blue;
+							break;
+						case TileLogicType.Demand:
+							Gizmos.color = Color.yellow;
+							break;
+						case TileLogicType.Restricted:
+							break;
+					}
 					
 					// 시각적 확인을 위해 위치를 다시 월드로 변환해서 그리기
 					Vector3 worldPos = new Vector3(cell.Coordinate.x + 0.5f, 0, cell.Coordinate.y + 0.5f);

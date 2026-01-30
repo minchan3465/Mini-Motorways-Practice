@@ -7,7 +7,16 @@
             "id": "a48b3309-5e0a-4f65-b7ec-46ec20ed9638",
             "actions": [
                 {
-                    "name": "Click",
+                    "name": "CursorPosition",
+                    "type": "Value",
+                    "id": "7eb91d61-3a2e-4334-b3b1-5fe1327b6aff",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Build",
                     "type": "Button",
                     "id": "782bdf08-a9fb-40a1-849a-72f3e1eee584",
                     "expectedControlType": "",
@@ -24,7 +33,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "Build",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3acbd062-76f4-4b57-b6d7-2bfe1cc9d507",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
