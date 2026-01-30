@@ -12,7 +12,7 @@ namespace Core.Systems {
 		[SerializeField] private LayerMask _groundLayer;
 
 		private PlayerInput _input;
-		private Vector2 _mouseScrennPos;
+		private Vector2 _mouseScreenPos;
 		private Plane _groundPlane;
 
 		private bool _isBuilding = false; // 현재 누르고 있는가?
@@ -21,6 +21,9 @@ namespace Core.Systems {
 		//마우스가 가리키고 있는 그리드 좌표
 		public Vector2Int CurrentGridPointer { get; private set; }
 		public bool IsPointerValid { get; private set; }
+
+		private bool _isDragging = false;
+		private Vector2Int _lastGridPointer; // 마지막으로 도로를 깔았던 위치
 
 		private void Awake() {
 			_input = new PlayerInput();
@@ -31,34 +34,53 @@ namespace Core.Systems {
 		private void OnEnable() {
 			_input.Enable();
 			_input.Player.CursorPosition.performed += OnCursorMove;
-			_input.Player.Build.performed += OnBuildPerformed;
+			_input.Player.Build.started += OnBuildStarted;   // 눌렀을 때
+			_input.Player.Build.canceled += OnBuildCanceled; // 뗐을 때
+			//_input.Player.Build.performed += OnBuildPerformed;
 		}
 		private void OnDisable() {
 			_input.Disable();
 			_input.Player.CursorPosition.performed -= OnCursorMove;
-			_input.Player.Build.performed -= OnBuildPerformed;
+			_input.Player.Build.started += OnBuildStarted;   // 눌렀을 때
+			_input.Player.Build.canceled += OnBuildCanceled; // 뗐을 때
+			//_input.Player.Build.performed -= OnBuildPerformed;
 		}
 
-		private void Update() {
-			if(_isBuilding) {
-				
+
+
+
+		private void OnBuildStarted(InputAction.CallbackContext context) {
+			_isDragging = true;
+
+			if (IsPointerValid) {
+				TryPlaceRoad(CurrentGridPointer);
+				_lastGridPointer = CurrentGridPointer; // 현재 위치 기억
 			}
 		}
-
+		private void OnBuildCanceled(InputAction.CallbackContext context) {
+			_isDragging = false;
+		}
 
 		private void OnCursorMove(InputAction.CallbackContext context) {
-			_mouseScrennPos = context.ReadValue<Vector2>();
+			_mouseScreenPos = context.ReadValue<Vector2>();
 			CalculateGridPosition();
-		}
 
-		private void OnBuildPerformed(InputAction.CallbackContext context) {
-			if(IsPointerValid) {
-				TryPlaceRoad(CurrentGridPointer);
+			if (_isDragging && IsPointerValid) {
+				if (CurrentGridPointer != _lastGridPointer) {
+					TryPlaceRoad(CurrentGridPointer);
+					_lastGridPointer = CurrentGridPointer; // 위치 갱신
+				}
 			}
 		}
 
+		//private void OnBuildPerformed(InputAction.CallbackContext context) {
+		//	if(IsPointerValid) {
+		//		TryPlaceRoad(CurrentGridPointer);
+		//	}
+		//}
+
 		private void CalculateGridPosition() {
-			Ray ray = _mainCamera.ScreenPointToRay(_mouseScrennPos);
+			Ray ray = _mainCamera.ScreenPointToRay(_mouseScreenPos);
 
 			//전에 배웠을 때, Physics.Raycast를 썼는데 왜 이번엔 Plane.Raycast?
 			//Physics는 Mesh와 Collider를 구분하고, 좌표와 법선 벡터, 충돌한 Collider를 반환.
