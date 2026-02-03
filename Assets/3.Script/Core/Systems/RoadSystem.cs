@@ -28,6 +28,7 @@ namespace Core.Systems {
 			//위의 마스크 계산간거 적용
 			UpdateConnectionMask(from, dirToTarget, add: true);
 			UpdateConnectionMask(to, dirToOrigin, add: true);
+
 		}
 
 		public void CreateRoadNode(Vector2Int coord) {
@@ -35,7 +36,6 @@ namespace Core.Systems {
 				if (existing.Type.Equals(TileLogicType.Empty)) {
 					existing.Type = TileLogicType.Road;
 					MapBootstrapper.Grid[coord] = existing;
-					RoadVisualizer.Instance.UpdateRoadVisual(coord, MapBootstrapper.Grid[coord]);
 				}
 			} else {
 				CellData newRoad = new CellData {
@@ -44,7 +44,6 @@ namespace Core.Systems {
 					ConnectionMask = RoadDirection.None
 				};
 				MapBootstrapper.Grid.Add(coord, newRoad);
-				RoadVisualizer.Instance.UpdateRoadVisual(coord, MapBootstrapper.Grid[coord]);
 			}
 		}
 
@@ -57,8 +56,21 @@ namespace Core.Systems {
 				MapBootstrapper.Grid[coord] = target;
 
 				UpdateNeighborsOnRemove(coord, oldMask);
-				RoadVisualizer.Instance.RemoveRoadVisual(coord);
+
+				CheckAndRemoveVisual(coord, new Vector2Int(0, 1));  // North
+				CheckAndRemoveVisual(coord, new Vector2Int(0, -1)); // South
+				CheckAndRemoveVisual(coord, new Vector2Int(1, 0));  // East
+				CheckAndRemoveVisual(coord, new Vector2Int(-1, 0)); // West
+																	// 대각선 포함
+				CheckAndRemoveVisual(coord, new Vector2Int(1, 1));
+				CheckAndRemoveVisual(coord, new Vector2Int(1, -1));
+				CheckAndRemoveVisual(coord, new Vector2Int(-1, -1));
+				CheckAndRemoveVisual(coord, new Vector2Int(-1, 1));
 			}
+		}
+
+		private void CheckAndRemoveVisual(Vector2Int center, Vector2Int offset) {
+			Vector2Int neighbor = center + offset;
 		}
 
 		//도로가 하나만 존재한다면 (1칸짜리 고립된 도로)
@@ -101,8 +113,6 @@ namespace Core.Systems {
 					else data.ConnectionMask &= ~dir;
 
 					MapBootstrapper.Grid[coord] = data;
-
-					RoadVisualizer.Instance.UpdateRoadVisual(coord, data);
 				}
 			}
 		}
