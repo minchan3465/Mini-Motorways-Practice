@@ -14,7 +14,7 @@ namespace Core.Systems {
 		DrivingHome,            // 목적지 -> 집으로 복귀 중
 		RealigningDriveway      // (미구현) 도로가 끊기거나 입구가 바뀌었을 때 경로 재탐색
 	}
-	//TODO : 상태 머신 추가로 인하여, 새롭게 갈아엎어야함.
+	//TODO : 상태 머신 추가로 인하여, 새롭게 갈아엎어야함. checked. end.
 
 	public class CarMovement : MonoBehaviour {
 		[Header("Movement Settings")]
@@ -35,6 +35,7 @@ namespace Core.Systems {
 
 		private Vector3 _currentTargetPos;
 		private bool _isExitingBuilding = false;
+		private bool _isEnteringHouse = false;
 
 		// 초기화 -> 집 좌표를 기억함
 		public void Initialize(House house, Destination dest, List<Vector2Int> roadPath) {
@@ -127,36 +128,37 @@ namespace Core.Systems {
 
 			switch (_currentState) {
 				case BehaviorState.DrivingToDestination:
-				case BehaviorState.DrivingHome:
-					//도로 주행중이라면 (둘은 다른 상태지만, 도로위를 달리는것은 동일.
 					_gridPathIndex += 1;
 					if (_gridPathIndex >= _gridPath.Count - 1) {
-						//만약 도로의 끝에 도달했다면. 
-						//1. 도착지점일 가능성이 높음
-						//2. 막다른 길 도로일수도 있음. 근데 이건 나중에 변수처리로 막을거라 가능성 낮음).
-						if (_currentState.Equals(BehaviorState.DrivingToDestination)) {
-							//상태가 목적지로 가는거였다면, 도착한거나 다름없음.
-							SetState(BehaviorState.ParkingAtDestination);
-						} else {
-							//근데 집으로 가는거였다면, 집에 도착하는거니 그냥 끝
-							SetupEnteringPath(_targetStructure);
-						}
+						// 도로 끝 -> 목적지 진입
+						SetState(BehaviorState.ParkingAtDestination);
 					} else {
-						//도로 끝이 아니라면 그냥 다음 도로로 가쇼~
+						SetupNextRoadSegment();
+					}
+					break;
+				case BehaviorState.DrivingHome:
+					// [Fix] 집 내부로 들어가는 단계였는가?
+					if (_isEnteringHouse) {
+						// 집 중앙 도착 완료 -> 대기 상태로 전환
+						_isEnteringHouse = false;
+						SetState(BehaviorState.WaitingForDestination);
+						return;
+					}
+
+					// 도로 주행 중
+					_gridPathIndex += 1;
+
+					if (_gridPathIndex >= _gridPath.Count - 1) {
+						// 집 입구(도로 끝) 도착 -> 집 내부로 진입 명령
+						_isEnteringHouse = true; // 플래그 ON
+						SetupEnteringPath(_targetStructure);
+					} else {
 						SetupNextRoadSegment();
 					}
 					break;
 				case BehaviorState.ParkingAtDestination:
 					//주차중이였는데, 끝난거니 주차 완료 상태로 가십쇼
 					SetState(BehaviorState.ParkedAtDestination);
-					break;
-				default:
-					//이건 몰랐는데, DrivingHome 상태에서 SetupEnteringPath가 끝났다면?
-					//즉, 집에 도착했는데 다음 목적지가 안정해져있다면.
-					if (_currentState.Equals(BehaviorState.DrivingHome)) {
-						//그럼 대기해야죠 뭐 ㅋㅋ
-						SetState(BehaviorState.WaitingForDestination);
-					}
 					break;
 			}
 		}

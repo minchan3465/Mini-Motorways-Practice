@@ -80,15 +80,15 @@ namespace Core.Systems.Structure {
 
 			base.Initialize(root, validDir);
 
-			UpdateVisualRoation();
+			ApplyShapeRotation();
 		}
 
-		private void UpdateVisualRoation() {
-			Vector2Int dir = GetDirVector(EntranceDir);
-			float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-
-			//오브젝트 반대로 돌리기 귀찮다 ㅎㅎ
-			transform.rotation = Quaternion.Euler(0, -angle, 0);
+		private void ApplyShapeRotation() {
+			if (IsHorizontal) {
+				transform.rotation = Quaternion.Euler(0, 0, 0);
+			} else {
+				transform.rotation = Quaternion.Euler(0, -90, 0);
+			}
 		}
 
 

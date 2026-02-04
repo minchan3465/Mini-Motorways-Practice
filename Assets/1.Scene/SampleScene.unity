@@ -331,7 +331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Systems.InteractionController
   _mainCamera: {fileID: 330585545}
-  _dragSensitivity: 0.4
+  _initialDragDeadzone: 0.3
+  _connectionDistanceThreshold: 0.8
 --- !u!4 &385489822
 Transform:
   m_ObjectHideFlags: 0

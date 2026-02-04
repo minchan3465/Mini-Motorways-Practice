@@ -6,10 +6,10 @@ namespace Core.Systems.Structure {
 	using Core.Data;
 	public class House : StructureBase {
 		[Header("House Settings")]
-		[SerializeField] private int _carCount = 2;
+		[SerializeField] private int _availableCars;
 		[SerializeField] private GameObject _carPrefab;
 		
-		private int _availableCars;
+		private int _carCount = 2;
 
 		private Queue<CarMovement> _carPool = new Queue<CarMovement>();
 
@@ -32,9 +32,8 @@ namespace Core.Systems.Structure {
 
 			if(_carPool.Count > 0) {
 				car = _carPool.Dequeue();
-				car.gameObject.SetActive(true);
 			} else {
-				GameObject carObj = Instantiate(_carPrefab, transform.position, Quaternion.identity);
+				GameObject carObj = Instantiate(_carPrefab, transform.position, Quaternion.identity, transform);
 				carObj.TryGetComponent(out car);
 			}
 
@@ -48,12 +47,10 @@ namespace Core.Systems.Structure {
 			if (_availableCars > _carCount) _availableCars = _carCount;
 
 			if (car != null) {
-				car.gameObject.SetActive(false);
+				car.transform.position = transform.position;
 				_carPool.Enqueue(car);
 			}
-			Debug.Log($"차량 복귀.");
 			//차 돌아왔으니, 밀린 일이 있는지 매니저에게 물어봄.
-
 			if(StructureManager.Instance != null) {
 				StructureManager.Instance.OnCarAvailable(this);
 			}

@@ -27,6 +27,7 @@ namespace Core.Systems {
 
 		private void Start() {
 			SpawnHouse();
+			SpawnHouse();
 			SpawnDestination();
 		}
 
@@ -46,7 +47,7 @@ namespace Core.Systems {
 
 					RegisterHouse(house);
 				}
-				Debug.Log($"House Spawned at {spawnPos}");
+				//Debug.Log($"House Spawned at {spawnPos}");
 			} else {
 				Debug.LogWarning($"집 지을 공간이 없습니다.");
 			}
@@ -79,7 +80,7 @@ namespace Core.Systems {
 
 					RegisterDestination(dest);
 				}
-				Debug.Log($"Destination Spawned at {spawnPos} (Size : {w} x {h}");
+				//Debug.Log($"Destination Spawned at {spawnPos} (Size : {w} x {h}");
 			} else {
 				Debug.LogWarning($"목적지를 지을 공간이 없습니다.");
 			}
@@ -91,8 +92,10 @@ namespace Core.Systems {
 		public void OnCarAvailable(House house) => CheckPendingRequests();    // 차 돌아오면 체크 (Fix 3)
 
 		public void CheckPendingRequests() {
-			foreach(var dest in _destinations) {
+			int pinsFound = 0;
+			foreach (var dest in _destinations) {
 				if(dest.HasUnassignedPin()) {
+					pinsFound++;
 					TryDispatchCarTo(dest);
 				}
 			}
@@ -131,7 +134,7 @@ namespace Core.Systems {
 
 				bestHouse.DispatchCar(bestPath, targetDest);
 				targetDest.RegisterIncomingCar();
-				Debug.Log($" 출동: {bestHouse.name} -> {targetDest.name} (거리: {minPathLength})");
+				//Debug.Log($" 출동: {bestHouse.name} -> {targetDest.name} (거리: {minPathLength})");
 
 				// [임시 해결책] 무한 출동 방지를 위해, 
 				// Destination 로직을 수정해서 '할당된 핀' 개념을 넣어야 합니다.
