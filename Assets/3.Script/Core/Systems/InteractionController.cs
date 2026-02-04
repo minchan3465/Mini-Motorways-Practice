@@ -55,8 +55,8 @@ namespace Core.Systems {
 		//----------건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
 			if (_isDraggingRemove) return;
-			_isDraggingBuld = true;
 
+			_isDraggingBuld = true;
 			if (IsPointerValid) {
 				if(!RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) {
 					_isDraggingBuld = false;

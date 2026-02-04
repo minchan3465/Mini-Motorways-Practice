@@ -95,6 +95,8 @@ namespace Core.Systems {
                 currentNode = currentNode.Parent;
             }
             // path.Add(startNode.Position); // 시작점 포함 여부는 선택 (차량 이동 시 제외하는 게 보통)
+            path.Add(startNode.Position);
+
             path.Reverse();
             return path;
         }

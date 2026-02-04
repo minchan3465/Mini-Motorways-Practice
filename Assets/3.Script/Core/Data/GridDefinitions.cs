@@ -9,6 +9,7 @@ namespace Core.Data {
         Road = 2,     // DORODORO (도로)
         Supply = 10,  // 집 (출발지)
         Demand = 20,  // 상점 (목적지)
+        Entrance = 30, // 건물의 입구
         Restricted = 99 // 건설 불가 구역 (No-build zone)
     }
 

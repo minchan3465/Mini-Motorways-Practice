@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Core.Systems {
 	using Core.Data;
+	using Core.Utils;
 
 	public class RoadSystem : MonoBehaviour {
 		public static RoadSystem Instance = null;
@@ -14,13 +15,19 @@ namespace Core.Systems {
 			else Destroy(gameObject);
 		}
 
+		#region 차도(도로) 생성 코드
 		// 두 지점을 도로로 연결하고 비트마스크를 갱신.
 		public void ConnectRoads(Vector2Int from, Vector2Int to) {
 			//sqrMagnitude가 distance보다 훨~씬 빠름.
-			if (Vector2Int.Distance(from, to) > 1.5f) return;
 			//if ((from - to).sqrMagnitude > 2.25f) return;
-			if (!IsRoadBuildable(to)) return; //건설이 가능한지?
+			//근데 정확한 거리가 필요하면, Distance로 하는게 좋다네요. (어짜피 sqrMagninute와 다른점은 제곱근이냐 아니냐)
+			if (Vector2Int.Distance(from, to) > 1.5f) return;
+
+			CreateRoadNode(from);
 			CreateRoadNode(to); //목적지에 데이터가 없으면 도로 노드 생성
+
+			if (!IsRoadBuildable(from) || !IsRoadBuildable(to)) return; //건설이 가능한지?
+
 			Vector2Int dirVec = to - from;
 			RoadDirection dirToTarget = GetDirectionFromVector(dirVec);
 			RoadDirection dirToOrigin = GetDirectionFromVector(-dirVec);
@@ -29,6 +36,9 @@ namespace Core.Systems {
 			UpdateConnectionMask(from, dirToTarget, add: true);
 			UpdateConnectionMask(to, dirToOrigin, add: true);
 
+			if (StructureManager.Instance != null) {
+				StructureManager.Instance.CheckPendingRequests();
+			}
 		}
 
 		public void CreateRoadNode(Vector2Int coord) {
@@ -36,6 +46,8 @@ namespace Core.Systems {
 				if (existing.Type.Equals(TileLogicType.Empty)) {
 					existing.Type = TileLogicType.Road;
 					MapBootstrapper.Grid[coord] = existing;
+				} else if (existing.Type.Equals(TileLogicType.Entrance)) {
+					if (existing.ConnectionMask.Equals(0)) existing.ConnectionMask = RoadDirection.None;
 				}
 			} else {
 				CellData newRoad = new CellData {
@@ -108,10 +120,9 @@ namespace Core.Systems {
 
 		private void UpdateConnectionMask(Vector2Int coord, RoadDirection dir, bool add) {
 			if(MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
-				if(data.Type.Equals(TileLogicType.Road)) {
+				if(data.Type.Equals(TileLogicType.Road) || data.Type.Equals(TileLogicType.Entrance)) {
 					if (add) data.ConnectionMask |= dir;  //비트마스크로 계산하므로, OR 계산. 각 비트의 위치는 겹치지 않음...
 					else data.ConnectionMask &= ~dir;
-
 					MapBootstrapper.Grid[coord] = data;
 				}
 			}
@@ -121,7 +132,9 @@ namespace Core.Systems {
 		public bool IsRoadBuildable(Vector2Int coord) {
 			if(MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
 				//도로거나 빈 땅여야 합니다.
-				return data.Type.Equals(TileLogicType.Road) || data.Type.Equals(TileLogicType.Empty);
+				return data.Type.Equals(TileLogicType.Road) || 
+					   data.Type.Equals(TileLogicType.Empty) ||
+					   data.Type.Equals(TileLogicType.Entrance);
 			}
 			return true;
 		}
@@ -140,5 +153,6 @@ namespace Core.Systems {
 
 			return RoadDirection.None;
 		}
+		#endregion
 	}
 }

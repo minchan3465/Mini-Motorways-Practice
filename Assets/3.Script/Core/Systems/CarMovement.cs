@@ -3,172 +3,244 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Systems {
-	using Core.Utils;
+	//using Core.Utils;
+	using Core.Systems.Structure;
+
+	public enum BehaviorState {
+		WaitingForDestination,  // 집에서 대기 중
+		DrivingToDestination,   // 집 -> 목적지로 이동 중 (도로 주행 포함)
+		ParkingAtDestination,   // 목적지 입구 -> 주차장 진입 중
+		ParkedAtDestination,    // 목적지 도착 (업무 수행 중)
+		DrivingHome,            // 목적지 -> 집으로 복귀 중
+		RealigningDriveway      // (미구현) 도로가 끊기거나 입구가 바뀌었을 때 경로 재탐색
+	}
+	//TODO : 상태 머신 추가로 인하여, 새롭게 갈아엎어야함.
 
 	public class CarMovement : MonoBehaviour {
-		[Header("Settings")]
-		[SerializeField] private float _maxSpeed = 3.0f;
-		[SerializeField] private float _acceleration = 5.0f;
-		[SerializeField] private float _deceleration = 5.0f;
-		[SerializeField] private float _turnSmoothness = 15.0f;
+		[Header("Movement Settings")]
+		[SerializeField] private float _speed = 2.0f;
+		[SerializeField] private float _rotationSpeed = 15.0f;
+		[SerializeField] private float _arrivalThreshold = 0.05f;
+		//[SerializeField] private float _laneOffset = 0.15f; // 우측 통행 오프셋 값
 
+		[Header("State Info")]
+		[SerializeField] private BehaviorState _currentState = BehaviorState.WaitingForDestination;
+
+		public House OwnerHouse;
+		private StructureBase _startStructure;
+		private StructureBase _targetStructure;
 		private List<Vector2Int> _gridPath;
-		private int _currentIndex = 0;
-		private bool _isMoving = false;
 
-		private float _currentSpeed = 0f;
+		private int _gridPathIndex = 0;
 
-		// 왕복 시스템 변수
-		private Vector2Int _homeLocation; // 집 좌표
-		private bool _isReturning = false; // 현재 귀가 중인가?
-
-		private Vector3 _startPos;
-		private Vector3 _endPos;
-		private Vector3 _controlPos;
-		private bool _isCurving = false;
-		private float _progressT = 0f;
+		private Vector3 _currentTargetPos;
+		private bool _isExitingBuilding = false;
 
 		// 초기화 -> 집 좌표를 기억함
-		public void Initialize(Vector2Int homePos) {
-			_homeLocation = homePos;
+		public void Initialize(House house, Destination dest, List<Vector2Int> roadPath) {
+			OwnerHouse = house;
+			_startStructure = house;
+			_targetStructure = dest;
+			_gridPath = roadPath;
+
+			transform.position = _startStructure.transform.position;
+
+			SetState(BehaviorState.DrivingToDestination);
 		}
-
-		public void SetPath(List<Vector2Int> path) {
-			if (path == null || path.Count < 2) return;
-
-			_gridPath = path;
-			_currentIndex = 0;
-			_currentSpeed = 0f;
-
-			transform.position = GridToWorld(_gridPath[0]);
-
-			SetupNextSegment();
-			_isMoving = true;
-		}
-
 		private void Update() {
-			if (!_isMoving) return;
+			if (_currentState.Equals(BehaviorState.WaitingForDestination) ||
+				_currentState.Equals(BehaviorState.ParkedAtDestination)) return;
 
-			HandleSpeed();
+			MoveAndRotate();
+		}
 
-			float segmentDistance = Vector3.Distance(_startPos, _endPos);
-			//float segmentDistance = Vector3.SqrMagnitude(_endPos- _startPos);
-			if (_isCurving) segmentDistance *= 1.2f;
-			if (segmentDistance < 0.001f) segmentDistance = 1f;
+		public void SetState(BehaviorState newState) {
+			_currentState = newState;
 
-			_progressT += (Time.deltaTime * _currentSpeed) / segmentDistance;
+			switch (_currentState) {
+				case BehaviorState.WaitingForDestination:   // 집에서 대기중... (집 도착)
+					OnReturnedHome();
+					break;
+				case BehaviorState.DrivingToDestination:    //목적지까지 운전~
+					_gridPathIndex = 0;
+					_isExitingBuilding = true;  //건물에서 나오는것부터 시작
+					SetupExitingPath(_startStructure);
+					break;
+				case BehaviorState.ParkingAtDestination:    //목적지에 입장,주차
+					SetupEnteringPath(_targetStructure);
+					break;
+				case BehaviorState.ParkedAtDestination:     //목적지에 도착 처리
+					OnParkedAtDestination();
+					break;
+				case BehaviorState.DrivingHome:             //집으로 복귀~
+					SwapStructures();
+					if (CalculateReturnPath()) {
+						_gridPathIndex = 0;
+						_isExitingBuilding = true;
+						SetupExitingPath(_startStructure);
+					} else {
+						Debug.Log("아잇 씻팔! 돌아갈 길이 없잖아~ 죽을게.");
+						Destroy(gameObject);
+					}
+					break;
+				case BehaviorState.RealigningDriveway:
+					//현재 미구현.
+					//나중에 차가 막혔을때 대기하는 상태일수도 있음.
+					break;
+			}
+		}
 
-			Vector3 nextPos;
-			Vector3 direction;
+		//---------------------- 차량 움직이는 코어 로직...
+		private void MoveAndRotate() {
+			//이동
+			float step = _speed * Time.deltaTime;   //속도
+			transform.position = Vector3.MoveTowards(transform.position, _currentTargetPos, step);  //이동
 
-			//Vector3 nextPos = Vector3.Lerp(_startPos, _endPos, _progressT);
-			//Vector3 direction = (_endPos - _startPos).normalized;
+			//방향
+			Vector3 dir = (_currentTargetPos - transform.position).normalized;
+			if (dir != Vector3.zero) {
+				Quaternion lookRot = Quaternion.LookRotation(dir);
+				transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * _rotationSpeed); //부드럽게 회전
+			}
 
-			if (_isCurving) {
-				//곡선 이동 (Bezier) -> 적용
-				nextPos = BezierUtils.GetPoint(_startPos, _controlPos, _endPos, _progressT);
-				direction = BezierUtils.GetTangent(_startPos, _controlPos, _endPos, _progressT);
+			//차량의 위치가 목표 지점까지 도달했는가?
+			//_arrivalThreshold = 거리
+			//여기서 Distance가 아닌, sqrMagnitute를 쓰는 이유 : 연산이 더 빠름!
+			//이유는 제곱근 하는 연산이 생각보다 연산이 무겁다고 하네요.
+			if (Vector3.SqrMagnitude(_currentTargetPos - transform.position) < _arrivalThreshold) {
+				OnTargetReached();
+			}
+		}
+
+		private void OnTargetReached() {
+			OnSegmentComplete();
+		}
+
+		//구간 완료 로직이 상태 기반으로 결정됩니다.
+		private void OnSegmentComplete() {
+			//만약 건물에서 도로 입구까지 나가는 단계였을 경우.
+			if (_isExitingBuilding) {
+				_isExitingBuilding = false; //상태 교환에서 true였으니, 이제 false로...
+				SetupNextRoadSegment();         //다음 도로로 이동합시다~~
+				return;
+			}
+
+			switch (_currentState) {
+				case BehaviorState.DrivingToDestination:
+				case BehaviorState.DrivingHome:
+					//도로 주행중이라면 (둘은 다른 상태지만, 도로위를 달리는것은 동일.
+					_gridPathIndex += 1;
+					if (_gridPathIndex >= _gridPath.Count - 1) {
+						//만약 도로의 끝에 도달했다면. 
+						//1. 도착지점일 가능성이 높음
+						//2. 막다른 길 도로일수도 있음. 근데 이건 나중에 변수처리로 막을거라 가능성 낮음).
+						if (_currentState.Equals(BehaviorState.DrivingToDestination)) {
+							//상태가 목적지로 가는거였다면, 도착한거나 다름없음.
+							SetState(BehaviorState.ParkingAtDestination);
+						} else {
+							//근데 집으로 가는거였다면, 집에 도착하는거니 그냥 끝
+							SetupEnteringPath(_targetStructure);
+						}
+					} else {
+						//도로 끝이 아니라면 그냥 다음 도로로 가쇼~
+						SetupNextRoadSegment();
+					}
+					break;
+				case BehaviorState.ParkingAtDestination:
+					//주차중이였는데, 끝난거니 주차 완료 상태로 가십쇼
+					SetState(BehaviorState.ParkedAtDestination);
+					break;
+				default:
+					//이건 몰랐는데, DrivingHome 상태에서 SetupEnteringPath가 끝났다면?
+					//즉, 집에 도착했는데 다음 목적지가 안정해져있다면.
+					if (_currentState.Equals(BehaviorState.DrivingHome)) {
+						//그럼 대기해야죠 뭐 ㅋㅋ
+						SetState(BehaviorState.WaitingForDestination);
+					}
+					break;
+			}
+		}
+
+		//-----------------경로 관련 메서드들 (상태)
+
+		//건물에서 나가는 메서드
+		private void SetupExitingPath(StructureBase from) {
+			//건물 중심 -> 입구
+			Vector2Int entrance = from.EntranceCoordinate;
+			//Vector3 entranceWorld = new Vector3(entrance.x + 0.5f, 0, entrance.y + 0.5f);
+			_currentTargetPos = new Vector3(entrance.x + 0.5f, 0, entrance.y + 0.5f);
+		}
+
+		//다음 도로의 위치를 받고(찾고) 이동합니다.
+		private void SetupNextRoadSegment() {
+			// 다음 타일 좌표 가져오기
+			Vector2Int nextTile = _gridPath[_gridPathIndex + 1];
+			_currentTargetPos = new Vector3(nextTile.x + 0.5f, 0, nextTile.y + 0.5f);
+
+			//하단은 우측으로 이동하는걸 표현한건데, 나중에 사용할 예정.
+			/*
+			Vector2Int currentTile = _gridPath[_gridPathIndex];
+			Vector2Int nextTile = _gridPath[_gridPathIndex + 1];
+
+			Vector3 p0 = new Vector3(currentTile.x + 0.5f, 0, currentTile.y + 0.5f);
+			Vector3 p1 = new Vector3(nextTile.x + 0.5f, 0, nextTile.y + 0.5f);
+
+			Vector3 dir = (p1 - p0).normalized;
+			// 오른쪽 벡터 (외적) 
+			Vector3 right = Vector3.Cross(Vector3.up, dir).normalized;
+
+			// 최종 목표: 다음 타일 중앙 + 오른쪽으로 살짝 비켜난 곳
+			_currentTargetPos = p1 + (right * _laneOffset);
+			*/
+		}
+
+		//건물에 들어갑니다잇~
+		private void SetupEnteringPath(StructureBase to) {
+			if (to is Destination dest) {
+				_currentTargetPos = dest.GetParkingPosition();
 			} else {
-				// 직선 이동
-				nextPos = Vector3.Lerp(_startPos, _endPos, _progressT);
-				direction = (_endPos - _startPos).normalized;
+				_currentTargetPos = to.transform.position;
 			}
-
-			transform.position = nextPos;
-
-			if (direction != Vector3.zero) {
-				Quaternion targetRot = Quaternion.LookRotation(direction);
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * _turnSmoothness);
-			}
-
-			if (_progressT >= 1.0f) {
-				_currentIndex++;
-
-				if (_currentIndex >= _gridPath.Count - 1) {
-					OnPathCompleted();
-				} else {
-					SetupNextSegment();
-				}
-			}
+			//Vector3 targetCenter = to.transform.position;
+			//_currentWaypoints = new List<Vector3> { targetCenter };
+			//_waypointIndex = 0;
 		}
 
-		private void HandleSpeed() {
-			int tilesRemaining = (_gridPath.Count - 1) - _currentIndex;
+		
 
-			if (tilesRemaining <= 1) _currentSpeed = Mathf.MoveTowards(_currentSpeed, 1.0f, _deceleration * _deceleration * Time.deltaTime);
-			else _currentSpeed = Mathf.MoveTowards(_currentSpeed, _maxSpeed, _acceleration * Time.deltaTime);
-		}
+		//----------------- 로직 처리...
 
-		private void SetupNextSegment() {
-			_progressT = 0f;
-			_startPos = transform.position;
-
-			//혹시 모를 오류 ㅔㅊ크
-			if (_currentIndex + 1 >= _gridPath.Count) return;
-
-			//이거 하는 이유
-			//곡선의 경우 중앙에 도착할 때 환벽한 1자 형태가 아닐 가능성이 높음.
-			//또한 움직임도 부자연스럽게 꺾일바에, 차라리 베지어 곡선을 써서 A->B->C를 A->C처럼 자연스럽게 꺾이는걸 묘사.
-			Vector2Int currentGrid = _gridPath[_currentIndex];
-			Vector2Int nextGrid = _gridPath[_currentIndex + 1];
-			Vector3 nextWorld = GridToWorld(nextGrid);
-
-			if (_currentIndex + 2 < _gridPath.Count) {
-				Vector2Int futureGrid = _gridPath[_currentIndex + 2];
-
-				// 방향 계산
-				Vector2Int dirToNext = nextGrid - currentGrid;
-				Vector2Int dirToFuture = futureGrid - nextGrid;
-
-				if (dirToNext != dirToFuture) {
-					_isCurving = true;
-					_controlPos = nextWorld; // 코너의 꼭짓점
-					_endPos = (GridToWorld(nextGrid) + GridToWorld(futureGrid)) * 0.5f; // 다음 직선 도로의 진입점(중간)
-					return;
-				}
+		//목적지에 도착(주차 완료) -> 이제 집으로 돌아가기
+		private void OnParkedAtDestination() {
+			if (_targetStructure is Destination dest) {
+				dest.CarArrived();
 			}
 
-			//직선 구간이거나 마지막 구간일 때
-			_isCurving = false;
-			//다음 타일의 중앙이 아니라, 다음 타일과 그 다음 타일 사이의 중간점까지 가야 부드러울 수 있음.
-			//하지만 마지막 구간 등 예외가 많으므로, 직선일 땐 정직하게 타일 중앙(혹은 끝)으로 이동
-
-			//만약 이전에 곡선 이동을 했다면, 현재 위치는 타일의 경계선(중간) 쯤일 것임.
-			//거기서 다음 타일 중앙까지 직선으로 연결.
-			_endPos = nextWorld;
+			SetState(BehaviorState.DrivingHome);
 		}
 
-		private void OnPathCompleted() {
-			_isMoving = false;
+		//집에 돌아왓으니 삭제~ (추후 오브젝트 풀링으로 변경해야함).
+		private void OnReturnedHome() {
+			if (OwnerHouse != null) OwnerHouse.CarReturned(this);
+			else Destroy(gameObject);
+		}
 
-			if (!_isReturning) {
-				// 목적지 도착 -> 집으로 복귀 명령
-				Debug.Log("목적지 도착. 집으로 복귀합니다.");
-				_isReturning = true;
+		private void SwapStructures() {
+			//var로 받는 이유. -> 그냥!
+			var temp = _startStructure;
+			_startStructure = _targetStructure;
+			_targetStructure = temp;
+		}
 
-				// 현재 위치(목적지)에서 집으로 가는 경로 계산
-				Vector2Int currentGridPos = _gridPath[_gridPath.Count - 1];
-				List<Vector2Int> returnPath = Pathfinder.FindPath(currentGridPos, _homeLocation);
-
-				if (returnPath != null) {
-					// 잠시 대기 후 출발하거나 바로 출발 (여기선 바로 출발)
-					SetPath(returnPath);
-				} else {
-					Debug.LogError("집으로 돌아가는 길이 끊겼습니다!");
-					//근데 이러면 안됨. 추후 수정 예정...
-				}
-			} else {
-				// 집 도착 -> 주차 완료
-				Debug.Log("집에 도착했습니다. (대기 모드)");
-				// 실제 게임에서는 여기서 집에 '차량 가용 수'를 +1 해줍니다.
-				// 지금은 테스트이므로 삭제하지 않고 멈춰둡니다.
+		//돌아가는 길을 계산해봅시다.
+		//추후 나중에는 return false는 없고, 무조건 차량이 지나가고 도로가 사라지게 해야함.
+		private bool CalculateReturnPath() {
+			List<Vector2Int> path = Pathfinder.FindPath(_startStructure.EntranceCoordinate, _targetStructure.EntranceCoordinate);
+			if (path != null) {
+				_gridPath = path;
+				return true;
 			}
-		}
-
-
-
-		private Vector3 GridToWorld(Vector2Int gridPos) {
-			return new Vector3(gridPos.x + 0.5f, 0, gridPos.y + 0.5f);
+			return false;
 		}
 	}
 }
