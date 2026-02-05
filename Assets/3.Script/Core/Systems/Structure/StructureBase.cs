@@ -15,7 +15,7 @@ namespace Core.Systems.Structure {
 			EntranceDir = dir;
 			CalculateEntrancePos();
 
-			// 시각적 회전 처리 등은 여기서 or 자식에서
+			// 시각적 회전 처리는 자식에서
 		}
 
 		protected abstract void CalculateEntrancePos();

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Core.Systems {
 	using Core.Data;
+	using Core.Utils;
 
 	public static class Pathfinder {
         private class Node {
@@ -115,7 +116,7 @@ namespace Core.Systems {
 
             // 내 타일의 ConnectionMask를 확인해서 갈 수 있는 방향인지 검사
             foreach (Vector2Int dir in _directions) {
-                RoadDirection dirEnum = GetDirectionEnum(dir);
+                RoadDirection dirEnum = DirUtiles.GetVectorDir(dir);
 
                 //현재 타일이랑 연결된 타일이 있는가? (도로 뚫린거)
                 if (currentData.ConnectionMask.HasFlag(dirEnum)) {
@@ -133,17 +134,7 @@ namespace Core.Systems {
         }
 
         //-----------유틸 :  벡터 -> Enum 변환
-        private static RoadDirection GetDirectionEnum(Vector2Int dir) {
-            if (dir.x == 0 && dir.y == 1) return RoadDirection.North;
-            if (dir.x == 0 && dir.y == -1) return RoadDirection.South;
-            if (dir.x == 1 && dir.y == 0) return RoadDirection.East;
-            if (dir.x == -1 && dir.y == 0) return RoadDirection.West;
-            if (dir.x == 1 && dir.y == 1) return RoadDirection.NorthEast;
-            if (dir.x == 1 && dir.y == -1) return RoadDirection.SouthEast;
-            if (dir.x == -1 && dir.y == -1) return RoadDirection.SouthWest;
-            if (dir.x == -1 && dir.y == 1) return RoadDirection.NorthWest;
-            return RoadDirection.None;
-        }
+
     }
 }
 

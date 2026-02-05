@@ -37,6 +37,9 @@ namespace Core.Systems {
 		private bool _isExitingBuilding = false;
 		private bool _isEnteringHouse = false;
 
+		private int _assignedSlotIndex = -1;
+		private WaitForSeconds wfs = new WaitForSeconds(3.0f);
+
 		// 초기화 -> 집 좌표를 기억함
 		public void Initialize(House house, Destination dest, List<Vector2Int> roadPath) {
 			OwnerHouse = house;
@@ -167,10 +170,14 @@ namespace Core.Systems {
 
 		//건물에서 나가는 메서드
 		private void SetupExitingPath(StructureBase from) {
-			//건물 중심 -> 입구
-			Vector2Int entrance = from.EntranceCoordinate;
-			//Vector3 entranceWorld = new Vector3(entrance.x + 0.5f, 0, entrance.y + 0.5f);
-			_currentTargetPos = new Vector3(entrance.x + 0.5f, 0, entrance.y + 0.5f);
+			if (_gridPath != null && _gridPath.Count > 0) {
+				Vector2Int entrance = _gridPath[0]; // 경로의 첫 번째 점은 무조건 입구입니다.
+				_currentTargetPos = new Vector3(entrance.x + 0.5f, 0, entrance.y + 0.5f);
+			} else {
+				// 예외 처리: 경로가 없으면 기존 방식대로
+				Vector2Int entrance = from.EntranceCoordinate;
+				_currentTargetPos = new Vector3(entrance.x + 0.5f, 0, entrance.y + 0.5f);
+			}
 		}
 
 		//다음 도로의 위치를 받고(찾고) 이동합니다.
@@ -199,7 +206,7 @@ namespace Core.Systems {
 		//건물에 들어갑니다잇~
 		private void SetupEnteringPath(StructureBase to) {
 			if (to is Destination dest) {
-				_currentTargetPos = dest.GetParkingPosition();
+				_currentTargetPos = dest.GetParkingPosition(out _assignedSlotIndex);
 			} else {
 				_currentTargetPos = to.transform.position;
 			}
@@ -214,11 +221,21 @@ namespace Core.Systems {
 
 		//목적지에 도착(주차 완료) -> 이제 집으로 돌아가기
 		private void OnParkedAtDestination() {
-			if (_targetStructure is Destination dest) {
-				dest.CarArrived();
-			}
+			StartCoroutine("ParkingRoutine");
+		}
 
-			SetState(BehaviorState.DrivingHome);
+		//도착 후 3초 동안 대기 합니다.
+		private IEnumerator ParkingRoutine() {
+			//혹시 모르지만, 만약에 집가는중인데 주차 루틴이 실행된다면, 그냥 끊어버리기.
+			if (_currentState.Equals(BehaviorState.DrivingHome)) yield break;
+
+			if(_targetStructure is Destination dest) {
+				dest.CarArrived();
+				//차량은 계속해서 목적지로 왕복을 할 테니, 매번 new로 만들 필요 없이 캐싱합시다.
+				yield return wfs;
+				dest.ReleaseParkingSlot(_assignedSlotIndex);
+				SetState(BehaviorState.DrivingHome);
+			}
 		}
 
 		//집에 돌아왓으니 삭제~ (추후 오브젝트 풀링으로 변경해야함).

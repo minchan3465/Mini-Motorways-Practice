@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Core.Systems.Structure {
 	using Core.Data;
+	using Core.Utils;
+
 	public class House : StructureBase {
 		[Header("House Settings")]
 		[SerializeField] private int _availableCars;
@@ -19,7 +21,7 @@ namespace Core.Systems.Structure {
 		}
 
 		protected override void CalculateEntrancePos() {
-			Vector2Int dirVec = GetDirVector(EntranceDir);
+			Vector2Int dirVec = DirUtiles.GetDirVector(EntranceDir);
 			EntranceCoordinate = RootCoordinate + dirVec;
 		}
 
@@ -60,7 +62,7 @@ namespace Core.Systems.Structure {
 
 		//플레이어가 드래그해서 입구 바꾸는거 계산
 		public void TryRotateEntrance(RoadDirection newDir) {
-			Vector2Int dirVec = GetDirVector(newDir);
+			Vector2Int dirVec = DirUtiles.GetDirVector(newDir);
 			Vector2Int newEntrancePos = RootCoordinate + dirVec;
 
 			//여기 설치하는거 됩니까??
@@ -74,22 +76,14 @@ namespace Core.Systems.Structure {
 				StructureManager.Instance.UpdateGridType(EntranceCoordinate, TileLogicType.Entrance);
 
 				//보이는거 업데이트 시키는거~
-				UpdateVisualRotation();
+				//UpdateVisualRotation();
 			}
 		}
 
 		private void UpdateVisualRotation() {
-			Vector2Int dir = GetDirVector(EntranceDir);
+			Vector2Int dir = DirUtiles.GetDirVector(EntranceDir);
 			float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Euler(0, angle, 0);
-		}
-
-		private Vector2Int GetDirVector(RoadDirection dir) {
-			if (dir == RoadDirection.North) return new Vector2Int(0, 1);
-			if (dir == RoadDirection.South) return new Vector2Int(0, -1);
-			if (dir == RoadDirection.East) return new Vector2Int(1, 0);
-			if (dir == RoadDirection.West) return new Vector2Int(-1, 0);
-			return Vector2Int.zero;
 		}
 	}
 }

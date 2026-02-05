@@ -5,18 +5,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Core.Systems {
-	//using Core.Data;
+	using Core.Data;
+	using Core.Systems.Structure;
 
 	public class InteractionController : MonoBehaviour {
 		[Header("Settings")]
 		[SerializeField] private Camera _mainCamera;
 
-		// [New] 클릭 후 드래그로 인정받기 위한 최소 거리 (픽셀 단위 아님, 월드 단위)
-		// 클릭 미스를 방지하는 Deadzone
+		//클릭 후 드래그로 인정받기 위한 최소 거리 (픽셀 단위 아님, 월드 단위) = 클릭 미스를 방지하는 Deadzone
 		[SerializeField, Range(0.1f, 1.0f)] private float _initialDragDeadzone = 0.3f;
 
-		// [New] 타일 중앙에서 마우스가 얼마나 멀어져야 도로가 연결되는가?
-		// 1.0f = 타일 한 칸 거리. 1.25f 정도가 쫀득함.
+		//타일 중앙에서 마우스가 얼마나 멀어져야 도로가 연결되는가?
 		[SerializeField, Range(0.5f, 2.0f)] private float _connectionDistanceThreshold = 0.8f;
 
 		private PlayerInput _input;
@@ -30,10 +29,14 @@ namespace Core.Systems {
 		private bool _isDraggingBuild = false;
 		private bool _isDraggingRemove = false;
 
+
 		private Vector2Int _lastGridPointer;    // 마지막으로 도로가 깔린 타일 좌표
 		private Vector2Int _startDragPointer;   // 드래그 시작 타일 좌표
-		private Vector3 _clickOriginWorldPos;   // [New] 최초 클릭한 월드 좌표 (Deadzone 체크용)
-		private bool _hasPassedDeadzone = false; // [New] 데드존을 넘었는지 여부
+		private Vector3 _clickOriginWorldPos;   // 최초 클릭한 월드 좌표 (Deadzone 체크용)
+		private bool _hasPassedDeadzone = false; // 데드존을 넘었는지 여부
+
+		//집 회전 조작용
+		private House _dragStartHouse = null;
 
 		//-----------------------------------------------
 		private void Awake() {
@@ -62,10 +65,7 @@ namespace Core.Systems {
 
 		//----------건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
-			if (_isDraggingRemove) return;
-			if (!IsPointerValid) return;
-
-			if (!RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) return;
+			if (_isDraggingRemove || !IsPointerValid) return;
 
 			_isDraggingBuild = true;
 			_hasPassedDeadzone = false;
@@ -74,18 +74,31 @@ namespace Core.Systems {
 			_startDragPointer = CurrentGridPointer; // 시작점 기억
 			_clickOriginWorldPos = GetWorldPositionFromMouse();
 
-			RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
+			if (MapBootstrapper.Grid.TryGetValue(CurrentGridPointer, out CellData cell)) {
+				if (cell.Type.Equals(TileLogicType.Supply)) {
+					_dragStartHouse = StructureManager.Instance.GetHouseAt(CurrentGridPointer);
+					return;
+				}
+			}
+
+			if (RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
+			else _isDraggingBuild = false;
+
 		}
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
-			if(_isDraggingBuild) {
+			if (_isDraggingBuild) {
 				_isDraggingBuild = false;
 
-				//도로 한개면... 삭제해야지?
-				RoadSystem.Instance.CleanupifIsolated(_startDragPointer);
-				//만약에 말야... 우리.. 에러날수도 있으니 점검용
-				if(_startDragPointer != _lastGridPointer) {
-					RoadSystem.Instance.CleanupifIsolated(_lastGridPointer);
+				// _dragStartHouse가 있다면, 별도 정리가 필요 없다!
+				if (_dragStartHouse == null) {
+					//도로 한개면... 삭제해야지?
+					RoadSystem.Instance.CleanupifIsolated(_startDragPointer);
+					//만약에 말야... 우리.. 에러날수도 있으니 점검용
+					if (_startDragPointer != _lastGridPointer) {
+						RoadSystem.Instance.CleanupifIsolated(_lastGridPointer);
+					}
 				}
+				_dragStartHouse = null;
 			}
 		}
 
@@ -94,7 +107,7 @@ namespace Core.Systems {
 			if (_isDraggingBuild) return;
 			_isDraggingRemove = true;
 
-			if(IsPointerValid) {
+			if (IsPointerValid) {
 				RoadSystem.Instance.RemoveRoad(CurrentGridPointer);
 				_lastGridPointer = CurrentGridPointer;
 			}
@@ -112,14 +125,16 @@ namespace Core.Systems {
 
 			if (!IsPointerValid) return;
 
-			if(_isDraggingBuild) {
-				Vector3 currentMouseWolrdPos = GetWorldPositionFromMouse();
+			if (_isDraggingBuild) {
+				Vector3 currentMouseWorldPos = GetWorldPositionFromMouse();
 
 				//조건1. 데드존 체크.
-				if(!_hasPassedDeadzone) {
+				if (!_hasPassedDeadzone) {
 					//안넘어갔다면
-					float distFromClick = Vector3.Distance(_clickOriginWorldPos, currentMouseWolrdPos);
-					if(distFromClick > _initialDragDeadzone) {
+					float distFromClick = Vector3.Distance(_clickOriginWorldPos, currentMouseWorldPos);
+
+					//또 분기점. 집 방향 바꾸는 시점인지, 빈 타일에서 하는 도로인지.
+					if (distFromClick > _initialDragDeadzone) {
 						//만약 클릭 범위가 데드존 범위 밖으로 넘어갔으면,
 						//조건2로 넘어감. (타일 중심으로 기준 판정).
 						_hasPassedDeadzone = true;
@@ -128,9 +143,15 @@ namespace Core.Systems {
 						return;
 					}
 				} else {
+					//= if(_hasPassedDeadzone)
 					//만약 데드존 바깥의 범위라면
 					//타일 중심으로 판정내기 위해 다음 메서드로 넘어감!
-					ProcessDirectionalBuild(currentMouseWolrdPos);
+					if (_dragStartHouse != null) {
+						ProcessHouseRotationAndBuild(currentMouseWorldPos);
+					} else {
+						ProcessDirectionalBuild(currentMouseWorldPos);
+					}
+
 				}
 			} else if (_isDraggingRemove) { //삭제
 				if (CurrentGridPointer != _lastGridPointer) {
@@ -158,7 +179,7 @@ namespace Core.Systems {
 				Vector2Int offset = CalculateSnappedDirection(diff);
 				Vector2Int candidatePos = _lastGridPointer + offset;
 
-				if(RoadSystem.Instance.IsRoadBuildable(candidatePos)) {
+				if (RoadSystem.Instance.IsRoadBuildable(candidatePos)) {
 					RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos);
 
 					_lastGridPointer = candidatePos;
@@ -167,20 +188,41 @@ namespace Core.Systems {
 			}
 		}
 
+		//요건 집일때 기준. 건설보단 회전의 느낌.
+		private void ProcessHouseRotationAndBuild(Vector3 mousePos) {
+			//상단의 건설 판정을 의미합니다.
+			Vector3 houseCenter = _dragStartHouse.transform.position;
+			Vector3 diff = mousePos - houseCenter;
+			float squareDist = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
+
+			if (squareDist >= _connectionDistanceThreshold) {
+				Vector2Int offset = CalculateSnappedDirection(diff);
+				RoadDirection newDir = VecToDir(offset);
+
+				_dragStartHouse.TryRotateEntrance(newDir);
+
+				//회전 성공 했냐? 입구 방향이 원하는 방향과 같다면.
+				if (_dragStartHouse.EntranceDir.Equals(newDir)) {
+					_lastGridPointer = _dragStartHouse.EntranceCoordinate;
+					RoadSystem.Instance.CreateRoadNode(_lastGridPointer);
+					_dragStartHouse = null;
+				}
+			}
+		}
+
 		//---------- 유틸
 		private void UpdateSimpleGridPointer() {
 			//마우스 좌표(그리드) 갱신
 			Vector3 hitPoint = GetWorldPositionFromMouse();
-			if(IsPointerValid) {
+			if (IsPointerValid) {
 				int x = Mathf.FloorToInt(hitPoint.x);
 				int y = Mathf.FloorToInt(hitPoint.z);
 				CurrentGridPointer = new Vector2Int(x, y);
 			}
 		}
-
 		private Vector3 GetWorldPositionFromMouse() {
 			Ray ray = _mainCamera.ScreenPointToRay(_mouseScreenPos);
-			if(_groundPlane.Raycast(ray, out float enter)) {
+			if (_groundPlane.Raycast(ray, out float enter)) {
 				//땅에 닿았음!! (인식된 범위 내)
 				IsPointerValid = true;
 				return ray.GetPoint(enter); //좌표 계산하고 반환.
@@ -215,29 +257,43 @@ namespace Core.Systems {
 			}
 			return Vector2Int.zero;
 		}
+		//이건 Vector2Int 오프셋을 RoadDirection Enum
+		private RoadDirection VecToDir(Vector2Int v) {
+			if (v.x == 0 && v.y == 1) return RoadDirection.North;
+			if (v.x == 0 && v.y == -1) return RoadDirection.South;
+			if (v.x == 1 && v.y == 0) return RoadDirection.East;
+			if (v.x == -1 && v.y == 0) return RoadDirection.West;
 
+			if (v.x == 1 && v.y == 1) return RoadDirection.NorthEast;
+			if (v.x == -1 && v.y == 1) return RoadDirection.NorthWest;
+			if (v.x == 1 && v.y == -1) return RoadDirection.SouthEast;
+			if (v.x == -1 && v.y == -1) return RoadDirection.SouthWest;
+
+			return RoadDirection.North;
+		}
 		private void OnDrawGizmos() {
 			if (Application.isPlaying && IsPointerValid) {
 				Gizmos.color = Color.cyan;
 				Vector3 drawPos = new Vector3(CurrentGridPointer.x + 0.5f, 0, CurrentGridPointer.y + 0.5f);
 				Gizmos.DrawWireCube(drawPos, Vector3.one * 0.95f);
 
-				// [Debug] 드래그 중일 때 기준점과 현재 마우스 위치 연결선 표시
 				if (_isDraggingBuild) {
-					Gizmos.color = Color.yellow;
-					Vector3 lastCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
+					// 집 회전 중일 때와 일반 도로 건설 중일 때 기준점 다름
+					Vector3 centerPos;
+					if (_dragStartHouse != null) {
+						centerPos = _dragStartHouse.transform.position;
+						Gizmos.color = Color.green; // 집 드래그는 초록색으로 구분
+					} else {
+						centerPos = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
+						Gizmos.color = Color.yellow;
+					}
 
-					// 데드존 표시
 					if (!_hasPassedDeadzone) {
 						Gizmos.DrawWireSphere(_clickOriginWorldPos, _initialDragDeadzone);
 					} else {
-						Gizmos.color = Color.yellow;
-						// 기준 타일에서 연결 임계값(Threshold) 범위 표시 (사각형)
 						float size = _connectionDistanceThreshold * 2;
-						Gizmos.DrawWireCube(lastCenter, new Vector3(size, 0.1f, size));
-
-						// 현재 마우스 위치까지 선
-						Gizmos.DrawLine(lastCenter, GetWorldPositionFromMouse());
+						Gizmos.DrawWireCube(centerPos, new Vector3(size, 0.1f, size));
+						Gizmos.DrawLine(centerPos, GetWorldPositionFromMouse());
 					}
 				}
 			}

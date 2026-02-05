@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Core.Systems {
 	using Core.Data;
+	using Core.Utils;
 	using Core.Systems.Structure;
 
 	public class StructureManager : MonoBehaviour {
@@ -33,12 +34,14 @@ namespace Core.Systems {
 
 		//----------------------- 집 스폰
 		public void SpawnHouse() {
-			if (TryFindValidPosition(1, 1, out Vector2Int spawnPos, out RoadDirection validDir)) {
+			if (TryFindValidPosition(1, 1, out Vector2Int spawnPos)) {
 				Vector3 worldPos = new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f);
 				GameObject go = Instantiate(_housePrefab, worldPos, Quaternion.identity, _structureContainer);
 
 				if (go.TryGetComponent(out House house)) {
-					house.Initialize(spawnPos, validDir);
+					RoadDirection vaildDir = GetRandomVaildDirectionForHouse(spawnPos);
+
+					house.Initialize(spawnPos, vaildDir);
 
 					UpdateGridType(spawnPos, TileLogicType.Supply);
 					UpdateGridType(house.EntranceCoordinate, TileLogicType.Entrance);
@@ -61,12 +64,18 @@ namespace Core.Systems {
 			int w = isHorizontal ? 3 : 2;
 			int h = isHorizontal ? 2 : 3;
 
-			if (TryFindValidPosition(w, h, out Vector2Int spawnPos, out RoadDirection _)) {
+			if (TryFindValidPosition(w, h, out Vector2Int spawnPos)) {
 				Vector3 worldPos = new Vector3(spawnPos.x + (w * 0.5f), 0, spawnPos.y + (h * 0.5f));
 				GameObject go = Instantiate(_destinationPrefab, worldPos, Quaternion.identity, _structureContainer);
 
 				if (go.TryGetComponent(out Destination dest)) {
-					dest.SetupDestination(spawnPos, isHorizontal);
+					// [중요] Initialize 전에 형태(Shape) 정보가 필요하므로 별도 설정 함수 호출은 유지하되,
+					// 내부에서 입구 방향을 결정하도록 로직 위임 가능. 
+					// 하지만 여기서는 매니저가 주도권을 갖기 위해 방향을 계산해서 넘겨줌.
+					//~> AI의 도움을 받음. 솔직히 무슨 소리인지 잘 모르겠음.
+					RoadDirection validDir = GetRandomValidDirectionForDestination(spawnPos, isHorizontal);
+
+					dest.SetupDestination(spawnPos, isHorizontal, validDir);
 
 					for (int x = 0; x < w; x++) {
 						for (int y = 0; y < h; y++) {
@@ -92,10 +101,8 @@ namespace Core.Systems {
 		public void OnCarAvailable(House house) => CheckPendingRequests();    // 차 돌아오면 체크 (Fix 3)
 
 		public void CheckPendingRequests() {
-			int pinsFound = 0;
 			foreach (var dest in _destinations) {
 				if(dest.HasUnassignedPin()) {
-					pinsFound++;
 					TryDispatchCarTo(dest);
 				}
 			}
@@ -142,25 +149,24 @@ namespace Core.Systems {
 			}
 		}
 		//OnCarAvailable 전용 특정 집에서 특정 목적지로 지정해주는 메서드
-		private bool TryDisPatchToSpecific(House house, Destination dest) {
-			List<Vector2Int> path = Pathfinder.FindPath(house.EntranceCoordinate, dest.EntranceCoordinate);
+		//private bool TryDisPatchToSpecific(House house, Destination dest) {
+		//	List<Vector2Int> path = Pathfinder.FindPath(house.EntranceCoordinate, dest.EntranceCoordinate);
 
-			if(path != null) {
-				house.DispatchCar(path, dest);
-				dest.RegisterIncomingCar();
-				return true;
-			}
-			return false;
-		}
+		//	if(path != null) {
+		//		house.DispatchCar(path, dest);
+		//		dest.RegisterIncomingCar();
+		//		return true;
+		//	}
+		//	return false;
+		//}
 
 		//----------------------- 공간 탐색 알고리즘~~~ 타일 관련된 메서드들 모음.
-		private bool TryFindValidPosition(int width, int height, out Vector2Int bestPos, out RoadDirection bestDir) {
+		private bool TryFindValidPosition(int width, int height, out Vector2Int bestPos) {
 			//간단한 구현: 맵 전체를 랜덤하게 몇번 해봅니다.
 			//실제로는 Buffer Zone으로, 이격거리를 줘야한다고 함.
 			//...그래서 실제 게임에서 건물이 개같이 나온거구나...
 
 			bestPos = Vector2Int.zero;
-			bestDir = RoadDirection.North;
 
 			for (int i = 0; i < 50; i++) {  //50번 시도해서 안되면 그냥 부족한거나 마찬가지 ㅠ
 											//맵 범위 내 랜덤 좌표를 가져옵니다.
@@ -173,7 +179,7 @@ namespace Core.Systems {
 
 				if (CheckAreaEmpty(candidate, width, height)) {
 					//선택된 공간이 비어있는 곳인가?
-					if (CheckEntranceSpace(candidate, width, height, out bestDir)) {
+					if (CheckEntranceSpace(candidate, width, height)) {
 						//주변에 입구를 낼 수 있는 공간까지 이제 체크해야함.
 						bestPos = candidate;
 						return true;
@@ -197,33 +203,69 @@ namespace Core.Systems {
 			}
 			return true;
 		}
-		private bool CheckEntranceSpace(Vector2Int root, int w, int h, out RoadDirection validDir) {
-			validDir = RoadDirection.North;
+		private bool CheckEntranceSpace(Vector2Int root, int w, int h) {
+			Vector2Int[] checks = {
+				root + new Vector2Int(0, h),  // North
+				root + new Vector2Int(0, -1), // South
+				root + new Vector2Int(w, 0),  // East
+				root + new Vector2Int(-1, 0)  // West
+			};
 
-			Vector2Int northPos = root + new Vector2Int(0, h);
-			Vector2Int southPos = root + new Vector2Int(0, -h);
-			Vector2Int EastPos = root + new Vector2Int(w, 0);
-			Vector2Int WestPos = root + new Vector2Int(-w, 0);
-
-			if (IsValidEntrance(northPos)) {
-				validDir = RoadDirection.North;
-				return true;
+			foreach (var pos in checks) {
+				if (IsValidEntrance(pos)) return true;
 			}
-			if (IsValidEntrance(southPos)) {
-				validDir = RoadDirection.South;
-				return true;
-			}
-			if (IsValidEntrance(EastPos)) {
-				validDir = RoadDirection.East;
-				return true;
-			}
-			if (IsValidEntrance(WestPos)) {
-				validDir = RoadDirection.West;
-				return true;
-			}
-
-			//나중가면 false로 바꿔야함. (테스트용으로 true로 한거)
 			return false;
+		}
+		private RoadDirection GetRandomVaildDirectionForHouse(Vector2Int root) {
+			RoadDirection[] dirs = { 
+				RoadDirection.North, 
+				RoadDirection.East, 
+				RoadDirection.South, 
+				RoadDirection.West,
+
+				RoadDirection.NorthEast, 
+				RoadDirection.NorthWest, 
+				RoadDirection.SouthEast, 
+				RoadDirection.SouthWest
+			};
+			ShuffleArray(dirs);
+
+			foreach(var dir in dirs) {
+				Vector2Int checkPos = root + DirUtiles.GetDirVector(dir);
+				//도로 지을 수 있음?
+				if (RoadSystem.Instance.IsRoadBuildable(checkPos)) return dir;
+			}
+			//막혀있으면 그냥 북쪽으로.
+			return RoadDirection.North;
+		}
+		private RoadDirection GetRandomValidDirectionForDestination(Vector2Int root, bool isHorizontal) {
+			//집과는 더 까다로운 방식일거 같다...ㅁ ㅜ섭다 ㅠ
+			RoadDirection[] candidates;
+
+			if(isHorizontal) {
+				candidates = new RoadDirection[] { RoadDirection.North, RoadDirection.South };
+			} else {
+				candidates = new RoadDirection[] { RoadDirection.East, RoadDirection.West };
+			}
+			//사실 섞는게 의미 있는건가 싶긴 한데. 그냥 50% 확률 또 만들기 귀찮으니 섞는걸로 합시다.
+			ShuffleArray(candidates);
+			foreach(var dir in candidates) {
+				Vector2Int anchorOffset = GetBaseAnchorOffset(dir, isHorizontal);
+				Vector2Int checkPos = root + anchorOffset + DirUtiles.GetDirVector(dir);
+
+				if (RoadSystem.Instance.IsRoadBuildable(checkPos)) return dir;
+			}
+
+			//자리 없으면 그냥 설치해버리기. (이것도 나중에 바꿔야함.)
+			return candidates[0];
+		}
+
+		private Vector2Int GetBaseAnchorOffset(RoadDirection dir, bool isHorizontal) {
+			if (isHorizontal) {
+				return (dir.Equals(RoadDirection.North)) ? new Vector2Int(2, 1) : new Vector2Int(2, 0);
+			} else {
+				return (dir.Equals(RoadDirection.East)) ? new Vector2Int(1, 2) : new Vector2Int(0, 2);
+			}
 		}
 
 		public bool IsValidEntrance(Vector2Int pos) {
@@ -245,6 +287,42 @@ namespace Core.Systems {
 					ConnectionMask = RoadDirection.None
 				};
 				MapBootstrapper.Grid.Add(pos, newData);
+			}
+		}
+
+		//유틸: InteractionController에서 사용하기 위해 집 찾는 메서드
+		public House GetHouseAt(Vector2Int pos) {
+			foreach (var house in _houses) {
+				if (house.RootCoordinate.Equals(pos)) return house;
+			}
+			return null;
+		}
+
+		//배열 섞기 유틸
+		/* Sawp을 Tuples 방식으로.
+		찾아보다가, temp 교환보다 간단한 방식을 찾음.
+		C#에는 Tuple Deconstruction 방식이 있는데, 설명하면 기니까, 임시 객체를 만들어 교환합니다.
+		temp방식은 고전적이지만, 성능이 살짝 더 좋음.
+		나중에 이 작업을 수억번하는게 잦다면, temp가 더 최적화 방식이라고 함.
+		근데 나는 구조물 생성할때만 한번씩 하고, 방향도 정해져있기 때문에 이걸 써도 최적화는 괜찮을지도?
+
+		+ Tuples에 대한 고찰
+		어.. Tuples. 즉, 튜플은 그냥 하나의 변수에 자료형을 여러개 담을 수 있는 기능이라고 합니다.
+		그 변수는 사실상 배열 형태라고 볼 수 있겠죠.
+			예시) (double, int) test = (2.5, 1); 이 가능함.
+
+		내부의 값을 구하는건 배열처럼 []을 사용하는게 아닌, item을 사용해서 구합니다.
+		index가 아니라 범위의 1,2를 사용함.
+
+		여기서 중요한건, 배열이지만, 배열과 동일한 형태는 아니라 사용하기 좀 껄끄럽다 정도?
+		어렵네요. 정말 간단해서 활용처는 무궁무진할거 같지만, 이걸 자주 쓸지와 어디서 쓸지는 예상이 잘 안가네요.
+		*/
+		private void ShuffleArray<T>(T[] array) {
+			for(int i = array.Length - 1; i > 0; i--) {
+				int j = Random.Range(0, i + 1);
+
+				
+				(array[i], array[j]) = (array[j], array[i]);
 			}
 		}
 	}
