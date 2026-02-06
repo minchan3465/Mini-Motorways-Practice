@@ -18,6 +18,9 @@ namespace Core.Systems {
 		private List<House> _houses = new List<House>();
 		private List<Destination> _destinations = new List<Destination>();
 
+		private List<CarMovement> _allCars = new List<CarMovement>();
+		public List<CarMovement> AllCars => _allCars;
+
 		public int HouseCount => _houses.Count;
 		public int DestinationCount => _destinations.Count;
 
@@ -25,6 +28,14 @@ namespace Core.Systems {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
 			if (_structureContainer == null) _structureContainer = transform;
+		}
+
+		//차량 관련한걸 StructureManager에서 하는게 좀 마음에 안들긴 하지만, 테스트를 위해서라면...
+		public void RegisterCar(CarMovement car) {
+			if (!_allCars.Contains(car)) _allCars.Add(car);
+		}
+		public void UnregisterCar(CarMovement car) {
+			if (_allCars.Contains(car)) _allCars.Remove(car);
 		}
 
 		//private void Start() {

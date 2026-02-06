@@ -111,9 +111,7 @@ namespace Core.Systems {
 
 			if (IsPointerValid) {
 				// 성공 시 자원 반환
-				if (RoadSystem.Instance.RemoveRoad(CurrentGridPointer)) {
-					ResourceManager.Instance.AddResource(ItemType.Road, 1);
-				}
+				RoadSystem.Instance.RemoveRoad(CurrentGridPointer);
 				_lastGridPointer = CurrentGridPointer;
 			}
 		}
@@ -169,6 +167,7 @@ namespace Core.Systems {
 
 		//---------- 건설(판정) => 코어 메카닉.
 		private void ProcessDirectionalBuild(Vector3 mousePos) {
+			//혹시 모를 예외처리.
 			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
 
 			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
@@ -187,15 +186,8 @@ namespace Core.Systems {
 				Vector2Int candidatePos = _lastGridPointer + offset;
 
 				if (RoadSystem.Instance.IsRoadBuildable(candidatePos)) {
-					bool success = RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos);
-
-					if (success) {
-						ResourceManager.Instance.TryConsumeResource(ItemType.Road);
-						_lastGridPointer = candidatePos;
-					} else {
-						//이미 연결된 도로일 경우. (또는 정말 낮은 확률로 실패한다면)
-						_lastGridPointer = candidatePos;
-					}
+					RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos);
+					_lastGridPointer = candidatePos;
 					//hasPassedDeadzon은 false로 안합니다. 클릭했을때만 판정함.
 				}
 			}

@@ -30,6 +30,7 @@ namespace Core.Systems {
 		private StructureBase _startStructure;
 		private StructureBase _targetStructure;
 		private List<Vector2Int> _gridPath;
+		private List<Vector2Int> _cachedReturnPath = null;
 
 		private int _gridPathIndex = 0;
 
@@ -41,6 +42,14 @@ namespace Core.Systems {
 
 		private int _assignedSlotIndex = -1;
 		private WaitForSeconds wfs = new WaitForSeconds(3.0f);
+
+		private void Start() {
+			// 매니저에 등록 (최적화)
+			if (StructureManager.Instance != null) StructureManager.Instance.RegisterCar(this);
+		}
+		private void OnDestroy() {
+			if (StructureManager.Instance != null) StructureManager.Instance.UnregisterCar(this);
+		}
 
 		// 초기화 -> 집 좌표를 기억함
 		public void Initialize(House house, Destination dest, List<Vector2Int> roadPath) {
@@ -129,6 +138,12 @@ namespace Core.Systems {
 				return;
 			}
 
+			//방금 지나온 타일
+			Vector2Int prevTile = Vector2Int.zero;
+			if(_gridPath != null && _gridPathIndex < _gridPath.Count) {
+				prevTile = _gridPath[_gridPathIndex];
+			}
+
 			switch (_currentState) {
 				case BehaviorState.DrivingToDestination:
 					_gridPathIndex += 1;
@@ -166,6 +181,18 @@ namespace Core.Systems {
 					SetState(BehaviorState.ParkedAtDestination);
 					break;
 			}
+			if (RoadSystem.Instance != null && prevTile != Vector2Int.zero) {
+				RoadSystem.Instance.NotifyCarExitedTile(prevTile);
+			}
+		}
+
+		public bool IsUsingTile(Vector2Int tileCoord) {
+			if (_gridPath == null) return false;
+
+			for (int i = _gridPathIndex; i <_gridPath.Count; i++) {
+				if (_gridPath[i].Equals(tileCoord)) return true;
+			}
+			return false;
 		}
 
 		//-----------------경로 관련 메서드들 (상태)

@@ -51,6 +51,10 @@ namespace Core.Data {
         public float DestinationWeight;            //확률 가중치 (Alpha Channel 값 등)
         public RoadDirection ConnectionMask;     //나중에 도로 연결했을 때, 정보를 위한 비트마스크 (8방향)
 
+        public bool IsPendingRemoval;
+
+        // Pending 상태라도 이미 경로를 잡은 차는 지나갈 수 있어야 함
+        // 단, 새로운 경로 탐색에서는 장애물 취급해야 함 (Pathfinder 수정 필요 없음, Type은 Road로 유지하되 IsBuildable 체크에서 거름)
         public bool IsWalkable => Type.Equals(TileLogicType.Empty);
     }
 }
