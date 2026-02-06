@@ -33,6 +33,8 @@ namespace Core.Systems {
 
 		private int _gridPathIndex = 0;
 
+		private int _lastPathfindFrame = 0;
+
 		private Vector3 _currentTargetPos;
 		private bool _isExitingBuilding = false;
 		private bool _isEnteringHouse = false;
@@ -46,15 +48,18 @@ namespace Core.Systems {
 			_startStructure = house;
 			_targetStructure = dest;
 			_gridPath = roadPath;
-
+			_lastPathfindFrame = Time.frameCount;
 			transform.position = _startStructure.transform.position;
-
 			SetState(BehaviorState.DrivingToDestination);
 		}
 		private void Update() {
 			if (_currentState.Equals(BehaviorState.WaitingForDestination) ||
 				_currentState.Equals(BehaviorState.ParkedAtDestination)) return;
 
+			if (_currentState.Equals(BehaviorState.RealigningDriveway)) {
+				CheckForReconnection();
+				return; // 이동 로직 실행 안 함
+			}
 			MoveAndRotate();
 		}
 
@@ -83,13 +88,11 @@ namespace Core.Systems {
 						_isExitingBuilding = true;
 						SetupExitingPath(_startStructure);
 					} else {
-						Debug.Log("아잇 씻팔! 돌아갈 길이 없잖아~ 죽을게.");
-						Destroy(gameObject);
+						SetState(BehaviorState.RealigningDriveway);
 					}
 					break;
 				case BehaviorState.RealigningDriveway:
-					//현재 미구현.
-					//나중에 차가 막혔을때 대기하는 상태일수도 있음.
+					//도로 끊겼음. ㅠㅠ
 					break;
 			}
 		}
@@ -112,18 +115,15 @@ namespace Core.Systems {
 			//여기서 Distance가 아닌, sqrMagnitute를 쓰는 이유 : 연산이 더 빠름!
 			//이유는 제곱근 하는 연산이 생각보다 연산이 무겁다고 하네요.
 			if (Vector3.SqrMagnitude(_currentTargetPos - transform.position) < _arrivalThreshold) {
-				OnTargetReached();
+				OnSegmentComplete();
 			}
-		}
-
-		private void OnTargetReached() {
-			OnSegmentComplete();
 		}
 
 		//구간 완료 로직이 상태 기반으로 결정됩니다.
 		private void OnSegmentComplete() {
 			//만약 건물에서 도로 입구까지 나가는 단계였을 경우.
 			if (_isExitingBuilding) {
+				if (CheckMapUpdateAndRepath()) return;
 				_isExitingBuilding = false; //상태 교환에서 true였으니, 이제 false로...
 				SetupNextRoadSegment();         //다음 도로로 이동합시다~~
 				return;
@@ -136,6 +136,7 @@ namespace Core.Systems {
 						// 도로 끝 -> 목적지 진입
 						SetState(BehaviorState.ParkingAtDestination);
 					} else {
+						if (CheckMapUpdateAndRepath()) return;
 						SetupNextRoadSegment();
 					}
 					break;
@@ -156,6 +157,7 @@ namespace Core.Systems {
 						_isEnteringHouse = true; // 플래그 ON
 						SetupEnteringPath(_targetStructure);
 					} else {
+						if (CheckMapUpdateAndRepath()) return;
 						SetupNextRoadSegment();
 					}
 					break;
@@ -215,7 +217,58 @@ namespace Core.Systems {
 			//_waypointIndex = 0;
 		}
 
-		
+		//맵 업데이트 확인 후, 경로 재탐색.
+		private bool CheckMapUpdateAndRepath() {
+			if(RoadSystem.Instance.LatestMapUpdateFrame > _lastPathfindFrame) {
+				Vector2Int currentPos = _gridPath[_gridPathIndex];
+				Vector2Int targetEntrance = _targetStructure.EntranceCoordinate;
+
+				List<Vector2Int> newPath = Pathfinder.FindPath(currentPos, targetEntrance);
+
+				if(newPath != null) {
+					_gridPath = newPath;
+					_gridPathIndex = 0;
+					_lastPathfindFrame = Time.frameCount;
+
+					SetupNextRoadSegment();
+					//경로 찾음.
+					return true;
+				} else {
+					SetState(BehaviorState.RealigningDriveway);
+					//경로 없음. 하지만 고립중이란걸 알림.
+					return true;
+				}
+			}
+			//맵 변경 없었음요~
+			return false;
+		}
+
+		//나중엔 없엘건데, 테스트용으로 둔거.
+		//고립 상태(
+		private void CheckForReconnection() {
+			if(RoadSystem.Instance.LatestMapUpdateFrame > _lastPathfindFrame) {
+				Vector2Int currentPos;
+				if(_gridPath != null & _gridPathIndex < _gridPath.Count) {
+					currentPos = _gridPath[_gridPathIndex];
+				} else {
+					// 경로 정보도 날아갔다면 현재 위치 기반 계산
+					currentPos = new Vector2Int(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.z));
+				}
+
+				List<Vector2Int> newPath = Pathfinder.FindPath(currentPos, _targetStructure.EntranceCoordinate);
+
+				if (newPath != null) {
+					_gridPath = newPath;
+					_gridPathIndex = 0;
+					_lastPathfindFrame = Time.frameCount;
+					if (_startStructure is House) SetState(BehaviorState.DrivingToDestination);
+					else SetState(BehaviorState.DrivingHome);
+				} else {
+					// 여전히 못 찾음... 버전만 업데이트해서 다음 변경 기다림
+					_lastPathfindFrame = Time.frameCount;
+				}
+			}
+		}
 
 		//----------------- 로직 처리...
 
@@ -257,6 +310,7 @@ namespace Core.Systems {
 			List<Vector2Int> path = Pathfinder.FindPath(_startStructure.EntranceCoordinate, _targetStructure.EntranceCoordinate);
 			if (path != null) {
 				_gridPath = path;
+				_lastPathfindFrame = Time.frameCount; // 경로 생성 시점 기록. 사실 이미 새로 갱신했지만, 그래도 혹시 모르니까...
 				return true;
 			}
 			return false;

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: def4b2862dbacd94aab44f1204eb5402, type: 3}
-  m_Name: Tile_Empty
+  m_Name: Tile_Supply_25
   m_EditorClassIdentifier: Assembly-CSharp::Core.Data.SmartTile
-  m_Sprite: {fileID: 21300000, guid: 0719a8b503d3e334399218d2fa2340a2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.039215688}
+  m_Sprite: {fileID: 21300000, guid: 4b1e0330d2195c44a9337c69340a933d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.14901961}
   m_Transform:
     e00: 1
     e01: 0
@@ -34,5 +34,5 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  logicType: 0
+  logicType: 10
   spawnWeight: 1

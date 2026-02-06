@@ -80,11 +80,12 @@ namespace Core.Systems.Structure {
 			}
 		}
 
-		private void UpdateVisualRotation() {
-			Vector2Int dir = DirUtiles.GetDirVector(EntranceDir);
-			float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.Euler(0, angle, 0);
-		}
+		//집은 아마 회전 안할듯?
+		//private void UpdateVisualRotation() {
+		//	Vector2Int dir = DirUtiles.GetDirVector(EntranceDir);
+		//	float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+		//	transform.rotation = Quaternion.Euler(0, angle, 0);
+		//}
 	}
 }
 

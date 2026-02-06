@@ -47,7 +47,8 @@ namespace Core.Data {
     public class CellData {
         public Vector2Int Coordinate;   //좌표
         public TileLogicType Type;
-        public float Weight;            //확률 가중치 (Alpha Channel 값 등)
+        public float HouseWeight;            //확률 가중치 (Alpha Channel 값 등)
+        public float DestinationWeight;            //확률 가중치 (Alpha Channel 값 등)
         public RoadDirection ConnectionMask;     //나중에 도로 연결했을 때, 정보를 위한 비트마스크 (8방향)
 
         public bool IsWalkable => Type.Equals(TileLogicType.Empty);

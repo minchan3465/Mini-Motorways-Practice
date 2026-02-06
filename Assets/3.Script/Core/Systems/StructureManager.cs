@@ -18,7 +18,8 @@ namespace Core.Systems {
 		private List<House> _houses = new List<House>();
 		private List<Destination> _destinations = new List<Destination>();
 
-
+		public int HouseCount => _houses.Count;
+		public int DestinationCount => _destinations.Count;
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
@@ -26,15 +27,15 @@ namespace Core.Systems {
 			if (_structureContainer == null) _structureContainer = transform;
 		}
 
-		private void Start() {
-			SpawnHouse();
-			SpawnHouse();
-			SpawnDestination();
-		}
+		//private void Start() {
+		//	SpawnHouse();
+		//	SpawnHouse();
+		//	SpawnDestination();
+		//}
 
 		//----------------------- 집 스폰
 		public void SpawnHouse() {
-			if (TryFindValidPosition(1, 1, out Vector2Int spawnPos)) {
+			if (TryFindValidPosition(1, 1, isHouse: true, out Vector2Int spawnPos)) {
 				Vector3 worldPos = new Vector3(spawnPos.x + 0.5f, 0, spawnPos.y + 0.5f);
 				GameObject go = Instantiate(_housePrefab, worldPos, Quaternion.identity, _structureContainer);
 
@@ -64,7 +65,7 @@ namespace Core.Systems {
 			int w = isHorizontal ? 3 : 2;
 			int h = isHorizontal ? 2 : 3;
 
-			if (TryFindValidPosition(w, h, out Vector2Int spawnPos)) {
+			if (TryFindValidPosition(w, h, isHouse: false , out Vector2Int spawnPos)) {
 				Vector3 worldPos = new Vector3(spawnPos.x + (w * 0.5f), 0, spawnPos.y + (h * 0.5f));
 				GameObject go = Instantiate(_destinationPrefab, worldPos, Quaternion.identity, _structureContainer);
 
@@ -161,28 +162,60 @@ namespace Core.Systems {
 		//}
 
 		//----------------------- 공간 탐색 알고리즘~~~ 타일 관련된 메서드들 모음.
-		private bool TryFindValidPosition(int width, int height, out Vector2Int bestPos) {
+		private bool TryFindValidPosition(int width, int height, bool isHouse, out Vector2Int bestPos) {
 			//간단한 구현: 맵 전체를 랜덤하게 몇번 해봅니다.
 			//실제로는 Buffer Zone으로, 이격거리를 줘야한다고 함.
 			//...그래서 실제 게임에서 건물이 개같이 나온거구나...
 
+			//2026.02.06 TODO : 가중치를 통하여 계산하는걸로 로직 수정.
+
 			bestPos = Vector2Int.zero;
+			List<Vector2Int> candidates = new List<Vector2Int>();
+			float totalWeight = 0f;
 
-			for (int i = 0; i < 50; i++) {  //50번 시도해서 안되면 그냥 부족한거나 마찬가지 ㅠ
-											//맵 범위 내 랜덤 좌표를 가져옵니다.
+			foreach(var kvp in MapBootstrapper.Grid) {
+				CellData cell = kvp.Value;
 
-				//맵 범위는 이미 잡은게 있으니 훔쳐오기 ㅋ
-				BoundsInt bounds = MapBootstrapper.MapBounds;
-				int x = Random.Range(bounds.xMin + 2, bounds.xMax - width - 2);
-				int y = Random.Range(bounds.yMin + 2, bounds.yMax - width - 2);
-				Vector2Int candidate = new Vector2Int(x, y);
+				if(cell.Type != TileLogicType.Empty) continue;  //만약 비어있는 땅이 아니라면 설치 못하니까 패스.
+				float w = isHouse ? cell.HouseWeight : cell.DestinationWeight;
+				if (w <= 0.01f) continue;
 
-				if (CheckAreaEmpty(candidate, width, height)) {
-					//선택된 공간이 비어있는 곳인가?
-					if (CheckEntranceSpace(candidate, width, height)) {
-						//주변에 입구를 낼 수 있는 공간까지 이제 체크해야함.
-						bestPos = candidate;
-						return true;
+				candidates.Add(cell.Coordinate);
+				totalWeight += w;
+			}
+
+			if (candidates.Count.Equals(0)) return false;
+
+			// 2. 룰렛 휠 선택 (가중치 랜덤)
+			for (int i = 0; i < 20; i++) {
+				float randomPoint = Random.value * totalWeight;
+				float currentSum = 0f;
+				Vector2Int selectedPos = candidates[0];
+
+				foreach(var pos in candidates) {
+					CellData c = MapBootstrapper.Grid[pos];
+					float w = isHouse ? c.HouseWeight : c.DestinationWeight;
+					currentSum += w;
+
+					if(currentSum >= randomPoint) {
+						selectedPos = pos;
+						break;
+					}
+				}
+
+				if (CheckAreaEmpty(selectedPos, width, height)) {
+					if (isHouse) {
+						// 집은 입구 하나만 있으면 됨 (방향은 나중에 정함)
+						if (CheckEntranceSpace(selectedPos, width, height)) {
+							bestPos = selectedPos;
+							return true;
+						}
+					} else {
+						// 목적지는 크기가 크므로 다시 확인
+						if (CheckEntranceSpace(selectedPos, width, height)) { // 목적지 전용 체크 로직 필요시 교체
+							bestPos = selectedPos;
+							return true;
+						}
 					}
 				}
 			}

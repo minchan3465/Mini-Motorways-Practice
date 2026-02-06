@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 namespace Core.Systems {
 	using Core.Data;
+	using Core.Utils;
+	using Core.Managers;
 	using Core.Systems.Structure;
 
 	public class InteractionController : MonoBehaviour {
@@ -108,7 +110,10 @@ namespace Core.Systems {
 			_isDraggingRemove = true;
 
 			if (IsPointerValid) {
-				RoadSystem.Instance.RemoveRoad(CurrentGridPointer);
+				// 성공 시 자원 반환
+				if (RoadSystem.Instance.RemoveRoad(CurrentGridPointer)) {
+					ResourceManager.Instance.AddResource(ItemType.Road, 1);
+				}
 				_lastGridPointer = CurrentGridPointer;
 			}
 		}
@@ -162,8 +167,10 @@ namespace Core.Systems {
 		}
 
 
-		//---------- 건설(판정)
+		//---------- 건설(판정) => 코어 메카닉.
 		private void ProcessDirectionalBuild(Vector3 mousePos) {
+			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
+
 			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
 			Vector3 diff = mousePos - lastTileCenter;
 			//float distance = diff.magnitude;
@@ -180,9 +187,15 @@ namespace Core.Systems {
 				Vector2Int candidatePos = _lastGridPointer + offset;
 
 				if (RoadSystem.Instance.IsRoadBuildable(candidatePos)) {
-					RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos);
+					bool success = RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos);
 
-					_lastGridPointer = candidatePos;
+					if (success) {
+						ResourceManager.Instance.TryConsumeResource(ItemType.Road);
+						_lastGridPointer = candidatePos;
+					} else {
+						//이미 연결된 도로일 경우. (또는 정말 낮은 확률로 실패한다면)
+						_lastGridPointer = candidatePos;
+					}
 					//hasPassedDeadzon은 false로 안합니다. 클릭했을때만 판정함.
 				}
 			}
@@ -197,7 +210,7 @@ namespace Core.Systems {
 
 			if (squareDist >= _connectionDistanceThreshold) {
 				Vector2Int offset = CalculateSnappedDirection(diff);
-				RoadDirection newDir = VecToDir(offset);
+				RoadDirection newDir = DirUtiles.GetVectorDir(offset);
 
 				_dragStartHouse.TryRotateEntrance(newDir);
 
@@ -258,19 +271,6 @@ namespace Core.Systems {
 			return Vector2Int.zero;
 		}
 		//이건 Vector2Int 오프셋을 RoadDirection Enum
-		private RoadDirection VecToDir(Vector2Int v) {
-			if (v.x == 0 && v.y == 1) return RoadDirection.North;
-			if (v.x == 0 && v.y == -1) return RoadDirection.South;
-			if (v.x == 1 && v.y == 0) return RoadDirection.East;
-			if (v.x == -1 && v.y == 0) return RoadDirection.West;
-
-			if (v.x == 1 && v.y == 1) return RoadDirection.NorthEast;
-			if (v.x == -1 && v.y == 1) return RoadDirection.NorthWest;
-			if (v.x == 1 && v.y == -1) return RoadDirection.SouthEast;
-			if (v.x == -1 && v.y == -1) return RoadDirection.SouthWest;
-
-			return RoadDirection.North;
-		}
 		private void OnDrawGizmos() {
 			if (Application.isPlaying && IsPointerValid) {
 				Gizmos.color = Color.cyan;
