@@ -12,7 +12,6 @@ namespace Core.Systems {
 
 	public class RoadSystem : MonoBehaviour {
 		public static RoadSystem Instance = null;
-
 		public int LatestMapUpdateFrame { get; private set; }
 
 		private void Awake() {
@@ -20,218 +19,194 @@ namespace Core.Systems {
 			else Destroy(gameObject);
 		}
 
-		// 두 지점을 도로로 연결하고 비트마스크를 갱신.
-		public void ConnectRoads(Vector2Int from, Vector2Int to) {
-			//sqrMagnitude가 distance보다 훨~씬 빠름.
-			//if ((from - to).sqrMagnitude > 2.25f) return;
-			//근데 정확한 거리가 필요하면, Distance로 하는게 좋다네요. (어짜피 sqrMagninute와 다른점은 제곱근이냐 아니냐)
-			if (Vector2Int.Distance(from, to) > 1.5f) return;
-			//도로가 1개라도 있지 않는다면.
-			if (!ResourceManager.Instance.HasResource(ItemType.Road, 1)) return;
-
-			CreateRoadNode(from);
-			CreateRoadNode(to); //목적지에 데이터가 없으면 도로 노드 생성
-
-			if (!IsRoadBuildable(from) || !IsRoadBuildable(to)) return; //건설이 가능한지?
-
+		//--- 도로 연결 관련 메서드 ---
+		private void CreateConnection(Vector2Int from, Vector2Int to) {
 			Vector2Int dirVec = to - from;
-			RoadDirection dirToTarget = DirUtiles.GetVectorDir(dirVec);
-			RoadDirection dirToOrigin = DirUtiles.GetVectorDir(-dirVec);
+			RoadDirection dirToTarget = DirUtiles.GetDirectionFromVector(dirVec);
+			RoadDirection dirToOrigin = DirUtiles.GetDirectionFromVector(-dirVec);
 
-			//[중복 체크 로직 추가]
-			//이미 해당 방향으로 연결되어 있다면 자원 소모 X, false 반환?
-			//아니면 그냥 덮어쓰기하고 false 반환.
-			if (IsConnected(from, dirToTarget) && IsConnected(to, dirToOrigin)) return;
+			CellData fromData = MapBootstrapper.Grid[from];
+			CellData toData = MapBootstrapper.Grid[to];
 
-			//위의 마스크 계산간거 적용
-			UpdateConnectionMask(from, dirToTarget, add: true);
-			UpdateConnectionMask(to, dirToOrigin, add: true);
+			bool alreadyConnected = fromData.HasConnection(dirToTarget) && toData.HasConnection(dirToOrigin);
 
+			if (alreadyConnected) {
+				//삭제 대기중이였다면 다시 삭제 취소
+				fromData.MothballedMask &= ~dirToTarget;
+				toData.MothballedMask &= ~dirToOrigin;
+			} else {
+				if (!ResourceManager.Instance.TryConsumeResource(ItemType.Road)) return;
+				//연결.
+				fromData.ConnectionMask |= dirToTarget;
+				toData.ConnectionMask |= dirToOrigin;
+
+				//안전장치.
+				fromData.MothballedMask &= ~dirToTarget;
+				toData.MothballedMask &= ~dirToOrigin;
+			}
+
+			//업데이트 알림.
+			MapBootstrapper.Grid[from] = fromData;
+			MapBootstrapper.Grid[to] = toData;
 			LatestMapUpdateFrame = Time.frameCount;
 
-			//Connect에서는 자원 차감이 없습니다.
+			//TODO : 비주얼 갱신.
+		}
+		private void RemoveConnection(Vector2Int from, Vector2Int to) {
+			if (!MapBootstrapper.Grid.ContainsKey(from) || !MapBootstrapper.Grid.ContainsKey(to)) return;
+
+			CellData fromData = MapBootstrapper.Grid[from];
+			CellData toData = MapBootstrapper.Grid[to];
+
+			Vector2Int dirVec = to - from;
+			RoadDirection dirToTarget = DirUtiles.GetDirectionFromVector(dirVec);
+			RoadDirection dirToOrigin = DirUtiles.GetDirectionFromVector(-dirVec);
+
+			//연결 없을수도 있으니, 그러면 종료.
+			if (!fromData.HasConnection(dirToTarget)) return;
+			//연결인거 확인했으니 도로 회수.
+			ResourceManager.Instance.AddResource(ItemType.Road, 1);
+
+			//연결 해제
+			fromData.ConnectionMask &= ~dirToTarget;
+			toData.ConnectionMask &= ~dirToOrigin;
+
+			//삭제 대기 도로도 삭제.
+			fromData.MothballedMask &= ~dirToTarget;
+			toData.MothballedMask &= ~dirToOrigin;
+
+			//업데이트
+			MapBootstrapper.Grid[from] = fromData;
+			MapBootstrapper.Grid[to] = toData;
+			LatestMapUpdateFrame = Time.frameCount;
+
+			//도로가 고립상태면 (연결된게 없으면)
+			CheckAndCleanupIsolatedTile(from);
+			CheckAndCleanupIsolatedTile(to);
+
+			//TODO : 비주얼 갱신.
+		}
+
+
+		//--- 도로 건설 & 삭제---
+		public void ConnectRoads(Vector2Int from, Vector2Int to) {
+			///sqrMagnitude가 distance보다 훨~씬 빠름.
+			///if ((from - to).sqrMagnitude > 2.25f) return;
+			///근데 정확한 거리가 필요하면, Distance로 하는게 좋다네요. (어짜피 sqrMagninute와 다른점은 제곱근이냐 아니냐)
+			if (Vector2Int.Distance(from, to) > 1.5f) return;
+			if (!EnsureRoadNode(from) || !EnsureRoadNode(to)) return;   //타일 데이터 준비.
+			if (!IsRoadBuildable(from) || !IsRoadBuildable(to)) return;
+
+			//위의 조건들을 다 뚫었다면, 이제 연결합니다.
+			CreateConnection(from, to);
+
 			if (StructureManager.Instance != null) {
 				StructureManager.Instance.CheckPendingRequests();
 			}
 		}
-		public bool CreateRoadNode(Vector2Int coord) {
-			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData existing)) {
-				if (existing.Type.Equals(TileLogicType.Empty)) {
-					if(ResourceManager.Instance.TryConsumeResource(ItemType.Road)) {
-						existing.Type = TileLogicType.Road;
-						existing.IsPendingRemoval = false;
-						MapBootstrapper.Grid[coord] = existing;
-						LatestMapUpdateFrame = Time.frameCount;
-						return true;
-					}
-					return false;
-				} else if (existing.Type.Equals(TileLogicType.Road)) {
-					//이게 왜 있냐? -> 도로가 삭제 대기 기능이 추가되었기 때문.
-					if(existing.IsPendingRemoval) {
-						//만약 삭제 대기 중이였다면. 다시 부활시켜야죠.
-						existing.IsPendingRemoval = false;
-						MapBootstrapper.Grid[coord] = existing;
-						//자원을 다시 소모해야할까?
-						//-> RemoveRoad에서 자원 소모를 했다면, 다시 설치하는게 맞긴 함.
-						//-> 근데 원작에서는 진짜 회수가 될때 자원 추가가 되니까 Skip.
-						
-						//+ 시각 업데이트.
-					}
-					return false;
-				} else if (existing.Type.Equals(TileLogicType.Entrance)) {
-					//건물 입구면 도로 설치는 안하니 false 반환.
-					if (existing.ConnectionMask.Equals(0)) existing.ConnectionMask = RoadDirection.None;
-					else return false;
-				}
-			} else {
-				if(ResourceManager.Instance.TryConsumeResource(ItemType.Road)) {
-					CellData newRoad = new CellData {
-						Coordinate = coord,
-						Type = TileLogicType.Road,
-						ConnectionMask = RoadDirection.None,
-						IsPendingRemoval = false
-					};
-					MapBootstrapper.Grid.Add(coord, newRoad);
-					LatestMapUpdateFrame = Time.frameCount;
-					return true;
-				}
-			}
-			return false;
-		}
 		public void RemoveRoad(Vector2Int coord) {
-			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData target)) {
-				if (target.Type != TileLogicType.Road) return;
-				if (target.IsPendingRemoval) return; //이미 삭제 대기중이면 넘기쇼
-				if (IsRoadInUse(coord)) {
-					target.IsPendingRemoval = true;
-					MapBootstrapper.Grid[coord] = target;
+			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
+				if (data.Type != TileLogicType.Road) return;
 
-					//자원 반환 안함;
-					//ResourceManager.Instance.AddResource(ItemType.Road, 1);
-				} else {
-					ForceRemoveRoad(coord, target);
-				}
-			}
-		}
+				if (data.ConnectionMask != RoadDirection.None) {
+					data.MothballedMask |= data.ConnectionMask; //삭제할때 연결된 Mask 전부 삭제 대기로.
+					MapBootstrapper.Grid[coord] = data;
 
-		//차량이 타일을 벗어날 때 호출하는 함수...
-		public void NotifyCarExitedTile(Vector2Int coord) {
-			if(MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
-				if(data.IsPendingRemoval) {
-					//만약 삭제 대기 중인 도로인가?
-					if(!IsRoadInUse(coord)) {
-						//진짜 마지막으로 확인해보고 삭제합니다.
-						ForceRemoveRoad(coord, data);
-
+					RoadDirection directionsToPrune = data.ModifyReservation(0);    //트리거용.
+					if (directionsToPrune != RoadDirection.None) {
+						//만약 연결 제거가 필요한 곳 이 있다면.
+						ProcessPruning(coord, directionsToPrune);
 					}
 				}
+
+				LatestMapUpdateFrame = Time.frameCount;
 			}
 		}
 
-		public bool IsRoadBuildable(Vector2Int coord) {
-			if(MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
-				//도로거나 빈 땅여야 합니다.
 
-				return data.Type.Equals(TileLogicType.Road) || 
-					   data.Type.Equals(TileLogicType.Empty) ||
-					   data.Type.Equals(TileLogicType.Entrance);
+		//--- 참조 카운팅 (예약)---
+		public void NotifyReservation(Vector2Int coord) {
+			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
+				data.ModifyReservation(+1);
+			}
+		}
+		public void NotifyRelease(Vector2Int coord) {
+			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
+				RoadDirection directionsToPrune = data.ModifyReservation(-1);
+				if (directionsToPrune != RoadDirection.None) {
+					ProcessPruning(coord, directionsToPrune);
+				}
+			}
+		}
+
+		//--- 유틸 (내부 로직)
+
+		//외부와 소통할 코드지만, 굳이 여기에 둬야할 메서드인가? MapBootstrapper에 옮겨도 될듯 합니다.
+		public bool IsRoadBuildable(Vector2Int coord) {
+			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
+				//도로거나 빈 땅여야 합니다.
+				return data.IsDriveable || data.IsFullyEmpty;
 			}
 			return true;
-		}
-		//------------------- 보조들
-		private void CheckAndRemoveVisual(Vector2Int center, Vector2Int offset) {
-			//나중에 추가할거
-			Vector2Int neighbor = center + offset;
+			//맵밖은 가능이라고 일단 만듬. 근데 false로 나중에 바꿔줄수도 있음.
 		}
 
-		private bool IsConnected(Vector2Int pos, RoadDirection dir) {
-			if (MapBootstrapper.Grid.TryGetValue(pos, out CellData data)) {
-				return (data.ConnectionMask & dir) != 0;
+		private bool EnsureRoadNode(Vector2Int coord) {
+			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
+				//이미 존재함. Empty라면 Road로 타입만 변경
+				if (data.Type == TileLogicType.Empty) {
+					data.Type = TileLogicType.Road;
+					MapBootstrapper.Grid[coord] = data;
+				}
+				//다른 건물이면 false, 도로면 true
+				return data.IsDriveable;
+			} else {
+				//데이터 없음 -> 신규 생성
+				CellData newRoad = new CellData(coord);
+				newRoad.Type = TileLogicType.Road;
+				MapBootstrapper.Grid.Add(coord, newRoad);
+				return true;
 			}
-			return false;
 		}
-		private bool IsRoadInUse(Vector2Int coord) {
-			//현재 모든 차량의 경로를 뒤져서 이 타일을 쓰는지 확인
-			// 성능이 걱정되지만, 차량이 100~200대여도 단순 Loop라 프레임 드랍은 거의 없음.
+		private void ProcessPruning(Vector2Int center, RoadDirection mask) {
+			if ((mask & RoadDirection.North) != 0) RemoveConnection(center, center + Vector2Int.up);
+			if ((mask & RoadDirection.South) != 0) RemoveConnection(center, center + Vector2Int.down);
+			if ((mask & RoadDirection.East) != 0) RemoveConnection(center, center + Vector2Int.right);
+			if ((mask & RoadDirection.West) != 0) RemoveConnection(center, center + Vector2Int.left);
 
-			// StructureManager가 모든 차를 알고 있다고 가정 (혹은 House를 순회)
-			// 편의상 FindObjectsOfType을 쓰거나, Manager에 Car List를 관리하는 게 좋음.
-			// 여기서는 최적화를 위해 StructureManager에 `List<CarMovement> AllCars`를 추가했다고 가정.
+			if ((mask & RoadDirection.NorthEast) != 0) RemoveConnection(center, center + new Vector2Int(1, 1));
+			if ((mask & RoadDirection.NorthWest) != 0) RemoveConnection(center, center + new Vector2Int(-1, 1));
+			if ((mask & RoadDirection.SouthEast) != 0) RemoveConnection(center, center + new Vector2Int(1, -1));
+			if ((mask & RoadDirection.SouthWest) != 0) RemoveConnection(center, center + new Vector2Int(-1, -1));
+		}
+		private void CheckAndCleanupIsolatedTile(Vector2Int coord) {
+			if (MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
+				if (data.Type != TileLogicType.Road) return;
+				if (data.ConnectionMask == RoadDirection.None) {
+					data.Type = TileLogicType.Empty;
+					data.MothballedMask = RoadDirection.None;
+					data.ReservationCount = 0;
+					MapBootstrapper.Grid[coord] = data;
 
-			// 임시: 씬의 모든 차 검색 (나중에 Manager 리스트로 교체 권장)
-
-			var cars = FindObjectsOfType<CarMovement>();
-
-			foreach (var car in cars) {
-				if (car.IsUsingTile(coord)) return true;
+					//TODO : 비주얼 갱신(여긴 제거)
+				}
 			}
-			return false;
-
 		}
-		//진짜 없에는 코드.
-		private void ForceRemoveRoad(Vector2Int coord, CellData target) {
-			target.Type = TileLogicType.Empty;
-			RoadDirection oldMask = target.ConnectionMask;
-			target.ConnectionMask = RoadDirection.None;
-			MapBootstrapper.Grid[coord] = target;
 
-			UpdateNeighborsOnRemove(coord, oldMask);
 
-			LatestMapUpdateFrame = Time.frameCount;
-
-			CheckAndRemoveVisual(coord, new Vector2Int(0, 1));  // North
-			CheckAndRemoveVisual(coord, new Vector2Int(0, -1)); // South
-			CheckAndRemoveVisual(coord, new Vector2Int(1, 0));  // East
-			CheckAndRemoveVisual(coord, new Vector2Int(-1, 0)); // West
-																// 대각선 포함
+		//--- 비주얼 연결 코드 ---
+		private void RemoveVisualsAround(Vector2Int coord) {
+			CheckAndRemoveVisual(coord, new Vector2Int(0, 1));
+			CheckAndRemoveVisual(coord, new Vector2Int(0, -1));
+			CheckAndRemoveVisual(coord, new Vector2Int(1, 0));
+			CheckAndRemoveVisual(coord, new Vector2Int(-1, 0));
 			CheckAndRemoveVisual(coord, new Vector2Int(1, 1));
 			CheckAndRemoveVisual(coord, new Vector2Int(1, -1));
 			CheckAndRemoveVisual(coord, new Vector2Int(-1, -1));
 			CheckAndRemoveVisual(coord, new Vector2Int(-1, 1));
-
-			ResourceManager.Instance.AddResource(ItemType.Road, 1);
 		}
-		//도로가 하나만 존재한다면 (1칸짜리 고립된 도로)
-		public void CleanupifIsolated(Vector2Int coord) {
-			if(MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
-				if(data.Type.Equals(TileLogicType.Road) && data.ConnectionMask.Equals(RoadDirection.None)) {
-					RemoveRoad(coord);
-				}
-			}
-		}
-
-		private void UpdateNeighborsOnRemove(Vector2Int center, RoadDirection mask) {
-			//해당 도로가 사라졌으니, 이웃된 도로에게 업데이트를 시킵니다!
-			//만약 북쪽에 연결되어있다면, 북쪽 이웃을 찾아가서 남쪽 연결을 끊어야합니다. (반대편이 연결되었다는걸 인식X)
-			//노가다가 힘들긴 하지만... 필요한 작업이긴 합니다.
-			CheckAndDisconnect(center, mask, RoadDirection.North, new Vector2Int(0, 1));
-			CheckAndDisconnect(center, mask, RoadDirection.South, new Vector2Int(0, -1));
-			CheckAndDisconnect(center, mask, RoadDirection.East, new Vector2Int(1, 0));
-			CheckAndDisconnect(center, mask, RoadDirection.West, new Vector2Int(-1, 0));
-			CheckAndDisconnect(center, mask, RoadDirection.NorthEast, new Vector2Int(1, 1));
-			CheckAndDisconnect(center, mask, RoadDirection.NorthWest, new Vector2Int(-1, 1));
-			CheckAndDisconnect(center, mask, RoadDirection.SouthEast, new Vector2Int(1, -1));
-			CheckAndDisconnect(center, mask, RoadDirection.SouthWest, new Vector2Int(-1, -1));
-		}
-
-		private void CheckAndDisconnect(Vector2Int center, RoadDirection mymask, RoadDirection dirToCheck, Vector2Int offset) {
-			if(mymask.HasFlag(dirToCheck)) {
-				Vector2Int neighborPos = center + offset;
-				RoadDirection inverseDir = DirUtiles.GetVectorDir(-offset);
-				UpdateConnectionMask(neighborPos, inverseDir, add: false);
-
-				CleanupifIsolated(neighborPos);
-			}
-		}
-
-		private void UpdateConnectionMask(Vector2Int coord, RoadDirection dir, bool add) {
-			if(MapBootstrapper.Grid.TryGetValue(coord, out CellData data)) {
-				if(data.Type.Equals(TileLogicType.Road) || data.Type.Equals(TileLogicType.Entrance)) {
-					if (add) data.ConnectionMask |= dir;  //비트마스크로 계산하므로, OR 계산. 각 비트의 위치는 겹치지 않음...
-					else data.ConnectionMask &= ~dir;
-					MapBootstrapper.Grid[coord] = data;
-				}
-			}
+		private void CheckAndRemoveVisual(Vector2Int center, Vector2Int offset) {
+			//TODO : 나중에 할거
 		}
 	}
 }

@@ -37,12 +37,15 @@ namespace Core.Systems {
 		public void UnregisterCar(CarMovement car) {
 			if (_allCars.Contains(car)) _allCars.Remove(car);
 		}
-
+		/// <summary>
 		//private void Start() {
 		//	SpawnHouse();
 		//	SpawnHouse();
 		//	SpawnDestination();
 		//}
+		/// </summary>
+		/// 
+
 
 		//----------------------- 집 스폰
 		public void SpawnHouse() {
@@ -57,10 +60,9 @@ namespace Core.Systems {
 
 					UpdateGridType(spawnPos, TileLogicType.Supply);
 					UpdateGridType(house.EntranceCoordinate, TileLogicType.Entrance);
-
-					RoadSystem.Instance.CreateRoadNode(house.EntranceCoordinate);
-
+					//RoadSystem.Instance.CreateRoadNode(house.EntranceCoordinate);
 					RegisterHouse(house);
+
 				}
 				//Debug.Log($"House Spawned at {spawnPos}");
 			} else {
@@ -97,8 +99,7 @@ namespace Core.Systems {
 					}
 
 					UpdateGridType(dest.EntranceCoordinate, TileLogicType.Entrance);
-					RoadSystem.Instance.CreateRoadNode(dest.EntranceCoordinate);
-
+					//RoadSystem.Instance.CreateRoadNode(dest.EntranceCoordinate);
 					RegisterDestination(dest);
 				}
 				//Debug.Log($"Destination Spawned at {spawnPos} (Size : {w} x {h}");
@@ -275,7 +276,7 @@ namespace Core.Systems {
 			ShuffleArray(dirs);
 
 			foreach(var dir in dirs) {
-				Vector2Int checkPos = root + DirUtiles.GetDirVector(dir);
+				Vector2Int checkPos = root + DirUtiles.GetVectorFromDirection(dir);
 				//도로 지을 수 있음?
 				if (RoadSystem.Instance.IsRoadBuildable(checkPos)) return dir;
 			}
@@ -295,7 +296,7 @@ namespace Core.Systems {
 			ShuffleArray(candidates);
 			foreach(var dir in candidates) {
 				Vector2Int anchorOffset = GetBaseAnchorOffset(dir, isHorizontal);
-				Vector2Int checkPos = root + anchorOffset + DirUtiles.GetDirVector(dir);
+				Vector2Int checkPos = root + anchorOffset + DirUtiles.GetVectorFromDirection(dir);
 
 				if (RoadSystem.Instance.IsRoadBuildable(checkPos)) return dir;
 			}
@@ -323,12 +324,14 @@ namespace Core.Systems {
 		public void UpdateGridType(Vector2Int pos, TileLogicType type) {
 			if (MapBootstrapper.Grid.TryGetValue(pos, out CellData data)) {
 				data.Type = type;
+				if (type != TileLogicType.Road) {
+					data.ConnectionMask = RoadDirection.None;
+					data.MothballedMask = RoadDirection.None;
+				}
 				MapBootstrapper.Grid[pos] = data;
 			} else {
-				CellData newData = new CellData {
-					Coordinate = pos,
+				CellData newData = new CellData(pos) {
 					Type = type,
-					ConnectionMask = RoadDirection.None
 				};
 				MapBootstrapper.Grid.Add(pos, newData);
 			}

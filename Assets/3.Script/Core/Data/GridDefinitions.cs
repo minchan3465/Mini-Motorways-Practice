@@ -5,26 +5,30 @@ namespace Core.Data {
 
 	public enum TileLogicType {
         Empty = 0,
-        Obstacle = 1, // 강, 산 (건설 불가)
-        Road = 2,     // DORODORO (도로)
-        Supply = 10,  // 집 (출발지)
-        Demand = 20,  // 상점 (목적지)
-        Entrance = 30, // 건물의 입구
-        Restricted = 99 // 건설 불가 구역 (No-build zone)
+        Obstacle = 1, //강, 산 (건설 불가)
+        Road = 2,     //DORODORO (도로)
+        Supply = 10,  //집 (출발지)
+        Demand = 20,  //상점 (목적지)
+        Entrance = 30, //건물의 입구
+        Restricted = 99 //건설 불가 구역 (No-build zone)
     }
 
     [Flags]
     public enum RoadDirection : byte {
         None = 0,
         North = 1 << 0, // 1
-        East = 1 << 1, // 2
+        East  = 1 << 1, // 2
         South = 1 << 2, // 4
-        West = 1 << 3, // 8
+        West  = 1 << 3, // 8
 
         NorthEast = 1 << 4, // 16
         SouthEast = 1 << 5, // 32
         SouthWest = 1 << 6, // 64
-        NorthWest = 1 << 7  // 128
+        NorthWest = 1 << 7,  // 128
+
+        Cardinals = North | East | South | West,                    //십자 방향 전체
+        Diagonals = NorthEast | SouthEast | SouthWest | NorthWest,  //대각선 전체
+        All = Cardinals | Diagonals                                 //전체
     }
 
     /* 비트마스크를 사용한 것에 대한 고찰
@@ -47,14 +51,47 @@ namespace Core.Data {
     public class CellData {
         public Vector2Int Coordinate;   //좌표
         public TileLogicType Type;
+
         public float HouseWeight;            //확률 가중치 (Alpha Channel 값 등)
         public float DestinationWeight;            //확률 가중치 (Alpha Channel 값 등)
-        public RoadDirection ConnectionMask;     //나중에 도로 연결했을 때, 정보를 위한 비트마스크 (8방향)
 
-        public bool IsPendingRemoval;
+        public RoadDirection ConnectionMask;    //나중에 도로 연결했을 때, 정보를 위한 비트마스크 (8방향)
+		public RoadDirection MothballedMask;    //삭제 대기 중인 연결 상태...
+        public RoadDirection ActiveMask => ConnectionMask & ~MothballedMask;
+        //ㄴ 활성화된 연결된 도로. PathFinding의 과정을 보다 쉽게 하기 위해서 리팩토링.
 
-        // Pending 상태라도 이미 경로를 잡은 차는 지나갈 수 있어야 함
-        // 단, 새로운 경로 탐색에서는 장애물 취급해야 함 (Pathfinder 수정 필요 없음, Type은 Road로 유지하되 IsBuildable 체크에서 거름)
-        public bool IsWalkable => Type.Equals(TileLogicType.Empty);
+        public int ReservationCount;    //도로를 지나가려고 하는 차량의 수 
+		public int OccupancyCount;      //도로(타일)에 차량이 있는 수 (속도 감소나 꼬리물기 방지)
+        //public int Permanence;  //도로가 굳는 수치(고착화) 모드용으로 있는것...
+
+        //--- 메서드 ---
+        public bool HasConnection(RoadDirection dir) { return (ConnectionMask & dir) != 0; }
+        public bool IsMothballed(RoadDirection dir) => (MothballedMask & dir) != 0;
+        public bool IsActiveConnection(RoadDirection dir) { return (ActiveMask & dir) != 0; }
+        public bool IsFullyEmpty => Type == TileLogicType.Empty;
+        public bool IsDriveable => Type == TileLogicType.Road || Type == TileLogicType.Entrance;
+
+        public RoadDirection ModifyReservation(int amount) {
+            ReservationCount += amount;
+            if (ReservationCount < 0) ReservationCount = 0;
+            //예약자가 0명이고, 삭제 대기 중인(Mothballed) 연결이 있다면
+            if (ReservationCount == 0 && MothballedMask != RoadDirection.None) {
+                //이 방향들은 이제 끊어도 된다고 return.
+                return MothballedMask & ConnectionMask;
+            }
+            return RoadDirection.None;  //아님 말고
+        }
+
+        //--- 생성자 ---
+        public CellData() { }
+        public CellData(Vector2Int coord) {
+            Coordinate = coord;
+            Type = TileLogicType.Empty;
+            ConnectionMask = RoadDirection.None;
+            MothballedMask= RoadDirection.None;
+            ReservationCount = 0;
+            OccupancyCount = 0;
+            //Permanence = 0f;
+		}
     }
 }

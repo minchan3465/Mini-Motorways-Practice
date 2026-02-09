@@ -65,7 +65,7 @@ namespace Core.Systems {
 		}
 
 
-		//----------건설(좌클릭)
+		//---------- 건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
 			if (_isDraggingRemove || !IsPointerValid) return;
 
@@ -83,8 +83,8 @@ namespace Core.Systems {
 				}
 			}
 
-			if (RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
-			else _isDraggingBuild = false;
+			//if (RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
+			//else _isDraggingBuild = false;
 
 		}
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
@@ -93,18 +93,18 @@ namespace Core.Systems {
 
 				// _dragStartHouse가 있다면, 별도 정리가 필요 없다!
 				if (_dragStartHouse == null) {
-					//도로 한개면... 삭제해야지?
-					RoadSystem.Instance.CleanupifIsolated(_startDragPointer);
-					//만약에 말야... 우리.. 에러날수도 있으니 점검용
-					if (_startDragPointer != _lastGridPointer) {
-						RoadSystem.Instance.CleanupifIsolated(_lastGridPointer);
-					}
+					////도로 한개면... 삭제해야지?
+					//RoadSystem.Instance.CleanupifIsolated(_startDragPointer);
+					////만약에 말야... 우리.. 에러날수도 있으니 점검용
+					//if (_startDragPointer != _lastGridPointer) {
+					//	RoadSystem.Instance.CleanupifIsolated(_lastGridPointer);
+					//}
 				}
 				_dragStartHouse = null;
 			}
 		}
 
-		//----------삭제(우클릭)
+		//---------- 삭제(우클릭)
 		private void OnRemoveStarted(InputAction.CallbackContext context) {
 			if (_isDraggingBuild) return;
 			_isDraggingRemove = true;
@@ -122,7 +122,6 @@ namespace Core.Systems {
 		//---------- 조작(마우스 이동)
 		private void OnCursorMove(InputAction.CallbackContext context) {
 			_mouseScreenPos = context.ReadValue<Vector2>();
-
 			//기존 포인터 갱신
 			UpdateSimpleGridPointer();
 
@@ -168,7 +167,7 @@ namespace Core.Systems {
 		//---------- 건설(판정) => 코어 메카닉.
 		private void ProcessDirectionalBuild(Vector3 mousePos) {
 			//혹시 모를 예외처리.
-			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
+			//if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
 
 			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
 			Vector3 diff = mousePos - lastTileCenter;
@@ -202,14 +201,14 @@ namespace Core.Systems {
 
 			if (squareDist >= _connectionDistanceThreshold) {
 				Vector2Int offset = CalculateSnappedDirection(diff);
-				RoadDirection newDir = DirUtiles.GetVectorDir(offset);
+				RoadDirection newDir = DirUtiles.GetDirectionFromVector(offset);
 
 				_dragStartHouse.TryRotateEntrance(newDir);
 
 				//회전 성공 했냐? 입구 방향이 원하는 방향과 같다면.
 				if (_dragStartHouse.EntranceDir.Equals(newDir)) {
 					_lastGridPointer = _dragStartHouse.EntranceCoordinate;
-					RoadSystem.Instance.CreateRoadNode(_lastGridPointer);
+					//RoadSystem.Instance.CreateRoadNode(_lastGridPointer);
 					_dragStartHouse = null;
 				}
 			}

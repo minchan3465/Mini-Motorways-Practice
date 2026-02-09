@@ -141,7 +141,7 @@ namespace Core.Systems.Structure {
 				}
 			}
 
-			EntranceCoordinate = RootCoordinate + anchorOffset + DirUtiles.GetDirVector(EntranceDir);
+			EntranceCoordinate = RootCoordinate + anchorOffset + DirUtiles.GetVectorFromDirection(EntranceDir);
 
 		}
 	}

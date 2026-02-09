@@ -21,7 +21,7 @@ namespace Core.Systems.Structure {
 		}
 
 		protected override void CalculateEntrancePos() {
-			Vector2Int dirVec = DirUtiles.GetDirVector(EntranceDir);
+			Vector2Int dirVec = DirUtiles.GetVectorFromDirection(EntranceDir);
 			EntranceCoordinate = RootCoordinate + dirVec;
 		}
 
@@ -62,7 +62,7 @@ namespace Core.Systems.Structure {
 
 		//플레이어가 드래그해서 입구 바꾸는거 계산
 		public void TryRotateEntrance(RoadDirection newDir) {
-			Vector2Int dirVec = DirUtiles.GetDirVector(newDir);
+			Vector2Int dirVec = DirUtiles.GetVectorFromDirection(newDir);
 			Vector2Int newEntrancePos = RootCoordinate + dirVec;
 
 			//여기 설치하는거 됩니까??

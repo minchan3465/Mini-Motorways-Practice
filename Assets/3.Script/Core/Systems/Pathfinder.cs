@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Systems {
-	using Core.Data;
-	using Core.Utils;
+    using Core.Data;
+    using Core.Utils;
 
-	public static class Pathfinder {
+    public static class Pathfinder {
+        //A* 알고리즘용 노드 클래스
         private class Node {
             public Vector2Int Position;
             public Node Parent;
@@ -30,9 +31,12 @@ namespace Core.Systems {
             new Vector2Int(-1, 1)  // NorthWest
         };
 
-        public static List<Vector2Int> FindPath(Vector2Int startPos, Vector2Int targetPos) {
+        //--- 길찾기 알고리즘 ---
+        public static List<Vector2Int> FindPath(Vector2Int startPos, Vector2Int targetPos, bool allowMothballed = false) {
             // 맵에 없는 좌표면 취소
-            if (!MapBootstrapper.Grid.ContainsKey(startPos) || !MapBootstrapper.Grid.ContainsKey(targetPos)) return null;
+            if (MapBootstrapper.Grid == null ||
+                !MapBootstrapper.Grid.ContainsKey(startPos) ||
+                !MapBootstrapper.Grid.ContainsKey(targetPos)) return null;
 
             List<Node> openList = new List<Node>();
             HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
@@ -61,7 +65,7 @@ namespace Core.Systems {
                 }
 
                 //이웃 탐색...
-                foreach (Vector2Int neighborPos in GetConnectedNeighbors(currentNode.Position)) {
+                foreach (Vector2Int neighborPos in GetConnectedNeighbors(currentNode.Position, allowMothballed)) {
                     if (closedSet.Contains(neighborPos)) continue;
 
                     // 이동 비용 (직선: 1 / 대각선: 1.414)
@@ -107,34 +111,40 @@ namespace Core.Systems {
             return Vector2.Distance(a, b);
         }
 
-        // [핵심] 현재 위치에서 '도로적으로 연결된' 이웃만 반환
-        private static List<Vector2Int> GetConnectedNeighbors(Vector2Int current) {
+        // [핵심] 현재 위치에서 '도로적으로 연결된' 이웃만 반환.
+        private static List<Vector2Int> GetConnectedNeighbors(Vector2Int current, bool allowMothballed) {
             List<Vector2Int> neighbors = new List<Vector2Int>();
-
-            if (!MapBootstrapper.Grid.TryGetValue(current, out CellData currentData))
+            if (!MapBootstrapper.Grid.TryGetValue(current, out CellData currentData)) {
                 return neighbors;
+            }
 
-            // 내 타일의 ConnectionMask를 확인해서 갈 수 있는 방향인지 검사
             foreach (Vector2Int dir in _directions) {
-                RoadDirection dirEnum = DirUtiles.GetVectorDir(dir);
+                RoadDirection dirEnum = DirUtiles.GetDirectionFromVector(dir);
 
-                //현재 타일이랑 연결된 타일이 있는가? (도로 뚫린거)
-                if (currentData.ConnectionMask.HasFlag(dirEnum)) {
+                bool isOutgoingValid = false;
+
+                if (allowMothballed) {
+                    //2차 탐색 - 물리적 연결만 잇으면 ok (ConnectionMask 확인합니다)
+                    if (currentData.HasConnection(dirEnum)) isOutgoingValid = true;
+                } else {
+                    //1차 탐색 - 활성 연결만 OK (ActiveMask 확인합니다)
+                    if (currentData.IsActiveConnection(dirEnum)) isOutgoingValid = true;
+                }
+
+                if (isOutgoingValid) {
                     Vector2Int neighborPos = current + dir;
 
-                    //해당 연결된 곳에 타일이 있는지. (예상치 못한 오류 계산, 실시간 계산용)
-                    if (MapBootstrapper.Grid.ContainsKey(neighborPos)) {
-                        // (옵션) 상대방도 나를 향해 뚫려있는지 검사할 수 있지만,
-                        // RoadSystem에서 양방향 연결을 보장하므로 생략 가능.
-                        neighbors.Add(neighborPos);
+                    //아무튼 경로가 있다면
+                    if (MapBootstrapper.Grid.TryGetValue(neighborPos, out CellData neighborData)) {
+                        if (neighborData.IsDriveable) {
+                            //혹시 모를 확인.
+                            neighbors.Add(neighborPos);
+                        }
                     }
                 }
             }
             return neighbors;
         }
-
-        //-----------유틸 :  벡터 -> Enum 변환
-
     }
 }
 
