@@ -31,7 +31,6 @@ namespace Core.Systems {
 		private bool _isDraggingBuild = false;
 		private bool _isDraggingRemove = false;
 
-
 		private Vector2Int _lastGridPointer;    // 마지막으로 도로가 깔린 타일 좌표
 		private Vector2Int _startDragPointer;   // 드래그 시작 타일 좌표
 		private Vector3 _clickOriginWorldPos;   // 최초 클릭한 월드 좌표 (Deadzone 체크용)
@@ -39,6 +38,16 @@ namespace Core.Systems {
 
 		//집 회전 조작용
 		private House _dragStartHouse = null;
+
+		#region Gizmos용 ㅍ프로퍼티
+		public bool IsDraggingBuild => _isDraggingBuild;
+		public Vector3 ClickOriginWorldPos => _clickOriginWorldPos;
+		public bool HasPassedDeadzone => _hasPassedDeadzone;
+		public House DragStartHouse => _dragStartHouse;
+		public Vector2Int LastGridPointer => _lastGridPointer;
+		public float InitialDragDeadzone => _initialDragDeadzone;
+		public float ConnectionDistanceThreshold => _connectionDistanceThreshold;
+		#endregion
 
 		//-----------------------------------------------
 		private void Awake() {
