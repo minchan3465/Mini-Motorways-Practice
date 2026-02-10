@@ -72,13 +72,7 @@ namespace Core.Systems {
 				Vector3Int localPos = new Vector3Int(pos.x, pos.y, pos.z);
 				Vector2Int gridCoord = new Vector2Int(pos.x, pos.y);
 
-				CellData cell = new CellData {
-					Coordinate = gridCoord,
-					Type = TileLogicType.Empty, // 기본: 땅
-					ConnectionMask = RoadDirection.None,
-					HouseWeight = 0f,
-					DestinationWeight = 0f
-				};
+				CellData cell = new CellData(gridCoord);
 
 				//지형 타일이 없다 = 맵 밖이거나 타일을 안설치함. (Obstacle로 처리할지 고민중)
 				//근데 보통 타일맵에서 bounds 내부에 있는 타일이 안 칠해져있으면 null이라고 함.

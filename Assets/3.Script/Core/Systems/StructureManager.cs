@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Core.Systems {
 	using Core.Data;
 	using Core.Utils;
-	using Core.Systems.Structure;
+	using Core.Structure;
 
 	public class StructureManager : MonoBehaviour {
 		public static StructureManager Instance = null;
@@ -24,6 +24,8 @@ namespace Core.Systems {
 		public int HouseCount => _houses.Count;
 		public int DestinationCount => _destinations.Count;
 
+		//----------------------------
+
 		private void Awake() {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
@@ -37,6 +39,7 @@ namespace Core.Systems {
 		public void UnregisterCar(CarMovement car) {
 			if (_allCars.Contains(car)) _allCars.Remove(car);
 		}
+
 		/// <summary>
 		//private void Start() {
 		//	SpawnHouse();
@@ -121,25 +124,32 @@ namespace Core.Systems {
 			}
 		}
 
+
 		//특정 목적지로 차를 보냄 (가장 가까운 집 검색)
 		private void TryDispatchCarTo(Destination targetDest) {
 			if (!targetDest.HasUnassignedPin()) return;
 
 			House bestHouse = null;
-			List<Vector2Int> bestPath = null;
-			int minPathLength = int.MaxValue;
+			List<Lane> bestPathToDest = null;
+			List<Lane> bestPathToHome = null;
+			int minTotalCost = int.MaxValue;
 
 			foreach (var house in _houses) {
 				if (!house.HasAvailableCar()) continue;
 
-				List<Vector2Int> path = Pathfinder.FindPath(house.EntranceCoordinate, targetDest.EntranceCoordinate);
+				List<Lane> toDest = Pathfinder.FindLanePath(house.EntranceCoordinate, targetDest.EntranceCoordinate);
+				if (toDest == null) continue;
 
-				if (path != null) {
-					if (path.Count < minPathLength) {
-						minPathLength = path.Count;
-						bestPath = path;
-						bestHouse = house;
-					}
+				List<Lane> toHome = Pathfinder.FindLanePath(targetDest.EntranceCoordinate, house.EntranceCoordinate);
+				if (toHome == null) continue;
+
+				int currentTotalCost = toDest.Count + toHome.Count;
+
+				if (currentTotalCost < minTotalCost) {
+					minTotalCost = currentTotalCost;
+					bestPathToDest = toDest;
+					bestPathToHome = toHome;
+					bestHouse = house;
 				}
 
 			}
@@ -152,7 +162,7 @@ namespace Core.Systems {
 				// -> 지금은 로그만 찍고, 핀 감소는 차 도착 시에만 하겠습니다.
 				// -> (단, 무한 출동을 막기 위해 쿨타임이나 플래그가 필요함. 일단 보류)
 
-				bestHouse.DispatchCar(bestPath, targetDest);
+				bestHouse.DispatchCar(bestPathToDest, bestPathToHome, targetDest);
 				targetDest.RegisterIncomingCar();
 				//Debug.Log($" 출동: {bestHouse.name} -> {targetDest.name} (거리: {minPathLength})");
 
@@ -196,7 +206,7 @@ namespace Core.Systems {
 				totalWeight += w;
 			}
 
-			if (candidates.Count.Equals(0)) return false;
+			if (candidates.Count == 0) return false;
 
 			// 2. 룰렛 휠 선택 (가중치 랜덤)
 			for (int i = 0; i < 20; i++) {
@@ -216,18 +226,9 @@ namespace Core.Systems {
 				}
 
 				if (CheckAreaEmpty(selectedPos, width, height)) {
-					if (isHouse) {
-						// 집은 입구 하나만 있으면 됨 (방향은 나중에 정함)
-						if (CheckEntranceSpace(selectedPos, width, height)) {
-							bestPos = selectedPos;
-							return true;
-						}
-					} else {
-						// 목적지는 크기가 크므로 다시 확인
-						if (CheckEntranceSpace(selectedPos, width, height)) { // 목적지 전용 체크 로직 필요시 교체
-							bestPos = selectedPos;
-							return true;
-						}
+					if (CheckEntranceSpace(selectedPos, width, height)) {
+						bestPos = selectedPos;
+						return true;
 					}
 				}
 			}
@@ -239,7 +240,7 @@ namespace Core.Systems {
 					Vector2Int p = root + new Vector2Int(x, y);
 					if (MapBootstrapper.Grid.TryGetValue(p, out CellData data)) {
 						//만약 해당 위치가 비어있는게 아니라면.
-						if (!data.Type.Equals(TileLogicType.Empty)) return false;
+						if (data.Type != TileLogicType.Empty) return false;
 					} else {
 						//이러면 맵 밖일 가능성이 높긴한데 데이터 없으면 Empty일텐데 말이죠.
 						return false;
@@ -261,6 +262,7 @@ namespace Core.Systems {
 			}
 			return false;
 		}
+
 		private RoadDirection GetRandomVaildDirectionForHouse(Vector2Int root) {
 			RoadDirection[] dirs = { 
 				RoadDirection.North, 
@@ -278,7 +280,7 @@ namespace Core.Systems {
 			foreach(var dir in dirs) {
 				Vector2Int checkPos = root + DirUtiles.GetVectorFromDirection(dir);
 				//도로 지을 수 있음?
-				if (RoadSystem.Instance.IsRoadBuildable(checkPos)) return dir;
+				if (IsValidEntrance(checkPos)) return dir;
 			}
 			//막혀있으면 그냥 북쪽으로.
 			return RoadDirection.North;
@@ -298,7 +300,7 @@ namespace Core.Systems {
 				Vector2Int anchorOffset = GetBaseAnchorOffset(dir, isHorizontal);
 				Vector2Int checkPos = root + anchorOffset + DirUtiles.GetVectorFromDirection(dir);
 
-				if (RoadSystem.Instance.IsRoadBuildable(checkPos)) return dir;
+				if (IsValidEntrance(checkPos)) return dir;
 			}
 
 			//자리 없으면 그냥 설치해버리기. (이것도 나중에 바꿔야함.)
@@ -307,15 +309,15 @@ namespace Core.Systems {
 
 		private Vector2Int GetBaseAnchorOffset(RoadDirection dir, bool isHorizontal) {
 			if (isHorizontal) {
-				return (dir.Equals(RoadDirection.North)) ? new Vector2Int(2, 1) : new Vector2Int(2, 0);
+				return (dir == RoadDirection.North) ? new Vector2Int(2, 1) : new Vector2Int(2, 0);
 			} else {
-				return (dir.Equals(RoadDirection.East)) ? new Vector2Int(1, 2) : new Vector2Int(0, 2);
+				return (dir == RoadDirection.East) ? new Vector2Int(1, 2) : new Vector2Int(0, 2);
 			}
 		}
 
 		public bool IsValidEntrance(Vector2Int pos) {
 			if (MapBootstrapper.Grid.TryGetValue(pos, out CellData data)) {
-				return data.Type.Equals(TileLogicType.Empty) || data.Type.Equals(TileLogicType.Road);
+				return data.Type == TileLogicType.Empty || data.Type == TileLogicType.Road;
 			}
 			return false;
 		}
@@ -324,15 +326,14 @@ namespace Core.Systems {
 		public void UpdateGridType(Vector2Int pos, TileLogicType type) {
 			if (MapBootstrapper.Grid.TryGetValue(pos, out CellData data)) {
 				data.Type = type;
-				if (type != TileLogicType.Road) {
+
+				if (type != TileLogicType.Road && type != TileLogicType.Entrance) {
 					data.ConnectionMask = RoadDirection.None;
-					data.MothballedMask = RoadDirection.None;
 				}
+
 				MapBootstrapper.Grid[pos] = data;
 			} else {
-				CellData newData = new CellData(pos) {
-					Type = type,
-				};
+				CellData newData = new CellData(pos) { Type = type };
 				MapBootstrapper.Grid.Add(pos, newData);
 			}
 		}
@@ -340,7 +341,7 @@ namespace Core.Systems {
 		//유틸: InteractionController에서 사용하기 위해 집 찾는 메서드
 		public House GetHouseAt(Vector2Int pos) {
 			foreach (var house in _houses) {
-				if (house.RootCoordinate.Equals(pos)) return house;
+				if (house.RootCoordinate == pos) return house;
 			}
 			return null;
 		}

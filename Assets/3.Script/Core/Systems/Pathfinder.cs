@@ -5,8 +5,128 @@ using UnityEngine;
 namespace Core.Systems {
     using Core.Data;
     using Core.Utils;
+    using Core.Structure;
 
     public static class Pathfinder {
+        private class PathNode {
+            public Vector2Int Position; //현재 노드 좌표.
+            public PathNode Parent;     //어디서 왔는지. (위치)
+            public Lane IncomingLane;   //어떤 도로부터 왔는지.
+
+            public int GCost;   //시작으로부터 현재까지 누적 비용.
+            public int HCost;   //휴리스틱 알고리즘.
+            public int FCost => GCost + HCost;
+
+            public PathNode(Vector2Int pos) {
+                Position = pos;
+                GCost = int.MaxValue; // 초기값은 무한대 (아직 방문 안 함)
+                HCost = 0;
+                Parent = null;
+                IncomingLane = null;
+            }
+        }
+
+        //--- Lane 기반 길찾기 ---
+        public static List<Lane> FindLanePath(Vector2Int startNodePos, Vector2Int targetNodePos) {
+            if (RoadNetwork.Instance == null) return null;
+            if (RoadNetwork.Instance.GetOutboundLanes(startNodePos) == null) return null;
+
+            List<PathNode> openList = new List<PathNode>();
+            HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
+            Dictionary<Vector2Int, PathNode> allNodes = new Dictionary<Vector2Int, PathNode>();
+
+            PathNode startNode = new PathNode(startNodePos);
+            openList.Add(startNode);
+            allNodes.Add(startNodePos, startNode);
+
+            while(openList.Count > 0) {
+                //F값이 가장 낮은 노드를 꺼냅니다. (최적화 가능 : 힙 사용. 근데 리스트도 뭐...)
+                PathNode currentNode = GetLowestFCostNode(openList);
+                for(int i = 1; i<openList.Count; i++) {
+                    if (openList[i].FCost < currentNode.FCost ||
+                        (openList[i].FCost == currentNode.FCost && openList[i].HCost < currentNode.HCost))
+                        currentNode = openList[i];
+				}
+
+                openList.Remove(currentNode);
+                closedSet.Add(currentNode.Position);
+
+                //목적지 도착했는지.
+                if(currentNode.Position == targetNodePos) {
+                    return RetraceLanePath(startNode, currentNode);
+				}
+
+                //이웃 탐색합니다.
+                List<Lane> outboundLanes = RoadNetwork.Instance.GetOutboundLanes(currentNode.Position);
+                if(outboundLanes != null) {
+                    foreach(Lane lane in outboundLanes) {
+                        Vector2Int neighborPos = lane.EndNode;  //Lane의 끝이 곧 이웃노드.
+                        if (closedSet.Contains(neighborPos)) continue;
+
+                        //이동 비용 계산.
+                        //근데 Lane.Cost가 Mothballed 상태면 큰 숫자이므로, 그쪽으로 안갈것.
+                        int newMovementCost = currentNode.GCost + lane.Cost;
+
+                        PathNode neighborNode;
+                        if(!allNodes.TryGetValue(neighborPos, out neighborNode)) {
+                            neighborNode = new PathNode(neighborPos);
+                            allNodes.Add(neighborPos, neighborNode);
+                            openList.Add(neighborNode); //처음보면 추가.
+						}
+
+                        //더 적은 비용의 경로 or 아직 방문 안한 경로라면 갱신
+                        if(newMovementCost < neighborNode.GCost || !openList.Contains(neighborNode)) {
+                            neighborNode.GCost = newMovementCost;
+                            neighborNode.HCost = GetHeuristic(neighborPos, targetNodePos);
+                            neighborNode.Parent = currentNode;
+                            neighborNode.IncomingLane = lane;   //어떤 Lane을 탔는지 기록합니다. 이는 곧 차량의 경로가 됩니다.
+						}
+
+                        if(!openList.Contains(neighborNode)) {
+                            openList.Add(neighborNode);
+						}
+					}
+				}
+			}
+            return null;
+		}
+
+        private static PathNode GetLowestFCostNode(List<PathNode> pathNodes) {
+            PathNode lowest = pathNodes[0];
+            for (int i = 1; i < pathNodes.Count; i++) {
+                if (pathNodes[i].FCost < lowest.FCost ||
+                   (pathNodes[i].FCost == lowest.FCost && pathNodes[i].HCost < lowest.HCost)) {
+                    lowest = pathNodes[i];
+                }
+            }
+            return lowest;
+        }
+
+        private static List<Lane> RetraceLanePath(PathNode startNode, PathNode endNode) {
+            List<Lane> path = new List<Lane>();
+            PathNode currentNode = endNode;
+
+            while(currentNode != startNode) {
+                //이 노드를 들어올 때 탔던 Lane을 추가.
+                if(currentNode.IncomingLane != null) {
+                    path.Add(currentNode.IncomingLane);
+				}
+                currentNode = currentNode.Parent;
+			}
+
+            path.Reverse();
+            return path;
+		}
+
+        private static int GetHeuristic(Vector2Int a, Vector2Int b) {
+            return Mathf.RoundToInt(Vector2Int.Distance(a, b) * 10);
+		}
+
+
+
+
+
+        /* 그리드(타일) 기반 비트마스크로 경로 계산하는 것. (구식)
         //A* 알고리즘용 노드 클래스
         private class Node {
             public Vector2Int Position;
@@ -145,6 +265,7 @@ namespace Core.Systems {
             }
             return neighbors;
         }
+        */
     }
 }
 

@@ -52,46 +52,22 @@ namespace Core.Data {
         public Vector2Int Coordinate;   //좌표
         public TileLogicType Type;
 
-        public float HouseWeight;            //확률 가중치 (Alpha Channel 값 등)
-        public float DestinationWeight;            //확률 가중치 (Alpha Channel 값 등)
+        //가중치 (건물 스폰용)
+        public float HouseWeight;
+        public float DestinationWeight;      
 
         public RoadDirection ConnectionMask;    //나중에 도로 연결했을 때, 정보를 위한 비트마스크 (8방향)
-		public RoadDirection MothballedMask;    //삭제 대기 중인 연결 상태...
-        public RoadDirection ActiveMask => ConnectionMask & ~MothballedMask;
-        //ㄴ 활성화된 연결된 도로. PathFinding의 과정을 보다 쉽게 하기 위해서 리팩토링.
-
-        public int ReservationCount;    //도로를 지나가려고 하는 차량의 수 
-		public int OccupancyCount;      //도로(타일)에 차량이 있는 수 (속도 감소나 꼬리물기 방지)
-        //public int Permanence;  //도로가 굳는 수치(고착화) 모드용으로 있는것...
-
+		
         //--- 메서드 ---
         public bool HasConnection(RoadDirection dir) { return (ConnectionMask & dir) != 0; }
-        public bool IsMothballed(RoadDirection dir) => (MothballedMask & dir) != 0;
-        public bool IsActiveConnection(RoadDirection dir) { return (ActiveMask & dir) != 0; }
-        public bool IsFullyEmpty => Type == TileLogicType.Empty;
+      
         public bool IsDriveable => Type == TileLogicType.Road || Type == TileLogicType.Entrance;
 
-        public RoadDirection ModifyReservation(int amount) {
-            ReservationCount += amount;
-            if (ReservationCount < 0) ReservationCount = 0;
-            //예약자가 0명이고, 삭제 대기 중인(Mothballed) 연결이 있다면
-            if (ReservationCount == 0 && MothballedMask != RoadDirection.None) {
-                //이 방향들은 이제 끊어도 된다고 return.
-                return MothballedMask & ConnectionMask;
-            }
-            return RoadDirection.None;  //아님 말고
-        }
-
         //--- 생성자 ---
-        public CellData() { }
         public CellData(Vector2Int coord) {
             Coordinate = coord;
             Type = TileLogicType.Empty;
             ConnectionMask = RoadDirection.None;
-            MothballedMask= RoadDirection.None;
-            ReservationCount = 0;
-            OccupancyCount = 0;
-            //Permanence = 0f;
 		}
     }
 }

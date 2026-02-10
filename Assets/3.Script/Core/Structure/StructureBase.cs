@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core.Systems.Structure {
+namespace Core.Structure {
 	using Core.Data;
 
 	public abstract class StructureBase : MonoBehaviour {

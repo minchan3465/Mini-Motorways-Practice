@@ -8,7 +8,7 @@ namespace Core.Systems {
 	using Core.Data;
 	using Core.Utils;
 	using Core.Managers;
-	using Core.Systems.Structure;
+	using Core.Structure;
 
 	public class InteractionController : MonoBehaviour {
 		[Header("Settings")]
@@ -192,11 +192,9 @@ namespace Core.Systems {
 				//여기까지 들어왔으면 사실상 건설하면 됩니다.
 				Vector2Int offset = CalculateSnappedDirection(diff);
 				Vector2Int candidatePos = _lastGridPointer + offset;
-
-				if (RoadSystem.Instance.IsRoadBuildable(candidatePos)) {
+				if (Vector2Int.Distance(_lastGridPointer, candidatePos) <= 1.5f) {
 					RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos);
 					_lastGridPointer = candidatePos;
-					//hasPassedDeadzon은 false로 안합니다. 클릭했을때만 판정함.
 				}
 			}
 		}
@@ -271,32 +269,6 @@ namespace Core.Systems {
 			return Vector2Int.zero;
 		}
 		//이건 Vector2Int 오프셋을 RoadDirection Enum
-		private void OnDrawGizmos() {
-			if (Application.isPlaying && IsPointerValid) {
-				Gizmos.color = Color.cyan;
-				Vector3 drawPos = new Vector3(CurrentGridPointer.x + 0.5f, 0, CurrentGridPointer.y + 0.5f);
-				Gizmos.DrawWireCube(drawPos, Vector3.one * 0.95f);
 
-				if (_isDraggingBuild) {
-					// 집 회전 중일 때와 일반 도로 건설 중일 때 기준점 다름
-					Vector3 centerPos;
-					if (_dragStartHouse != null) {
-						centerPos = _dragStartHouse.transform.position;
-						Gizmos.color = Color.green; // 집 드래그는 초록색으로 구분
-					} else {
-						centerPos = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
-						Gizmos.color = Color.yellow;
-					}
-
-					if (!_hasPassedDeadzone) {
-						Gizmos.DrawWireSphere(_clickOriginWorldPos, _initialDragDeadzone);
-					} else {
-						float size = _connectionDistanceThreshold * 2;
-						Gizmos.DrawWireCube(centerPos, new Vector3(size, 0.1f, size));
-						Gizmos.DrawLine(centerPos, GetWorldPositionFromMouse());
-					}
-				}
-			}
-		}
 	}
 }

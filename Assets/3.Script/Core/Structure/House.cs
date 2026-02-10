@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core.Systems.Structure {
+namespace Core.Structure {
 	using Core.Data;
 	using Core.Utils;
+	using Core.Systems;
+	using Core.Structure;
 
 	public class House : StructureBase {
 		[Header("House Settings")]
 		[SerializeField] private int _availableCars;
 		[SerializeField] private GameObject _carPrefab;
-		
-		private int _carCount = 2;
+
+		[SerializeField] private int _carCount = 2; // Inspector에서 수정 가능하게 변경
 
 		private Queue<CarMovement> _carPool = new Queue<CarMovement>();
 
@@ -25,7 +27,7 @@ namespace Core.Systems.Structure {
 			EntranceCoordinate = RootCoordinate + dirVec;
 		}
 
-		public void DispatchCar(List<Vector2Int> path, Destination targetDest) {
+		public void DispatchCar(List<Lane> path, List<Lane> returnPath, Destination targetDest) {
 			if (_availableCars <= 0) return;
 
 			_availableCars -= 1;
@@ -40,7 +42,7 @@ namespace Core.Systems.Structure {
 			}
 
 			if(car != null) {
-				car.Initialize(this, targetDest, path);
+				car.Initialize(this, targetDest, path, returnPath);
 			}
 		}
 

@@ -3,285 +3,267 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Systems {
-	//using Core.Utils;
-	using Core.Data;
-	using Core.Systems.Structure;
+	using Core.Structure;
 
+	//public enum BehaviorState {
+	//	WaitingForDestination,  //집에서 대기 중
+	//	DrivingToDestination,   //집 -> 목적지로 이동 중 (도로 주행 포함)
+	//	ParkingAtDestination,   //목적지 입구 -> 주차장 진입 중
+	//	ParkedAtDestination,    //목적지 도착 (업무 수행 중)
+	//	DrivingHome,            //목적지 -> 집으로 복귀 중
+	//	RealigningDriveway      //차량 위치 재정렬. (현재 제작 X)
+	//}
+
+	//조금 더 이름을 가볍게 만들기.
 	public enum BehaviorState {
-		WaitingForDestination,  // 집에서 대기 중
-		DrivingToDestination,   // 집 -> 목적지로 이동 중 (도로 주행 포함)
-		ParkingAtDestination,   // 목적지 입구 -> 주차장 진입 중
-		ParkedAtDestination,    // 목적지 도착 (업무 수행 중)
-		DrivingHome,            // 목적지 -> 집으로 복귀 중
-		RealigningDriveway      // (미구현) 도로가 끊기거나 입구가 바뀌었을 때 경로 재탐색. 고립된 상태가 절대 아님.
+		Idle,                   // 대기
+		DrivingToDestination,   // 출근 중
+		ParkingAtDestination,   // 주차 진입
+		Parked,                 // 업무 중
+		DrivingHome             // 퇴근 중
 	}
-	//TODO : 상태 머신 추가로 인하여, 새롭게 갈아엎어야함. checked. end.
 
+
+	//TODO : 상태 머신 추가로 인하여, 새롭게 갈아엎어야함. 
+	//		ㄴ end.
+	//TODO : 상태머신은 제끼고, 일단 경로 찾기에 관련한 시스템을 대규모 개편을 해야함. (Vector2Int -> Lane으로)
+	//		ㄴ 길을 인식하는 과정을 Vector2Int에서 Lane으로 바꿈. (좌표와 비트마스크 -> 인접 그래프)
 	public class CarMovement : MonoBehaviour {
 		[Header("Movement Settings")]
-		[SerializeField] private float _speed = 2.0f;
+		[SerializeField] private float _maxSpeed = 2.0f;
 		[SerializeField] private float _rotationSpeed = 15.0f;
-		[SerializeField] private float _arrivalThreshold = 0.05f;
 
-		[Header("State Info")]
-		[SerializeField] private BehaviorState _currentState = BehaviorState.WaitingForDestination;
+		[Header("State")]
+		[SerializeField] private BehaviorState _currentState = BehaviorState.Idle;
 
-		public House OwnerHouse;
-		private StructureBase _startStructure;
-		private StructureBase _targetStructure;
+		//그리드 좌표가 아닌 Lane으로 변경.
+		private List<Lane> _currentPath = new List<Lane>(); // 현재 이동 중인 경로
+		private List<Lane> _returnPath = new List<Lane>();  // 미리 확보한 퇴근 경로 (왕복 티켓)
 
-		//경로 관련...
-		private List<Vector2Int> _currentPath;
-		private List<Vector2Int> _returnPath; //복귀 경로 (미리 확보)
 		private int _pathIndex = 0;
-		private int _lastPathfindFrame = 0;
+		private Lane _currentLane;
+		private float _distanceAlongLane = 0f;
 
-		private Vector3 _moveTargetPos; //이동 목표
+		private House _home;
+		private Destination _destination;
+
+		private int _lastMapUpdateFrame = 0;
 
 		private int _assignedSlotIndex = -1;
 		private WaitForSeconds _workDuration = new WaitForSeconds(3.0f);
 
-		//------------------------------------------------------------------------------------------
+		//----------------------------------------
 
 		//--- 초기화 ---
-		private void Start() {
-			// 매니저에 등록 (최적화)
-			if (StructureManager.Instance != null) StructureManager.Instance.RegisterCar(this);
-		}
-		private void OnDestroy() {
-			if (StructureManager.Instance != null) StructureManager.Instance.UnregisterCar(this);
-		}
-		public void Initialize(House house, Destination dest, List<Vector2Int> initialPath) {
-			OwnerHouse = house;
-			_startStructure = house;
-			_targetStructure = dest;
+		public void Initialize(House house, Destination dest, List<Lane> toDest, List<Lane> toHome) {
+			_home = house;
+			_destination = dest;
+			transform.position = _home.transform.position;
 
-			SetPath(initialPath);
+			_currentPath = toDest;
+			_returnPath = toHome;
 
-			transform.position = _startStructure.transform.position;
+			RegisterPath(_currentPath);
+			RegisterPath(_returnPath);
+
+			_pathIndex = 0;
+			if (_currentPath.Count > 0) {
+				EnterLane(_currentPath[0], 0f);
+			}
 			SetState(BehaviorState.DrivingToDestination);
+
+			_lastMapUpdateFrame = Time.frameCount;
+
+			//SetPath(initialPath);
+			//SetState(BehaviorState.DrivingToDestination);
 		}
+		//private void SetPath(List<Lane> newPath) {
+		//	if (newPath == null || newPath.Count == 0) return;
 
+		//	_path = newPath;
+		//	_pathIndex = 0;
 
-		//--- 이동 ---
+		//	// 첫 번째 도로에 차를 올림
+		//	EnterLane(_path[0], 0f);
+
+		//	_lastMapUpdateFrame = Time.frameCount;
+		//}
+
+		//--- 루프(이동) ---
 		private void Update() {
 			if (_currentState == BehaviorState.DrivingToDestination ||
-				_currentState == BehaviorState.DrivingHome ||
-				_currentState == BehaviorState.ParkingAtDestination) {
+				_currentState == BehaviorState.DrivingHome) {
 
-				MoveAndRotate();
+				ProcessDriving();	
+				UpdateRotation();
 			}
 		}
-		private void MoveAndRotate() {
-			float step = _speed * Time.deltaTime;
-			transform.position = Vector3.MoveTowards(transform.position, _moveTargetPos, step);
+		
+		//--- 주행 로직 ---
+		private void ProcessDriving() {
+			if (_currentLane == null) return;
+			float moveStep = _maxSpeed * Time.deltaTime;
+			// if (IsVehicleAhead(moveStep)) return;	//앞차 감지용
+			_distanceAlongLane += moveStep;
 
-			Vector3 dir = (_moveTargetPos - transform.position).normalized;
-			if (dir != Vector3.zero) {
-				Quaternion targetRot = Quaternion.LookRotation(dir);
-				transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * _rotationSpeed);
-			}
+			if (_distanceAlongLane >= _currentLane.Length) {
+				// 초과한 거리만큼 다음 레인으로 넘김 (부드러운 연결)
+				float overflow = _distanceAlongLane - _currentLane.Length;
+				TryHotswapPath();
 
-			if (Vector3.SqrMagnitude(_moveTargetPos - transform.position) < _arrivalThreshold) {
-				OnWaypointReached();
-			}
-		}
-
-
-		//--- 차량의 상태 관리들 ---
-		private void OnWaypointReached() {
-			switch (_currentState) {
-				case BehaviorState.DrivingToDestination:
-					HandleDriving(isReturnTrip: false);
-					break;
-
-				case BehaviorState.DrivingHome:
-					HandleDriving(isReturnTrip: true);
-					break;
-
-				case BehaviorState.ParkingAtDestination:
-					HandleParking();
-					break;
+				// 다음 도로로 넘어가기
+				AdvanceToNextLane(overflow);
+			} else {
+				//좌표 갱신인데, 보간하는것.
+				float t = _distanceAlongLane / _currentLane.Length;
+				transform.position = Vector3.Lerp(_currentLane.StartWorldPos, _currentLane.EndWorldPos, t);
 			}
 		}
 
-		private void HandleDriving(bool isReturnTrip) { 
-			//방금 지나온 타일을 반납합니다.
-			//건물 인덱스가 아니며, 인덱스가 유효할때 (= 도로 위)
-			if (_currentPath != null && _pathIndex > 0 && _pathIndex < _currentPath.Count) {
-				RoadSystem.Instance.NotifyRelease(_currentPath[_pathIndex - 1]);
+		//--- Lane 환승 및 도착 처리.
+		private void AdvanceToNextLane(float startDistance) {
+			if (_currentLane != null) { 
+				_currentLane.UnregisterVehicle(this);
+				RoadSystem.Instance.CheckAndProcessMothballedLane(_currentLane);
 			}
-
-			if (!isReturnTrip && _returnPath == null) {
-				if (_pathIndex >= _currentPath.Count - 2) {
-					SecureReturnPath(); // 미리 계산 및 예약
-				}
-			}
-
-			//입구로 들어가는 그런게 아닌, 도로 위라면.
 			_pathIndex++;
 
-			if (_pathIndex >= _currentPath.Count) {
-				//도로 끝 -> 건물 진입
-				if (!isReturnTrip) SetState(BehaviorState.ParkingAtDestination);
-				else SetState(BehaviorState.WaitingForDestination);
-			} else {
-				//안전장치. 이동하기 전에 맵이 바뀐지 확인합시다.
-				if (!isReturnTrip && _returnPath == null) TryRepathIfMapChanged();
-				SetupMoveTargetToNextTile();
+			//도착시.
+			if(_pathIndex >= _currentPath.Count) {
+				HandleArrival();
+				return;
+			}
+			//다음 도로로.
+			EnterLane(_currentPath[_pathIndex], startDistance);
+		}
+		private	void EnterLane(Lane lane, float startDist) {
+			_currentLane = lane;
+			_distanceAlongLane = startDist; //넘어온 거리만큼 보정합니다.
+
+			//Initialize에서 이미 Register를 했으므로 여기서 중복 호출할 필요는 없지만,
+			//Hotswap 등으로 경로가 바뀌었을 수 있으므로 안전하게 한번 더 호출해도 됨 (HashSet이라 중복 X)
+			//근데 개인적으로는 안해보는게 더 나을듯...
+			//_currentLane.RegisterVehicle(this);
+		}
+
+		private void HandleArrival() {
+			_currentLane = null;
+
+			if(_currentState == BehaviorState.DrivingToDestination) {
+				SetState(BehaviorState.ParkingAtDestination);
+			} else if (_currentState == BehaviorState.DrivingHome) {
+				//ClearAllReservations();	//혹시 모를 예약 전체 해제.
+				SetState(BehaviorState.Idle);
 			}
 		}
-		private void HandleParking() {
-			// 주차 슬롯에 도착했으므로 업무 시작
-			SetState(BehaviorState.ParkedAtDestination);
-		}
-		private IEnumerator HandleWorking() {
-			if (_targetStructure is Destination dest) {
-				dest.CarArrived();
-				//차량은 계속해서 목적지로 왕복을 할 테니, 매번 new로 만들 필요 없이 캐싱합시다.
-				yield return _workDuration;
-				dest.ReleaseParkingSlot(_assignedSlotIndex);
-				SetState(BehaviorState.DrivingHome);
+		
+		//--- 도로 변경 (핫 스왑 : 주행 중 경로 변경한다는 뜻) --- ~> 원작의 방식을 따라가게끔 만들었다. 엄청 어렵당.
+		private void TryHotswapPath() {
+			if (RoadSystem.Instance.LatestMapUpdateFrame <= _lastMapUpdateFrame) return;
+
+			//끝난 도로의 끝점에서, 목적지까지 다시 검색합니다.	(현재 도로가 시작이 되는건 아닙니다!)
+			Vector2Int startNode = _currentLane.EndNode;
+			Vector2Int targetNode = (_currentState == BehaviorState.DrivingToDestination)
+									? _destination.EntranceCoordinate
+									: _home.EntranceCoordinate;
+
+			//드디어 PathFinder에게 Lane 리스트 요청합니다.
+			List<Lane> betterPath = Pathfinder.FindLanePath(startNode, targetNode);
+			if(betterPath != null) {
+				//경로를 발견했다면!
+				// 기존 경로의 남은 부분 예약 취소
+				for (int i = _pathIndex + 1; i < _currentPath.Count; i++) {
+					UnregisterLane(_currentPath[i]);
+				}
+
+				// 새 경로 예약 걸기
+				RegisterPath(betterPath);
+
+				// 경로 교체 (현재까지 온 길 + 새 길)
+				List<Lane> newFullPath = new List<Lane>();
+				for (int i = 0; i <= _pathIndex; i++) newFullPath.Add(_currentPath[i]);
+				newFullPath.AddRange(betterPath);
+
+				_currentPath = newFullPath;
+				_lastMapUpdateFrame = Time.frameCount;
 			}
 		}
 
+		//--- 상태 머신 ---
 		public void SetState(BehaviorState newState) {
 			_currentState = newState;
 
-			switch (_currentState) {
-				case BehaviorState.WaitingForDestination:   // 집에서 대기중... (집 도착)
-					OnReturnedHome();
+			switch (newState) {
+				case BehaviorState.Idle:
+					if (_home != null) _home.CarReturned(this);
 					break;
 				case BehaviorState.DrivingToDestination:
-					_pathIndex = 0;
-					SetupMoveTargetToNextTile();
+					//집에서 경로 목적지 지정해줄 때, 초기화 해주면서 경로 등록 하니 넘어갑시다.
 					break;
-				case BehaviorState.ParkingAtDestination:    //목적지에 입장,주차
-					if (_targetStructure is Destination dest) {
-						_moveTargetPos = dest.GetParkingPosition(out _assignedSlotIndex);
+				case BehaviorState.ParkingAtDestination:
+					if(_destination != null) {
+						_moveTargetPos = _destination.GetParkingPosition(out _assignedSlotIndex); // 구색 맞추기용
+						SetState(BehaviorState.Parked); // 바로 업무 시작 (또는 이동 연출 추가 가능)
 					}
 					break;
-				case BehaviorState.ParkedAtDestination:     //목적지에 도착 처리
-					StartCoroutine(HandleWorking());
+				case BehaviorState.Parked:
+					StartCoroutine(DoWork());
 					break;
-				case BehaviorState.DrivingHome:             //집으로 복귀~
-					SwapStructures();
-					if (_returnPath != null) {
-						_currentPath = _returnPath;
-						_returnPath = null; //돌아가는건 이제 지워줍니다.
+				case BehaviorState.DrivingHome:
+					if (_returnPath != null && _returnPath.Count > 0) {
+						_currentPath = _returnPath; // 경로 교체
+						_returnPath = null;         // 사용했으니 비움
 						_pathIndex = 0;
-						_lastPathfindFrame = Time.frameCount;
-						// 예약(NotifyReservation)은 이미 SecureReturnPath에서 했으므로 다시 안 합니다.
-						SetupMoveTargetToNextTile();
+
+						EnterLane(_currentPath[0], 0f);
 					} else {
-						//만약 예약된 경로가 없다면 (긴급 재탐색 필요...)
-						Debug.LogWarning("[치명적인 오류] 누락! 긴급 탐색 시도중.");
-						List<Vector2Int> emergencyPath = Pathfinder.FindPath(_startStructure.EntranceCoordinate, _targetStructure.EntranceCoordinate, true);
-						if (emergencyPath != null) {
-							SetPath(emergencyPath);
-							SetupMoveTargetToNextTile();
-						} else {
-							// 진짜 고립 (이동 불가)
-							Debug.LogWarning("[치명적인 오류] ㅋㅋ ㅈ됨. 길 없음.");
-							SetState(BehaviorState.RealigningDriveway);
-						}
+						// 이론상 발생 불가 (Initialize에서 체크했으므로)
+						Debug.LogError("CarMovement: 귀환 경로가 없습니다! (심각한 오류)");
 					}
 					break;
 			}
 		}
 
-		//--- 경로, 예약 관련. (유틸)
-		private void SetupMoveTargetToNextTile() {
-			if (_currentPath != null && _pathIndex < _currentPath.Count) {
-				Vector2Int gridPos = _currentPath[_pathIndex];
-				_moveTargetPos = new Vector3(gridPos.x + 0.5f, 0, gridPos.y + 0.5f);
+		private IEnumerator DoWork() {
+			if (_destination != null) _destination.CarArrived();
+			yield return _workDuration;
+			if (_destination != null) _destination.ReleaseParkingSlot(_assignedSlotIndex);
+			SetState(BehaviorState.DrivingHome);
+		}
+
+		//--- 유틸 ---
+		private void RegisterPath(List<Lane> path) {
+			if (path == null) return;
+			foreach (var lane in path) {
+				lane.RegisterVehicle(this); // Lane.VehiclesOnLane.Add
 			}
 		}
-		private void SecureReturnPath() {
-			if (_returnPath != null) return;    //이미 돌아갈 길이 있으면.
-
-			//Active 우선
-			_returnPath = Pathfinder.FindPath(_targetStructure.EntranceCoordinate, _startStructure.EntranceCoordinate, false);
-
-			//없으면 삭제 대기 도로 포함 (고립 방지)
-			if (_returnPath == null) {
-				_returnPath = Pathfinder.FindPath(_targetStructure.EntranceCoordinate, _startStructure.EntranceCoordinate, true);
-			}
-
-			//[핵심] 찾은 즉시 예약 (Overlap)...
-			//현재 타고 있는 도로의 예약이 풀리기 전에, 돌아갈 길의 예약을 먼저 건다.
-			if (_returnPath != null) {
-				foreach (var tile in _returnPath) {
-					RoadSystem.Instance.NotifyReservation(tile);
-				}
+		private void UnregisterLane(Lane lane) {
+			if (lane != null) {
+				lane.UnregisterVehicle(this); // Lane.VehiclesOnLane.Remove
+											  // 예약자가 0명이 되면 RoadSystem에게 "나 지워도 돼"라고 알림
+				RoadSystem.Instance.CheckAndProcessMothballedLane(lane);
 			}
 		}
-		private void SetPath(List<Vector2Int> newPath) {
-			_currentPath = newPath;
-			_pathIndex = 0;
-			_lastPathfindFrame = Time.frameCount;
-
+		private void ClearAllReservations() {
 			if (_currentPath != null) {
-				foreach (var tile in _currentPath) {
-					RoadSystem.Instance.NotifyReservation(tile);
-				}
-			}
-
-			SetupMoveTargetToNextTile();
-		}
-		private void TryRepathIfMapChanged() {
-			if (RoadSystem.Instance.LatestMapUpdateFrame <= _lastPathfindFrame) return;
-
-			Vector2Int currentPos = _currentPath[_pathIndex];
-			Vector2Int targetPos = (_currentState == BehaviorState.DrivingToDestination)
-								   ? _targetStructure.EntranceCoordinate
-								   : _startStructure.EntranceCoordinate;
-
-			List<Vector2Int> newSuffixPath = Pathfinder.FindPath(currentPos, targetPos, allowMothballed: false);
-			if (newSuffixPath != null) {
-				ReleaseFutureReservations();
-				_currentPath = newSuffixPath;
-				_pathIndex = 0;
-				_lastPathfindFrame = Time.frameCount;
-				for (int i = 1; i < _currentPath.Count; i++) {
-					RoadSystem.Instance.NotifyReservation(_currentPath[i]);
-				}
-			} else {
-				_lastPathfindFrame = Time.frameCount;
-			}
-		}
-
-		private void ReleaseAllReservations() {
-			if (_currentPath != null) {
-				for (int i = _pathIndex; i < _currentPath.Count; i++) {
-					RoadSystem.Instance.NotifyRelease(_currentPath[i]);
-				}
+				foreach (var l in _currentPath) UnregisterLane(l);
 			}
 			if (_returnPath != null) {
-				foreach (var tile in _returnPath) {
-					RoadSystem.Instance.NotifyRelease(tile);
-				}
+				foreach (var l in _returnPath) UnregisterLane(l);
 			}
 		}
-		private void ReleaseFutureReservations() {
-			if (_currentPath != null) {
-				for (int i = _pathIndex + 1; i < _currentPath.Count; i++) {
-					RoadSystem.Instance.NotifyRelease(_currentPath[i]);
-				}
+		private void UpdateRotation() {
+			if (_currentLane == null) return;
+
+			Vector3 direction = (_currentLane.EndWorldPos - _currentLane.StartWorldPos).normalized;
+			if (direction != Vector3.zero) {
+				Quaternion targetRot = Quaternion.LookRotation(direction);
+				transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * _rotationSpeed);
 			}
 		}
 
-		//--- 상태 관련 (유틸) ---
-		private void OnReturnedHome() {
-			ReleaseAllReservations();
-			if (OwnerHouse != null) OwnerHouse.CarReturned(this);
-			else Destroy(gameObject);
-		}
-		private void SwapStructures() {
-			//var로 받는 이유. -> 그냥!
-			var temp = _startStructure;
-			_startStructure = _targetStructure;
-			_targetStructure = temp;
-		}
+		// 이동용 임시 변수 (주차장 등 Lane이 아닌 곳에서의 이동을 위해 남겨둠)
+		private Vector3 _moveTargetPos;
 	}
 }

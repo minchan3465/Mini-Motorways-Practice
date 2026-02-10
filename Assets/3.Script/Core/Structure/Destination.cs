@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Core.Systems.Structure {
+namespace Core.Structure {
 	using Core.Data;
 	using Core.Utils;
+	using Core.Systems;
 
 	public class Destination : StructureBase {
 		[Header("Destination Settings")]
