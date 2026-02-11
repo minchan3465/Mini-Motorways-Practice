@@ -13,25 +13,33 @@ namespace Core.Data {
         Restricted = 99 //건설 불가 구역 (No-build zone)
     }
 
-    [Flags]
-    public enum RoadDirection : byte {
-        None = 0,
-        North = 1 << 0, // 1
-        East  = 1 << 1, // 2
-        South = 1 << 2, // 4
-        West  = 1 << 3, // 8
+    [Serializable]
+    public class CellData {
+        public Vector2Int Coordinate;   //좌표
+        public TileLogicType Type;
 
-        NorthEast = 1 << 4, // 16
-        SouthEast = 1 << 5, // 32
-        SouthWest = 1 << 6, // 64
-        NorthWest = 1 << 7,  // 128
+        //가중치 (건물 스폰용)
+        public float HouseWeight;
+        public float DestinationWeight;
 
-        Cardinals = North | East | South | West,                    //십자 방향 전체
-        Diagonals = NorthEast | SouthEast | SouthWest | NorthWest,  //대각선 전체
-        All = Cardinals | Diagonals                                 //전체
+        //--- 생성자 ---
+        public CellData(Vector2Int coord) {
+            Coordinate = coord;
+            Type = TileLogicType.Empty;
+            HouseWeight = 0f;
+            DestinationWeight = 0f;
+        }
+
+        //--- 유틸 ---
+        //건물이 들어설 수 있는 땅인가?
+        public bool IsBuildable => Type == TileLogicType.Empty;
+
+        // 도로를 깔 수 있는 땅인가? (빈 땅이거나, 이미 도로거나, 입구거나)
+        public bool IsRoadBuildable => Type == TileLogicType.Empty || Type == TileLogicType.Road || Type == TileLogicType.Entrance;
     }
-
-    /* 비트마스크를 사용한 것에 대한 고찰
+}
+ 
+/* 비트마스크를 사용한 것에 대한 고찰 (현재 도로 시스템 개편으로, 사용하지 않음.)
     - 왜 비트마스크로 쓰냐?
     단순히 North가 활성화를 bool값으로 체크를 하는 방식은 메모리 자리를 몇개씩 만드는것이다.
     이는 접근할때마다 해당 주소값으로 이동하여 체크하기 때문에, 이 방식보다 정말 미세하게나마라도 느리다.
@@ -47,27 +55,3 @@ namespace Core.Data {
     
     따라서 이 방법을 채택해본듯.
     */
-    [Serializable]
-    public class CellData {
-        public Vector2Int Coordinate;   //좌표
-        public TileLogicType Type;
-
-        //가중치 (건물 스폰용)
-        public float HouseWeight;
-        public float DestinationWeight;      
-
-        public RoadDirection ConnectionMask;    //나중에 도로 연결했을 때, 정보를 위한 비트마스크 (8방향)
-		
-        //--- 메서드 ---
-        public bool HasConnection(RoadDirection dir) { return (ConnectionMask & dir) != 0; }
-      
-        public bool IsDriveable => Type == TileLogicType.Road || Type == TileLogicType.Entrance;
-
-        //--- 생성자 ---
-        public CellData(Vector2Int coord) {
-            Coordinate = coord;
-            Type = TileLogicType.Empty;
-            ConnectionMask = RoadDirection.None;
-		}
-    }
-}

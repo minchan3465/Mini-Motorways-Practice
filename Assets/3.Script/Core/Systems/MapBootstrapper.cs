@@ -35,10 +35,8 @@ namespace Core.Systems {
 
 			_terrainLayer.CompressBounds();    //타일맵 원점 보정. (Tilemap은 0,0 좌표가 중앙일 수 있음)
 			BoundsInt bounds = _terrainLayer.cellBounds;   //현재 맵의 크기 저장.
-
 			//Debug.Log($"<color=cyan>[MapBootstrapper]</color> Starting Extraction... Bounds: {bounds}");
 
-			//int processedCount = 0;
 
 			// 2. 타일맵 순회 (Extraction Loop)
 			//전에 테스트하면서 적었던건데 왜 날렸을까...

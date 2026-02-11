@@ -68,12 +68,6 @@ namespace Core.Systems {
             }
             Gizmos.DrawLine(s, e);
 
-            // 2. 차량 유무 표시 (초록 구체)
-            if (!lane.IsEmpty) {
-                Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(Vector3.Lerp(s, e, 0.5f), 0.2f);
-            }
-
             // [추가] 3. 예약된 차량 수 텍스트 표시 (Editor 전용)
 #if UNITY_EDITOR
             int count = lane.VehiclesOnLane.Count;
