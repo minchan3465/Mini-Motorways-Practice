@@ -29,7 +29,7 @@ namespace Motorways.Models {
 		public float ParkingDuration = 2.0f; // 업무 시간
 
 		public Vehicle() {
-			Id = _nextId;
+			Id = _nextId++;
 		}
 
 		public Lane GetCurrentLane() {

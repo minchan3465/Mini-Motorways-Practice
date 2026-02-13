@@ -18,8 +18,8 @@ namespace Motorways.Actions {
 		[SerializeField, Range(0.5f, 2.0f)] private float _connectionDistanceThreshold = 0.8f;
 
 		private PlayerInput _input;
-		private Vector2 _mouseScreenPos;
 		private Plane _groundPlane;
+		private Vector2 _mouseScreenPos;
 
 		//마우스가 가리키고 있는 그리드 좌표
 		public Vector2Int CurrentGridPointer { get; private set; }
@@ -27,11 +27,11 @@ namespace Motorways.Actions {
 
 		private bool _isDraggingBuild = false;
 		private bool _isDraggingRemove = false;
-
-		private Vector2Int _lastGridPointer;    // 마지막으로 도로가 깔린 타일 좌표
-		private Vector2Int _startDragPointer;   // 드래그 시작 타일 좌표
-		private Vector3 _clickOriginWorldPos;   // 최초 클릭한 월드 좌표 (Deadzone 체크용)
 		private bool _hasPassedDeadzone = false; // 데드존을 넘었는지 여부
+
+		private Vector3 _clickOriginWorldPos;   // 최초 클릭한 월드 좌표 (Deadzone 체크용)
+		private Vector2Int _lastGridPointer;    // 마지막으로 도로가 깔린 타일 좌표
+		//private Vector2Int _startDragPointer;   // 드래그 시작 타일 좌표
 
 		//집 회전 조작용
 		//private House _dragStartHouse = null;
@@ -79,10 +79,11 @@ namespace Motorways.Actions {
 			_hasPassedDeadzone = false;
 
 			_lastGridPointer = CurrentGridPointer; // 현재 위치 기억
-			_startDragPointer = CurrentGridPointer; // 시작점 기억
+			//_startDragPointer = CurrentGridPointer; // 시작점 기억
 			_clickOriginWorldPos = GetWorldPositionFromMouse();
 
-			if (MapManager._grid.TryGetValue(CurrentGridPointer, out TileData cell)) {
+			if (MapManager.Instance._grid.TryGetValue(CurrentGridPointer, out TileData cell)) {
+				//차후 집에 업데이트를 하는 내용.
 				//if (cell.Type.Equals(TileLogicType.house)) {
 				//	_dragStartHouse = StructureManager.Instance.GetHouseAt(CurrentGridPointer);
 				//	return;
@@ -91,7 +92,6 @@ namespace Motorways.Actions {
 
 			//if (RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
 			//else _isDraggingBuild = false;
-
 		}
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
 			if (_isDraggingBuild) {
@@ -112,13 +112,11 @@ namespace Motorways.Actions {
 
 		//---------- 삭제(우클릭)
 		private void OnRemoveStarted(InputAction.CallbackContext context) {
-			if (_isDraggingBuild) return;
+			if (!IsPointerValid || _isDraggingBuild) return;
 			_isDraggingRemove = true;
+			_lastGridPointer = CurrentGridPointer;
 
-			if (IsPointerValid) {
-				//RoadNetworkManager.Instance.RemoveRoad(CurrentGridPointer); 여기 수정!!
-				_lastGridPointer = CurrentGridPointer;
-			}
+			RoadNetworkManager.Instance.TryRemoveRoad(CurrentGridPointer);
 		}
 		private void OnRemoveCanceled(InputAction.CallbackContext context) {
 			_isDraggingRemove = false;
@@ -127,9 +125,9 @@ namespace Motorways.Actions {
 		//---------- 조작(마우스 이동)
 		private void OnCursorMove(InputAction.CallbackContext context) {
 			_mouseScreenPos = context.ReadValue<Vector2>();
-			//기존 포인터 갱신
-			UpdateSimpleGridPointer();
 
+			//기존 포인터 갱신
+			UpdateGridPointer();
 			if (!IsPointerValid) return;
 
 			if (_isDraggingBuild) {
@@ -156,13 +154,12 @@ namespace Motorways.Actions {
 					//if (_dragStartHouse != null) {
 					//	ProcessHouseRotationAndBuild(currentMouseWorldPos);
 					//} else {
-					//	ProcessDirectionalBuild(currentMouseWorldPos);
 					//}
-
+					ProcessBuildDrag(currentMouseWorldPos);
 				}
 			} else if (_isDraggingRemove) { //삭제
 				if (CurrentGridPointer != _lastGridPointer) {
-					//RoadNetworkManager.Instance.RemoveRoad(CurrentGridPointer);	//여기 수정
+					RoadNetworkManager.Instance.TryRemoveRoad(CurrentGridPointer);
 					_lastGridPointer = CurrentGridPointer;
 				}
 			}
@@ -170,9 +167,9 @@ namespace Motorways.Actions {
 
 
 		//---------- 건설(판정) => 코어 메카닉.
-		private void ProcessDirectionalBuild(Vector3 mousePos) {
+		private void ProcessBuildDrag(Vector3 mousePos) {
 			//혹시 모를 예외처리.
-			//if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
+			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
 
 			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
 			Vector3 diff = mousePos - lastTileCenter;
@@ -189,9 +186,9 @@ namespace Motorways.Actions {
 				Vector2Int offset = CalculateSnappedDirection(diff);
 				Vector2Int candidatePos = _lastGridPointer + offset;
 				if (Vector2Int.Distance(_lastGridPointer, candidatePos) <= 1.5f) {
-					//RoadSystem.Instance.ConnectRoads(_lastGridPointer, candidatePos); //여기 수정
-					_lastGridPointer = candidatePos;
+					RoadNetworkManager.Instance.TryBuildRoad(_lastGridPointer, candidatePos);
 				}
+				_lastGridPointer = candidatePos;
 			}
 		}
 
@@ -218,7 +215,7 @@ namespace Motorways.Actions {
 		//}
 
 		//---------- 유틸
-		private void UpdateSimpleGridPointer() {
+		private void UpdateGridPointer() {
 			//마우스 좌표(그리드) 갱신
 			Vector3 hitPoint = GetWorldPositionFromMouse();
 			if (IsPointerValid) {

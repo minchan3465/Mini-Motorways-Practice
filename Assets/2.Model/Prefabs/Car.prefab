@@ -121,11 +121,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7721859640558740536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd65f1eab84f734d995dd6fb11359df, type: 3}
+  m_Script: {fileID: 11500000, guid: b5287c2dba3af9147bc08884c6de0523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Systems.CarMovement
-  _speed: 2
-  _rotationSpeed: 25
-  _arrivalThreshold: 0.001
-  _currentState: 0
-  OwnerHouse: {fileID: 0}
+  State: 0
+  CurrentPath: []
+  ReturnPath: []
+  CurrentLaneIndex: 0
+  DistanceAlongLane: 0
+  CurrentSpeed: 0
+  MaxSpeed: 5
+  ParkingTimer: 0
+  ParkingDuration: 2

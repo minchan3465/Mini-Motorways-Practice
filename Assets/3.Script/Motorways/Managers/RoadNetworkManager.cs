@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Managers {
-	using Motorways.Utils;
 	public class RoadNetworkManager : MonoBehaviour {
 		public static RoadNetworkManager Instance;
 
@@ -46,12 +45,14 @@ namespace Motorways.Managers {
 
 			//도로 연결 되었음.
 		}
-		public void TryRemoveRoad(Vector2Int from, Vector2Int to) {
-			Lane lane = GetLane(from, to);
-			Lane opposite = GetLane(to, from);
+		public void TryRemoveRoad(Vector2Int targetTile) {
+			List<Lane> connectedLanes = AllLanes.FindAll(lane => lane.StartNode == targetTile || lane.EndNode == targetTile);
 
-			if (lane != null) ScheduleLaneRemoval(lane);
-			if (opposite != null) ScheduleLaneRemoval(opposite);
+			if (connectedLanes.Count == 0) return;
+
+			foreach (Lane lane in connectedLanes) {
+				SetLaneToMothballed(lane);
+			}
 		}
 
 		//---내부 로직---
@@ -59,24 +60,11 @@ namespace Motorways.Managers {
 			Lane newLane = new Lane(start, end);
 			AllLanes.Add(newLane);
 
-			LinkGraphConnections(newLane);  //그래프 연결.
-			MapManager.Instance.ConnectLanesOnMap(newLane);
-		}
-		private void LinkLaneToNetwork(Lane newLane) {
-			//새 도로의 시작점으로 끝나는 기존 도로들을 찾아서, 새 도로를 연결.
-			//A -> B 도로 생겼을 때, ?-A로 끝나는 도로들에게 이제 B로도 갈 수 있다고 알려줘야합니다.
-			foreach (var lane in AllLanes) {
-				if (lane == newLane) continue;
-				if (lane.EndNode == newLane.StartNode) {
-					if (!lane.OutboundLanes.Contains(newLane)) {
-						lane.OutboundLanes.Add(newLane);
-					}
-				}
-			}
+			MapManager.Instance.ConnectLaneToMap(newLane);
 		}
 
 		//---삭제 프로세스---
-		private void ScheduleLaneRemoval(Lane lane) {
+		private void SetLaneToMothballed(Lane lane) {
 			if (lane.State == RoadState.Mothballed) return;
 
 			lane.State = RoadState.Mothballed;
@@ -112,16 +100,15 @@ namespace Motorways.Managers {
 		private void FinalizeLaneRemoval(Lane lane) {
 			AllLanes.Remove(lane);
 
-			//연결 끊기. (다른 도로들의 참조 해제
-			foreach (var existing in AllLanes) {
-				existing.OutboundLanes.Remove(lane);
-			}
-
-			//맵 데이터도 갱신.
-			MapManager.Instance.DisconnectLanesOnMap(lane);
+			//맵 데이터 갱신.
+			MapManager.Instance.DisconnectLaneFromMap(lane);
 
 			//도로 자원 반환 추가.
-			ResourceManager.Instance.AddResource(ItemType.Road, 1);
+			bool isCanonical = (lane.StartNode.x < lane.EndNode.x) ||
+							   (lane.StartNode.x == lane.EndNode.x && lane.StartNode.y < lane.EndNode.y);
+
+			if (isCanonical) ResourceManager.Instance.AddResource(ItemType.Road, 1);
+
 		}
 		private Lane GetLane(Vector2Int start, Vector2Int end) {
 			return AllLanes.Find(l => l.StartNode == start && l.EndNode == end);

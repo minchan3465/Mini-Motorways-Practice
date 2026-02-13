@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Motorways {
+namespace Motorways.Managers {
 
 	public class MapBootstrapper : MonoBehaviour {
 		[Header("Layers (Visual DB)")]
@@ -18,7 +18,7 @@ namespace Motorways {
 
 		//TODO : 건물 밀도의 수치도 입력된 레이어도 추가해야함.
 
-		private void Awake() {
+		private void Start() {
 			if (_terrainLayer == null) return;
 			ExtractDataFromTilemap();
 		}
@@ -67,7 +67,7 @@ namespace Motorways {
 					tile.type = TileLogicType.Empty;
 				}
 
-				MapManager._grid.Add(gridCoord, tile);
+				MapManager.Instance._grid.Add(gridCoord, tile);
 			}
 
 			//위에서 지형에 대한 정보를 다 해줬으니, 이제 스폰 위치에 대한 가중치를 계산합시다.
@@ -89,7 +89,7 @@ namespace Motorways {
 				if (!layer.HasTile(localPos)) continue;
 				Vector2Int gridCoord = new Vector2Int(pos.x, pos.y);
 
-				if (MapManager._grid.TryGetValue(gridCoord, out TileData cell)) {
+				if (MapManager.Instance._grid.TryGetValue(gridCoord, out TileData cell)) {
 					float alpha = layer.GetColor(localPos).a;
 
 					if (isHouse) cell.WeightHouseSpawn = alpha;

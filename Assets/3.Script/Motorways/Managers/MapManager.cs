@@ -8,25 +8,16 @@ namespace Motorways {
 	public class MapManager : MonoBehaviour {
 		public static MapManager Instance;
 
-		public static Dictionary<Vector2Int, TileData> _grid { get; set; }
-		private Dictionary<Vector2Int, RoadTile> _roadGraph = new Dictionary<Vector2Int, RoadTile>();
-		public Dictionary<Vector2Int, RoadTile> RoadGraph => _roadGraph;
+		public Dictionary<Vector2Int, TileData> _grid =  new Dictionary<Vector2Int, TileData>();
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
-
-			_grid = new Dictionary<Vector2Int, TileData>();
 		}
 
 		//--- 조회 ---
 		public TileData GetTileData(Vector2Int coord) {
 			_grid.TryGetValue(coord, out TileData tile);
-			return tile;
-		}
-
-		public RoadTile GetRoadTile(Vector2Int coord) {
-			_roadGraph.TryGetValue(coord, out RoadTile tile);
 			return tile;
 		}
 
@@ -36,27 +27,20 @@ namespace Motorways {
 		}
 
 		//---도로 연결 데이터 동기화---
-		public void ConnectLanesOnMap(Lane lane) {
-			if(!_roadGraph.TryGetValue(lane.StartNode, out RoadTile startTile)) {
-				startTile = new RoadTile(lane.StartNode);
-				UpdateTileVisualData(lane.StartNode, lane.EndNode, RoadState.Active);
+		public void ConnectLaneToMap(Lane lane) {
+			//시작점 타일을 찾아서, 해당 방향에 도로가 생겼다고 알림.
+			if(_grid.TryGetValue(lane.StartNode, out TileData tile)) {
+				//방향 계산.
+				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
+				tile.ConnectLane(dir, lane);
 			}
-			startTile.AddLane(lane);
-			UpdateTileVisualData(lane.StartNode, lane.EndNode, RoadState.Active);
 		}
-		public void DisconnectLanesOnMap(Lane lane) {
-			if (_roadGraph.TryGetValue(lane.StartNode, out RoadTile startTile)) {
-				startTile.RemoveLane(lane);
-			}
-			UpdateTileVisualData(lane.StartNode, lane.EndNode, RoadState.None);
-		}
+		public void DisconnectLaneFromMap(Lane lane) {
+			if (_grid.TryGetValue(lane.StartNode, out TileData tile)) {
+				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
 
-		private void UpdateTileVisualData(Vector2Int center, Vector2Int target, RoadState state) {
-			if (_grid.TryGetValue(center, out TileData tile)) {
-				TileDirection dir = TileUtils.GetDirection(center, target);
-				tile.SetRoadState(dir, state);
-
-				// TODO: 여기서 나중에 RoadVisualizer.UpdateMesh(coord) 등을 호출하면 됨
+				// 타일에게 연결 해제 지시 (TileData 내부에서 null 처리 + RoadState None 처리)
+				tile.DisconnectLane(dir);
 			}
 		}
 

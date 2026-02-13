@@ -4,12 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 namespace Motorways.Navigation {
-
 	public static class Pathfinder {
 		private class Node {
 			public Vector2Int Coord;
 			public Node Parent;
-			public Lane ConnectionLane; //이 노드로 오기 위해 통과한 도로. (이전 노드)
+			public Lane ConnectionLane; //이 노드로 오기 위해 타고 온 도로
 
 			public float G; //시작점에서 지금까지의 비용
 			public float H; //목적지까지의 예상 비용 (Heuristic)
@@ -24,7 +23,9 @@ namespace Motorways.Navigation {
 			}
 		}
 
-		public static List<Lane> FindPath(Vector2Int start, Vector2Int target, Dictionary<Vector2Int, RoadTile> grid) {
+		public static List<Lane> FindPath(Vector2Int start, Vector2Int target) {
+			var grid = MapManager.Instance._grid;
+
 			if (start == target) return new List<Lane>();
 			if (!grid.ContainsKey(start) || !grid.ContainsKey(target)) return null;
 
@@ -36,7 +37,7 @@ namespace Motorways.Navigation {
 			openSet.Add(new Node(start, null, null, 0, Vector2Int.Distance(start, target)));
 
 			while (openSet.Count > 0) {
-				//F비용이 가장 낮은 노드 선택.
+				// F값이 가장 낮은 노드 선택 (최적화: 힙/우선순위 큐 사용 가능)
 				Node current = openSet.OrderBy(n => n.F).First();
 
 				if (current.Coord == target) {
@@ -52,9 +53,11 @@ namespace Motorways.Navigation {
 				}
 
 				//아니라면 인접 타일 탐색합니다.
-				if (!grid.TryGetValue(current.Coord, out RoadTile currentTile)) continue;
+				if (!grid.TryGetValue(current.Coord, out TileData currentTile)) continue;
 
-				foreach(Lane outboundLane in currentTile.Lanes) {
+				foreach (Lane outboundLane in currentTile.Lanes) {
+					if (outboundLane == null) continue;
+
 					Vector2Int neighborCoord = outboundLane.EndNode;
 
 					if (closedSet.Contains(neighborCoord)) continue;
@@ -66,7 +69,7 @@ namespace Motorways.Navigation {
 					Node neighborInOpen = openSet.Find(n => n.Coord == neighborCoord);
 
 					if(neighborInOpen == null || newG < neighborInOpen.G) {
-						float h = Vector2.Distance(neighborCoord, target);
+						float h = Vector2.Distance(neighborCoord, target);	//맨해튼 거리 or 유클리드.
 						
 						if(neighborInOpen == null) {
 							openSet.Add(new Node(neighborCoord, current, outboundLane, newG, h));
@@ -94,8 +97,6 @@ namespace Motorways.Navigation {
 			path.Reverse();
 			return path;
 		}
-
-
 	}
 }
 		/* Lane으로 계산 (old)

@@ -8,7 +8,7 @@ namespace Motorways.Process {
 	public class VehicleMovementProcess : MonoBehaviour {
 		public static VehicleMovementProcess Instance;
 
-		private List<Vehicle> _activeVehicle = new List<Vehicle>();	//움직이는 차량 모음.
+		public List<Vehicle> _activeVehicle = new List<Vehicle>();	//움직이는 차량 모음.
 		private Dictionary<int, Vehicle> _vehicleMap = new Dictionary<int, Vehicle>();	//Vehicle ID로 빠르게 찾기.
 
 		private void Awake() {
@@ -54,6 +54,9 @@ namespace Motorways.Process {
 			
 			v.CurrentSpeed = v.MaxSpeed;
 			float moveStep = v.CurrentSpeed * deltaTime;
+
+			v.DistanceAlongLane += moveStep;
+			UpdateVisualPosition(v, lane);
 
 			if(v.DistanceAlongLane >= lane.Length) {
 				float overflow = v.DistanceAlongLane - lane.Length;
@@ -113,7 +116,10 @@ namespace Motorways.Process {
 			Vector3 startPos = new Vector3(lane.StartNode.x, 0, lane.StartNode.y);
 			Vector3 endPos = new Vector3(lane.EndNode.x, 0, lane.EndNode.y);
 
-			//여기서 차량 오브젝트가 Transform을 옮겨줍니다. (실제로는 Visual 클래스가 담당)
+			v.transform.position = Vector3.Lerp(startPos, endPos, t);
+			if (startPos != endPos) {
+				v.transform.rotation = Quaternion.LookRotation(endPos - startPos);
+			}
 		}
 	}
 }

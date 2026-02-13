@@ -30,7 +30,6 @@ namespace Motorways {
 
 		public List<int> VehiclesOnLane = new List<int>();			//도로 위 차량
 		public HashSet<int> InboundVehicles = new HashSet<int>();   //도로에 오겠다는 차량
-		public List<Lane> OutboundLanes = new List<Lane>();
 
 		public float Length;    //Cost 계산용
 		public float BaseCost => Length;
