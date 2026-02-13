@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // New Input System 사용
 using System.Collections.Generic;
 
 namespace Motorways.DebugTools {
@@ -10,77 +11,95 @@ namespace Motorways.DebugTools {
 
     public class VehicleTestSpawner : MonoBehaviour {
         [Header("Settings")]
-        public GameObject VehiclePrefab; // 차량 프리팹 (없으면 Sphere라도 넣으세요)
-        public InteractionController InputController; // 마우스 좌표 얻기용
+        public GameObject VehiclePrefab;
+        public InteractionController InputController;
+
+        // 시작점 상태 저장을 위한 변수
+        private bool _hasStartPos = false;
+        private Vector2Int _savedStartPos;
 
         private void Update() {
-            // K키를 누르면 테스트 차량 소환
-            if (UnityEngine.Input.GetKeyDown(KeyCode.K)) {
-                SpawnTestVehicle();
+            // New Input System을 이용한 K키 입력 처리
+            if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame) {
+                HandleInput();
             }
         }
 
-        private void SpawnTestVehicle() {
+        private void HandleInput() {
             if (InputController == null || !InputController.IsPointerValid) return;
 
-            Vector2Int spawnPos = InputController.CurrentGridPointer;
-            TileData startTile = MapManager.Instance.GetTileData(spawnPos);
+            Vector2Int currentPos = InputController.CurrentGridPointer;
+            TileData tile = MapManager.Instance.GetTileData(currentPos);
 
             // 1. 해당 타일에 도로가 있는지 확인
-            if (startTile == null) return;
+            if (tile == null) return;
 
-            // 아무 연결된 도로 하나 찾기
-            Lane startLane = null;
-            foreach (var lane in startTile.Lanes) {
-                if (lane != null) {
-                    startLane = lane;
-                    break;
+            bool hasRoad = false;
+            if (tile.Lanes != null) {
+                foreach (var lane in tile.Lanes) {
+                    if (lane != null) {
+                        hasRoad = true;
+                        break;
+                    }
                 }
             }
 
-            if (startLane == null) {
-                Debug.Log("여기엔 도로가 없어서 차를 못 뽑습니다.");
+            if (!hasRoad) {
+                Debug.LogWarning($"({currentPos}) 위치에는 도로가 없습니다.");
                 return;
             }
 
-            // 2. 목적지 찾기 (그냥 랜덤한 다른 도로 타일)
-            // (실제 게임에선 집->회사겠지만, 지금은 테스트니까)
-            Vector2Int targetPos = spawnPos + new Vector2Int(3, 0); // 동쪽으로 3칸 떨어진 곳 가정
-            if (MapManager.Instance.GetTileData(targetPos) == null) {
-                Debug.Log("목적지가 유효하지 않아 임시로 (0,0)을 목적지로 잡습니다.");
-                targetPos = new Vector2Int(0, 0);
-            }
-
-            // 3. 경로 탐색
-            List<Lane> path = Pathfinder.FindPath(spawnPos, targetPos);
-            if (path == null || path.Count == 0) {
-                Debug.Log("길을 찾을 수 없습니다!");
-                return;
-            }
-
-            // 4. 차량 생성 및 설정
-            GameObject go = null;
-            if (VehiclePrefab != null) {
-                go = Instantiate(VehiclePrefab);
+            // 2. 입력 상태에 따른 분기 처리 (시작점 지정 -> 목적지 지정)
+            if (!_hasStartPos) {
+                // 첫 번째 K키 입력: 시작점 저장
+                _savedStartPos = currentPos;
+                _hasStartPos = true;
+                Debug.Log($"[1/2] 시작점 설정됨: {_savedStartPos}. 이제 목적지에서 K를 누르세요.");
             } else {
-                go = GameObject.CreatePrimitive(PrimitiveType.Sphere); // 프리팹 없으면 공 생성
-                go.transform.localScale = Vector3.one * 0.5f;
+                // 두 번째 K키 입력: 목적지 설정 및 생성
+                if (currentPos == _savedStartPos) {
+                    Debug.LogWarning("시작점과 목적지가 같습니다. 다른 곳을 찍어주세요.");
+                    return;
+                }
+
+                SpawnTestVehicle(_savedStartPos, currentPos);
+
+                // 다음 테스트를 위해 상태 초기화
+                _hasStartPos = false;
+            }
+        }
+
+        private void SpawnTestVehicle(Vector2Int startPos, Vector2Int targetPos) {
+            // 3. 차량 생성 및 설정
+            GameObject go;
+            if (VehiclePrefab != null) go = Instantiate(VehiclePrefab);
+            else {
+                go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                go.transform.localScale = Vector3.one * 0.3f;
             }
 
-            Vehicle newVehicle = go.AddComponent<Vehicle>(); // 또는 이미 붙어있다면 GetComponent
-            if (newVehicle == null) newVehicle = go.GetComponent<Vehicle>();
+            // 위치 초기화 (기존 코드의 targetPos.y 오타를 startPos.y로 수정)
+            go.transform.position = new Vector3(startPos.x + 0.5f, 0, startPos.y + 0.5f);
 
-            // 초기 위치 설정
-            go.transform.position = new Vector3(spawnPos.x, 0, spawnPos.y);
+            Vehicle newVehicle = go.GetComponent<Vehicle>();
+            if (newVehicle == null) newVehicle = go.AddComponent<Vehicle>();
 
-            // 매니저 등록
+            // 4. 매니저 등록 및 배차 (좌표만 넘김)
+            // 길찾기는 VehiclePathfindingProcess가 VehicleState.Ready 상태를 감지하여 알아서 수행합니다.
             VehicleMovementProcess.Instance.RegisterVehicle(newVehicle);
+            newVehicle.Dispatch(startPos, targetPos);
 
-            // 출발!
-            // (집으로 돌아오는 경로는 일단 비워둠)
-            newVehicle.Dispatch(path, new List<Lane>());
+            Debug.Log($"[2/2] 차량 {newVehicle.Id} 배치 완료! ({startPos} -> {targetPos}) 경로 탐색 시스템이 연산을 시작합니다.");
+        }
 
-            Debug.Log($"차량 {newVehicle.Id} 생성 완료! 출발합니다.");
+        // 선택된 시작점을 Scene View에서 시각적으로 확인하기 위한 Gizmo
+        private void OnDrawGizmos() {
+            if (_hasStartPos) {
+                Gizmos.color = Color.green;
+                Vector3 pos = new Vector3(_savedStartPos.x + 0.5f, 0.5f, _savedStartPos.y + 0.5f);
+                Gizmos.DrawWireSphere(pos, 0.4f);
+                Gizmos.DrawLine(pos, pos + Vector3.up * 2);
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Managers {
+	using Motorways.Models;
+
 	public class RoadNetworkManager : MonoBehaviour {
 		public static RoadNetworkManager Instance;
 
@@ -17,7 +19,6 @@ namespace Motorways.Managers {
 		private void Update() {
 			ProcessMothballedLanes();
 		}
-
 
 		//--- 외부 연결 로직 ---
 		public void TryBuildRoad(Vector2Int from, Vector2Int to) {
@@ -61,6 +62,8 @@ namespace Motorways.Managers {
 			AllLanes.Add(newLane);
 
 			MapManager.Instance.ConnectLaneToMap(newLane);
+			CityModel.LatestLaneChangeFrame = Time.frameCount;
+			CityModel.ChangedLanes.Add(newLane);
 		}
 
 		//---삭제 프로세스---
@@ -70,12 +73,17 @@ namespace Motorways.Managers {
 			lane.State = RoadState.Mothballed;
 			_mothballedLanes.Add(lane);
 
+			CityModel.LatestLaneChangeFrame = Time.frameCount;
+			CityModel.ChangedLanes.Add(lane);
 			//TODO : 시각적으로 삭제 대기 상태 표시가 필요할 때, 여기서 해줍니다!!
 		}
 		private void RestoreMothballedLane(Lane lane) {
 			if (lane.State == RoadState.Mothballed) {
 				lane.State = RoadState.Active;
 				_mothballedLanes.Remove(lane);
+
+				CityModel.LatestLaneChangeFrame = Time.frameCount;
+				CityModel.ChangedLanes.Add(lane);
 			}
 
 			//여기도 위와 동일.
@@ -97,6 +105,7 @@ namespace Motorways.Managers {
 			}
 		}
 
+		//---진짜 삭제---
 		private void FinalizeLaneRemoval(Lane lane) {
 			AllLanes.Remove(lane);
 
