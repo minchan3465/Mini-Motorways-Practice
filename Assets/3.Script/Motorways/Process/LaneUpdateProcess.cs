@@ -21,11 +21,16 @@ namespace Motorways.Process {
 			foreach(Vehicle v in allVehicles) {
 				bool isAffected = false;
 
-
 				//경로 교차 여부를 검사합니다.
 				if(v.CurrentPath != null) {
-					foreach (Lane laneInPath in v.CurrentPath) {
-						if (CityModel.ChangedLanes.Contains(laneInPath) || laneInPath.State == RoadState.Mothballed) {
+					foreach (Lane lane in v.CurrentPath) {
+						//if (CityModel.ChangedLanes.Contains(laneInPath) || laneInPath.State == RoadState.Mothballed) {
+						//	isAffected = true;
+						//	break;
+						//}
+						if (CityModel.ChangedNodes.Contains(lane.StartNode) ||
+							CityModel.ChangedNodes.Contains(lane.EndNode) ||
+							lane.State == RoadState.Mothballed) {
 							isAffected = true;
 							break;
 						}
@@ -34,12 +39,18 @@ namespace Motorways.Process {
 
 				//복귀 경로도 검사합니다. 아직 영향을 안받은 차량일수도 있으니.
 				if(!isAffected && v.ReturnPath != null) {
-					foreach(Lane laneInPath in v.ReturnPath) {
-						if (CityModel.ChangedLanes.Contains(laneInPath) || laneInPath.State == RoadState.Mothballed) {
+					foreach(Lane lane in v.ReturnPath) {
+                        //if (CityModel.ChangedLanes.Contains(laneInPath) || laneInPath.State == RoadState.Mothballed) {
+                        //    isAffected = true;
+                        //    break;
+                        //}
+                        if (CityModel.ChangedNodes.Contains(lane.StartNode) ||
+                            CityModel.ChangedNodes.Contains(lane.EndNode) ||
+                            lane.State == RoadState.Mothballed) {
                             isAffected = true;
                             break;
                         }
-					}
+                    }
 				}
 
 				//차량에게 우회해야한다고 알림.
@@ -48,7 +59,7 @@ namespace Motorways.Process {
 				}
 			}
 
-			CityModel.ChangedLanes.Clear();	//처리 끝!
+			CityModel.ChangedNodes.Clear();	//처리 끝!
 		}
 	}
 }

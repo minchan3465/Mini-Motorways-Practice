@@ -26,9 +26,9 @@ namespace Motorways.Process {
 					List<Lane> toHome = Pathfinder.FindPath(v.DestNode, v.HomeNode);
 
 					if (toDest != null && toDest.Count > 0 && toHome != null && toHome.Count > 0) {
-						v.CurrentPath = toDest;
-						v.ReturnPath = toHome;
-						foreach (var lane in v.CurrentPath) lane.Reserve(v.Id);
+                        v.CurrentPath = new Queue<Lane>(toDest);
+                        v.ReturnPath = new Queue<Lane>(toHome);
+                        foreach (var lane in v.CurrentPath) lane.Reserve(v.Id);
 						foreach (var lane in v.ReturnPath) lane.Reserve(v.Id);
 
 						v.State = VehicleState.Driving;
@@ -38,8 +38,8 @@ namespace Motorways.Process {
 					v.RepathUrgency = PathfindUrgency.NotRequired;
 					return;
 				case VehicleState.Arrived:
-					List<Lane> newReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode);
-					if (newReturnPath != null && newReturnPath.Count > 0) {
+                    List<Lane> newReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode);
+                    if (newReturnPath != null && newReturnPath.Count > 0) {
 						v.AssignReturnPath(newReturnPath);
 					}
 					v.RepathUrgency = PathfindUrgency.NotRequired;

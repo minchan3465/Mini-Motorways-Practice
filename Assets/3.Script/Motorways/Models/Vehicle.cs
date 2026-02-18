@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Motorways.Models {
@@ -19,14 +20,14 @@ namespace Motorways.Models {
 	public class Vehicle : MonoBehaviour {
 		public int Id { get; private set; }
 		private static int _nextId = 0;
-
+		
 		public VehicleState State = VehicleState.Ready;
 
 		public Vector2Int HomeNode { get; private set; }
 		public Vector2Int DestNode { get; private set; }
 
-		public List<Lane> CurrentPath = new List<Lane>();
-		public List<Lane> ReturnPath = new List<Lane>();
+		public Queue<Lane> CurrentPath = new Queue<Lane>();
+		public Queue<Lane> ReturnPath = new Queue<Lane>();
 		public int CurrentLaneIndex = 0;
 
 		public float DistanceAlongLane = 0f;
@@ -44,7 +45,7 @@ namespace Motorways.Models {
 		}
 
 		public Lane GetCurrentLane() {
-			if (CurrentLaneIndex < CurrentPath.Count) return CurrentPath[CurrentLaneIndex];
+			if (CurrentLaneIndex < CurrentPath.Count) return CurrentPath.Peek();
 			else return null;
 		}
 
@@ -76,43 +77,49 @@ namespace Motorways.Models {
 				if (CurrentPath == null || CurrentPath.Count == 0) return null;
 				int remainingLanes = CurrentPath.Count - CurrentLaneIndex;
 
-				if (remainingLanes > 1) { return CurrentPath[CurrentLaneIndex + 1]; }
-				return CurrentPath[CurrentLaneIndex];
+				if (remainingLanes > 1) { return CurrentPath.ElementAt(1); }
+				return CurrentPath.Peek();
 			}
 		}
 
 		//기존 경로의 일부분을 교체 및 병합하는 메서드.
 		public void AssignPath(List<Lane> newPathRemaining) {
-			Lane committed = LastCommittedLane;
-			if (committed == null) return;
+			if(CurrentPath == null || CurrentPath.Count == 0) return; 
 
-			int committedIndex = CurrentPath.IndexOf(committed);	//이 Lane이 있는 번호를 찾습니다.
-			if (committedIndex == -1) committedIndex = CurrentLaneIndex; // 예외 처리 (현재 차선 기준)
+			int keepCount = Mathf.Min(2, CurrentPath.Count);
+			List<Lane> keptLanes = new List<Lane>();
 			
-			for(int i = committedIndex +1; i < CurrentPath.Count; i++) {
-				CurrentPath[i].InboundVehicles.Remove(this.Id);
+			//확정된 차선 미리 빼두기.
+			for(int i = 0; i < keepCount; i++) {
+				keptLanes.Add(CurrentPath.Dequeue());
 			}
 
-			int removeCount = CurrentPath.Count - (committedIndex + 1);
-			if(removeCount > 0) {
-				CurrentPath.RemoveRange(committedIndex + 1, removeCount);
+			//나머지 경로 예약 취소
+			while(CurrentPath.Count > 0) {
+				Lane discarded = CurrentPath.Dequeue();
+				discarded.CancelReservation(this.Id);
 			}
 
-			//새 경로 이어 붙히기 + 새 도로 예약
+			//확정 차선 다시 넣기
+			foreach (Lane lane in keptLanes) {
+				CurrentPath.Enqueue(lane);
+			}
+
+			//새로 찾은 경로 넣고 예약
 			foreach (Lane newLane in newPathRemaining) {
 				newLane.Reserve(this.Id);
-				CurrentPath.Add(newLane);
+				CurrentPath.Enqueue(newLane);
 			}
 		}
 
 		public void AssignReturnPath(List<Lane> newReturnPath) {
 			if(ReturnPath != null) {
 				foreach (Lane lane in ReturnPath) {
-					lane.InboundVehicles.Remove(this.Id);
+					lane.CancelReservation(this.Id);
 				}
 			}
 
-			ReturnPath = newReturnPath;
+			ReturnPath = new Queue<Lane>(newReturnPath);
 
 			foreach (Lane lane in ReturnPath) {
 				lane.Reserve(this.Id);

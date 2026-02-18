@@ -63,7 +63,7 @@ namespace Motorways.Process {
 
 				lane.Exit(v.Id);
 
-				v.CurrentLaneIndex++;
+				v.CurrentPath.Dequeue();
 				v.DistanceAlongLane = overflow;
 
 				Lane nextLane = v.GetCurrentLane();
@@ -89,11 +89,11 @@ namespace Motorways.Process {
 				//Desination 건물에게 알림. (Event로 처리)
 			} else if (v.State == VehicleState.Returning) {
 				v.State = VehicleState.Ready;
-				v.CurrentPath = null;
-				v.ReturnPath = null;
+                v.CurrentPath = new Queue<Lane>();
+                v.ReturnPath = new Queue<Lane>();
 
-				//집 도착했다고 알림.
-			}
+                //집 도착했다고 알림.
+            }
 
 			// 목적지 도달 시 로직 처리 (주차 등)
 		}
@@ -101,7 +101,7 @@ namespace Motorways.Process {
 		private void StartReturnTrip(Vehicle v) {
 			if(v.ReturnPath != null && v.ReturnPath.Count > 0) {
 				v.CurrentPath = v.ReturnPath;
-				v.ReturnPath = null;
+				v.ReturnPath = new Queue<Lane>();
 				v.CurrentLaneIndex = 0;
 				v.DistanceAlongLane = 0f;
 				v.State = VehicleState.Returning;

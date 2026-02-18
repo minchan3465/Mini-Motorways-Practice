@@ -52,12 +52,17 @@ namespace Motorways {
 			return VehiclesOnLane.Count == 0 && InboundVehicles.Count == 0;
 		}
 
+
 		public void Reserve(int vehicleID) {
 			if (!InboundVehicles.Contains(vehicleID)) InboundVehicles.Add(vehicleID);
 		}
 
+		public void CancelReservation(int vehicleId) {
+			if(InboundVehicles.Contains(vehicleId)) InboundVehicles.Remove(vehicleId);
+		}
+
 		public void Enter(int vehicleId) {
-			if (InboundVehicles.Contains(vehicleId)) InboundVehicles.Remove(vehicleId);
+            CancelReservation(vehicleId);
 			if (!VehiclesOnLane.Contains(vehicleId)) VehiclesOnLane.Add(vehicleId);
 		}
 

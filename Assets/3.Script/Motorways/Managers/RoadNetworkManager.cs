@@ -63,7 +63,9 @@ namespace Motorways.Managers {
 
 			MapManager.Instance.ConnectLaneToMap(newLane);
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
-			CityModel.ChangedLanes.Add(newLane);
+			//CityModel.ChangedLanes.Add(newLane);
+			CityModel.ChangedNodes.Add(start);
+			CityModel.ChangedNodes.Add(end);
 		}
 
 		//---삭제 프로세스---
@@ -74,17 +76,21 @@ namespace Motorways.Managers {
 			_mothballedLanes.Add(lane);
 
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
-			CityModel.ChangedLanes.Add(lane);
-			//TODO : 시각적으로 삭제 대기 상태 표시가 필요할 때, 여기서 해줍니다!!
-		}
+            //CityModel.ChangedLanes.Add(lane);
+            CityModel.ChangedNodes.Add(lane.StartNode);
+            CityModel.ChangedNodes.Add(lane.EndNode);
+            //TODO : 시각적으로 삭제 대기 상태 표시가 필요할 때, 여기서 해줍니다!!
+        }
 		private void RestoreMothballedLane(Lane lane) {
 			if (lane.State == RoadState.Mothballed) {
 				lane.State = RoadState.Active;
 				_mothballedLanes.Remove(lane);
 
 				CityModel.LatestLaneChangeFrame = Time.frameCount;
-				CityModel.ChangedLanes.Add(lane);
-			}
+                //CityModel.ChangedLanes.Add(lane);
+                CityModel.ChangedNodes.Add(lane.StartNode);
+                CityModel.ChangedNodes.Add(lane.EndNode);
+            }
 
 			//여기도 위와 동일.
 		}
