@@ -60,7 +60,7 @@ namespace Motorways.Process {
 							if (newPathRemaining != null && newPathRemaining.Count > 0) {
 								v.AssignPath(newPathRemaining);
 							} else {
-								Debug.LogError("[Crisis Error] 量凳. 格利瘤 给皑.");
+								//Debug.LogError("[Crisis Error] 量凳. 格利瘤 给皑.");
 							}
 						}
 						List<Lane> updateReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode);
@@ -73,7 +73,7 @@ namespace Motorways.Process {
 							if (newPathRemaining != null && newPathRemaining.Count > 0) {
 								v.AssignPath(newPathRemaining);
 							} else {
-								Debug.LogError("[Crisis Error] 量凳. 笼 给皑.");
+								//Debug.LogError("[Crisis Error] 量凳. 笼 给皑.");
 							}
 						}
 					}

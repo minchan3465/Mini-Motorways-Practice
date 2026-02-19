@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Motorways.Process {
 	using Motorways.Models;
+	using Motorways.Managers;
 
-	public class VehicleMovementProcess : MonoBehaviour {
+	public class VehicleMovementProcess : MonoBehaviour, ISimulationProcess {
 		public static VehicleMovementProcess Instance;
 
 		public List<Vehicle> _activeVehicle = new List<Vehicle>();	//움직이는 차량 모음.
@@ -14,6 +15,12 @@ namespace Motorways.Process {
 		private void Awake() {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
+		}
+
+		private void Start() {
+			if (SimulationManager.Instance != null) {
+				SimulationManager.Instance.RegisterProcess(this);
+			}
 		}
 
 		public void RegisterVehicle(Vehicle v) {
@@ -27,9 +34,8 @@ namespace Motorways.Process {
 			return v;
 		}
 
-		private void Update() {
-			float deltaTime = Time.deltaTime;
-			Step(deltaTime);
+		public void Tick(float dt) {
+			Step(dt);
 		}
 
 		public void Step(float deltaTime) {

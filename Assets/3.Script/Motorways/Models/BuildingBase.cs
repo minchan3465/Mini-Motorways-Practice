@@ -20,7 +20,7 @@ namespace Motorways.Models {
         public Lane EntranceLane { get; protected set; }
 
         //----√ ±‚»≠---
-        public virtual void Initiallize(int groupIndex, Vector2Int originCoord, TileDirection drivewayDir) {
+        public virtual void Initialize(int groupIndex, Vector2Int originCoord, TileDirection drivewayDir) {
             GroupIndex = groupIndex;
             OriginCoordinate = originCoord;
             DrivewayDirection = drivewayDir;

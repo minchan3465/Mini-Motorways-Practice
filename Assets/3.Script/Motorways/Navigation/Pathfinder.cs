@@ -23,10 +23,24 @@ namespace Motorways.Navigation {
 			}
 		}
 
+		public static float GetPathCost(Vector2Int start, Vector2Int target) {
+			Node endNode = SolveAStar(start, target);
+			if (endNode == null) return -1f;
+
+			return endNode.G; // G값이 곧 누적 비용
+		}
+
 		public static List<Lane> FindPath(Vector2Int start, Vector2Int target) {
+			Node endNode = SolveAStar(start, target);
+			if (endNode == null) return null;
+
+			return RetracePath(endNode);
+		}
+
+		private static Node SolveAStar(Vector2Int start, Vector2Int target) {
 			var grid = MapManager.Instance._grid;
 
-			if (start == target) return new List<Lane>();
+			if (start == target) return null;
 			if (!grid.ContainsKey(start) || !grid.ContainsKey(target)) return null;
 
 
@@ -40,17 +54,13 @@ namespace Motorways.Navigation {
 				// F값이 가장 낮은 노드 선택 (최적화: 힙/우선순위 큐 사용 가능)
 				Node current = openSet.OrderBy(n => n.F).First();
 
+				//만약 목적지에 도달했다면.
 				if (current.Coord == target) {
-					return RetracePath(current);
+					return current;
 				}
 
 				openSet.Remove(current);
 				closedSet.Add(current.Coord);
-
-				//만약 목적지에 도달했다면.
-				if (current.Coord == target) {
-					return RetracePath(current);
-				}
 
 				//아니라면 인접 타일 탐색합니다.
 				if (!grid.TryGetValue(current.Coord, out TileData currentTile)) continue;
@@ -83,7 +93,6 @@ namespace Motorways.Navigation {
 			}
 			return null; //경로 탐색 실패
 		}
-
 
 		private static List<Lane> RetracePath(Node endNode) {
 			List<Lane> path = new List<Lane>();
