@@ -20,6 +20,10 @@ namespace Motorways.Managers {
 		}
 		private void Update() {
 			ProcessMothballedLanes();
+			if (CityModel.ChangedNodes.Count > 0) {
+				RoadVisualManager.Instance.UpdateTileVisuals(CityModel.ChangedNodes);
+				CityModel.ChangedNodes.Clear();
+			}
 		}
 
 		//--- 외부 연결 로직 ---
