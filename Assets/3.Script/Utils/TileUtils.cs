@@ -40,6 +40,27 @@ namespace Motorways.Utils {
             if (dir == TileDirection.None) return -1;
             return (int)Mathf.Log((int)dir, 2);
         }
+
+        public static Vector2Int GetDirectionVector(TileDirection dir) {
+            switch (dir) {
+                case TileDirection.North: return new Vector2Int(0, 1);
+                case TileDirection.South: return new Vector2Int(0, -1);
+                case TileDirection.East: return new Vector2Int(1, 0);
+                case TileDirection.West: return new Vector2Int(-1, 0);
+                case TileDirection.NorthEast: return new Vector2Int(1, 1);
+                case TileDirection.SouthEast: return new Vector2Int(1, -1);
+                case TileDirection.SouthWest: return new Vector2Int(-1, -1);
+                case TileDirection.NorthWest: return new Vector2Int(-1, 1);
+                default: return Vector2Int.zero;
+            }
+        }
+
+        public static void Shuffle<T>(this IList<T> list) {
+            for (int i = list.Count - 1; i > 0; i--) {
+                int j = Random.Range(0, i + 1);
+                (list[i], list[j]) = (list[j], list[i]); // Tuple Deconstruction Swap
+            }
+        }
     }
 }
 

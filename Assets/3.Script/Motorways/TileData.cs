@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Motorways {
 	using Motorways.Utils;
+	using Motorways.Models;
 
 	public enum TileLogicType {
 		None,
@@ -38,7 +39,7 @@ namespace Motorways {
 		public RoadState[] RoadStates { get; private set; } //8방향 도로 상태 저장.
 		public Lane[] Lanes { get; private set; }
 
-		public GameObject Object;   //타일 위에 오브젝트 참조.
+		public BuildingBase Building { get; set; }   //타일 위에 오브젝트 참조.
 
 		//건물 생성 가중치
 		public float WeightHouseSpawn;
@@ -55,8 +56,15 @@ namespace Motorways {
 				RoadStates[i] = RoadState.None;
 			}
 		}
-
-		public bool IsBuildable() => type == TileLogicType.Empty;
+		public bool HasAnyRoad {
+			get {
+				for(int i = 0; i<8; i++) {
+					if (RoadStates[i] != RoadState.None) return true;
+				}
+				return false;
+			}
+		}
+		public bool IsBuildable() => type == TileLogicType.Empty && !HasAnyRoad;
 
 
 		//---Lane---

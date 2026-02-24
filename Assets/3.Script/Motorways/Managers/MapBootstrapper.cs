@@ -63,8 +63,11 @@ namespace Motorways.Managers {
 
 				//지형 타일이 없다 = 맵 밖이거나 타일을 안설치함.
 				//맵 내부니까, 어쨌든 Empty로 해서 설치 가능하게.
-				if (!_terrainLayer.HasTile(localPos)) {
+				//근데 애초에 Empty로 깔아뒀는데... 왜 안되는거지.
+				if (_terrainLayer.HasTile(localPos)) {
 					tile.type = TileLogicType.Empty;
+				} else {
+					tile.type = TileLogicType.None;
 				}
 
 				MapManager.Instance._grid.Add(gridCoord, tile);

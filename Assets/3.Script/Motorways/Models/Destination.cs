@@ -14,12 +14,20 @@ namespace Motorways.Models {
 		public float OverCrowdingTimer; //과부하까지 남은 시간
 		public bool isOverCrowding => (UnassignedPins + IncomingPins) > 6;
 
-		public override void Initialize(int groupIndex, Vector2Int originCoord, TileDirection drivewayDir) {
-			base.Initialize(groupIndex, originCoord, drivewayDir);
+		public override void Initialize(int groupIndex, Vector2Int originCoord, BuildingLayout layout) {
+			base.Initialize(groupIndex, originCoord, layout);
 			Type = BuildingType.Destination;
 
+			OccupiedCoordinates = new List<Vector2Int>();
+			OccupiedCoordinates = new List<Vector2Int>();
+			for (int x = 0; x < layout.Footprint.x; x++) {
+				for (int y = 0; y < layout.Footprint.y; y++) {
+					OccupiedCoordinates.Add(originCoord + new Vector2Int(x, y));
+				}
+			}
+
 			_CarPark = new CarPark();
-			_CarPark.Initialize(this, originCoord, originCoord + new Vector2Int(0, 1));
+			_CarPark.Initialize(this, IncomingLane.EndNode, IncomingLane.StartNode);
 
 			UnassignedPins = 0;
 			IncomingPins = 0;

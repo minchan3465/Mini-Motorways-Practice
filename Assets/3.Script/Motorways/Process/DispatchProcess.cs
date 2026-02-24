@@ -39,7 +39,7 @@ namespace Motorways.Process {
 
 					if(bestHouse != null) {
 						Vector2Int targetNode = dest._CarPark.EntranceLane.StartNode;
-						if(bestHouse.TryDispatcVehicle(targetNode)) {
+						if(bestHouse.TryDispatchVehicle(targetNode)) {
 							dest.ReserverPin();
 						}
 					}

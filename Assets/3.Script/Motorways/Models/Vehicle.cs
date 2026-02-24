@@ -25,6 +25,7 @@ namespace Motorways.Models {
 
 		public Vector2Int HomeNode { get; private set; }
 		public Vector2Int DestNode { get; private set; }
+		//public Lane HomeIncomingLane { get; private set; }
 
 		public Queue<Lane> CurrentPath = new Queue<Lane>();
 		public Queue<Lane> ReturnPath = new Queue<Lane>();
@@ -57,15 +58,13 @@ namespace Motorways.Models {
 			DistanceAlongLane = 0f;
 
 			State = VehicleState.Ready;
-			RequestPathfind();
-		}
 
-		public void ClearPathReservations() {
-			if(CurrentPath != null) {
-				foreach(var lane in CurrentPath) {
-					lane.Exit(this.Id);
-				}
-			}
+			//HomeIncomingLane = homeInLane;
+			//if (HomeIncomingLane != null) {
+			//	HomeIncomingLane.Reserve(this.Id);
+			//}
+
+			RequestPathfind();
 		}
 
 		public void RequestPathfind() {
@@ -119,10 +118,31 @@ namespace Motorways.Models {
 				}
 			}
 
-			ReturnPath = new Queue<Lane>(newReturnPath);
+			if (State == VehicleState.Returning && CurrentPath != null) {
+				foreach (Lane lane in CurrentPath) {
+					lane.CancelReservation(this.Id);
+				}
+			}
 
+			ReturnPath = new Queue<Lane>(newReturnPath);
 			foreach (Lane lane in ReturnPath) {
 				lane.Reserve(this.Id);
+			}
+		}
+
+		public void ClearAllReservations() {
+			if (CurrentPath != null) {
+				foreach (Lane lane in CurrentPath) {
+					lane.CancelReservation(this.Id);
+				}
+				CurrentPath.Clear();
+			}
+
+			if (ReturnPath != null) {
+				foreach (Lane lane in ReturnPath) {
+					lane.CancelReservation(this.Id);
+				}
+				ReturnPath.Clear();
 			}
 		}
 	}

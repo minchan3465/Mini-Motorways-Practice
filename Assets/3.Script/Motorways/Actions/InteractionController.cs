@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 namespace Motorways.Actions {
 	using Motorways.Managers;
+	using Motorways.Models;
+	using Motorways.Utils;
 
 	public class InteractionController : MonoBehaviour {
 		[Header("Settings")]
@@ -34,7 +36,7 @@ namespace Motorways.Actions {
 		//private Vector2Int _startDragPointer;   // 드래그 시작 타일 좌표
 
 		//집 회전 조작용
-		//private House _dragStartHouse = null;
+		private House _dragStartHouse = null; // 회전 조작 중인 건물
 
 		#region Gizmos용 ㅍ프로퍼티
 		public bool IsDraggingBuild => _isDraggingBuild;
@@ -83,11 +85,14 @@ namespace Motorways.Actions {
 			_clickOriginWorldPos = GetWorldPositionFromMouse();
 
 			if (MapManager.Instance._grid.TryGetValue(CurrentGridPointer, out TileData cell)) {
-				//차후 집에 업데이트를 하는 내용.
-				//if (cell.Type.Equals(TileLogicType.house)) {
-				//	_dragStartHouse = StructureManager.Instance.GetHouseAt(CurrentGridPointer);
-				//	return;
-				//}
+				if (cell.Building is House house) {
+					_dragStartHouse = house;
+					return; // 건물을 잡았으니 도로 건설 모드는 스킵
+				} else if (cell.Building is Destination) {
+					//목적지를 클릭했을 때는 도로 건설 자체를 막음
+					_isDraggingBuild = false;
+					return;
+				}
 			}
 
 			//if (RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
@@ -96,17 +101,7 @@ namespace Motorways.Actions {
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
 			if (_isDraggingBuild) {
 				_isDraggingBuild = false;
-
-				// _dragStartHouse가 있다면, 별도 정리가 필요 없다!
-				//if (_dragStartHouse == null) {
-					////도로 한개면... 삭제해야지?
-					//RoadSystem.Instance.CleanupifIsolated(_startDragPointer);
-					////만약에 말야... 우리.. 에러날수도 있으니 점검용
-					//if (_startDragPointer != _lastGridPointer) {
-					//	RoadSystem.Instance.CleanupifIsolated(_lastGridPointer);
-					//}
-				//}
-				//_dragStartHouse = null;
+				_dragStartHouse = null;
 			}
 		}
 
@@ -152,10 +147,11 @@ namespace Motorways.Actions {
 					//만약 데드존 바깥의 범위라면
 					//타일 중심으로 판정내기 위해 다음 메서드로 넘어감!
 					//if (_dragStartHouse != null) {
-					//	ProcessHouseRotationAndBuild(currentMouseWorldPos);
-					//} else {
-					//}
-					ProcessBuildDrag(currentMouseWorldPos);
+					if (_dragStartHouse != null) {
+						ProcessHouseRotation(currentMouseWorldPos);
+					} else {
+						ProcessBuildDrag(currentMouseWorldPos);
+					};
 				}
 			} else if (_isDraggingRemove) { //삭제
 				if (CurrentGridPointer != _lastGridPointer) {
@@ -164,7 +160,6 @@ namespace Motorways.Actions {
 				}
 			}
 		}
-
 
 		//---------- 건설(판정) => 코어 메카닉.
 		private void ProcessBuildDrag(Vector3 mousePos) {
@@ -186,33 +181,52 @@ namespace Motorways.Actions {
 				Vector2Int offset = CalculateSnappedDirection(diff);
 				Vector2Int candidatePos = _lastGridPointer + offset;
 				if (Vector2Int.Distance(_lastGridPointer, candidatePos) <= 1.5f) {
+					if (MapManager.Instance._grid.TryGetValue(candidatePos, out TileData candidateTile)) {
+						if (candidateTile.Building != null) {
+							if (candidateTile.Building is Destination) {
+								//드래그 중 목적지에 닿으면 건설 강제 취소
+								_isDraggingBuild = false;
+								return;
+							} else if (candidateTile.Building is House targetHouse) {
+								//외부 도로에서 집으로 연결했을 때
+								//집(candidatePos) 입장에서 직전 타일(도로, _lastGridPointer)을 바라보는 방향을 구함
+								Vector2Int dirToRoad = _lastGridPointer - candidatePos;
+								TileDirection newDir = TileUtils.GetDirection(Vector2Int.zero, dirToRoad);
+
+								if (newDir != TileDirection.None) {
+									targetHouse.RotateEntrance(newDir);
+								}
+
+								_dragStartHouse = targetHouse;
+								_lastGridPointer = candidatePos;
+								_clickOriginWorldPos = new Vector3(candidatePos.x + 0.5f, 0, candidatePos.y + 0.5f);
+
+								return;
+							}
+						}
+					}
+					//건물이 없으면 평소대로 도로 건설 시도.
 					RoadNetworkManager.Instance.TryBuildRoad(_lastGridPointer, candidatePos);
+					_lastGridPointer = candidatePos;
 				}
-				_lastGridPointer = candidatePos;
 			}
 		}
 
 		//요건 집일때 기준. 건설보단 회전의 느낌.
-		//private void ProcessHouseRotationAndBuild(Vector3 mousePos) {
-		//	//상단의 건설 판정을 의미합니다.
-		//	Vector3 houseCenter = _dragStartHouse.transform.position;
-		//	Vector3 diff = mousePos - houseCenter;
-		//	float squareDist = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
+		private void ProcessHouseRotation(Vector3 mousePos) {
+			Vector3 diff = mousePos - _clickOriginWorldPos;
+			float squareDist = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
 
-		//	if (squareDist >= _connectionDistanceThreshold) {
-		//		Vector2Int offset = CalculateSnappedDirection(diff);
-		//		RoadDirection newDir = DirUtiles.GetDirectionFromVector(offset);
-
-		//		_dragStartHouse.TryRotateEntrance(newDir);
-
-		//		//회전 성공 했냐? 입구 방향이 원하는 방향과 같다면.
-		//		if (_dragStartHouse.EntranceDir.Equals(newDir)) {
-		//			_lastGridPointer = _dragStartHouse.EntranceCoordinate;
-		//			//RoadSystem.Instance.CreateRoadNode(_lastGridPointer);
-		//			_dragStartHouse = null;
-		//		}
-		//	}
-		//}
+			if (squareDist >= _connectionDistanceThreshold) {
+				Vector2Int offset = CalculateSnappedDirection(diff);
+				TileDirection newDir = TileUtils.GetDirection(Vector2Int.zero, offset);
+				if (newDir != TileDirection.None) {
+					_dragStartHouse.RotateEntrance(newDir);
+					_lastGridPointer = _dragStartHouse.RoadCoordinate;
+					_dragStartHouse = null;
+				}
+			}
+		}
 
 		//---------- 유틸
 		private void UpdateGridPointer() {

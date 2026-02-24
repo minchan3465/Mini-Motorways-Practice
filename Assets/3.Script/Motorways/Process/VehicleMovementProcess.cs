@@ -68,7 +68,7 @@ namespace Motorways.Process {
 				float overflow = v.DistanceAlongLane - lane.Length;
 
 				lane.Exit(v.Id);
-
+				lane.CancelReservation(v.Id);
 				v.CurrentPath.Dequeue();
 				v.DistanceAlongLane = overflow;
 
@@ -89,17 +89,15 @@ namespace Motorways.Process {
 
 		private void HandleArrival(Vehicle v) {
 			if(v.State == VehicleState.Driving) {
+				//Desination 건물에게 알림. (Event로 처리)
 				v.State = VehicleState.Arrived;
 				v.ParkingTimer = 0f;
-				
-				//Desination 건물에게 알림. (Event로 처리)
 			} else if (v.State == VehicleState.Returning) {
+				//집 도착했다고 알림.
 				v.State = VehicleState.Ready;
-                v.CurrentPath = new Queue<Lane>();
-                v.ReturnPath = new Queue<Lane>();
 
-                //집 도착했다고 알림.
-            }
+				v.ClearAllReservations();
+			}
 
 			// 목적지 도달 시 로직 처리 (주차 등)
 		}
