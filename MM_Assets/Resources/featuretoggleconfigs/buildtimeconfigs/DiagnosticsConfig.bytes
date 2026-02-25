@@ -1,0 +1,40 @@
+{
+    "FeatureToggles": [
+        {
+          "Feature": "RecordLogs",
+          "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "RecordStorageAuditTrail",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "RecordSimulationJournal",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "DiagnosticReports",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "DiagnosticReportsButton",
+            "ToggleState": "Enabled"
+        },
+        {
+          "Feature": "SubmitDiagnosticReportOnException",
+          "ToggleState": "Enabled"
+        },
+        {
+          "Feature": "SubmitOnlyOneDiagnosticReportOnException",
+          "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "Analytics",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "ElevateErrorsForCloudDiagnostics",
+            "ToggleState": "Enabled"
+        }
+    ]
+}

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Visuals {
-	public static class RoadMeshBuilder {
+    using Motorways.Utils;
+
+    public static class RoadMeshBuilder {
 		public static Mesh BuildRoadMesh(RoadVisualPath path, RoadVisualSettings settings) {
 			if (path.VisualPoints == null || path.VisualPoints.Count < 2) return null;
 
@@ -20,14 +22,21 @@ namespace Motorways.Visuals {
                 Vector3 currentPoint = points[i];
                 Vector3 forward;
 
-                // 접선(Tangent, 진행 방향) 계산
-                if (i == 0) {
-                    forward = (points[1] - points[0]).normalized;
-                } else if (i == pointCount - 1) {
-                    forward = (points[i] - points[i - 1]).normalized;
+                if (i == 0 && path.StartDirection != TileDirection.None) {
+                    // 시작점: 곡선의 미세한 휨을 무시하고 타일 경계선에 완벽히 수직이 되도록 강제
+                    Vector2Int v = TileUtils.GetDirectionVector(path.StartDirection);
+                    forward = new Vector3(-v.x, 0, -v.y).normalized;
+                    currentPoint = new Vector3(v.x * 0.5f, 0, v.y * 0.5f);
+                } else if (i == pointCount - 1 && path.EndDirection != TileDirection.None) {
+                    // 끝점: 타일 밖으로 나가는 절대 방향 강제
+                    Vector2Int v = TileUtils.GetDirectionVector(path.EndDirection);
+                    forward = new Vector3(v.x, 0, v.y).normalized;
+                    currentPoint = new Vector3(v.x * 0.5f, 0, v.y * 0.5f);
                 } else {
-                    // 중간 점들은 이전 점과 다음 점을 이어 부드러운 방향을 구함
-                    forward = (points[i + 1] - points[i - 1]).normalized;
+                    // 도로 내부의 점들은 부드러운 곡선을 따름
+                    if (i == 0) forward = (points[1] - points[0]).normalized;
+                    else if (i == pointCount - 1) forward = (points[i] - points[i - 1]).normalized;
+                    else forward = (points[i + 1] - points[i - 1]).normalized;
                 }
 
                 // 진행 방향을 기준으로 오른쪽(Right) 벡터 도출 (Up 벡터와 외적)
@@ -40,29 +49,61 @@ namespace Motorways.Visuals {
                 vertices.Add(leftVertex);
                 vertices.Add(rightVertex);
 
-                // UV 전개 (도로의 길이를 V로, 폭을 U로 사용)
-                float v = (float)i / (pointCount - 1);
-                uvs.Add(new Vector2(0f, v));
-                uvs.Add(new Vector2(1f, v));
+                // UV 전개(U: 가로, V: 세로)
+                float vCoord = (float)i / (pointCount - 1);
+                uvs.Add(new Vector2(0f, vCoord)); // 향후 셰이더에서 0.0~0.1은 좌측 연석으로 판별
+                uvs.Add(new Vector2(1f, vCoord)); // 향후 셰이더에서 0.9~1.0은 우측 연석으로 판별
             }
 
             for (int i = 0; i < pointCount - 1; i++) {
                 int rootIndex = i * 2;
+                triangles.Add(rootIndex);
+                triangles.Add(rootIndex + 3);
+                triangles.Add(rootIndex + 1);
 
-                int leftCurrent = rootIndex;
-                int rightCurrent = rootIndex + 1;
-                int leftNext = rootIndex + 2;
-                int rightNext = rootIndex + 3;
+                triangles.Add(rootIndex);
+                triangles.Add(rootIndex + 2);
+                triangles.Add(rootIndex + 3);
+            }
 
-                // 첫 번째 삼각형 (좌하 -> 우하 -> 좌상)
-                triangles.Add(leftCurrent);
-                triangles.Add(rightNext);
-                triangles.Add(rightCurrent);
+            // 2. 둥근 마감 (Round Cap) 생성
+            if (path.IsDeadEnd && settings.CapResolution > 0) {
+                int capRes = settings.CapResolution;
+                Vector3 endCenter = points[pointCount - 1];
+                Vector3 endForward = (points[pointCount - 1] - points[pointCount - 2]).normalized;
 
-                // 두 번째 삼각형 (좌하 -> 좌상 -> 우상)
-                triangles.Add(leftCurrent);
-                triangles.Add(leftNext);
-                triangles.Add(rightNext);
+                if (path.StartDirection != TileDirection.None) {
+                    Vector2Int v = TileUtils.GetDirectionVector(path.StartDirection);
+                    endForward = new Vector3(-v.x, 0, -v.y).normalized;
+                } else {
+                    endForward = (points[pointCount - 1] - points[pointCount - 2]).normalized;
+                }
+
+
+                // 부채꼴 중심점
+                int centerIndex = vertices.Count;
+                vertices.Add(endCenter);
+                uvs.Add(new Vector2(0.5f, 1f));
+
+                int arcStartIndex = vertices.Count;
+
+                // -90도(좌측)에서 90도(우측)로 회전하며 정점 추가
+                for (int i = 0; i <= capRes; i++) {
+                    float t = (float)i / capRes;
+                    float angle = Mathf.Lerp(-90f, 90f, t);
+
+                    Vector3 direction = Quaternion.Euler(0, angle, 0) * endForward;
+                    vertices.Add(endCenter + (direction * halfWidth));
+                    //보간.
+                    uvs.Add(new Vector2(Mathf.Lerp(0f, 1f, t), 1f));
+                }
+
+                // 부채꼴 삼각형 연결
+                for (int i = 0; i < capRes; i++) {
+                    triangles.Add(centerIndex);
+                    triangles.Add(arcStartIndex + i);
+                    triangles.Add(arcStartIndex + i + 1);
+                }
             }
 
             // 3. Unity Mesh 객체 조립

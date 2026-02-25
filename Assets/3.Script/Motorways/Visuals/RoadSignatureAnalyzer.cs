@@ -5,23 +5,6 @@ using UnityEngine;
 
 namespace Motorways.Visuals {
 	using Motorways.Utils;
-	public struct RoadSignature {
-		//실제 맵에 존재하는 날것의 연결 상태 (예: 20 -> 동, 남 연결)
-		public TileDirection RawMask;
-
-		//에셋 매칭을 위해 정규화된 기준 상태 (예: 5 -> 북, 동 연결)
-		//시각화 매니저는 이 값을 Key로 사용하여 메쉬나 스플라인 데이터를 찾습니다.
-		public TileDirection CanonicalMask;
-
-		//기준 상태(Canonical)의 에셋을 실제 맵 상태(Raw)로 맞추기 위해 시계방향으로 45도씩 회전해야 하는 횟수 (0 ~ 7)
-		public int RotationSteps;
-
-		public RoadSignature(TileDirection raw, TileDirection canonical, int rotationSteps) {
-			RawMask = raw;
-			CanonicalMask = canonical;
-			RotationSteps = rotationSteps;
-		}
-	}
 
 	public static class RoadSignatureAnalyzer {
 		public static RoadSignature Analyze(TileData tileData) {
@@ -38,8 +21,8 @@ namespace Motorways.Visuals {
 				}
 			}
 
-			if(rawMask == 0) {
-				return new RoadSignature(TileDirection.None, TileDirection.None, 0);
+			if (rawMask == 0) {
+				return new RoadSignature(TileDirection.None, TileDirection.None, 0, new List<RoadConnection>());
 			}
 
 			//정규화
@@ -47,23 +30,38 @@ namespace Motorways.Visuals {
 			int stepsToCanonical = 0;   //Raw 상태를 시계방향으로 몇 번 돌려야하는가?
 			byte currentMask = rawMask;
 
-			//45도씩 7번 회전해서 최소값을 찾습니다.
-			for(int i = 1; i < 8; i++) {
-				currentMask = RotateMaskClockwise(currentMask, 1);
+			//~~45도씩 7번 회전해서 최소값을 찾습니다.~~
+			//--> 45도로 회전하니까, 대각선 길이가 부족함에도 불구하고 직선 형태의 도로를 사용함.
+			//따라서 90도씩 회전하되, 상하좌우 길이 0.5 도로와 대각선 길이 0.707 (피타고라스) 두가지 유형으로 나누기.
+			for(int i = 1; i < 4; i++) {
+				currentMask = RotateMaskClockwise(currentMask, 2);
 				if(currentMask < canonicalMask) {
 					canonicalMask = currentMask;
-					stepsToCanonical = i;
+					stepsToCanonical = i * 2;
 				}
 			}
 
 			//실제 게임에  적용할 회전값.
 			//우리는 최소값 기준으로 만들어진 메쉬를 인스턴스화 한 뒤, 원래 모양으로 되돌리기 위해 회전시켜야 함.
 			int requiredRotationToRaw = (8 - stepsToCanonical) % 8;
+			TileDirection canonicalDir = (TileDirection)canonicalMask;
+
+			//--- 분류(Classification) 후 생성(Generation) ---
+
+			//1. 표준 상태(Canonical)에서의 연결선 리스트 생성
+			List<RoadConnection> standardConnections = GenerateStandardConnections(canonicalDir);
+
+			//2. 표준 연결선들에 실제 회전값을 적용하여 최종 연결선 생성
+			List<RoadConnection> finalConnections = new List<RoadConnection>();
+			foreach (var conn in standardConnections) {
+				finalConnections.Add(conn.Rotate(requiredRotationToRaw));
+			}
 
 			return new RoadSignature(
 				(TileDirection)rawMask,
-				(TileDirection)canonicalMask,
-				requiredRotationToRaw
+				canonicalDir,
+				requiredRotationToRaw,
+				finalConnections
 			);
 		}
 
@@ -71,6 +69,33 @@ namespace Motorways.Visuals {
 		private static byte RotateMaskClockwise(byte mask, int steps) {
 			steps = steps % 8;
 			return (byte)((mask << steps) | (mask >> (8 - steps)));
+		}
+
+		private static List<RoadConnection> GenerateStandardConnections(TileDirection canonicalMask) {
+			List<RoadConnection> connections = new List<RoadConnection>();
+			List<TileDirection> activeDirs = new List<TileDirection>();
+
+			foreach(TileDirection dir in Enum.GetValues(typeof(TileDirection))) {
+				if (dir == TileDirection.None || dir == TileDirection.All) continue;
+				if(((byte)canonicalMask & (byte)dir) == (byte)dir) {
+					activeDirs.Add(dir);
+				}
+			}
+
+			if (activeDirs.Count == 1) {
+				// 1. 막다른 길: 가장자리 -> 중앙
+				connections.Add(new RoadConnection(activeDirs[0], TileDirection.None));
+			} else if (activeDirs.Count == 2) {
+				// 2. 일반 도로(직선/코너): 가장자리 -> 가장자리
+				connections.Add(new RoadConnection(activeDirs[0], activeDirs[1]));
+			} else {
+				// 3. 교차로(3방향 이상): 모든 연결을 가장자리 -> 중앙(Hub)으로 향하는 팔(Spoke)로 분리
+				foreach (TileDirection dir in activeDirs) {
+					connections.Add(new RoadConnection(dir, TileDirection.None));
+				}
+			}
+
+			return connections;
 		}
 	}
 }
