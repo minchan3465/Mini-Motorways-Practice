@@ -22,14 +22,14 @@ namespace Motorways.Visuals {
                 Vector3 currentPoint = points[i];
                 Vector3 forward;
 
-                if (i == 0 && path.StartDirection != TileDirection.None) {
+                if (i == 0 && path.StartNode.Direction != TileDirection.None) {
                     // 시작점: 곡선의 미세한 휨을 무시하고 타일 경계선에 완벽히 수직이 되도록 강제
-                    Vector2Int v = TileUtils.GetDirectionVector(path.StartDirection);
+                    Vector2Int v = TileUtils.GetDirectionVector(path.StartNode.Direction);
                     forward = new Vector3(-v.x, 0, -v.y).normalized;
                     currentPoint = new Vector3(v.x * 0.5f, 0, v.y * 0.5f);
-                } else if (i == pointCount - 1 && path.EndDirection != TileDirection.None) {
+                } else if (i == pointCount - 1 && path.EndNode.Direction != TileDirection.None) {
                     // 끝점: 타일 밖으로 나가는 절대 방향 강제
-                    Vector2Int v = TileUtils.GetDirectionVector(path.EndDirection);
+                    Vector2Int v = TileUtils.GetDirectionVector(path.EndNode.Direction);
                     forward = new Vector3(v.x, 0, v.y).normalized;
                     currentPoint = new Vector3(v.x * 0.5f, 0, v.y * 0.5f);
                 } else {
@@ -72,8 +72,8 @@ namespace Motorways.Visuals {
                 Vector3 endCenter = points[pointCount - 1];
                 Vector3 endForward = (points[pointCount - 1] - points[pointCount - 2]).normalized;
 
-                if (path.StartDirection != TileDirection.None) {
-                    Vector2Int v = TileUtils.GetDirectionVector(path.StartDirection);
+                if (path.StartNode.Direction != TileDirection.None) {
+                    Vector2Int v = TileUtils.GetDirectionVector(path.StartNode.Direction);
                     endForward = new Vector3(-v.x, 0, -v.y).normalized;
                 } else {
                     endForward = (points[pointCount - 1] - points[pointCount - 2]).normalized;

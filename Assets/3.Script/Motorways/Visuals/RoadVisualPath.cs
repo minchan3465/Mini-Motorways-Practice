@@ -11,10 +11,9 @@ namespace Motorways.Visuals {
     public class RoadVisualPath {
         public List<Vector3> VisualPoints { get; private set; } = new List<Vector3>();
         public bool IsDeadEnd { get; set; } = false;
-        public TileDirection StartDirection { get; set; } = TileDirection.None;
-        public TileDirection EndDirection { get; set; } = TileDirection.None;
 
-        //public PathType Type { get; set; } = PathType.Smooth;
+        public RoadTileNode StartNode { get; set; }
+        public RoadTileNode EndNode { get; set; }
 
         public void AddPoint(Vector3 point) { VisualPoints.Add(point); }
     }

@@ -61,6 +61,17 @@ namespace Motorways.Utils {
                 (list[i], list[j]) = (list[j], list[i]); // Tuple Deconstruction Swap
             }
         }
+
+        public static TileDirection RotateDirection(TileDirection dir, int steps) {
+            if (dir == TileDirection.None || dir == TileDirection.All) return dir;
+            byte mask = (byte)dir;
+
+            // 시계 방향 회전 (8방향 기준)
+            // steps가 음수일 경우를 대비한 처리 필요 시: ((steps % 8) + 8) % 8
+            int s = steps % 8;
+            byte rotated = (byte)((mask << s) | (mask >> (8 - s)));
+            return (TileDirection)rotated;
+        }
     }
 }
 

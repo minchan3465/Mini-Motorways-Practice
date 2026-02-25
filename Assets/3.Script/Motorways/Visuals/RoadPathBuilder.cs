@@ -15,11 +15,11 @@ namespace Motorways.Visuals {
 
             foreach (RoadConnection conn in connections) {
                 //연결선의 성격 파악 (End가 None이면 막다른 길이거나 교차로의 중앙행 스포크)
-                bool isDeadEnd = (conn.End == TileDirection.None) && (connections.Count == 1);
-                bool isHubSpoke = (conn.End == TileDirection.None) && (connections.Count > 1);
+                bool isDeadEnd = (conn.End.Direction == TileDirection.None) && (connections.Count == 1);
+                bool isHubSpoke = (conn.End.Direction == TileDirection.None) && (connections.Count > 1);
 
                 BezierCurveData curve = RoadGeometryGenerator.ConstructPathFromConnection(
-                    conn.Start, conn.End, isDeadEnd, isHubSpoke
+                    conn.Start.Direction, conn.End.Direction, isDeadEnd, isHubSpoke
                 );
 
                 RoadVisualPath path = GeneratePath(curve, conn.Start, conn.End);
@@ -31,10 +31,10 @@ namespace Motorways.Visuals {
         }
 
         // 베지어 곡선 데이터를 실제 시각적 정점 리스트로 변환
-        private static RoadVisualPath GeneratePath(BezierCurveData curve, TileDirection start, TileDirection end) {
+        private static RoadVisualPath GeneratePath(BezierCurveData curve, RoadTileNode start, RoadTileNode end) {
             RoadVisualPath path = new RoadVisualPath();
-            path.StartDirection = start;
-            path.EndDirection = end;
+            path.StartNode = start;
+            path.EndNode = end;
 
             float step = 1f / (RESOLUTION - 1);
             for (int i = 0; i < RESOLUTION; i++) {
