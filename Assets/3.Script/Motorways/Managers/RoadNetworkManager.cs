@@ -21,7 +21,7 @@ namespace Motorways.Managers {
 		private void Update() {
 			ProcessMothballedLanes();
 			if (CityModel.ChangedNodes.Count > 0) {
-				RoadVisualManager.Instance.UpdateTileVisuals(CityModel.ChangedNodes);
+				RoadChunkManager.Instance.MarkChunksDirty(CityModel.ChangedNodes);
 				CityModel.ChangedNodes.Clear();
 			}
 		}

@@ -63,7 +63,7 @@ namespace Motorways {
 		//나중에 UI 알릴때 사용.
 		private void NotifyChange(ItemType type) {
 			//OnResourceChanged?.Invoke(type, _inventory[type]);
-			Debug.Log($"[Resource] {type}: {_inventory[type]}");
+			//Debug.Log($"[Resource] {type}: {_inventory[type]}");
 		}
 	}
 }
