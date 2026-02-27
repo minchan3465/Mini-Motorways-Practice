@@ -26,7 +26,7 @@ namespace Motorways.Editor {
 
 			float bodyWidth = 0.4f;
 			float outlineWidth = 0.5f;
-			//float bodyYOffset = 0.00f;   //본체는 약간 위에 배치하여 깜빡임 방지
+			float bodyYOffset = 0.01f;   //본체는 약간 위에 배치하여 깜빡임 방지
 			//float outlineYOffset = 0.00f; //테두리는 바닥에 밀착
 
 			foreach (var signature in uniqueSignatures) {
@@ -35,20 +35,26 @@ namespace Motorways.Editor {
 				def.signature = signature;
 				def.mesh = new RoadTileMesh();
 
-				List<Vector2> combinedVisualPoints = new List<Vector2>();
+				//List<Vector2> combinedVisualPoints = new List<Vector2>();
+				List<RoadMeshData> roadMeshes = new List<RoadMeshData>();
+				List<RoadMeshData> outlineMeshes = new List<RoadMeshData>();
+
 
 				//공정 2. 각 연결선마다 베지어 곡선 도출.
 				foreach (var connection in signature.connections) {
 					List<Vector2> pathPoints = builder.ConstructPathForConnection(connection);
 					def.connectionToPath.Add(connection, pathPoints);
-					combinedVisualPoints.AddRange(pathPoints);
+					//combinedVisualPoints.AddRange(pathPoints);
+					bool roundEnds = signature.IsDeadEnd;
+					roadMeshes.Add(builder.ConstructMeshFromPath(pathPoints, bodyWidth, roundEnds, bodyYOffset));
+					outlineMeshes.Add(builder.ConstructMeshFromPath(pathPoints, outlineWidth, roundEnds, 0f));
 				}
 
 				//끝이면 둥글게 마감.
-				bool roundEnds = signature.IsDeadEnd;
+				//bool roundEnds = signature.IsDeadEnd;
 
-				def.mesh.road = builder.ConstructMeshFromPath(combinedVisualPoints, bodyWidth, roundEnds);
-				def.mesh.outline = builder.ConstructMeshFromPath(combinedVisualPoints, outlineWidth, roundEnds);
+				def.mesh.road = builder.CombineMeshData(roadMeshes);
+				def.mesh.outline = builder.CombineMeshData(outlineMeshes);
 
 				atlas.definitions.Add(def);
 			}
@@ -57,8 +63,8 @@ namespace Motorways.Editor {
 			List<Vector2> cornerPath = builder.ConstructCornerPath();
 			atlas.cornerMesh = new RoadTileMesh();
 			// 코너는 끝을 둥글게(roundEnds) 마감할 필요가 없습니다. 빈틈만 메우기 때문입니다.
-			atlas.cornerMesh.road = builder.ConstructMeshFromPath(cornerPath, bodyWidth, false);
-			atlas.cornerMesh.outline = builder.ConstructMeshFromPath(cornerPath, outlineWidth, false);
+			atlas.cornerMesh.road = builder.ConstructMeshFromPath(cornerPath, bodyWidth, false, bodyYOffset);
+			atlas.cornerMesh.outline = builder.ConstructMeshFromPath(cornerPath, outlineWidth, false, 0f);
 
 
 			EditorUtility.SetDirty(atlas);

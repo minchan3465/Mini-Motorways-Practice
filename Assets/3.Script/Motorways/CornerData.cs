@@ -15,20 +15,24 @@ namespace Motorways {
     public class CornerData {
         public Vector2Int coordinate { get; private set; }
         public CornerDiagonalType activeDiagonals { get; private set; }
+        public float creationTime { get; private set; }
 
         public CornerData(Vector2Int coord) {
             coordinate = coord;
             activeDiagonals = CornerDiagonalType.None;
+            creationTime = -1f;
         }
 
         // 대각선 도로 추가
         public void AddDiagonal(CornerDiagonalType type) {
             activeDiagonals |= type;
+            if (creationTime < 0f) creationTime = Time.time;
         }
 
         // 대각선 도로 제거
         public void RemoveDiagonal(CornerDiagonalType type) {
             activeDiagonals &= ~type;
+            creationTime = -1f;
         }
 
         // 렌더링 시 코너 메쉬를 그려야 하는지 판별용

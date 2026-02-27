@@ -147,7 +147,7 @@ namespace Motorways.Managers {
 		        CornerData corner = MapManager.Instance.GetOrCreateCorner(cornerCoord);
 		        if (isAdding) {
 		            corner.AddDiagonal(diagonalType);
-		        } else {
+				} else {
 		            corner.RemoveDiagonal(diagonalType);
 		        }
 		

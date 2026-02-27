@@ -38,6 +38,9 @@ namespace Motorways.Actions {
 		//집 회전 조작용
 		private House _dragStartHouse = null; // 회전 조작 중인 건물
 
+		public List<Vector2Int> PreviewPath { get; private set; } = new List<Vector2Int>();
+		private Vector2Int _lastPreviewTarget = new Vector2Int(-999, -999); // 변경 감지용
+
 		#region Gizmos용 ㅍ프로퍼티
 		public bool IsDraggingBuild => _isDraggingBuild;
 		public Vector3 ClickOriginWorldPos => _clickOriginWorldPos;
@@ -102,6 +105,9 @@ namespace Motorways.Actions {
 			if (_isDraggingBuild) {
 				_isDraggingBuild = false;
 				_dragStartHouse = null;
+
+				PreviewPath.Clear();
+				_lastPreviewTarget = new Vector2Int(-999, -999);
 			}
 		}
 
@@ -127,7 +133,7 @@ namespace Motorways.Actions {
 
 			if (_isDraggingBuild) {
 				Vector3 currentMouseWorldPos = GetWorldPositionFromMouse();
-
+				UpdatePreviewPath(currentMouseWorldPos);
 				//조건1. 데드존 체크.
 				if (!_hasPassedDeadzone) {
 					//안넘어갔다면
@@ -227,6 +233,36 @@ namespace Motorways.Actions {
 				}
 			}
 		}
+
+		//---------- 건설 때 미리보기 (priview)
+		private void UpdatePreviewPath(Vector3 mousePos) {
+			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
+			Vector3 diff = mousePos - lastTileCenter;
+
+			Vector2Int offset = CalculateSnappedDirection(diff);
+			Vector2Int candidatePos = _lastGridPointer + offset;
+
+			// 거리가 너무 멀지 않은 인접 타일일 경우에만 프리뷰 갱신
+			if (Vector2Int.Distance(_lastGridPointer, candidatePos) <= 1.5f) {
+				if (_lastPreviewTarget != candidatePos) {
+					PreviewPath.Clear();
+					PreviewPath.Add(_lastGridPointer); // 시작점
+					PreviewPath.Add(candidatePos);     // 예상 연결점
+
+					_lastPreviewTarget = candidatePos;
+
+					// TODO: ChunkManager에 _lastGridPointer와 candidatePos가 포함된 청크 재빌드 요청
+					// RoadChunkManager.Instance.MarkChunksDirty(PreviewPath);
+				}
+			} else {
+				if (PreviewPath.Count > 0) {
+					PreviewPath.Clear();
+					_lastPreviewTarget = new Vector2Int(-999, -999);
+					// 청크 재빌드 요청
+				}
+			}
+		}
+
 
 		//---------- 유틸
 		private void UpdateGridPointer() {

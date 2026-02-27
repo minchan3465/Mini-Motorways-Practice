@@ -13,9 +13,14 @@ namespace Motorways {
 
 		public bool IsUTurn => input.Equals(output);
 
-		public RoadTileConnection(RoadTileNode input, RoadTileNode output) {
-			this.input = input;
-			this.output = output;
+		public RoadTileConnection(RoadTileNode nodeA, RoadTileNode nodeB) {
+			if (nodeA.direction > nodeB.direction) {
+				this.input = nodeB;
+				this.output = nodeA;
+			} else {
+				this.input = nodeA;
+				this.output = nodeB;
+			}
 		}
 		
 		public RoadTileConnection GetRotatedConnection(int steps) {

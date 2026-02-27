@@ -186,7 +186,7 @@ namespace Motorways.Baking {
 			List<Vector2> pathPoints = new List<Vector2>();
 
 			// 타일 중심(0.5, 0.5)을 잇는 대각선 사이의 빈 공간 길이
-			float cornerRadius = Mathf.Sqrt(2f) - 1f;
+			float cornerRadius = (Mathf.Sqrt(2f) - 1f) * 0.5f;
 
 			// 코너 조각은 중심(0,0)을 가로지르는 단순한 직선 경로입니다.
 			// 남서(SW)에서 북동(NE) 방향으로 관통하는 기준 경로 하나만 만들면, 
@@ -202,8 +202,7 @@ namespace Motorways.Baking {
 			return pathPoints;
 		}
 
-		public RoadMeshData ConstructMeshFromPath(List<Vector2> visualPoints, float roadWidth, bool roundEnds) {    
-			//TODO: visualPoints를 순회하며 좌우 정점(Vertices)과 삼각형(Triangles) 생성
+		public RoadMeshData ConstructMeshFromPath(List<Vector2> visualPoints, float roadWidth, bool roundEnds, float yOffset = 0f) {    //TODO: visualPoints를 순회하며 좌우 정점(Vertices)과 삼각형(Triangles) 생성
 			RoadMeshData data = new RoadMeshData();
 
 			if (visualPoints == null || visualPoints.Count < 2) return data;
@@ -217,6 +216,9 @@ namespace Motorways.Baking {
 			//좌우 정점이 필요하니, 전체 포인트 수의 두배를 늘려줍시다.
 			data.vertices = new Vector3[totalVertices];
 			data.uvs = new Vector2[totalVertices];
+
+			data.uv2 = new Vector2[totalVertices];//애니메이션용
+			Vector2 centerPivot = Vector2.zero;
 
 			//사각형 (Quad) 하나당, 삼각형 2개... ~> 정점 인덱스 6개가 됩니다.
 			int bodyTriangles = (pointCount - 1) * 6;
@@ -252,11 +254,15 @@ namespace Motorways.Baking {
 				if (i > 0) currentLength += Vector2.Distance(visualPoints[i], visualPoints[i - 1]);
 
 				//왼쪽 정점
-				data.vertices[i * 2] = new Vector3(currentPoint.x + left.x * halfWidth, 0f, currentPoint.y + left.y * halfWidth);
+				data.vertices[i * 2] = new Vector3(currentPoint.x + left.x * halfWidth, yOffset, currentPoint.y + left.y * halfWidth);
 				data.uvs[i * 2] = new Vector2(0f, currentLength); //U는 0 (왼쪽 끝)
-																  //오른쪽 정점
-				data.vertices[i * 2 + 1] = new Vector3(currentPoint.x - left.x * halfWidth, 0f, currentPoint.y - left.y * halfWidth);
-				data.uvs[i * 2 + 1] = new Vector2(1f, currentLength); //U는 1 (오른쪽 끝)
+
+				//오른쪽 정점
+				data.vertices[i * 2 + 1] = new Vector3(currentPoint.x - left.x * halfWidth, yOffset, currentPoint.y - left.y * halfWidth);
+				data.uvs[i * 2 + 1] = new Vector2(1f, currentLength);//U는 1 (오른쪽 끝)
+
+				data.uv2[i * 2] = currentPoint;
+				data.uv2[i * 2 + 1] = currentPoint;
 
 				if (roundEnds && i == pointCount - 1) {
 					Vector2 endPos = currentPoint;
@@ -272,6 +278,8 @@ namespace Motorways.Baking {
 
 						data.vertices[capStartIndex + capIndex - 1] = new Vector3(endPos.x + rotatedLeft.x * halfWidth, 0f, endPos.y + rotatedLeft.y * halfWidth);
 						data.uvs[capStartIndex + capIndex - 1] = new Vector2(0.5f, currentLength + halfWidth);
+
+						data.uv2[capStartIndex + capIndex - 1] = endPos;
 					}
 				}
 			}
@@ -307,6 +315,56 @@ namespace Motorways.Baking {
 				}
 			}
 			return data;
+		}
+
+		// [추가] 여러 개의 RoadMeshData를 하나로 병합하는 함수
+		public RoadMeshData CombineMeshData(List<RoadMeshData> meshList) {
+			if (meshList == null || meshList.Count == 0) return new RoadMeshData();
+
+			int totalVerts = 0;
+			int totalTris = 0;
+
+			// 전체 크기 계산
+			foreach (var mesh in meshList) {
+				if (mesh.vertices != null) totalVerts += mesh.vertices.Length;
+				if (mesh.triangles != null) totalTris += mesh.triangles.Length;
+			}
+
+			RoadMeshData combined = new RoadMeshData();
+			combined.vertices = new Vector3[totalVerts];
+			combined.uvs = new Vector2[totalVerts];
+			combined.uv2 = new Vector2[totalVerts];	//애니메이션용...
+			combined.triangles = new int[totalTris];
+
+			int vertOffset = 0;
+			int triOffset = 0;
+
+			foreach (var mesh in meshList) {
+				if (mesh.vertices == null || mesh.vertices.Length == 0) continue;
+
+				// 정점 복사
+				System.Array.Copy(mesh.vertices, 0, combined.vertices, vertOffset, mesh.vertices.Length);
+				System.Array.Copy(mesh.uvs, 0, combined.uvs, vertOffset, mesh.uvs.Length);
+
+				if (mesh.uv2 != null && mesh.uv2.Length == mesh.vertices.Length) {
+					System.Array.Copy(mesh.uv2, 0, combined.uv2, vertOffset, mesh.uv2.Length);
+				} else {
+					// 방어 코드: 만약 uv2가 없다면 0으로라도 채워줍니다.
+					for (int i = 0; i < mesh.vertices.Length; i++) {
+						combined.uv2[vertOffset + i] = Vector2.zero;
+					}
+				}
+
+				// 삼각형 인덱스 복사 (오프셋 적용)
+				for (int i = 0; i < mesh.triangles.Length; i++) {
+					combined.triangles[triOffset + i] = mesh.triangles[i] + vertOffset;
+				}
+
+				vertOffset += mesh.vertices.Length;
+				triOffset += mesh.triangles.Length;
+			}
+
+			return combined;
 		}
 	}
 }

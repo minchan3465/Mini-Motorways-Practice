@@ -9,6 +9,9 @@ namespace Motorways {
 	public class RoadMeshData {
 		public Vector3[] vertices;
 		public Vector2[] uvs;
+
+		// [추가] 애니메이션 스케일링을 위한 중심점 데이터
+		public Vector2[] uv2;
 		public int[] triangles;
 	}
 
