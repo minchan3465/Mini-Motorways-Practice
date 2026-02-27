@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways {
-	[SerializeField]
+	[Serializable]
 	public class RoadTileDefinition {
 		public int index = -1; //∞Ì¿Ø ¿Œµ¶Ω∫
 		public int rotationSteps = 0; //»∏¿¸§°πÂ.
@@ -30,11 +30,11 @@ namespace Motorways {
 			rotatedDef.rotationSteps = newRotationSteps;
 
 			if (this.signature != null) {
-				int amountToRotate = (newRotationSteps - this.rotationSteps + 4) % 4;
+				int amountToRotate = (newRotationSteps - this.rotationSteps + 8) % 8;
 				rotatedDef.signature = this.signature.CreateRotatedSignature(amountToRotate);
 			}
 
-			int amountToRotatePath = (newRotationSteps - this.rotationSteps + 4) % 4;
+			int amountToRotatePath = (newRotationSteps - this.rotationSteps + 8) % 8;
 			foreach (var pair in connectionToPath) {
 				//key
 				RoadTileConnection rotatedConn = pair.Key.GetRotatedConnection(amountToRotatePath);
@@ -42,11 +42,11 @@ namespace Motorways {
 				//Value
 				List<Vector2> rotatedPath = new List<Vector2>();
 				foreach(var point in pair.Value) {
-					float rad = amountToRotatePath * 90f * Mathf.Deg2Rad;
+					float rad = amountToRotatePath * 45f * Mathf.Deg2Rad;
 					float cos = Mathf.Cos(rad);
 					float sin = Mathf.Sin(rad);
-					float nx = point.x * cos - point.y * sin;
-					float ny = point.x * sin + point.y * cos;
+					float nx = point.x * cos + point.y * sin;
+					float ny = -point.x * sin + point.y * cos;
 					rotatedPath.Add(new Vector2(nx, ny));
 				}
 

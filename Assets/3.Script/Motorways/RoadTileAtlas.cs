@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Motorways {
     [CreateAssetMenu(fileName = "New RoadTileAtlas", menuName = "Motorways/Road Tile Atlas")]
     public class RoadTileAtlas : ScriptableObject {
-        [HideInInspector]
+        //[HideInInspector]
         public List<RoadTileDefinition> definitions = new List<RoadTileDefinition>();
 
         private Dictionary<RoadTileSignature, RoadTileDefinition> _signatureToDefinition;
@@ -23,14 +23,15 @@ namespace Motorways {
                 _signatureToDefinition[def.signature] = def;
 
                 // [최적화/수정] 8방향(45도 단위) 회전본을 게임 시작 시 모두 사전 연산하여 캐싱
-                for (int step = 1; step < 8; step++) {
+                for (int step = 0; step < 8; step++) {
                     RoadTileSignature rotatedSignature = def.signature.CreateRotatedSignature(step);
 
                     // 중복 등록 방지 (대칭형 타일 등)
                     if (!_signatureToDefinition.ContainsKey(rotatedSignature)) {
                         // 런타임에 쓸 수 있도록 역회전값(8-step)을 적용한 Definition 생성
-                        int reverseStep = (8 - step) % 8;
-                        _signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(reverseStep));
+                        //int reverseStep = (8 - step) % 8;
+                        //_signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(reverseStep));
+                        _signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(step));
                     }
                 }
             }

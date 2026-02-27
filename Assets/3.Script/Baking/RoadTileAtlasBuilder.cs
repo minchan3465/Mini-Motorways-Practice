@@ -25,39 +25,44 @@ namespace Motorways.Baking {
 
 		public List<RoadTileSignature> GenerateAllUniqueSignatures() {
 			List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
-
-			//이론상 가능한 256가지의 모든 조합 생성.
-			int totalCombinations = 1 << 8;
+			int totalCombinations = 1 << 8; //이론상 가능한 256가지의 모든 조합 생성.
 
 			//한번만 굽는 작업을 할 예정이니, 256번 작업을 매번하는건 아님...
-			for(int i = 0; i < totalCombinations; i++) {
-				RoadTileSignature tempSignature = new RoadTileSignature();
-				
-				//비트 마스크를 확인해서, 타일에 들어오는 방향을 추가합니다. (Node 추가)
-				for(int dirIndex = 0; dirIndex < 8; dirIndex++) {
-					if ((i & (1 << dirIndex)) != 0) {
-						tempSignature.AddNode(new RoadTileNode(AllDirections[dirIndex], RoadType.TwoLane));
-					}
+			for (int i = 0; i < totalCombinations; i++) {
+				List<TileDirection> activeDirs = new List<TileDirection>();
+				for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
+					if ((i & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
 				}
+				if (activeDirs.Count == 0) continue;
 
-				//빈 타일은 제외
-				if (tempSignature.Count == 0 && !tempSignature.IsDeadEnd) continue;
 
-				//회전 중복을 검사합시다.
-				bool isDuplicate = false;
-				foreach(RoadTileSignature existingSig in uniqueSignatures) {
-					for(int step = 0; step < 8; step++) {
-						RoadTileSignature rotatedTemp = tempSignature.CreateRotatedSignature(step);
-						if(existingSig.Equals(rotatedTemp)) {
-							isDuplicate = true;
-							break;
+				RoadTileSignature tempSignature = new RoadTileSignature();
+
+				// 조합 로직: 막힌 길이면 U턴 1개, 그 이상이면 모든 활성 방향끼리 명확한 쌍으로 연결
+				if (activeDirs.Count == 1) {
+					tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
+				} else {
+					for (int a = 0; a < activeDirs.Count; a++) {
+						for (int b = a + 1; b < activeDirs.Count; b++) {
+							tempSignature.AddConnection(new RoadTileConnection(
+								new RoadTileNode(activeDirs[a], RoadType.TwoLane),
+								new RoadTileNode(activeDirs[b], RoadType.TwoLane)));
 						}
 					}
 				}
 
-				if(!isDuplicate) {
-					uniqueSignatures.Add(tempSignature);
+				//회전 중복을 검사합시다.
+				bool isDuplicate = false;
+				foreach (RoadTileSignature existingSig in uniqueSignatures) {
+					for (int step = 0; step < 8; step++) {
+						if (existingSig.Equals(tempSignature.CreateRotatedSignature(step))) {
+							isDuplicate = true;
+							break;
+						}
+					}
+					if (isDuplicate) break;
 				}
+				if (!isDuplicate) uniqueSignatures.Add(tempSignature);
 			}
 			return uniqueSignatures;
 		}
@@ -71,8 +76,8 @@ namespace Motorways.Baking {
 			TileDirection inDir = connection.input.direction;
 			TileDirection outDir = connection.output.direction;
 
-			float cornerHandleScale = 0.6f;
-			float tightCornerHandleScale = 0.2f;
+			float cornerHandleScale = 0.276f;
+			float tightCornerHandleScale = 0.1f;
 			int resolution = 24;
 
 			//타일 반경 설정.
@@ -120,26 +125,24 @@ namespace Motorways.Baking {
 					float t = i / (float)resolution;
 					pathPoints.Add(BezierUtils.GetPoint(inCurveStart, handleA, handleB, outCurveStart, t)); //3차 베지어 곡선
 				}
+
+				// 막다른 길이 아닐 때만 끝점 연장 추가
+				if (outIsDiagonal) pathPoints.Add(outPos);
 			} else {
 				//--U-Turn (막힌 길)--
-				Vector2 handleA = inPos - (inBase * 0.8f);
-				Vector2 handleB = outPos - (outBase * 0.8f);
-
-				for(int i = 0; i<= resolution; i++) {
-					float t = i / (float)resolution;
-					pathPoints.Add(BezierUtils.GetPoint(inCurveStart, handleA, handleB, outCurveStart, t));
-				}
+				pathPoints.Add(inCurveStart);
+				pathPoints.Add(Vector2.zero);
 			}
 			if (outIsDiagonal) pathPoints.Add(outPos);
 
 			return pathPoints;
 		}
 
-		public Mesh ConstructMeshFromPath(List<Vector2> visualPoints, float roadWidth, bool roundEnds, float yOffset) {
+		public RoadMeshData ConstructMeshFromPath(List<Vector2> visualPoints, float roadWidth, bool roundEnds) {    
 			//TODO: visualPoints를 순회하며 좌우 정점(Vertices)과 삼각형(Triangles) 생성
-			Mesh mesh = new Mesh();
+			RoadMeshData data = new RoadMeshData();
 
-			if(visualPoints == null || visualPoints.Count < 2) return mesh;
+			if (visualPoints == null || visualPoints.Count < 2) return data;
 
 			float halfWidth = roadWidth * 0.5f;
 			int pointCount = visualPoints.Count;
@@ -148,13 +151,13 @@ namespace Motorways.Baking {
 			int totalVertices = (pointCount * 2) + capVerticesCount;
 
 			//좌우 정점이 필요하니, 전체 포인트 수의 두배를 늘려줍시다.
-			Vector3[] vertices = new Vector3[totalVertices];
-			Vector2[] uvs = new Vector2[totalVertices];
+			data.vertices = new Vector3[totalVertices];
+			data.uvs = new Vector2[totalVertices];
 
 			//사각형 (Quad) 하나당, 삼각형 2개... ~> 정점 인덱스 6개가 됩니다.
 			int bodyTriangles = (pointCount - 1) * 6;
 			int capTriangles = roundEnds ? (12 * 3) : 0;
-			int[] triangles = new int[bodyTriangles + capTriangles];
+			data.triangles = new int[bodyTriangles + capTriangles];
 
 			float currentLength = 0f;
 			
@@ -185,14 +188,13 @@ namespace Motorways.Baking {
 				if (i > 0) currentLength += Vector2.Distance(visualPoints[i], visualPoints[i - 1]);
 
 				//왼쪽 정점
-				vertices[i * 2] = new Vector3(currentPoint.x + left.x * halfWidth, yOffset, currentPoint.y + left.y * halfWidth);
-				uvs[i * 2] = new Vector2(0f, currentLength); //U는 0 (왼쪽 끝)
+				data.vertices[i * 2] = new Vector3(currentPoint.x + left.x * halfWidth, 0f, currentPoint.y + left.y * halfWidth);
+				data.uvs[i * 2] = new Vector2(0f, currentLength); //U는 0 (왼쪽 끝)
+																  //오른쪽 정점
+				data.vertices[i * 2 + 1] = new Vector3(currentPoint.x - left.x * halfWidth, 0f, currentPoint.y - left.y * halfWidth);
+				data.uvs[i * 2 + 1] = new Vector2(1f, currentLength); //U는 1 (오른쪽 끝)
 
-				//오른쪽 정점
-				vertices[i * 2 + 1] = new Vector3(currentPoint.x - left.x * halfWidth, yOffset, currentPoint.y - left.y * halfWidth);
-				uvs[i * 2 + 1] = new Vector2(1f, currentLength); //U는 1 (오른쪽 끝)
-
-				if(roundEnds && i == pointCount - 1) {
+				if (roundEnds && i == pointCount - 1) {
 					Vector2 endPos = currentPoint;
 					float angleStep = 15f;
 					int capStartIndex = pointCount * 2;
@@ -204,8 +206,8 @@ namespace Motorways.Baking {
 						float sin = Mathf.Sin(rad);
 						Vector2 rotatedLeft = new Vector2(left.x * cos - left.y * sin, left.x * sin + left.y * cos);
 
-						vertices[capStartIndex + capIndex - 1] = new Vector3(endPos.x + rotatedLeft.x * halfWidth, yOffset, endPos.y + rotatedLeft.y * halfWidth);
-						uvs[capStartIndex + capIndex - 1] = new Vector2(0.5f, currentLength + halfWidth); // 대략적인 끝단 UV
+						data.vertices[capStartIndex + capIndex - 1] = new Vector3(endPos.x + rotatedLeft.x * halfWidth, 0f, endPos.y + rotatedLeft.y * halfWidth);
+						data.uvs[capStartIndex + capIndex - 1] = new Vector2(0.5f, currentLength + halfWidth);
 					}
 				}
 			}
@@ -217,13 +219,13 @@ namespace Motorways.Baking {
 				int leftNext = (i + 1) * 2;
 				int rightNext = (i + 1) * 2 + 1;
 
-				triangles[triIndex++] = leftCurrent;
-				triangles[triIndex++] = rightNext;
-				triangles[triIndex++] = rightCurrent;
+				data.triangles[triIndex++] = leftCurrent;
+				data.triangles[triIndex++] = rightNext;
+				data.triangles[triIndex++] = rightCurrent;
 
-				triangles[triIndex++] = leftCurrent;
-				triangles[triIndex++] = leftNext;
-				triangles[triIndex++] = rightNext;
+				data.triangles[triIndex++] = leftCurrent;
+				data.triangles[triIndex++] = leftNext;
+				data.triangles[triIndex++] = rightNext;
 			}
 
 			if (roundEnds) {
@@ -234,22 +236,13 @@ namespace Motorways.Baking {
 				int previousIndex = lastLeftIndex;
 				for (int capIndex = 0; capIndex < 12; capIndex++) {
 					int currentCapVertex = capStartIndex + capIndex;
-					triangles[triIndex++] = centerRightIndex;
-					triangles[triIndex++] = previousIndex;
-					triangles[triIndex++] = currentCapVertex;
+					data.triangles[triIndex++] = centerRightIndex;
+					data.triangles[triIndex++] = previousIndex;
+					data.triangles[triIndex++] = currentCapVertex;
 					previousIndex = currentCapVertex;
 				}
 			}
-
-			//메쉬 데이터 할당, 마무리 !
-			mesh.vertices = vertices;
-			mesh.uv = uvs;
-			mesh.triangles = triangles;
-
-			//조명 연산?
-			mesh.RecalculateNormals();
-
-			return mesh;
+			return data;
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace Motorways.Managers {
 			Vector2Int chunkCoord = new Vector2Int(chunkX, chunkY);
 
 			if (!_chunks.TryGetValue(chunkCoord, out RoadChunkVisual chunk)) {
-				// »õ Ã»Å© °ÔÀÓ¿ÀºêÁ§Æ® »ı¼º
+				// ìƒˆ ì²­í¬ ê²Œì„ì˜¤ë¸Œì íŠ¸ ìƒì„±
 				GameObject chunkObj = new GameObject($"RoadChunk_{chunkCoord.x}_{chunkCoord.y}");
 				chunkObj.transform.SetParent(this.transform);
 
@@ -34,8 +34,9 @@ namespace Motorways.Managers {
 				chunk.chunkSize = this.chunkSize;
 				chunk.roadMaterial = this.roadMaterial;
 				chunk.outlineMaterial = this.outlineMaterial;
+				chunkObj.transform.position = new Vector3(chunkCoord.x * chunkSize, 0, chunkCoord.y * chunkSize);
 
-				// ¾ÆÆ²¶ó½º ÁÖÀÔ ¹× ÃÊ±âÈ­
+				// ì•„í‹€ë¼ìŠ¤ ì£¼ì… ë° ì´ˆê¸°í™”
 				chunk.Initialize(this.roadAtlas);
 
 				_chunks.Add(chunkCoord, chunk);
@@ -52,7 +53,7 @@ namespace Motorways.Managers {
 				chunksToUpdate.Add(chunk);
 			}
 
-			// ¸ğÀÎ Ã»Å©µé¿¡°Ô¸¸ ÀçÁ¶¸³(Rebuild) ¸í·É ÇÏ´Ş
+			// ëª¨ì¸ ì²­í¬ë“¤ì—ê²Œë§Œ ì¬ì¡°ë¦½(Rebuild) ëª…ë ¹ í•˜ë‹¬
 			foreach (RoadChunkVisual chunk in chunksToUpdate) {
 				chunk.MarkDirty();
 			}

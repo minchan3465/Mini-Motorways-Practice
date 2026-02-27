@@ -26,13 +26,12 @@ namespace Motorways.Editor {
 
 			float bodyWidth = 0.4f;
 			float outlineWidth = 0.5f;
-			float bodyYOffset = 0.00f;   //본체는 약간 위에 배치하여 깜빡임 방지
-			float outlineYOffset = 0.00f; //테두리는 바닥에 밀착
+			//float bodyYOffset = 0.00f;   //본체는 약간 위에 배치하여 깜빡임 방지
+			//float outlineYOffset = 0.00f; //테두리는 바닥에 밀착
 
 			foreach (var signature in uniqueSignatures) {
 				RoadTileDefinition def = new RoadTileDefinition();
 				def.index = index++;
-
 				def.signature = signature;
 				def.mesh = new RoadTileMesh();
 
@@ -48,23 +47,8 @@ namespace Motorways.Editor {
 				//끝이면 둥글게 마감.
 				bool roundEnds = signature.IsDeadEnd;
 
-				//공정 3-A. 도로 본체 메쉬 확장 및 생성.
-				Mesh roadMesh = builder.ConstructMeshFromPath(combinedVisualPoints, bodyWidth, roundEnds, bodyYOffset);
-				roadMesh.name = $"RoadMesh_Sig_{index}";
-
-				//생성된 메쉬를 아틀라스 에셋의 하위로 저장.
-				AssetDatabase.AddObjectToAsset(roadMesh, atlas);
-
-				//도로 본체 할당...
-				def.mesh.roadMesh = roadMesh;
-
-				//공정 3-B. 테두리 메쉬 확장 및 굽기.
-				Mesh outlineMesh = builder.ConstructMeshFromPath(combinedVisualPoints, outlineWidth, roundEnds, outlineYOffset);
-				outlineMesh.name = $"OutlineMesh_Sig_{index}";
-				AssetDatabase.AddObjectToAsset(outlineMesh, atlas);
-				def.mesh.outlineMesh = outlineMesh;
-
-				def.mesh.CacheMeshData();
+				def.mesh.road = builder.ConstructMeshFromPath(combinedVisualPoints, bodyWidth, roundEnds);
+				def.mesh.outline = builder.ConstructMeshFromPath(combinedVisualPoints, outlineWidth, roundEnds);
 
 				atlas.definitions.Add(def);
 			}

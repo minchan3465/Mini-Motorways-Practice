@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Motorways.Rendering {
 	public class MeshBuffer {
-		public List<Vector3> vertices = new List<Vector3>(4096);
-		public List<Vector2> uvs = new List<Vector2>(4096);
-		public List<int> triangles = new List<int>(8192);
+		public List<Vector3> vertices = new List<Vector3>(8192);
+		public List<Vector2> uvs = new List<Vector2>(8192);
+		public List<int> triangles = new List<int>(16384);
 
 		public void Clear() {
 			vertices.Clear();
@@ -17,39 +17,40 @@ namespace Motorways.Rendering {
 		//다른 메쉬 데이터를 이 버퍼에 변환(회전+이동)하여 합칩니다.
 		//posOffset: 타일의 월드 좌표 (예: 5, 0, 5)
 		//rotationSteps: 아틀라스가 지시한 회전 횟수 (0~3)
-		public void Append(Vector3[] srcVerts, Vector2[] srcUVs, int[] srcTris, Vector3 posOffset, int rotationSteps) {
-			if (srcVerts == null || srcVerts.Length == 0) return;
+		public void Append(RoadMeshData rawData, Vector3 posOffset, int rotationSteps) {
+			if (rawData == null || rawData.vertices == null) return;
 
 			int startIndex = vertices.Count;
 
-			for (int i = 0; i < srcVerts.Length; i++) {
-				Vector3 v = srcVerts[i];
-
-				if (rotationSteps > 0) {
-					v = RotatePoint45Degrees(v, rotationSteps); // 8방향 지원으로 함수명/로직 변경 예정
-				}
-
+			for (int i = 0; i < rawData.vertices.Length; i++) {
+				Vector3 v = rawData.vertices[i];
+				if (rotationSteps > 0) v = RotatePoint8Way(v, rotationSteps);
 				v += posOffset;
 				vertices.Add(v);
-				uvs.Add(srcUVs[i]);
+				uvs.Add(rawData.uvs[i]);
 			}
 
-			for (int i = 0; i < srcTris.Length; i++) {
-				triangles.Add(startIndex + srcTris[i]);
+			for (int i = 0; i < rawData.triangles.Length; i++) {
+				triangles.Add(startIndex + rawData.triangles[i]);
 			}
 		}
 
-		private Vector3 RotatePoint45Degrees(Vector3 v, int steps) {
-			float angle = steps * 45f;
-			float rad = angle * Mathf.Deg2Rad;
-			float cos = Mathf.Cos(rad);
-			float sin = Mathf.Sin(rad);
+		private Vector3 RotatePoint8Way(Vector3 v, int steps) {
+			steps = (steps % 8 + 8) % 8;
+			float x = v.x, z = v.z;
+			float sq = 0.70710678f; // sqrt(2)/2
 
-			// 타일의 로컬 중심점(0,0)을 기준으로 XZ 평면 회전
-			float x = v.x * cos - v.z * sin;
-			float z = v.x * sin + v.z * cos;
-
-			return new Vector3(x, v.y, z);
+			switch (steps) {
+				case 0: return v;
+				case 1: return new Vector3(x * sq + z * sq, v.y, -x * sq + z * sq); // 45
+				case 2: return new Vector3(z, v.y, -x); // 90
+				case 3: return new Vector3(-x * sq + z * sq, v.y, -x * sq - z * sq); // 135
+				case 4: return new Vector3(-x, v.y, -z); // 180
+				case 5: return new Vector3(-x * sq - z * sq, v.y, x * sq - z * sq); // 225
+				case 6: return new Vector3(-z, v.y, x); // 270
+				case 7: return new Vector3(x * sq - z * sq, v.y, x * sq + z * sq); // 315
+				default: return v;
+			}
 		}
 	}
 }
