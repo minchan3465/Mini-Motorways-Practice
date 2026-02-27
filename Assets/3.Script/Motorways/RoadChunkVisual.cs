@@ -76,28 +76,53 @@ namespace Motorways {
                     int mapX = chunkCoord.x * chunkSize + x;
                     int mapY = chunkCoord.y * chunkSize + y;
                     Vector2Int targetCoord = new Vector2Int(mapX, mapY);
+
+
                     TileData tile = MapManager.Instance.GetTileData(targetCoord);// 맵 범위 체크
+                    if (tile != null && tile.HasAnyRoad) {
+                        // 시그니처 생성
+                        RoadTileSignature signature = BuildSignatureFromTile(tile);
+                        if (signature != null && signature.Count > 0) {
+                            // 아틀라스 조회
+                            RoadTileDefinition def = atlas.ConstructDefinitionFromSignature(signature);
 
-                    if (tile == null || !tile.HasAnyRoad) continue;// 도로가 없는 타일은 패스
+                            if (def != null && def.mesh != null) {
+                                // 청크 내부의 로컬 위치 오프셋 계산
+                                Vector3 tilePosOffset = new Vector3(x + 0.5f, 0, y + 0.5f);
 
-                    // 시그니처 생성
-                    RoadTileSignature signature = BuildSignatureFromTile(tile);
-                    if (signature == null || signature.Count == 0) continue;
+                                if (def.mesh.road != null)
+                                    _roadBuffer.Append(def.mesh.road, tilePosOffset, def.rotationSteps);
+                                if (def.mesh.outline != null)
+                                    _outlineBuffer.Append(def.mesh.outline, tilePosOffset, def.rotationSteps);
+                            }
+                        }
+                    }
 
-                    // 아틀라스 조회
-                    RoadTileDefinition def = atlas.ConstructDefinitionFromSignature(signature);
+                    CornerData corner = MapManager.Instance.GetCornerData(targetCoord);
+                    if (corner != null && corner.HasAnyDiagonal && atlas.cornerMesh != null) {
+                        // 코너의 위치는 타일 중심(0.5)에서 우상단으로 0.5만큼 더 간 곳 (즉, x+1.0, y+1.0)
+                        Vector3 cornerPosOffset = new Vector3(x + 1.0f, 0, y + 1.0f);
 
-                    if (def != null && def.mesh != null) {
-                        // 청크 내부의 로컬 위치 오프셋 계산
-                        Vector3 tilePosOffset = new Vector3(x + 0.5f, 0, y + 0.5f);
+                        // SW_to_NE 방향 ('/' 대각선) - 기본 회전(0)
+                        if (corner.HasDiagonal(CornerDiagonalType.SW_to_NE)) {
+                            if (atlas.cornerMesh.road != null)
+                                _roadBuffer.Append(atlas.cornerMesh.road, cornerPosOffset, 0);
+                            if (atlas.cornerMesh.outline != null)
+                                _outlineBuffer.Append(atlas.cornerMesh.outline, cornerPosOffset, 0);
+                        }
 
-                        if (def.mesh.road != null)
-                            _roadBuffer.Append(def.mesh.road, tilePosOffset, def.rotationSteps);
-                        if (def.mesh.outline != null)
-                            _outlineBuffer.Append(def.mesh.outline, tilePosOffset, def.rotationSteps);
+                        // NW_to_SE 방향 ('\' 대각선) - 90도 회전 (rotationSteps: 2)
+                        // 1 step = 45도이므로, 2 steps = 90도 회전
+                        if (corner.HasDiagonal(CornerDiagonalType.NW_to_SE)) {
+                            if (atlas.cornerMesh.road != null)
+                                _roadBuffer.Append(atlas.cornerMesh.road, cornerPosOffset, 2);
+                            if (atlas.cornerMesh.outline != null)
+                                _outlineBuffer.Append(atlas.cornerMesh.outline, cornerPosOffset, 2);
+                        }
                     }
                 }
             }
+
 
             // 5. 최종 메쉬 적용
 

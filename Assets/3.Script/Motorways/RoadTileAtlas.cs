@@ -8,6 +8,8 @@ namespace Motorways {
         //[HideInInspector]
         public List<RoadTileDefinition> definitions = new List<RoadTileDefinition>();
 
+        public RoadTileMesh cornerMesh;
+
         private Dictionary<RoadTileSignature, RoadTileDefinition> _signatureToDefinition;
 
         //게임 시작 시, 한번 호출.

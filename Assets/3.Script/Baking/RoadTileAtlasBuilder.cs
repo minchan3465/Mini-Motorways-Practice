@@ -25,20 +25,33 @@ namespace Motorways.Baking {
 
 		public List<RoadTileSignature> GenerateAllUniqueSignatures() {
 			List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
-			int totalCombinations = 1 << 8; //이론상 가능한 256가지의 모든 조합 생성.
+			HashSet<byte> processedMasks = new HashSet<byte>();
 
-			//한번만 굽는 작업을 할 예정이니, 256번 작업을 매번하는건 아님...
-			for (int i = 0; i < totalCombinations; i++) {
+			for (int i = 1; i < 256; i++) { // 1(00000001) 부터 255(11111111)까지 
+				byte mask = (byte)i;
+
+				// 1. 비트 마스크 기반 회전 중복 검사 (수학적으로 가장 정확함)
+				bool isDuplicate = false;
+				for (int step = 0; step < 8; step++) {
+					int s = step % 8;
+					byte rotatedMask = (byte)((mask << s) | (mask >> (8 - s)));
+					if (processedMasks.Contains(rotatedMask)) {
+						isDuplicate = true;
+						break;
+					}
+				}
+				if (isDuplicate) continue;
+
+				processedMasks.Add(mask); // 고유 마스크 등록
+
+				// 2. 고유 마스크에 해당하는 방향 추출
 				List<TileDirection> activeDirs = new List<TileDirection>();
 				for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
-					if ((i & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
+					if ((mask & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
 				}
-				if (activeDirs.Count == 0) continue;
 
-
+				// 3. 시그니처 조립 (기존 로직과 동일)
 				RoadTileSignature tempSignature = new RoadTileSignature();
-
-				// 조합 로직: 막힌 길이면 U턴 1개, 그 이상이면 모든 활성 방향끼리 명확한 쌍으로 연결
 				if (activeDirs.Count == 1) {
 					tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
 				} else {
@@ -50,21 +63,51 @@ namespace Motorways.Baking {
 						}
 					}
 				}
-
-				//회전 중복을 검사합시다.
-				bool isDuplicate = false;
-				foreach (RoadTileSignature existingSig in uniqueSignatures) {
-					for (int step = 0; step < 8; step++) {
-						if (existingSig.Equals(tempSignature.CreateRotatedSignature(step))) {
-							isDuplicate = true;
-							break;
-						}
-					}
-					if (isDuplicate) break;
-				}
-				if (!isDuplicate) uniqueSignatures.Add(tempSignature);
+				uniqueSignatures.Add(tempSignature);
 			}
 			return uniqueSignatures;
+
+			//List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
+			//int totalCombinations = 1 << 8; //이론상 가능한 256가지의 모든 조합 생성.
+
+			////한번만 굽는 작업을 할 예정이니, 256번 작업을 매번하는건 아님...
+			//for (int i = 0; i < totalCombinations; i++) {
+			//	List<TileDirection> activeDirs = new List<TileDirection>();
+			//	for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
+			//		if ((i & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
+			//	}
+			//	if (activeDirs.Count == 0) continue;
+
+
+			//	RoadTileSignature tempSignature = new RoadTileSignature();
+
+			//	// 조합 로직: 막힌 길이면 U턴 1개, 그 이상이면 모든 활성 방향끼리 명확한 쌍으로 연결
+			//	if (activeDirs.Count == 1) {
+			//		tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
+			//	} else {
+			//		for (int a = 0; a < activeDirs.Count; a++) {
+			//			for (int b = a + 1; b < activeDirs.Count; b++) {
+			//				tempSignature.AddConnection(new RoadTileConnection(
+			//					new RoadTileNode(activeDirs[a], RoadType.TwoLane),
+			//					new RoadTileNode(activeDirs[b], RoadType.TwoLane)));
+			//			}
+			//		}
+			//	}
+
+			//	//회전 중복을 검사합시다.
+			//	bool isDuplicate = false;
+			//	foreach (RoadTileSignature existingSig in uniqueSignatures) {
+			//		for (int step = 0; step < 8; step++) {
+			//			if (existingSig.Equals(tempSignature.CreateRotatedSignature(step))) {
+			//				isDuplicate = true;
+			//				break;
+			//			}
+			//		}
+			//		if (isDuplicate) break;
+			//	}
+			//	if (!isDuplicate) uniqueSignatures.Add(tempSignature);
+			//}
+			//return uniqueSignatures;
 		}
 
 		public List<Vector2> ConstructPathForConnection(RoadTileConnection connection) {
@@ -134,6 +177,27 @@ namespace Motorways.Baking {
 				pathPoints.Add(Vector2.zero);
 			}
 			if (outIsDiagonal) pathPoints.Add(outPos);
+
+			return pathPoints;
+		}
+
+		// [추가됨] 대각선 틈새를 메우는 코너 전용 경로 생성 (길이: 약 0.414)
+		public List<Vector2> ConstructCornerPath() {
+			List<Vector2> pathPoints = new List<Vector2>();
+
+			// 타일 중심(0.5, 0.5)을 잇는 대각선 사이의 빈 공간 길이
+			float cornerRadius = Mathf.Sqrt(2f) - 1f;
+
+			// 코너 조각은 중심(0,0)을 가로지르는 단순한 직선 경로입니다.
+			// 남서(SW)에서 북동(NE) 방향으로 관통하는 기준 경로 하나만 만들면, 
+			// 나중에 회전시켜서 북서(NW) <-> 남동(SE) 방향으로도 쓸 수 있습니다.
+			Vector2 dir = new Vector2(1, 1).normalized; // 북동쪽 방향 벡터
+
+			Vector2 startPos = -dir * cornerRadius; // 남서쪽 끝
+			Vector2 endPos = dir * cornerRadius;    // 북동쪽 끝
+
+			pathPoints.Add(startPos);
+			pathPoints.Add(endPos);
 
 			return pathPoints;
 		}

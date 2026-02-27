@@ -53,6 +53,14 @@ namespace Motorways.Editor {
 				atlas.definitions.Add(def);
 			}
 
+			// --- 2. 코너 메쉬 굽기 추가 ---
+			List<Vector2> cornerPath = builder.ConstructCornerPath();
+			atlas.cornerMesh = new RoadTileMesh();
+			// 코너는 끝을 둥글게(roundEnds) 마감할 필요가 없습니다. 빈틈만 메우기 때문입니다.
+			atlas.cornerMesh.road = builder.ConstructMeshFromPath(cornerPath, bodyWidth, false);
+			atlas.cornerMesh.outline = builder.ConstructMeshFromPath(cornerPath, outlineWidth, false);
+
+
 			EditorUtility.SetDirty(atlas);
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();

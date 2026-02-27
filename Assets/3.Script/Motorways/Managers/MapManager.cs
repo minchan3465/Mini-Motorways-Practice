@@ -9,6 +9,8 @@ namespace Motorways {
 		public static MapManager Instance;
 
 		public Dictionary<Vector2Int, TileData> _grid =  new Dictionary<Vector2Int, TileData>();
+		// [추가됨] 코너 데이터를 독립적으로 관리하는 딕셔너리
+		public Dictionary<Vector2Int, CornerData> _cornerGrid = new Dictionary<Vector2Int, CornerData>();
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
@@ -21,9 +23,23 @@ namespace Motorways {
 			return tile;
 		}
 
+		public CornerData GetCornerData(Vector2Int coord) {
+			_cornerGrid.TryGetValue(coord, out CornerData corner);
+			return corner;
+		}
+
 		//---데이터 생성---
 		public void RegisterTile(Vector2Int coord, TileData data) {
 			if (!_grid.ContainsKey(coord)) _grid.Add(coord, data);
+		}
+
+		public CornerData GetOrCreateCorner(Vector2Int coord) {
+			if (_cornerGrid.TryGetValue(coord, out CornerData corner)) {
+				return corner;
+			}
+			CornerData newCorner = new CornerData(coord);
+			_cornerGrid.Add(coord, newCorner);
+			return newCorner;
 		}
 
 		//---도로 연결 데이터 동기화---
