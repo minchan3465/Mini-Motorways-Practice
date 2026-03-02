@@ -11,6 +11,7 @@ namespace Motorways.Managers {
 		public RoadTileAtlas roadAtlas;
 		public Material roadMaterial;
 		public Material outlineMaterial;
+		public Material mothballedMaterial;
 		public int chunkSize = 16;
 
 		private Dictionary<Vector2Int, RoadChunkVisual> _chunks = new Dictionary<Vector2Int, RoadChunkVisual>();
@@ -34,6 +35,7 @@ namespace Motorways.Managers {
 				chunk.chunkSize = this.chunkSize;
 				chunk.roadMaterial = this.roadMaterial;
 				chunk.outlineMaterial = this.outlineMaterial;
+				chunk.mothballedMaterial = this.mothballedMaterial;
 				chunkObj.transform.position = new Vector3(chunkCoord.x * chunkSize, 0, chunkCoord.y * chunkSize);
 
 				// 아틀라스 주입 및 초기화

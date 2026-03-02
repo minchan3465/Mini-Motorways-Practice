@@ -48,9 +48,12 @@ namespace Motorways.Models {
             //삭제 요청
             RoadNetworkManager.Instance.MothballSystemRoad(EntranceLane, IncomingLane);
 
+            //방향 상태 업데이트.
+            DrivewayDirection = newDir;
+
             //적용
             Vector2Int entranceNode = OriginCoordinate;
-            Vector2Int newRoadCoord = entranceNode + TileUtils.GetDirectionVector(newDir);
+            Vector2Int newRoadCoord = entranceNode + TileUtils.GetDirectionVector(DrivewayDirection);
 
             //도로 건설.
             RoadNetworkManager.Instance.BuildSystemRoad(entranceNode, newRoadCoord, out Lane eLane , out Lane iLane);
@@ -58,14 +61,14 @@ namespace Motorways.Models {
             IncomingLane = iLane;
 
             //생성.
-            var grid = MapManager.Instance._grid;
-            if (grid.TryGetValue(entranceNode, out TileData newEntranceTile)) {
-                newEntranceTile.ConnectLane(DrivewayDirection, EntranceLane);
-            }
-            if (grid.TryGetValue(newRoadCoord, out TileData newRoadTile)) {
-                TileDirection newOpposite = TileUtils.GetOppositeDirection(DrivewayDirection);
-                newRoadTile.ConnectLane(newOpposite, IncomingLane);
-            }
+            //var grid = MapManager.Instance._grid;
+            //if (grid.TryGetValue(entranceNode, out TileData newEntranceTile)) {
+            //    newEntranceTile.ConnectLane(DrivewayDirection, EntranceLane);
+            //}
+            //if (grid.TryGetValue(newRoadCoord, out TileData newRoadTile)) {
+            //    TileDirection newOpposite = TileUtils.GetOppositeDirection(DrivewayDirection);
+            //    newRoadTile.ConnectLane(newOpposite, IncomingLane);
+            //}
         }
     }
 }

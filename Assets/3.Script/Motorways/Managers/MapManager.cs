@@ -52,11 +52,11 @@ namespace Motorways {
 			}
 		}
 		public void DisconnectLaneFromMap(Lane lane) {
-			if (_grid.TryGetValue(lane.StartNode, out TileData tile)) {
+			if (_grid.TryGetValue(lane.StartNode, out TileData StartTile)) {
 				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
 
 				// 타일에게 연결 해제 지시 (TileData 내부에서 null 처리 + RoadState None 처리)
-				tile.DisconnectLane(dir);
+				StartTile.DisconnectLane(dir);
 			}
 		}
 

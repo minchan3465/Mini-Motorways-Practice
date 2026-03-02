@@ -67,6 +67,9 @@ namespace Motorways.Managers {
 			MapManager.Instance.ConnectLaneToMap(outLane);
 			MapManager.Instance.ConnectLaneToMap(inLane);
 
+			UpdateCornerDataForLane(from, to, isAdding: true);
+			UpdateCornerDataForLane(to, from, isAdding: true);
+
 			//CityModel.LatestLaneChangeFrame = Time.frameCount;
 			CityModel.ChangedNodes.Add(from);
 			CityModel.ChangedNodes.Add(to);
@@ -111,39 +114,39 @@ namespace Motorways.Managers {
 		}
 		//코너(Corner) 대각선 데이터 처리 로직
 		private void UpdateCornerDataForLane(Vector2Int start, Vector2Int end, bool isAdding) {
-		    // 1. 대각선 여부 확인 (x와 y가 모두 변했으면 대각선)
+		    //1. 대각선 여부 확인 (x와 y가 모두 변했으면 대각선)
 		    int dx = end.x - start.x;
 		    int dy = end.y - start.y;
 		
 		    if (Mathf.Abs(dx) == 1 && Mathf.Abs(dy) == 1) {
-		        // 2. 코너의 좌표(우측 상단 꼭짓점 기준)와 대각선 종류 결정
+		        //2. 코너의 좌표(우측 상단 꼭짓점 기준)와 대각선 종류 결정
 		        Vector2Int cornerCoord;
 		        CornerDiagonalType diagonalType;
 		
 		        if (dx == 1 && dy == 1) {
-		            // SW -> NE 방향 (예: 0,0 -> 1,1)
-		            // 코너 좌표는 왼쪽 아래 타일의 좌표를 따라갑니다.
+		            //SW -> NE 방향 (예: 0,0 -> 1,1)
+		            //코너 좌표는 왼쪽 아래 타일의 좌표를 따라갑니다.
 		            cornerCoord = start;
 		            diagonalType = CornerDiagonalType.SW_to_NE;
 		        }
 		        else if (dx == -1 && dy == -1) {
-		            // NE -> SW 방향 (예: 1,1 -> 0,0)
+		            //NE -> SW 방향 (예: 1,1 -> 0,0)
 		            cornerCoord = end;
 		            diagonalType = CornerDiagonalType.SW_to_NE;
 		        }
 		        else if (dx == 1 && dy == -1) {
-		            // NW -> SE 방향 (예: 0,1 -> 1,0)
-		            // 이 경우 코너 좌표는 (start.x, end.y) 즉, (0, 0)의 우상단 꼭짓점입니다.
+		            //NW -> SE 방향 (예: 0,1 -> 1,0)
+		            //이 경우 코너 좌표는 (start.x, end.y) 즉, (0, 0)의 우상단 꼭짓점입니다.
 		            cornerCoord = new Vector2Int(start.x, end.y);
 		            diagonalType = CornerDiagonalType.NW_to_SE;
 		        }
-		        else { // dx == -1 && dy == 1
-		            // SE -> NW 방향 (예: 1,0 -> 0,1)
+		        else { //dx == -1 && dy == 1
+		            //SE -> NW 방향 (예: 1,0 -> 0,1)
 		            cornerCoord = new Vector2Int(end.x, start.y);
 		            diagonalType = CornerDiagonalType.NW_to_SE;
 		        }
 		
-		        // 3. MapManager를 통해 코너 데이터 업데이트
+		        //3. MapManager를 통해 코너 데이터 업데이트
 		        CornerData corner = MapManager.Instance.GetOrCreateCorner(cornerCoord);
 		        if (isAdding) {
 		            corner.AddDiagonal(diagonalType);
@@ -151,8 +154,8 @@ namespace Motorways.Managers {
 		            corner.RemoveDiagonal(diagonalType);
 		        }
 		
-		        // 4. 주변 4개 타일(이 코너를 공유하는 타일들)의 청크를 업데이트하도록 강제
-		        // 코너 렌더링에 변경이 생겼으므로 렌더링 갱신이 필요합니다.
+		        //4. 주변 4개 타일(이 코너를 공유하는 타일들)의 청크를 업데이트하도록 강제
+		        //코너 렌더링에 변경이 생겼으므로 렌더링 갱신이 필요합니다.
 		        CityModel.ChangedNodes.Add(cornerCoord);
 		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x + 1, cornerCoord.y));
 		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x, cornerCoord.y + 1));

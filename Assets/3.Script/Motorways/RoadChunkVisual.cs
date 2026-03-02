@@ -16,6 +16,7 @@ namespace Motorways {
 		//Material 0: 도로 본체, Material 1: 테두리
 		public Material roadMaterial;
 		public Material outlineMaterial;
+		public Material mothballedMaterial;
 
 		//내부 데이터
 		private MeshFilter _meshFilter;
@@ -25,6 +26,7 @@ namespace Motorways {
 		//최적화용 버퍼
 		private MeshBuffer _roadBuffer = new MeshBuffer();
 		private MeshBuffer _outlineBuffer = new MeshBuffer();
+        private MeshBuffer _mothballedBuffer = new MeshBuffer();
 
         //성능 개선. 매번 new List를 하지 않고 전역에서 재사용하여 GC 억제
         private List<TileDirection> _activeDirs = new List<TileDirection>(8);
@@ -34,6 +36,7 @@ namespace Motorways {
         private List<Vector2> _allUV3s = new List<Vector2>(16384);
         private List<int> _trisRoad = new List<int>(16384);
         private List<int> _trisOutline = new List<int>(16384);
+        private List<int> _trisMothballed = new List<int>(16384);
 
         private bool _isDirty = false;
 
@@ -45,10 +48,15 @@ namespace Motorways {
 			_combinedMesh.name = $"Chunk_{chunkCoord}";
 			_meshFilter.mesh = _combinedMesh;
 
-			if(roadMaterial != null && outlineMaterial != null) {
-				_meshRenderer.materials = new Material[] { roadMaterial, outlineMaterial };
-			}
+            ApplyMaterials();
 		}
+
+        private void ApplyMaterials() {
+            if (roadMaterial != null && outlineMaterial != null && mothballedMaterial != null) {
+                //SubMesh 인덱스에 맞게 3개의 Material 배열 할당
+                _meshRenderer.materials = new Material[] { roadMaterial, outlineMaterial, mothballedMaterial };
+            }
+        }
 
         public void Initialize(RoadTileAtlas atlasAsset) {
             this.atlas = atlasAsset;
@@ -71,6 +79,7 @@ namespace Motorways {
 
             _roadBuffer.Clear();
             _outlineBuffer.Clear();
+            _mothballedBuffer.Clear();
 
             // 1. 16x16 루프
             for (int x = 0; x < chunkSize; x++) {
@@ -112,8 +121,13 @@ namespace Motorways {
                                 if (def.mesh.outline != null) {
                                     _outlineBuffer.Append(def.mesh.outline, tilePosOffset, def.rotationSteps, outlineAnimData);
                                 }
-                                if (def.mesh.road != null && !isMothballed) {
-                                    _roadBuffer.Append(def.mesh.road, tilePosOffset, def.rotationSteps, roadAnimData);
+
+                                if (def.mesh.road != null) {
+                                    if (isMothballed) {
+                                        _mothballedBuffer.Append(def.mesh.road, tilePosOffset, def.rotationSteps, roadAnimData);
+                                    } else {
+                                        _roadBuffer.Append(def.mesh.road, tilePosOffset, def.rotationSteps, roadAnimData);
+                                    }
                                 }
                             }
                         }
@@ -121,7 +135,7 @@ namespace Motorways {
 
                     CornerData corner = MapManager.Instance.GetCornerData(targetCoord);
                     if (corner != null && corner.HasAnyDiagonal && atlas.cornerMesh != null) {
-                        // 코너의 위치는 타일 중심(0.5)에서 우상단으로 0.5만큼 더 간 곳 (즉, x+1.0, y+1.0)
+                        //코너의 위치는 타일 중심(0.5)에서 우상단으로 0.5만큼 더 간 곳 (즉, x+1.0, y+1.0)
                         Vector3 cornerPosOffset = new Vector3(x + 1.0f, 0, y + 1.0f);
 
                         //실제 타일 생성 시간 가져오기
@@ -134,19 +148,14 @@ namespace Motorways {
 
                         // SW_to_NE 방향 ('/' 대각선) - 기본 회전(0)
                         if (corner.HasDiagonal(CornerDiagonalType.SW_to_NE)) {
-                            if (atlas.cornerMesh.road != null)
-                                _roadBuffer.Append(atlas.cornerMesh.road, cornerPosOffset, 0, roadAnimData);
-                            if (atlas.cornerMesh.outline != null)
-                                _outlineBuffer.Append(atlas.cornerMesh.outline, cornerPosOffset, 0, outlineAnimData);
+                            if (atlas.cornerMesh.road != null) _roadBuffer.Append(atlas.cornerMesh.road, cornerPosOffset, 0, roadAnimData);
+                            if (atlas.cornerMesh.outline != null) _outlineBuffer.Append(atlas.cornerMesh.outline, cornerPosOffset, 0, outlineAnimData);
                         }
-
                         // NW_to_SE 방향 ('\' 대각선) - 90도 회전 (rotationSteps: 2)
                         // 1 step = 45도이므로, 2 steps = 90도 회전
                         if (corner.HasDiagonal(CornerDiagonalType.NW_to_SE)) {
-                            if (atlas.cornerMesh.road != null)
-                                _roadBuffer.Append(atlas.cornerMesh.road, cornerPosOffset, 2, roadAnimData);
-                            if (atlas.cornerMesh.outline != null)
-                                _outlineBuffer.Append(atlas.cornerMesh.outline, cornerPosOffset, 2, outlineAnimData);
+                            if (atlas.cornerMesh.road != null) _roadBuffer.Append(atlas.cornerMesh.road, cornerPosOffset, 2, roadAnimData);
+                            if (atlas.cornerMesh.outline != null) _outlineBuffer.Append(atlas.cornerMesh.outline, cornerPosOffset, 2, outlineAnimData);
                         }
                     }
                 }
@@ -165,10 +174,13 @@ namespace Motorways {
             _allUV3s.Clear();
             _trisRoad.Clear(); 
             _trisOutline.Clear();
+            _trisMothballed.Clear();
 
             _allVerts.AddRange(_roadBuffer.vertices);
             int outlineVertOffset = _allVerts.Count;
             _allVerts.AddRange(_outlineBuffer.vertices);
+            int mothballedVertOffset = _allVerts.Count;
+            _allVerts.AddRange(_mothballedBuffer.vertices);
 
             _allUVs.AddRange(_roadBuffer.uvs);
             _allUVs.AddRange(_outlineBuffer.uvs);
@@ -181,6 +193,7 @@ namespace Motorways {
 
             _trisRoad.AddRange(_roadBuffer.triangles);
             foreach (int tri in _outlineBuffer.triangles) _trisOutline.Add(tri + outlineVertOffset);
+            foreach (int tri in _mothballedBuffer.triangles) _trisMothballed.Add(tri + mothballedVertOffset);
 
             // Unity Mesh에 업로드
             _combinedMesh.Clear();
@@ -190,9 +203,10 @@ namespace Motorways {
             _combinedMesh.SetUVs(1, _allUV2s); // UV2 (Pivot)
             _combinedMesh.SetUVs(2, _allUV3s); // UV3 (AnimData)
 
-            _combinedMesh.subMeshCount = 2;
-            _combinedMesh.SetTriangles(_trisRoad, 0);    // SubMesh 0 -> Material 0
-            _combinedMesh.SetTriangles(_trisOutline, 1); // SubMesh 1 -> Material 1
+            _combinedMesh.subMeshCount = 3;
+            _combinedMesh.SetTriangles(_trisRoad, 0);       // SubMesh 0 -> roadMaterial
+            _combinedMesh.SetTriangles(_trisOutline, 1);    // SubMesh 1 -> outlineMaterial
+            _combinedMesh.SetTriangles(_trisMothballed, 2); // SubMesh 2 -> mothballedMaterial
 
             _combinedMesh.RecalculateBounds();
             //_combinedMesh.RecalculateNormals(); // 조명 필요 시
