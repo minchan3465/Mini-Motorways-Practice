@@ -2,72 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Motorways {
-	public enum RoadState {
-		None,
-		Planned,    //ÇÃ·¹ÀÌ¾î°¡ µå·¡±× ÇßÀ» ¶§, °¡»óÀÇ µµ·Î¸¦ Ç¥½Ã
-		Pending,    //°Ç¼³Áß
-		Active,     //È°¼ºÈ­
-		Mothballed, //»èÁ¦ ´ë±â
+    /// <summary>
+    /// ë„ë¡œì˜ ìƒíƒœë¥¼ ë‚˜íƒ€ë‚´ëŠ” ì—´ê±°í˜•
+    /// </summary>
+    public enum RoadState {
+        None,
+        Planned,    // í”Œë ˆì´ì–´ê°€ ë“œë˜ê·¸ ì¤‘ì¸ ìœ ë ¹ ë„ë¡œ
+        Pending,    // ê±´ì„¤ ëŒ€ê¸° ì¤‘
+        Active,     // í™œì„±í™”ëœ ë„ë¡œ
+        Mothballed, // ì‚­ì œ ëŒ€ê¸° ì¤‘ (ì°¨ëŸ‰ì´ ì§€ë‚˜ê°ˆ ë•Œê¹Œì§€ ìœ ì§€)
+    }
 
-		//--À¯Æ¿--
-		//ActiveOrPending = Active | Pending,	//ÁıÀÇ ÁøÀÔ·Î¸¦ Á¤ÇÒ ¶§, »ç¿ëÇÑ´Ù°í ÇÏ´Âµ¥... ¸ğ¸£°Ú´Ù.
-		//VisiblyActive = Planned | Active,	//´«¿¡ º¸ÀÌ´Â ¸ğµç µµ·Î
-		//Any = 15	//ÀüºÎ ´Ù
-	}
+    /// <summary>
+    /// ë‘ ë…¸ë“œ ì‚¬ì´ì˜ ë‹¨ë°©í–¥ ì—°ê²°ì„ ë‚˜íƒ€ë‚´ëŠ” í´ë˜ìŠ¤
+    /// </summary>
+    [System.Serializable]
+    public class Lane {
+        public int Id { get; private set; }
+        private static int _nextId = 0;
 
-	[System.Serializable]
-	public class Lane {
-		public int Id { get; private set; }
-		private static int _nextId = 0;
+        // ì—°ê²° ì •ë³´
+        public Vector2Int StartNode;
+        public Vector2Int EndNode;
 
-		// ¿¬°á Á¤º¸
-		public Vector2Int StartNode;
-		public Vector2Int EndNode;
+        public RoadState State = RoadState.Active;
 
-		public RoadState State = RoadState.Active;
+        // ì°¨ëŸ‰ ê´€ë¦¬
+        public List<int> VehiclesOnLane = new List<int>();            // í˜„ì¬ ë„ë¡œ ìœ„ì— ìˆëŠ” ì°¨ëŸ‰ë“¤
+        public HashSet<int> InboundVehicles = new HashSet<int>();   // ì´ ë„ë¡œë¡œ ì§„ì… ì˜ˆì •ì¸ ì°¨ëŸ‰ë“¤
 
-		public List<int> VehiclesOnLane = new List<int>();			//µµ·Î À§ Â÷·®
-		public HashSet<int> InboundVehicles = new HashSet<int>();   //µµ·Î¿¡ ¿À°Ú´Ù´Â Â÷·®
+        public float Length;    // ë„ë¡œì˜ ê¸¸ì´ (ë¹„ìš© ê³„ì‚°ìš©)
+        public float BaseCost => Length;
 
-		public float Length;    //Cost °è»ê¿ë
-		public float BaseCost => Length;
+        public Lane(Vector2Int start, Vector2Int end) {
+            Id = _nextId++;
+            StartNode = start;
+            EndNode = end;
+            Length = Vector2Int.Distance(start, end); 
+        }
 
-		public Lane(Vector2Int start, Vector2Int end) {
-			Id = _nextId++;
-			StartNode = start;
-			EndNode = end;
-			Length = Vector2Int.Distance(start, end); // ´ë°¢¼± °í·Á
-		}
+        /// <summary>
+        /// ê²½ë¡œ íƒìƒ‰ ì‹œ ê°€ì¤‘ì¹˜ ê³„ì‚°
+        /// </summary>
+        public float GetPathfindingCost() {
+            if (State == RoadState.Mothballed) return 100000f; // ì‚­ì œ ì¤‘ì¸ ë„ë¡œëŠ” ê°€ê¸‰ì  í”¼í•¨
+            return BaseCost;
+        }
 
-		public float GetPathfindingCost() {
-			if (State == RoadState.Mothballed) return 100000f;
-			float costMultiplier = 1.0f;
-			//ÃßÈÄ °í¼Óµµ·Î Ãß°¡½Ã, 0.5f °°Àº°É·Î °¡ÁßÄ¡ ³·Ãß±â.
-			return BaseCost * costMultiplier;
-		}
+        /// <summary>
+        /// ë„ë¡œë¥¼ ì™„ì „íˆ ì‚­ì œí•´ë„ ë˜ëŠ”ì§€ í™•ì¸ (ì˜¬ë¼ì™€ ìˆê±°ë‚˜ ì§„ì… ì˜ˆì •ì¸ ì°¨ê°€ ì—†ì–´ì•¼ í•¨)
+        /// </summary>
+        public bool CanRelease() {
+            return VehiclesOnLane.Count == 0 && InboundVehicles.Count == 0;
+        }
 
-		public bool CanRelease() {
-			return VehiclesOnLane.Count == 0 && InboundVehicles.Count == 0;
-		}
+        public void Reserve(int vehicleID) {
+            if (!InboundVehicles.Contains(vehicleID)) InboundVehicles.Add(vehicleID);
+        }
 
+        public void CancelReservation(int vehicleId) {
+            if(InboundVehicles.Contains(vehicleId)) InboundVehicles.Remove(vehicleId);
+        }
 
-		public void Reserve(int vehicleID) {
-			if (!InboundVehicles.Contains(vehicleID)) InboundVehicles.Add(vehicleID);
-		}
-
-		public void CancelReservation(int vehicleId) {
-			if(InboundVehicles.Contains(vehicleId)) InboundVehicles.Remove(vehicleId);
-		}
-
-		public void Enter(int vehicleId) {
+        public void Enter(int vehicleId) {
             CancelReservation(vehicleId);
-			if (!VehiclesOnLane.Contains(vehicleId)) VehiclesOnLane.Add(vehicleId);
-		}
+            if (!VehiclesOnLane.Contains(vehicleId)) VehiclesOnLane.Add(vehicleId);
+        }
 
-		public void Exit(int vehicleId) {
-			VehiclesOnLane.Remove(vehicleId);
-		}
-	}
+        public void Exit(int vehicleId) {
+            VehiclesOnLane.Remove(vehicleId);
+        }
+    }
 }

@@ -1,11 +1,15 @@
 using UnityEngine;
 
 namespace Motorways.Rendering {
+    /// <summary>
+    /// 원작의 RoadView와 유사하게, 단일 타일의 도로 및 아웃라인 메시를 실제로 렌더링하는 클래스입니다.
+    /// </summary>
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class RoadView : MonoBehaviour {
         private MeshFilter _meshFilter;
         private MeshRenderer _meshRenderer;
         
+        // 외곽선(Outline)은 별도의 자식 오브젝트로 생성하여 관리합니다.
         private GameObject _outlineObj;
         private MeshFilter _outlineFilter;
         private MeshRenderer _outlineRenderer;
@@ -14,18 +18,22 @@ namespace Motorways.Rendering {
             _meshFilter = GetComponent<MeshFilter>();
             _meshRenderer = GetComponent<MeshRenderer>();
             
+            // 외곽선 오브젝트 생성 및 설정
             _outlineObj = new GameObject("Outline");
             _outlineObj.transform.SetParent(this.transform, false);
             _outlineFilter = _outlineObj.AddComponent<MeshFilter>();
             _outlineRenderer = _outlineObj.AddComponent<MeshRenderer>();
         }
 
+        /// <summary>
+        /// 초기 재질 및 렌더링 순서를 설정합니다.
+        /// </summary>
         public void Initialize(Material mainMat, Material outlineMat, int sortingOrder) {
             _meshRenderer.sharedMaterial = mainMat;
             _meshRenderer.sortingOrder = sortingOrder;
             
             _outlineRenderer.sharedMaterial = outlineMat;
-            _outlineRenderer.sortingOrder = sortingOrder - 1;
+            _outlineRenderer.sortingOrder = sortingOrder - 1; // 아웃라인은 항상 본체 뒤에 위치
         }
 
         public void SetVisibility(bool isVisible) {
@@ -33,6 +41,9 @@ namespace Motorways.Rendering {
             _outlineRenderer.enabled = isVisible;
         }
 
+        /// <summary>
+        /// RoadTileDefinition 정보를 바탕으로 Mesh와 회전값을 업데이트합니다.
+        /// </summary>
         public void UpdateMesh(RoadTileDefinition definition) {
             if (definition == null || definition.mesh == null) {
                 _meshFilter.sharedMesh = null;
@@ -40,17 +51,18 @@ namespace Motorways.Rendering {
                 return;
             }
 
-            // 원본 MeshData에서 Mesh 생성 (또는 캐싱된 메시 사용)
-            // 현재 RoadMeshData는 배열 형태이므로 이를 Mesh 객체로 변환하는 과정이 필요할 수 있습니다.
-            // 여기서는 단순화를 위해 RoadMeshData에 Unity Mesh 필드가 있다고 가정하거나 새로 생성합니다.
-            
+            // RoadMeshData를 실제 Unity Mesh 객체로 변환하여 할당합니다.
             _meshFilter.sharedMesh = CreateMeshFromData(definition.mesh.road);
             _outlineFilter.sharedMesh = CreateMeshFromData(definition.mesh.outline);
 
+            // 45도(1 step) 단위의 회전 적용
             float angle = definition.rotationSteps * 45f;
             transform.localRotation = Quaternion.Euler(0, angle, 0);
         }
 
+        /// <summary>
+        /// 커스텀 RoadMeshData 구조체를 Unity 메시 데이터로 변환합니다.
+        /// </summary>
         private Mesh CreateMeshFromData(RoadMeshData data) {
             if (data == null || data.vertices == null) return null;
             
@@ -59,7 +71,7 @@ namespace Motorways.Rendering {
             mesh.uv = data.uvs;
             mesh.triangles = data.triangles;
             
-            // UV2, UV3 등 애니메이션 데이터가 필요하다면 여기서 추가 세팅
+            // 애니메이션이나 셰이더 효과용 추가 UV 데이터 처리
             if (data.uv2 != null && data.uv2.Length == data.vertices.Length) {
                 mesh.uv2 = data.uv2;
             }

@@ -3,90 +3,93 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Managers {
-	using Motorways.Models;
-	using Motorways.Utils;
+	using Models;
+	using Utils;
 
+	//도로 네트워크의 논리적 연결(Lane)과 시각적 상태(TileData)를 동기화하고 관리하는 핵심 매니저입니다.
 	public class RoadNetworkManager : MonoBehaviour {
 		public static RoadNetworkManager Instance;
 
-		//������ ���θ� ����.
+		//전체 도로 차선 리스트
 		public List<Lane> AllLanes { get; private set; } = new List<Lane>();
+		//현재 삭제 대기 중(Mothballed)인 차선들
 		private List<Lane> _mothballedLanes = new List<Lane>();
-		private HashSet<Lane> _systemLanes = new HashSet<Lane>();	//�ǹ��̳� �������� ����.
+		//시스템(건물 등)에 의해 생성된 고정 도로
+		private HashSet<Lane> _systemLanes = new HashSet<Lane>();
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
 		}
+
 		private void Update() {
+			// 매 프레임 삭제 대기 중인 도로가 비었는지 확인
 			ProcessMothballedLanes();
+
+			// 변경된 타일이 있다면 시각적 갱신 요청
 			if (CityModel.ChangedNodes.Count > 0) {
 				TilemapView.Instance.UpdateTiles(CityModel.ChangedNodes);
 				CityModel.ChangedNodes.Clear();
 			}
 		}
 
-		//--- �ܺ� ���� ���� ---
+
+		//두 지점 사이에 도로 건설을 시도합니다.
 		public void TryBuildRoad(Vector2Int from, Vector2Int to) {
 			if (Vector2Int.Distance(from, to) > 1.5f) return;
 
 			Lane existingLane = GetLane(from, to);
-
-			//null�̶�� ���ΰ� ���� ����.
 			if (existingLane != null) {
-				//���� Mothballed ������ �����̶��.
+				// 이미 삭제 대기 중인 도로가 있다면 다시 복구
 				if (existingLane.State == RoadState.Mothballed) {
 					RestoreMothballedLane(existingLane);
-					//�ݴ����� ����.
 					Lane opposite = GetLane(to, from);
 					if (opposite != null) RestoreMothballedLane(opposite);
 				}
-				return; //�̹� Ȱ�� ���θ� ����.
+				return;
 			}
 
-			//������ �ȵǾ��ִٸ�.
-			//�ڿ� ����.
+			//자원 소비 후 양방향 차선 생성
 			if (!ResourceManager.Instance.TryConsumeResource(ItemType.Road, 1)) return;
 
 			CreateLane(from, to);
 			CreateLane(to, from);
-
-			//���� ���� �Ǿ���.
 		}
 
-		//�ǹ��� �޼���
+
+		//시스템용 도로(삭제 불가)를 건설합니다.
 		public void BuildSystemRoad(Vector2Int from, Vector2Int to, out Lane outLane, out Lane inLane) {
 			outLane = new Lane(from, to);
 			inLane = new Lane(to, from);
-			
+
 			AllLanes.Add(outLane);
 			AllLanes.Add(inLane);
-			_systemLanes.Add(outLane); //�ý��� ���η� ���
+			_systemLanes.Add(outLane);
 			_systemLanes.Add(inLane);
 
 			MapManager.Instance.ConnectLaneToMap(outLane);
 			MapManager.Instance.ConnectLaneToMap(inLane);
 
-			UpdateCornerDataForLane(from, to, isAdding: true);
-			UpdateCornerDataForLane(to, from, isAdding: true);
-
-			//CityModel.LatestLaneChangeFrame = Time.frameCount;
-			CityModel.ChangedNodes.Add(from);
-			CityModel.ChangedNodes.Add(to);
+			SyncVisualsBetweenNodes(from, to);
 		}
+
+
+		//특정 타일의 모든 도로를 삭제 대기(Mothballed) 상태로 전환합니다.
 		public void TryRemoveRoad(Vector2Int targetTile) {
 			if (MapManager.Instance._grid.TryGetValue(targetTile, out TileData tile)) {
-				if (tile.Building != null) return; // �ǹ� ���� ���� �Ұ�!
+				if (tile.Building != null) return; // 건물이 있는 타일은 삭제 불가
 			}
 
 			List<Lane> connectedLanes = AllLanes.FindAll(lane => lane.StartNode == targetTile || lane.EndNode == targetTile);
-			if (connectedLanes.Count == 0) return; //������ġ
+			if (connectedLanes.Count == 0) return;
 
 			foreach (Lane lane in connectedLanes) {
 				if (_systemLanes.Contains(lane)) continue;
 				SetLaneToMothballed(lane);
 			}
 		}
+
+		// 시스템용 도로를 삭제 대기 상태로 전환합니다. (주로 건물이 파괴될 때 사용)
 		public void MothballSystemRoad(Lane outLane, Lane inLane) {
 			if (outLane != null) {
 				SetLaneToMothballed(outLane);
@@ -99,111 +102,115 @@ namespace Motorways.Managers {
 			}
 		}
 
-		//---���� ����---
 		private void CreateLane(Vector2Int start, Vector2Int end) {
 			Lane newLane = new Lane(start, end);
 			AllLanes.Add(newLane);
 
 			MapManager.Instance.ConnectLaneToMap(newLane);
-			UpdateCornerDataForLane(start, end, isAdding: true);
+			SyncVisualsBetweenNodes(start, end);
 
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
-			//CityModel.ChangedLanes.Add(newLane);
-			CityModel.ChangedNodes.Add(start);
-			CityModel.ChangedNodes.Add(end);
-		}
-		//�ڳ�(Corner) �밢�� ������ ó�� ����
-		private void UpdateCornerDataForLane(Vector2Int start, Vector2Int end, bool isAdding) {
-		    //1. �밢�� ���� Ȯ�� (x�� y�� ��� �������� �밢��)
-		    int dx = end.x - start.x;
-		    int dy = end.y - start.y;
-		
-		    if (Mathf.Abs(dx) == 1 && Mathf.Abs(dy) == 1) {
-		        //2. �ڳ��� ��ǥ(���� ��� ������ ����)�� �밢�� ���� ����
-		        Vector2Int cornerCoord;
-		        CornerDiagonalType diagonalType;
-		
-		        if (dx == 1 && dy == 1) {
-		            //SW -> NE ���� (��: 0,0 -> 1,1)
-		            //�ڳ� ��ǥ�� ���� �Ʒ� Ÿ���� ��ǥ�� ���󰩴ϴ�.
-		            cornerCoord = start;
-		            diagonalType = CornerDiagonalType.SW_to_NE;
-		        }
-		        else if (dx == -1 && dy == -1) {
-		            //NE -> SW ���� (��: 1,1 -> 0,0)
-		            cornerCoord = end;
-		            diagonalType = CornerDiagonalType.SW_to_NE;
-		        }
-		        else if (dx == 1 && dy == -1) {
-		            //NW -> SE ���� (��: 0,1 -> 1,0)
-		            //�� ��� �ڳ� ��ǥ�� (start.x, end.y) ��, (0, 0)�� ���� �������Դϴ�.
-		            cornerCoord = new Vector2Int(start.x, end.y);
-		            diagonalType = CornerDiagonalType.NW_to_SE;
-		        }
-		        else { //dx == -1 && dy == 1
-		            //SE -> NW ���� (��: 1,0 -> 0,1)
-		            cornerCoord = new Vector2Int(end.x, start.y);
-		            diagonalType = CornerDiagonalType.NW_to_SE;
-		        }
-		
-		        //3. MapManager�� ���� �ڳ� ������ ������Ʈ
-		        CornerData corner = MapManager.Instance.GetOrCreateCorner(cornerCoord);
-		        if (isAdding) {
-		            corner.AddDiagonal(diagonalType);
-				} else {
-		            corner.RemoveDiagonal(diagonalType);
-		        }
-		
-		        //4. �ֺ� 4�� Ÿ��(�� �ڳʸ� �����ϴ� Ÿ�ϵ�)�� ûũ�� ������Ʈ�ϵ��� ����
-		        //�ڳ� �������� ������ �������Ƿ� ������ ������ �ʿ��մϴ�.
-		        CityModel.ChangedNodes.Add(cornerCoord);
-		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x + 1, cornerCoord.y));
-		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x, cornerCoord.y + 1));
-		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x + 1, cornerCoord.y + 1));
-		    }
 		}
 
-		//---���� ���μ���---
+
+		//도로를 삭제 대기 상태로 변경하고 리스트에 등록합니다.
 		private void SetLaneToMothballed(Lane lane) {
 			if (lane.State == RoadState.Mothballed) return;
 
 			lane.State = RoadState.Mothballed;
 			_mothballedLanes.Add(lane);
 
-			// TileData 상태 업데이트
-			if (MapManager.Instance._grid.TryGetValue(lane.StartNode, out TileData startTile)) {
-				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
-				startTile.SetRoadState(dir, RoadState.Mothballed);
-			}
-			
-			// CornerData 상태 업데이트 추가
-			SetCornerStateForLane(lane.StartNode, lane.EndNode, RoadState.Mothballed);
-
+			SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
-			CityModel.ChangedNodes.Add(lane.StartNode);
-			CityModel.ChangedNodes.Add(lane.EndNode);
 		}
+
+
+		//삭제 대기 중인 도로를 다시 활성화합니다.
 		private void RestoreMothballedLane(Lane lane) {
 			if (lane.State == RoadState.Mothballed) {
 				lane.State = RoadState.Active;
 				_mothballedLanes.Remove(lane);
 
-				// TileData 상태 업데이트
-				if (MapManager.Instance._grid.TryGetValue(lane.StartNode, out TileData startTile)) {
-					TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
-					startTile.SetRoadState(dir, RoadState.Active);
-				}
-				
-				// CornerData 상태 업데이트 추가
-				SetCornerStateForLane(lane.StartNode, lane.EndNode, RoadState.Active);
-
+				SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
 				CityModel.LatestLaneChangeFrame = Time.frameCount;
-				CityModel.ChangedNodes.Add(lane.StartNode);
-				CityModel.ChangedNodes.Add(lane.EndNode);
 			}
 		}
 
-		private void SetCornerStateForLane(Vector2Int start, Vector2Int end, RoadState state) {
+
+		//차량이 모두 빠져나간 Mothballed 도로를 실제로 메모리에서 제거합니다.
+		private void ProcessMothballedLanes() {
+			if (_mothballedLanes.Count == 0) return;
+
+			for (int i = _mothballedLanes.Count - 1; i >= 0; i--) {
+				Lane lane = _mothballedLanes[i];
+
+				if (lane.CanRelease()) {
+					FinalizeLaneRemoval(lane);
+					_mothballedLanes.RemoveAt(i);
+				}
+			}
+		}
+
+
+		//도로의 모든 물리적 데이터를 삭제하고 자원을 환원합니다.
+		private void FinalizeLaneRemoval(Lane lane) {
+			bool wasPlayerBuilt = AllLanes.Remove(lane);
+			bool isSystem = _systemLanes.Remove(lane);
+
+			MapManager.Instance.DisconnectLaneFromMap(lane);
+			SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
+
+			if (wasPlayerBuilt && !isSystem) {
+				// 중복 환원을 방지하기 위해 한쪽 방향 기준으로만 자원 환원
+				bool isCanonical = (lane.StartNode.x < lane.EndNode.x) ||
+								   (lane.StartNode.x == lane.EndNode.x && lane.StartNode.y < lane.EndNode.y);
+
+				if (isCanonical) ResourceManager.Instance.AddResource(ItemType.Road, 1);
+			}
+		}
+
+		public Lane GetLane(Vector2Int start, Vector2Int end) {
+			return AllLanes.Find(l => l.StartNode == start && l.EndNode == end);
+		}
+
+		//두 노드 사이의 차선 상태를 종합하여 타일의 시각적 상태(RoadState)를 결정합니다.
+		private void SyncVisualsBetweenNodes(Vector2Int a, Vector2Int b) {
+			Lane ab = GetLane(a, b);
+			Lane ba = GetLane(b, a);
+
+			RoadState combined = RoadState.None;
+
+			// [수정된 로직]
+			// 한쪽 방향이라도 Active 상태라면 시각적으로는 'Active' 도로로 표시합니다.
+			// 이는 한쪽 차선이 먼저 삭제되거나(Finalized), 복구(Restore) 중인 상황에서도 도로가 끊겨 보이지 않게 합니다.
+			bool hasActive = (ab != null && ab.State == RoadState.Active) || (ba != null && ba.State == RoadState.Active);
+			bool hasMothballed = (ab != null && ab.State == RoadState.Mothballed) || (ba != null && ba.State == RoadState.Mothballed);
+
+			if (hasActive) {
+				combined = RoadState.Active;
+			} else if (hasMothballed) {
+				combined = RoadState.Mothballed;
+			}
+
+			TileDirection dirAToB = TileUtils.GetDirection(a, b);
+			TileDirection dirBToA = TileUtils.GetOppositeDirection(dirAToB);
+
+			if (MapManager.Instance._grid.TryGetValue(a, out TileData tileA)) {
+				tileA.SetRoadState(dirAToB, combined);
+			}
+			if (MapManager.Instance._grid.TryGetValue(b, out TileData tileB)) {
+				tileB.SetRoadState(dirBToA, combined);
+			}
+
+			UpdateCornerStateLogic(a, b, combined);
+
+			CityModel.ChangedNodes.Add(a);
+			CityModel.ChangedNodes.Add(b);
+		}
+
+
+		//대각선 연결(Corner)의 상태를 관리하고 시각적 동기화를 수행합니다.
+		private void UpdateCornerStateLogic(Vector2Int start, Vector2Int end, RoadState state) {
 			int dx = end.x - start.x;
 			int dy = end.y - start.y;
 			if (Mathf.Abs(dx) == 1 && Mathf.Abs(dy) == 1) {
@@ -223,53 +230,19 @@ namespace Motorways.Managers {
 					diagonalType = CornerDiagonalType.NW_to_SE;
 				}
 
-				CornerData corner = MapManager.Instance.GetCornerData(cornerCoord);
+				CornerData corner = MapManager.Instance.GetOrCreateCorner(cornerCoord);
 				if (corner != null) {
-					corner.SetState(diagonalType, state);
+					if (state == RoadState.None) {
+						// 양쪽 방향 차선이 모두 없을 때만 데이터 삭제
+						if (GetLane(start, end) == null && GetLane(end, start) == null) {
+							corner.RemoveDiagonal(diagonalType);
+						}
+					} else {
+						corner.AddDiagonal(diagonalType, state);
+					}
 					CityModel.ChangedNodes.Add(cornerCoord);
 				}
 			}
-		}
-
-		private void ProcessMothballedLanes() {
-			if (_mothballedLanes.Count == 0) return;
-
-			for (int i = _mothballedLanes.Count - 1; i >= 0; i--) {
-				Lane lane = _mothballedLanes[i];
-
-				if (lane.CanRelease()) {
-					FinalizeLaneRemoval(lane);
-					_mothballedLanes.RemoveAt(i);
-				} else {
-					//���� �Ұ��� ��, ������ �ִ� �����鿡�� Hotswap(��ȸ ��û)
-					//�׷����� �Ұ����ϸ� �׳� ������ ��...
-				}
-			}
-		}
-
-		//---��¥ ����---
-		private void FinalizeLaneRemoval(Lane lane) {
-			//�Ա� ���� Mothballed�ε�, �츮�� ������ �ƴ��ݽ�.
-			//��, AllLanes�� ���� �����̹Ƿ� ����ó��. (������ False�� ����ǰ�, False�� ���� ��ȯ x)
-			bool wasPlayerBuilt = AllLanes.Remove(lane);
-			bool isSystem = _systemLanes.Remove(lane); // �ý��� ��ο����� ����
-
-			//�� ������ ����.
-			MapManager.Instance.DisconnectLaneFromMap(lane);
-			UpdateCornerDataForLane(lane.StartNode, lane.EndNode, isAdding: false);
-
-			CityModel.ChangedNodes.Add(lane.StartNode);
-			CityModel.ChangedNodes.Add(lane.EndNode);
-
-			if (wasPlayerBuilt && !isSystem) {
-				bool isCanonical = (lane.StartNode.x < lane.EndNode.x) ||
-								   (lane.StartNode.x == lane.EndNode.x && lane.StartNode.y < lane.EndNode.y);
-
-				if (isCanonical) ResourceManager.Instance.AddResource(ItemType.Road, 1);
-			}
-		}
-		private Lane GetLane(Vector2Int start, Vector2Int end) {
-			return AllLanes.Find(l => l.StartNode == start && l.EndNode == end);
 		}
 	}
 }

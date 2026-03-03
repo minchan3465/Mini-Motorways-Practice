@@ -9,6 +9,7 @@ namespace Motorways {
         private RoadView _activeRoadView;
         private RoadView _mothballedRoadView;
         
+        // 코너용 뷰 추가
         private RoadView _activeCornerView;
         private RoadView _mothballedCornerView;
         
@@ -17,11 +18,16 @@ namespace Motorways {
         public void Initialize(Vector2Int coord, RoadTileAtlas atlas, Material roadMat, Material outlineMat, Material mothballedMat) {
             this.Coordinates = coord;
             this._atlas = atlas;
+            // 타일 중심 좌표 설정
             this.transform.position = new Vector3(coord.x + 0.5f, 0, coord.y + 0.5f);
 
+            // 1. 활성 도로용 View 생성
             _activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 10);
+
+            // 2. Mothballed 도로용 View 생성
             _mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, outlineMat, 5);
 
+            // 3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
             _activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
             _activeCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
             
@@ -38,7 +44,10 @@ namespace Motorways {
         }
 
         public void Refresh(TileData data) {
+            // 도로 리프레시
             RefreshRoads(data);
+            
+            // 코너 리프레시
             RefreshCorners();
         }
 
@@ -51,8 +60,8 @@ namespace Motorways {
                 return;
             }
 
-            // 1. 활성 도로는 오직 Active 상태인 것들로만 시그니처 구성 (끝부분 마감처리 포함)
-            RoadTileSignature activeSig = BuildSignatureByStates(data, new RoadState[] { RoadState.Active });
+            // 1. Active View: 오직 Active 상태인 도로만 포함 (Mothballed와 단절되어 보임)
+            RoadTileSignature activeSig = BuildSignature(data, false); 
             if (activeSig != null && activeSig.Count > 0) {
                 _activeRoadView.SetVisibility(true);
                 _activeRoadView.UpdateMesh(_atlas.ConstructDefinitionFromSignature(activeSig));
@@ -61,13 +70,18 @@ namespace Motorways {
                 _activeRoadView.UpdateMesh(null);
             }
 
-            // 2. Mothballed 도로는 'Active + Mothballed' 전체 구조를 시그니처로 사용
-            // 이렇게 해야 끊기지 않고 연결된 형태(Ghost 형태)로 출력됨
-            bool hasMothballed = false;
-            for(int i=0; i<8; i++) if(data.RoadStates[i] == RoadState.Mothballed) { hasMothballed = true; break; }
+            // 2. Mothballed View: Active + Mothballed를 모두 포함하여 연결 유지
+            // 타일에 Mothballed 도로가 하나라도 존재할 때만 활성화
+            bool hasMothballedInTile = false;
+            for (int i = 0; i < 8; i++) {
+                if (data.RoadStates[i] == RoadState.Mothballed) {
+                    hasMothballedInTile = true;
+                    break;
+                }
+            }
 
-            if (hasMothballed) {
-                RoadTileSignature fullSig = BuildSignatureByStates(data, new RoadState[] { RoadState.Active, RoadState.Mothballed });
+            if (hasMothballedInTile) {
+                RoadTileSignature fullSig = BuildSignature(data, true); 
                 _mothballedRoadView.SetVisibility(true);
                 _mothballedRoadView.UpdateMesh(_atlas.ConstructDefinitionFromSignature(fullSig));
             } else {
@@ -87,44 +101,36 @@ namespace Motorways {
                 return;
             }
 
-            CornerDiagonalType activeDiag = CornerDiagonalType.None;
-            CornerDiagonalType mothballedDiag = CornerDiagonalType.None;
+            // 코너 리프레시 로직
+            UpdateCornerView(_activeCornerView, corner, RoadState.Active);
+            UpdateCornerView(_mothballedCornerView, corner, RoadState.Mothballed);
+        }
 
-            if (corner.HasDiagonal(CornerDiagonalType.SW_to_NE)) {
-                RoadState s = corner.GetState(CornerDiagonalType.SW_to_NE);
-                if (s == RoadState.Active) activeDiag = CornerDiagonalType.SW_to_NE;
-                else if (s == RoadState.Mothballed) mothballedDiag = CornerDiagonalType.SW_to_NE;
-            }
-            if (corner.HasDiagonal(CornerDiagonalType.NW_to_SE)) {
-                RoadState s = corner.GetState(CornerDiagonalType.NW_to_SE);
-                if (s == RoadState.Active) activeDiag = CornerDiagonalType.NW_to_SE;
-                else if (s == RoadState.Mothballed) mothballedDiag = CornerDiagonalType.NW_to_SE;
+        private void UpdateCornerView(RoadView view, CornerData corner, RoadState targetState) {
+            CornerDiagonalType diag = CornerDiagonalType.None;
+            if (corner.HasDiagonal(CornerDiagonalType.SW_to_NE) && corner.GetState(CornerDiagonalType.SW_to_NE) == targetState) {
+                diag = CornerDiagonalType.SW_to_NE;
+            } else if (corner.HasDiagonal(CornerDiagonalType.NW_to_SE) && corner.GetState(CornerDiagonalType.NW_to_SE) == targetState) {
+                diag = CornerDiagonalType.NW_to_SE;
             }
 
-            if (activeDiag != CornerDiagonalType.None) {
-                _activeCornerView.SetVisibility(true);
-                _activeCornerView.UpdateMesh(_atlas.GetCornerDefinition(activeDiag));
+            if (diag != CornerDiagonalType.None) {
+                view.SetVisibility(true);
+                view.UpdateMesh(_atlas.GetCornerDefinition(diag));
             } else {
-                _activeCornerView.SetVisibility(false);
-                _activeCornerView.UpdateMesh(null);
-            }
-
-            if (mothballedDiag != CornerDiagonalType.None) {
-                _mothballedCornerView.SetVisibility(true);
-                _mothballedCornerView.UpdateMesh(_atlas.GetCornerDefinition(mothballedDiag));
-            } else {
-                _mothballedCornerView.SetVisibility(false);
-                _mothballedCornerView.UpdateMesh(null);
+                view.SetVisibility(false);
+                view.UpdateMesh(null);
             }
         }
 
-        private RoadTileSignature BuildSignatureByStates(TileData data, RoadState[] targetStates) {
+        private RoadTileSignature BuildSignature(TileData data, bool includeMothballed) {
             RoadTileSignature sig = new RoadTileSignature();
             List<TileDirection> dirs = new List<TileDirection>();
-            HashSet<RoadState> stateSet = new HashSet<RoadState>(targetStates);
 
             for (int i = 0; i < 8; i++) {
-                if (stateSet.Contains(data.RoadStates[i])) {
+                RoadState s = data.RoadStates[i];
+                // includeMothballed가 true면 Active와 Mothballed 모두 포함, false면 Active만 포함
+                if (s == RoadState.Active || (includeMothballed && s == RoadState.Mothballed)) {
                     dirs.Add((TileDirection)(1 << i));
                 }
             }
