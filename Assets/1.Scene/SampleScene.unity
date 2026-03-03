@@ -721,6 +721,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.Process.VehicleMovementProcess
   _activeVehicle: []
+--- !u!1 &781274278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 781274280}
+  - component: {fileID: 781274279}
+  m_Layer: 0
+  m_Name: TilemapView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &781274279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781274278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc44959ad8b2d504baa4e7b9c68e9294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.TilemapView
+  roadAtlas: {fileID: 11400000, guid: 4199d495d1a5f5b498626c499bf132bf, type: 2}
+  roadMaterial: {fileID: 2100000, guid: cf95f1d91a9ba3a40836626093049ab1, type: 2}
+  outlineMaterial: {fileID: 2100000, guid: 23f32c242d5460449a0dc6211e508921, type: 2}
+  mothballedMaterial: {fileID: 2100000, guid: 23f32c242d5460449a0dc6211e508921, type: 2}
+--- !u!4 &781274280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781274278}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1037315744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +885,7 @@ Transform:
   - {fileID: 1832514385}
   - {fileID: 1210809314}
   - {fileID: 189409552}
+  - {fileID: 781274280}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1109189418
@@ -899,7 +948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1210809314
 Transform:
   m_ObjectHideFlags: 0
@@ -930,6 +979,7 @@ MonoBehaviour:
   roadAtlas: {fileID: 11400000, guid: 4199d495d1a5f5b498626c499bf132bf, type: 2}
   roadMaterial: {fileID: 2100000, guid: fa79ce9574c53274ba9e86846dcfb323, type: 2}
   outlineMaterial: {fileID: 2100000, guid: 4c225b94bc7990441866df7121a6f44c, type: 2}
+  mothballedMaterial: {fileID: 2100000, guid: 4c225b94bc7990441866df7121a6f44c, type: 2}
   chunkSize: 16
 --- !u!1 &1254157565
 GameObject:

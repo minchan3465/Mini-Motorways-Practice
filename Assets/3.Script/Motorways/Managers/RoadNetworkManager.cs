@@ -9,10 +9,10 @@ namespace Motorways.Managers {
 	public class RoadNetworkManager : MonoBehaviour {
 		public static RoadNetworkManager Instance;
 
-		//³í¸®Àû µµ·Î¸¸ °ü¸®.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		public List<Lane> AllLanes { get; private set; } = new List<Lane>();
 		private List<Lane> _mothballedLanes = new List<Lane>();
-		private HashSet<Lane> _systemLanes = new HashSet<Lane>();	//°Ç¹°ÀÌ³ª ¸ñÀûÁö¿ë µµ·Î.
+		private HashSet<Lane> _systemLanes = new HashSet<Lane>();	//ï¿½Ç¹ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
@@ -21,47 +21,47 @@ namespace Motorways.Managers {
 		private void Update() {
 			ProcessMothballedLanes();
 			if (CityModel.ChangedNodes.Count > 0) {
-				RoadChunkManager.Instance.MarkChunksDirty(CityModel.ChangedNodes);
+				TilemapView.Instance.UpdateTiles(CityModel.ChangedNodes);
 				CityModel.ChangedNodes.Clear();
 			}
 		}
 
-		//--- ¿ÜºÎ ¿¬°á ·ÎÁ÷ ---
+		//--- ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ---
 		public void TryBuildRoad(Vector2Int from, Vector2Int to) {
 			if (Vector2Int.Distance(from, to) > 1.5f) return;
 
 			Lane existingLane = GetLane(from, to);
 
-			//nullÀÌ¶ó¸é µµ·Î°¡ ¾ø´Â »óÅÂ.
+			//nullï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			if (existingLane != null) {
-				//¸¸¾à Mothballed »óÅÂÀÎ ¿¬°áÀÌ¶ó¸é.
+				//ï¿½ï¿½ï¿½ï¿½ Mothballed ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½.
 				if (existingLane.State == RoadState.Mothballed) {
 					RestoreMothballedLane(existingLane);
-					//¹İ´ëÆíµµ º¹±¸.
+					//ï¿½İ´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 					Lane opposite = GetLane(to, from);
 					if (opposite != null) RestoreMothballedLane(opposite);
 				}
-				return; //ÀÌ¹Ì È°¼º µµ·Î¸é ¹«½Ã.
+				return; //ï¿½Ì¹ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			}
 
-			//¿¬°áÀÌ ¾ÈµÇ¾îÀÖ´Ù¸é.
-			//ÀÚ¿ø Â÷°¨.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½Ö´Ù¸ï¿½.
+			//ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			if (!ResourceManager.Instance.TryConsumeResource(ItemType.Road, 1)) return;
 
 			CreateLane(from, to);
 			CreateLane(to, from);
 
-			//µµ·Î ¿¬°á µÇ¾úÀ½.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½.
 		}
 
-		//°Ç¹°¿ë ¸Ş¼­µå
+		//ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½
 		public void BuildSystemRoad(Vector2Int from, Vector2Int to, out Lane outLane, out Lane inLane) {
 			outLane = new Lane(from, to);
 			inLane = new Lane(to, from);
 			
 			AllLanes.Add(outLane);
 			AllLanes.Add(inLane);
-			_systemLanes.Add(outLane); //½Ã½ºÅÛ µµ·Î·Î µî·Ï
+			_systemLanes.Add(outLane); //ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î·ï¿½ ï¿½ï¿½ï¿½
 			_systemLanes.Add(inLane);
 
 			MapManager.Instance.ConnectLaneToMap(outLane);
@@ -76,11 +76,11 @@ namespace Motorways.Managers {
 		}
 		public void TryRemoveRoad(Vector2Int targetTile) {
 			if (MapManager.Instance._grid.TryGetValue(targetTile, out TileData tile)) {
-				if (tile.Building != null) return; // °Ç¹° À§¸é »èÁ¦ ºÒ°¡!
+				if (tile.Building != null) return; // ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½!
 			}
 
 			List<Lane> connectedLanes = AllLanes.FindAll(lane => lane.StartNode == targetTile || lane.EndNode == targetTile);
-			if (connectedLanes.Count == 0) return; //¾ÈÀüÀåÄ¡
+			if (connectedLanes.Count == 0) return; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
 
 			foreach (Lane lane in connectedLanes) {
 				if (_systemLanes.Contains(lane)) continue;
@@ -99,7 +99,7 @@ namespace Motorways.Managers {
 			}
 		}
 
-		//---³»ºÎ ·ÎÁ÷---
+		//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½---
 		private void CreateLane(Vector2Int start, Vector2Int end) {
 			Lane newLane = new Lane(start, end);
 			AllLanes.Add(newLane);
@@ -112,41 +112,41 @@ namespace Motorways.Managers {
 			CityModel.ChangedNodes.Add(start);
 			CityModel.ChangedNodes.Add(end);
 		}
-		//ÄÚ³Ê(Corner) ´ë°¢¼± µ¥ÀÌÅÍ Ã³¸® ·ÎÁ÷
+		//ï¿½Ú³ï¿½(Corner) ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		private void UpdateCornerDataForLane(Vector2Int start, Vector2Int end, bool isAdding) {
-		    //1. ´ë°¢¼± ¿©ºÎ È®ÀÎ (x¿Í y°¡ ¸ğµÎ º¯ÇßÀ¸¸é ´ë°¢¼±)
+		    //1. ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ (xï¿½ï¿½ yï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë°¢ï¿½ï¿½)
 		    int dx = end.x - start.x;
 		    int dy = end.y - start.y;
 		
 		    if (Mathf.Abs(dx) == 1 && Mathf.Abs(dy) == 1) {
-		        //2. ÄÚ³ÊÀÇ ÁÂÇ¥(¿ìÃø »ó´Ü ²ÀÁşÁ¡ ±âÁØ)¿Í ´ë°¢¼± Á¾·ù °áÁ¤
+		        //2. ï¿½Ú³ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ë°¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		        Vector2Int cornerCoord;
 		        CornerDiagonalType diagonalType;
 		
 		        if (dx == 1 && dy == 1) {
-		            //SW -> NE ¹æÇâ (¿¹: 0,0 -> 1,1)
-		            //ÄÚ³Ê ÁÂÇ¥´Â ¿ŞÂÊ ¾Æ·¡ Å¸ÀÏÀÇ ÁÂÇ¥¸¦ µû¶ó°©´Ï´Ù.
+		            //SW -> NE ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: 0,0 -> 1,1)
+		            //ï¿½Ú³ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ó°©´Ï´ï¿½.
 		            cornerCoord = start;
 		            diagonalType = CornerDiagonalType.SW_to_NE;
 		        }
 		        else if (dx == -1 && dy == -1) {
-		            //NE -> SW ¹æÇâ (¿¹: 1,1 -> 0,0)
+		            //NE -> SW ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: 1,1 -> 0,0)
 		            cornerCoord = end;
 		            diagonalType = CornerDiagonalType.SW_to_NE;
 		        }
 		        else if (dx == 1 && dy == -1) {
-		            //NW -> SE ¹æÇâ (¿¹: 0,1 -> 1,0)
-		            //ÀÌ °æ¿ì ÄÚ³Ê ÁÂÇ¥´Â (start.x, end.y) Áï, (0, 0)ÀÇ ¿ì»ó´Ü ²ÀÁşÁ¡ÀÔ´Ï´Ù.
+		            //NW -> SE ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: 0,1 -> 1,0)
+		            //ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ú³ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ (start.x, end.y) ï¿½ï¿½, (0, 0)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 		            cornerCoord = new Vector2Int(start.x, end.y);
 		            diagonalType = CornerDiagonalType.NW_to_SE;
 		        }
 		        else { //dx == -1 && dy == 1
-		            //SE -> NW ¹æÇâ (¿¹: 1,0 -> 0,1)
+		            //SE -> NW ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: 1,0 -> 0,1)
 		            cornerCoord = new Vector2Int(end.x, start.y);
 		            diagonalType = CornerDiagonalType.NW_to_SE;
 		        }
 		
-		        //3. MapManager¸¦ ÅëÇØ ÄÚ³Ê µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+		        //3. MapManagerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 		        CornerData corner = MapManager.Instance.GetOrCreateCorner(cornerCoord);
 		        if (isAdding) {
 		            corner.AddDiagonal(diagonalType);
@@ -154,8 +154,8 @@ namespace Motorways.Managers {
 		            corner.RemoveDiagonal(diagonalType);
 		        }
 		
-		        //4. ÁÖº¯ 4°³ Å¸ÀÏ(ÀÌ ÄÚ³Ê¸¦ °øÀ¯ÇÏ´Â Å¸ÀÏµé)ÀÇ Ã»Å©¸¦ ¾÷µ¥ÀÌÆ®ÇÏµµ·Ï °­Á¦
-		        //ÄÚ³Ê ·»´õ¸µ¿¡ º¯°æÀÌ »ı°åÀ¸¹Ç·Î ·»´õ¸µ °»½ÅÀÌ ÇÊ¿äÇÕ´Ï´Ù.
+		        //4. ï¿½Öºï¿½ 4ï¿½ï¿½ Å¸ï¿½ï¿½(ï¿½ï¿½ ï¿½Ú³Ê¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ Å¸ï¿½Ïµï¿½)ï¿½ï¿½ Ã»Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		        //ï¿½Ú³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Õ´Ï´ï¿½.
 		        CityModel.ChangedNodes.Add(cornerCoord);
 		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x + 1, cornerCoord.y));
 		        CityModel.ChangedNodes.Add(new Vector2Int(cornerCoord.x, cornerCoord.y + 1));
@@ -163,31 +163,72 @@ namespace Motorways.Managers {
 		    }
 		}
 
-		//---»èÁ¦ ÇÁ·Î¼¼½º---
+		//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½---
 		private void SetLaneToMothballed(Lane lane) {
 			if (lane.State == RoadState.Mothballed) return;
 
 			lane.State = RoadState.Mothballed;
 			_mothballedLanes.Add(lane);
 
+			// TileData ìƒíƒœ ì—…ë°ì´íŠ¸
+			if (MapManager.Instance._grid.TryGetValue(lane.StartNode, out TileData startTile)) {
+				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
+				startTile.SetRoadState(dir, RoadState.Mothballed);
+			}
+			
+			// CornerData ìƒíƒœ ì—…ë°ì´íŠ¸ ì¶”ê°€
+			SetCornerStateForLane(lane.StartNode, lane.EndNode, RoadState.Mothballed);
+
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
-            //CityModel.ChangedLanes.Add(lane);
-            CityModel.ChangedNodes.Add(lane.StartNode);
-            CityModel.ChangedNodes.Add(lane.EndNode);
-            //TODO : ½Ã°¢ÀûÀ¸·Î »èÁ¦ ´ë±â »óÅÂ Ç¥½Ã°¡ ÇÊ¿äÇÒ ¶§, ¿©±â¼­ ÇØÁİ´Ï´Ù!!
-        }
+			CityModel.ChangedNodes.Add(lane.StartNode);
+			CityModel.ChangedNodes.Add(lane.EndNode);
+		}
 		private void RestoreMothballedLane(Lane lane) {
 			if (lane.State == RoadState.Mothballed) {
 				lane.State = RoadState.Active;
 				_mothballedLanes.Remove(lane);
 
-				CityModel.LatestLaneChangeFrame = Time.frameCount;
-                //CityModel.ChangedLanes.Add(lane);
-                CityModel.ChangedNodes.Add(lane.StartNode);
-                CityModel.ChangedNodes.Add(lane.EndNode);
-            }
+				// TileData ìƒíƒœ ì—…ë°ì´íŠ¸
+				if (MapManager.Instance._grid.TryGetValue(lane.StartNode, out TileData startTile)) {
+					TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
+					startTile.SetRoadState(dir, RoadState.Active);
+				}
+				
+				// CornerData ìƒíƒœ ì—…ë°ì´íŠ¸ ì¶”ê°€
+				SetCornerStateForLane(lane.StartNode, lane.EndNode, RoadState.Active);
 
-			//¿©±âµµ À§¿Í µ¿ÀÏ.
+				CityModel.LatestLaneChangeFrame = Time.frameCount;
+				CityModel.ChangedNodes.Add(lane.StartNode);
+				CityModel.ChangedNodes.Add(lane.EndNode);
+			}
+		}
+
+		private void SetCornerStateForLane(Vector2Int start, Vector2Int end, RoadState state) {
+			int dx = end.x - start.x;
+			int dy = end.y - start.y;
+			if (Mathf.Abs(dx) == 1 && Mathf.Abs(dy) == 1) {
+				Vector2Int cornerCoord;
+				CornerDiagonalType diagonalType;
+				if (dx == 1 && dy == 1) {
+					cornerCoord = start;
+					diagonalType = CornerDiagonalType.SW_to_NE;
+				} else if (dx == -1 && dy == -1) {
+					cornerCoord = end;
+					diagonalType = CornerDiagonalType.SW_to_NE;
+				} else if (dx == 1 && dy == -1) {
+					cornerCoord = new Vector2Int(start.x, end.y);
+					diagonalType = CornerDiagonalType.NW_to_SE;
+				} else {
+					cornerCoord = new Vector2Int(end.x, start.y);
+					diagonalType = CornerDiagonalType.NW_to_SE;
+				}
+
+				CornerData corner = MapManager.Instance.GetCornerData(cornerCoord);
+				if (corner != null) {
+					corner.SetState(diagonalType, state);
+					CityModel.ChangedNodes.Add(cornerCoord);
+				}
+			}
 		}
 
 		private void ProcessMothballedLanes() {
@@ -200,24 +241,26 @@ namespace Motorways.Managers {
 					FinalizeLaneRemoval(lane);
 					_mothballedLanes.RemoveAt(i);
 				} else {
-					//»èÁ¦ ºÒ°¡´É ½Ã, ±âÁ¸¿¡ ÀÖ´ø Â÷·®µé¿¡°Ô Hotswap(¿ìÈ¸ ¿äÃ»)
-					//±×·³¿¡µµ ºÒ°¡´ÉÇÏ¸é ±×³É °¡¾ßÁÒ ¸Ó...
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½é¿¡ï¿½ï¿½ Hotswap(ï¿½ï¿½È¸ ï¿½ï¿½Ã»)
+					//ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½...
 				}
 			}
 		}
 
-		//---ÁøÂ¥ »èÁ¦---
+		//---ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½---
 		private void FinalizeLaneRemoval(Lane lane) {
-			//ÀÔ±¸ µµ·Î MothballedÀÎµ¥, ¿ì¸®°¡ ÁöÀº°Ç ¾Æ´ÏÀİ½¿.
-			//Áï, AllLanes¿¡ ¾ø´Â µµ·ÎÀÌ¹Ç·Î ¿¹¿ÜÃ³¸®. (¾øÀ¸¸é False°¡ µµÃâµÇ°í, False¸é µµ·Î ¹İÈ¯ x)
+			//ï¿½Ô±ï¿½ ï¿½ï¿½ï¿½ï¿½ Mothballedï¿½Îµï¿½, ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½İ½ï¿½.
+			//ï¿½ï¿½, AllLanesï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç°ï¿½, Falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ x)
 			bool wasPlayerBuilt = AllLanes.Remove(lane);
-			bool isSystem = _systemLanes.Remove(lane); // ½Ã½ºÅÛ ÀåºÎ¿¡¼­µµ »èÁ¦
+			bool isSystem = _systemLanes.Remove(lane); // ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-			//¸Ê µ¥ÀÌÅÍ °»½Å.
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			MapManager.Instance.DisconnectLaneFromMap(lane);
 			UpdateCornerDataForLane(lane.StartNode, lane.EndNode, isAdding: false);
 
-			//µµ·Î ÀÚ¿ø ¹İÈ¯ Ãß°¡.
+			CityModel.ChangedNodes.Add(lane.StartNode);
+			CityModel.ChangedNodes.Add(lane.EndNode);
+
 			if (wasPlayerBuilt && !isSystem) {
 				bool isCanonical = (lane.StartNode.x < lane.EndNode.x) ||
 								   (lane.StartNode.x == lane.EndNode.x && lane.StartNode.y < lane.EndNode.y);

@@ -12,25 +12,25 @@ namespace Motorways {
 
         private Dictionary<RoadTileSignature, RoadTileDefinition> _signatureToDefinition;
 
-        //°ÔÀÓ ½ÃÀÛ ½Ã, ÇÑ¹ø È£Ãâ.
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½Ñ¹ï¿½ È£ï¿½ï¿½.
         public void Initialize() {
             _signatureToDefinition = new Dictionary<RoadTileSignature, RoadTileDefinition>();
 
             foreach (var def in definitions) {
-                //°¢ DefinitionÀÌ °¡Áø ½Ã±×´ÏÃ³ Á¤º¸¸¦ ¹ÙÅÁÀ¸·Î µñ¼Å³Ê¸®¿¡ µî·ÏÇØ¾ß ÇÕ´Ï´Ù.
-                //¾ÆÆ²¶ó½º¸¦ ±¸¿ï ¶§ Definition ³»ºÎ¿¡ ¿øº» Signature¸¦ ÀúÀåÇØµÎ´Â ¹æ½ÄÀÌ °¡Àå ¾ÈÀüÇÕ´Ï´Ù.
+                //ï¿½ï¿½ Definitionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±×´ï¿½Ã³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Õ´Ï´ï¿½.
+                //ï¿½ï¿½Æ²ï¿½ó½º¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Definition ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Signatureï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 if (def.signature == null) continue;
 
-                // ¿øº» µî·Ï
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                 _signatureToDefinition[def.signature] = def;
 
-                // [ÃÖÀûÈ­/¼öÁ¤] 8¹æÇâ(45µµ ´ÜÀ§) È¸Àüº»À» °ÔÀÓ ½ÃÀÛ ½Ã ¸ðµÎ »çÀü ¿¬»êÇÏ¿© Ä³½Ì
+                // [ï¿½ï¿½ï¿½ï¿½È­/ï¿½ï¿½ï¿½ï¿½] 8ï¿½ï¿½ï¿½ï¿½(45ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ Ä³ï¿½ï¿½
                 for (int step = 0; step < 8; step++) {
                     RoadTileSignature rotatedSignature = def.signature.CreateRotatedSignature(step);
 
-                    // Áßº¹ µî·Ï ¹æÁö (´ëÄªÇü Å¸ÀÏ µî)
+                    // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Äªï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½)
                     if (!_signatureToDefinition.ContainsKey(rotatedSignature)) {
-                        // ·±Å¸ÀÓ¿¡ ¾µ ¼ö ÀÖµµ·Ï ¿ªÈ¸Àü°ª(8-step)À» Àû¿ëÇÑ Definition »ý¼º
+                        // ï¿½ï¿½Å¸ï¿½Ó¿ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½(8-step)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Definition ï¿½ï¿½ï¿½ï¿½
                         //int reverseStep = (8 - step) % 8;
                         //_signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(reverseStep));
                         _signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(step));
@@ -39,10 +39,26 @@ namespace Motorways {
             }
         }
 
+        public RoadTileDefinition GetCornerDefinition(CornerDiagonalType type) {
+            if (cornerMesh == null) return null;
+            
+            RoadTileDefinition def = new RoadTileDefinition();
+            def.mesh = cornerMesh;
+            
+            if (type == CornerDiagonalType.SW_to_NE) {
+                def.rotationSteps = 0;
+            } else if (type == CornerDiagonalType.NW_to_SE) {
+                // 90ë„ íšŒì „ (1 step = 45ë„ì´ë¯€ë¡œ 2 steps)
+                def.rotationSteps = 2;
+            }
+            
+            return def;
+        }
+
         public RoadTileDefinition ConstructDefinitionFromSignature(RoadTileSignature signatrue) {
             if (_signatureToDefinition == null) Initialize();
 
-            //¿øº» ½Ã±×´ÏÃ³ ±×´ë·Î °Ë»ö
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±×´ï¿½Ã³ ï¿½×´ï¿½ï¿½ ï¿½Ë»ï¿½
             if(_signatureToDefinition.TryGetValue(signatrue, out var def)) {
                 return def;
 			}

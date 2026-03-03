@@ -4,38 +4,53 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways {
-    // ÄÚ³Ê¸¦ °üÅëÇÏ´Â ´ë°¢¼± µµ·ÎÀÇ ÇüÅÂ¸¦ ºñÆ®¸¶½ºÅ©·Î °ü¸®ÇÕ´Ï´Ù.
     [Flags]
     public enum CornerDiagonalType {
         None = 0,
-        SW_to_NE = 1 << 0, // '/' ¸ð¾ç ´ë°¢¼± (Tile(x,y) <-> Tile(x+1, y+1) ¿¬°á)
-        NW_to_SE = 1 << 1  // '\' ¸ð¾ç ´ë°¢¼± (Tile(x, y+1) <-> Tile(x+1, y) ¿¬°á)
+        SW_to_NE = 1 << 0,
+        NW_to_SE = 1 << 1
     }
 
     public class CornerData {
         public Vector2Int coordinate { get; private set; }
         public CornerDiagonalType activeDiagonals { get; private set; }
+        
+        // ê° ëŒ€ê°ì„ ì˜ ìƒíƒœë¥¼ ì €ìž¥ (Index: 0 = SW_to_NE, 1 = NW_to_SE)
+        public RoadState[] states = new RoadState[2];
+        
         public float creationTime { get; private set; }
 
         public CornerData(Vector2Int coord) {
             coordinate = coord;
             activeDiagonals = CornerDiagonalType.None;
             creationTime = -1f;
+            states[0] = RoadState.None;
+            states[1] = RoadState.None;
         }
 
-        // ´ë°¢¼± µµ·Î Ãß°¡
-        public void AddDiagonal(CornerDiagonalType type) {
+        public void AddDiagonal(CornerDiagonalType type, RoadState state = RoadState.Active) {
             activeDiagonals |= type;
+            SetState(type, state);
             if (creationTime < 0f) creationTime = Time.time;
         }
 
-        // ´ë°¢¼± µµ·Î Á¦°Å
         public void RemoveDiagonal(CornerDiagonalType type) {
             activeDiagonals &= ~type;
-            creationTime = -1f;
+            SetState(type, RoadState.None);
+            if (activeDiagonals == CornerDiagonalType.None) creationTime = -1f;
         }
 
-        // ·»´õ¸µ ½Ã ÄÚ³Ê ¸Þ½¬¸¦ ±×·Á¾ß ÇÏ´ÂÁö ÆÇº°¿ë
+        public void SetState(CornerDiagonalType type, RoadState state) {
+            if (type == CornerDiagonalType.SW_to_NE) states[0] = state;
+            else if (type == CornerDiagonalType.NW_to_SE) states[1] = state;
+        }
+
+        public RoadState GetState(CornerDiagonalType type) {
+            if (type == CornerDiagonalType.SW_to_NE) return states[0];
+            if (type == CornerDiagonalType.NW_to_SE) return states[1];
+            return RoadState.None;
+        }
+
         public bool HasAnyDiagonal => activeDiagonals != CornerDiagonalType.None;
         public bool HasDiagonal(CornerDiagonalType type) => (activeDiagonals & type) == type;
     }
