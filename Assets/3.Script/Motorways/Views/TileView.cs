@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Motorways.Rendering;
 
-namespace Motorways {
+namespace Motorways.Views {
     public class TileView : MonoBehaviour {
         public Vector2Int Coordinates { get; private set; }
         

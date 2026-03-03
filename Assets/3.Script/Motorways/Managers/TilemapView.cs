@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Motorways.Managers;
 
-namespace Motorways {
+namespace Motorways.Managers {
+    using Views;
+
     public class TilemapView : MonoBehaviour {
         public static TilemapView Instance;
 
