@@ -33,13 +33,18 @@ namespace Motorways.Models {
 
 		public float DistanceAlongLane = 0f;
 		public float CurrentSpeed = 0f;
-		public float MaxSpeed = 5f; // ±âº» ¼Óµµ
+		public float MaxSpeed = 5f; //
+		public float Acceleration = 15f;	//ê°€ì†
+		public float Deceleration = 20f;	//ê°ì†
+		public float MinGap = 0.6f; //ì•ì°¨ì™€ì˜ ìµœì†Œ ì•ˆì „ê±°ë¦¬
+
+		public float CurrentAcceleration = 0f;
 
 		public float ParkingTimer = 0f;
-		public float ParkingDuration = 2.0f; // ¾÷¹« ½Ã°£
+		public float ParkingDuration = 2.0f; //
 
-		//ÀçÅ½»ö ¿äÃ» »óÅÂ
 		public PathfindUrgency RepathUrgency = PathfindUrgency.NotRequired;
+		public int LatestAttemptedPathfindFrame = 0;
 
 		public Vehicle() {
 			Id = _nextId++;
@@ -81,30 +86,24 @@ namespace Motorways.Models {
 			}
 		}
 
-		//±âÁ¸ °æ·ÎÀÇ ÀÏºÎºĞÀ» ±³Ã¼ ¹× º´ÇÕÇÏ´Â ¸Ş¼­µå.
 		public void AssignPath(List<Lane> newPathRemaining) {
 			if(CurrentPath == null || CurrentPath.Count == 0) return; 
 
 			int keepCount = Mathf.Min(2, CurrentPath.Count);
 			List<Lane> keptLanes = new List<Lane>();
 			
-			//È®Á¤µÈ Â÷¼± ¹Ì¸® »©µÎ±â.
 			for(int i = 0; i < keepCount; i++) {
 				keptLanes.Add(CurrentPath.Dequeue());
 			}
 
-			//³ª¸ÓÁö °æ·Î ¿¹¾à Ãë¼Ò
 			while(CurrentPath.Count > 0) {
 				Lane discarded = CurrentPath.Dequeue();
 				discarded.CancelReservation(this.Id);
 			}
 
-			//È®Á¤ Â÷¼± ´Ù½Ã ³Ö±â
 			foreach (Lane lane in keptLanes) {
 				CurrentPath.Enqueue(lane);
 			}
-
-			//»õ·Î Ã£Àº °æ·Î ³Ö°í ¿¹¾à
 			foreach (Lane newLane in newPathRemaining) {
 				newLane.Reserve(this.Id);
 				CurrentPath.Enqueue(newLane);

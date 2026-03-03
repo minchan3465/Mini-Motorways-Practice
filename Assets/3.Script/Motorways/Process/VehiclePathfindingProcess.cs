@@ -12,10 +12,17 @@ namespace Motorways.Process {
 			if (VehicleMovementProcess.Instance == null) return;
 
 			List<Vehicle> allVehicles = VehicleMovementProcess.Instance._activeVehicle;
+			int latestLaneChange = CityModel.LatestLaneChangeFrame;
 
 			foreach (Vehicle v in allVehicles) {
+				// ì›ì‘ê³¼ ë™ì¼í•˜ê²Œ ë„ë¡œë§ì´ ë³€í–ˆìœ¼ë©´(latestLaneChangeFrameì´ ë” ë†’ìœ¼ë©´) ì¬íƒìƒ‰ ìš”ì²­
+				if (v.LatestAttemptedPathfindFrame < latestLaneChange) {
+					v.RequestPathfind();
+				}
+
 				if (v.RepathUrgency == PathfindUrgency.WhenPossible) {
 					ProcessPathfindForVehicle(v);
+					v.LatestAttemptedPathfindFrame = Time.frameCount; // í˜„ì¬ í”„ë ˆì„ ê¸°ë¡
 				}
 			}
 		}
@@ -26,12 +33,12 @@ namespace Motorways.Process {
 			Lane lastLane = path[path.Count - 1];
 			if (lastLane.EndNode == targetNode) return true;
 
-			// ¸¶Áö¸· ³ëµå°¡ ¸ñÇ¥¿Í ¹Ù·Î ¿·(°Å¸® 1)ÀÎÁö È®ÀÎ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å°¡ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½(ï¿½Å¸ï¿½ 1)ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			if (Vector2Int.Distance(lastLane.EndNode, targetNode) <= 1.5f) {
 				if (MapManager.Instance._grid.TryGetValue(lastLane.EndNode, out TileData roadTile)) {
 					foreach (var lane in roadTile.Lanes) {
 						if (lane != null && lane.EndNode == targetNode) {
-							//Ã£¾Ò´Ù! °æ·Î¿¡ Ãß°¡
+							//Ã£ï¿½Ò´ï¿½! ï¿½ï¿½Î¿ï¿½ ï¿½ß°ï¿½
 							path.Add(lane);
 							return true;
 						}

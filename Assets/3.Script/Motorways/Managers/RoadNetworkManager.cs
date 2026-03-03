@@ -21,12 +21,11 @@ namespace Motorways.Managers {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
 		}
-
 		private void Update() {
-			// 매 프레임 삭제 대기 중인 도로가 비었는지 확인
+			//매 프레임 삭제 대기 중인 도로가 비었는지 확인
 			ProcessMothballedLanes();
 
-			// 변경된 타일이 있다면 시각적 갱신 요청
+			//변경된 타일이 있다면 시각적 갱신 요청
 			if (CityModel.ChangedNodes.Count > 0) {
 				TilemapView.Instance.UpdateTiles(CityModel.ChangedNodes);
 				CityModel.ChangedNodes.Clear();
@@ -40,7 +39,7 @@ namespace Motorways.Managers {
 
 			Lane existingLane = GetLane(from, to);
 			if (existingLane != null) {
-				// 이미 삭제 대기 중인 도로가 있다면 다시 복구
+				//이미 삭제 대기 중인 도로가 있다면 다시 복구
 				if (existingLane.State == RoadState.Mothballed) {
 					RestoreMothballedLane(existingLane);
 					Lane opposite = GetLane(to, from);
@@ -55,7 +54,6 @@ namespace Motorways.Managers {
 			CreateLane(from, to);
 			CreateLane(to, from);
 		}
-
 
 		//시스템용 도로(삭제 불가)를 건설합니다.
 		public void BuildSystemRoad(Vector2Int from, Vector2Int to, out Lane outLane, out Lane inLane) {
@@ -77,7 +75,7 @@ namespace Motorways.Managers {
 		//특정 타일의 모든 도로를 삭제 대기(Mothballed) 상태로 전환합니다.
 		public void TryRemoveRoad(Vector2Int targetTile) {
 			if (MapManager.Instance._grid.TryGetValue(targetTile, out TileData tile)) {
-				if (tile.Building != null) return; // 건물이 있는 타일은 삭제 불가
+				if (tile.Building != null) return; //건물이 있는 타일은 삭제 불가
 			}
 
 			List<Lane> connectedLanes = AllLanes.FindAll(lane => lane.StartNode == targetTile || lane.EndNode == targetTile);
@@ -89,7 +87,7 @@ namespace Motorways.Managers {
 			}
 		}
 
-		// 시스템용 도로를 삭제 대기 상태로 전환합니다. (주로 건물이 파괴될 때 사용)
+		//시스템용 도로를 삭제 대기 상태로 전환합니다. (주로 건물이 파괴될 때 사용)
 		public void MothballSystemRoad(Lane outLane, Lane inLane) {
 			if (outLane != null) {
 				SetLaneToMothballed(outLane);
@@ -102,7 +100,11 @@ namespace Motorways.Managers {
 			}
 		}
 
+
+		//---내부---
 		private void CreateLane(Vector2Int start, Vector2Int end) {
+			// 원작 방식: 모든 차선은 기본적으로 직선이지만, 
+			// 타일 내에서 곡선이 필요한 경우(예: 주차장 진입로 등)를 위해 제어점을 가질 수 있는 구조입니다.
 			Lane newLane = new Lane(start, end);
 			AllLanes.Add(newLane);
 
@@ -111,7 +113,6 @@ namespace Motorways.Managers {
 
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
 		}
-
 
 		//도로를 삭제 대기 상태로 변경하고 리스트에 등록합니다.
 		private void SetLaneToMothballed(Lane lane) {
@@ -124,7 +125,6 @@ namespace Motorways.Managers {
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
 		}
 
-
 		//삭제 대기 중인 도로를 다시 활성화합니다.
 		private void RestoreMothballedLane(Lane lane) {
 			if (lane.State == RoadState.Mothballed) {
@@ -135,7 +135,6 @@ namespace Motorways.Managers {
 				CityModel.LatestLaneChangeFrame = Time.frameCount;
 			}
 		}
-
 
 		//차량이 모두 빠져나간 Mothballed 도로를 실제로 메모리에서 제거합니다.
 		private void ProcessMothballedLanes() {
@@ -151,7 +150,7 @@ namespace Motorways.Managers {
 			}
 		}
 
-
+		//---심층---
 		//도로의 모든 물리적 데이터를 삭제하고 자원을 환원합니다.
 		private void FinalizeLaneRemoval(Lane lane) {
 			bool wasPlayerBuilt = AllLanes.Remove(lane);
@@ -161,7 +160,7 @@ namespace Motorways.Managers {
 			SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
 
 			if (wasPlayerBuilt && !isSystem) {
-				// 중복 환원을 방지하기 위해 한쪽 방향 기준으로만 자원 환원
+				//중복 환원을 방지하기 위해 한쪽 방향 기준으로만 자원 환원
 				bool isCanonical = (lane.StartNode.x < lane.EndNode.x) ||
 								   (lane.StartNode.x == lane.EndNode.x && lane.StartNode.y < lane.EndNode.y);
 
@@ -169,10 +168,12 @@ namespace Motorways.Managers {
 			}
 		}
 
+		//---헬퍼---
 		public Lane GetLane(Vector2Int start, Vector2Int end) {
 			return AllLanes.Find(l => l.StartNode == start && l.EndNode == end);
 		}
 
+		//---시각화---
 		//두 노드 사이의 차선 상태를 종합하여 타일의 시각적 상태(RoadState)를 결정합니다.
 		private void SyncVisualsBetweenNodes(Vector2Int a, Vector2Int b) {
 			Lane ab = GetLane(a, b);
@@ -180,9 +181,9 @@ namespace Motorways.Managers {
 
 			RoadState combined = RoadState.None;
 
-			// [수정된 로직]
-			// 한쪽 방향이라도 Active 상태라면 시각적으로는 'Active' 도로로 표시합니다.
-			// 이는 한쪽 차선이 먼저 삭제되거나(Finalized), 복구(Restore) 중인 상황에서도 도로가 끊겨 보이지 않게 합니다.
+			//[수정된 로직]
+			//한쪽 방향이라도 Active 상태라면 시각적으로는 'Active' 도로로 표시합니다.
+			//이는 한쪽 차선이 먼저 삭제되거나(Finalized), 복구(Restore) 중인 상황에서도 도로가 끊겨 보이지 않게 합니다.
 			bool hasActive = (ab != null && ab.State == RoadState.Active) || (ba != null && ba.State == RoadState.Active);
 			bool hasMothballed = (ab != null && ab.State == RoadState.Mothballed) || (ba != null && ba.State == RoadState.Mothballed);
 
@@ -208,7 +209,6 @@ namespace Motorways.Managers {
 			CityModel.ChangedNodes.Add(b);
 		}
 
-
 		//대각선 연결(Corner)의 상태를 관리하고 시각적 동기화를 수행합니다.
 		private void UpdateCornerStateLogic(Vector2Int start, Vector2Int end, RoadState state) {
 			int dx = end.x - start.x;
@@ -233,7 +233,7 @@ namespace Motorways.Managers {
 				CornerData corner = MapManager.Instance.GetOrCreateCorner(cornerCoord);
 				if (corner != null) {
 					if (state == RoadState.None) {
-						// 양쪽 방향 차선이 모두 없을 때만 데이터 삭제
+						//양쪽 방향 차선이 모두 없을 때만 데이터 삭제
 						if (GetLane(start, end) == null && GetLane(end, start) == null) {
 							corner.RemoveDiagonal(diagonalType);
 						}

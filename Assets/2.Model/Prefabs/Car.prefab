@@ -125,12 +125,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Systems.CarMovement
   State: 0
-  CurrentPath: []
-  ReturnPath: []
   CurrentLaneIndex: 0
   DistanceAlongLane: 0
   CurrentSpeed: 0
   MaxSpeed: 2
+  Acceleration: 1
+  Deceleration: 1.5
+  MinGap: 0.75
+  CurrentAcceleration: 0
   ParkingTimer: 0
   ParkingDuration: 2
   RepathUrgency: 0
+  LatestAttemptedPathfindFrame: 0
