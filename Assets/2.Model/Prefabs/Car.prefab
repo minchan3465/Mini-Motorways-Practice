@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8877758276766597983}
   - component: {fileID: 3538955901504995472}
   - component: {fileID: 3640213998559506860}
+  - component: {fileID: 7005534499090689131}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -129,11 +130,20 @@ MonoBehaviour:
   DistanceAlongLane: 0
   CurrentSpeed: 0
   MaxSpeed: 2
-  Acceleration: 1
-  Deceleration: 1.5
-  MinGap: 0.75
-  CurrentAcceleration: 0
   ParkingTimer: 0
   ParkingDuration: 2
   RepathUrgency: 0
   LatestAttemptedPathfindFrame: 0
+--- !u!114 &7005534499090689131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7721859640558740536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d89b45cbc6d16468a2828e27e38aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.Views.VehicleView
+  _vehicleModel: {fileID: 0}

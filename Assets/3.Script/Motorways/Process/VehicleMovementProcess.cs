@@ -64,9 +64,8 @@ namespace Motorways.Process {
 			float moveStep = v.CurrentSpeed * deltaTime;
 
 			v.DistanceAlongLane += moveStep;
-			UpdateVisualPosition(v, lane);
 
-			//���� ����
+			// 
 			if (v.DistanceAlongLane >= lane.Length) {
 				float overflow = v.DistanceAlongLane - lane.Length;
 
@@ -118,15 +117,5 @@ namespace Motorways.Process {
 			}
 		}
 
-		private void UpdateVisualPosition(Vehicle v, Lane lane) {
-			float t = v.DistanceAlongLane / lane.Length;
-			Vector3 startPos = new Vector3(lane.StartNode.x + 0.5f, 0, lane.StartNode.y + 0.5f);
-			Vector3 endPos = new Vector3(lane.EndNode.x + 0.5f, 0, lane.EndNode.y + 0.5f);
-
-			v.transform.position = Vector3.Lerp(startPos, endPos, t);
-			if (startPos != endPos) {
-				v.transform.rotation = Quaternion.LookRotation(endPos - startPos);
-			}
-		}
 	}
 }
