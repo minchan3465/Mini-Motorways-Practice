@@ -82,13 +82,23 @@ namespace Motorways.Views {
                 tangent = Utils.BezierUtils.GetTangent(p0, p1, p2, s);
             }
 
+            // Transform 업데이트 전에 차선 오프셋 적용
+            // 진행 방향(tangent)을 기준으로 우측(혹은 좌측)으로 약간 띄워줍니다.
+            // Vector3.Cross(Vector3.up, tangent)를 하면 접선에 수직인 벡터(우측 방향)가 나옵니다.
+            float laneOffset = 0.1f; // 차선 오프셋 크기 (도로 폭에 맞게 조절 필요)
+            Vector3 normal = Vector3.Cross(Vector3.up, tangent).normalized;
+            
+            // 미니 모터웨이는 보통 좌측 통행을 하므로, 진행 방향의 좌측(-normal)으로 오프셋을 줍니다.
+            // 우측 통행을 원하시면 + normal * laneOffset 으로 변경하시면 됩니다.
+            position += -normal * laneOffset;
+
             // Transform 업데이트
             transform.position = position;
             
             if (tangent != Vector3.zero) {
-                // 방향을 부드럽게 보간 (즉각적인 회전 방지)
+                // 원작 느낌을 위해 Slerp 속도를 높여 더 빠르고 쫀득하게 회전하도록 수정
                 Quaternion targetRotation = Quaternion.LookRotation(tangent);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 30f);
             }
         }
     }
