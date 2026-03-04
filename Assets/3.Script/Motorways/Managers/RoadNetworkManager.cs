@@ -104,8 +104,8 @@ namespace Motorways.Managers {
 
 		//---내부---
 		private void CreateLane(Vector2Int start, Vector2Int end) {
-			// 원작 방식: 모든 차선은 기본적으로 직선이지만, 
-			// 타일 내에서 곡선이 필요한 경우(예: 주차장 진입로 등)를 위해 제어점을 가질 수 있는 구조입니다.
+			//원작 방식: 모든 차선은 기본적으로 직선이지만, 
+			//타일 내에서 곡선이 필요한 경우(예: 주차장 진입로 등)를 위해 제어점을 가질 수 있는 구조입니다.
 			Vector2? controlPoint = CalculateControlPoint(start, end);
 			Lane newLane = new Lane(start, end, controlPoint);
 			AllLanes.Add(newLane);
@@ -116,26 +116,26 @@ namespace Motorways.Managers {
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
 		}
 
-		// 코너링을 위한 제어점 계산 헬퍼 함수
+		//코너링을 위한 제어점 계산 헬퍼 함수
 		private Vector2? CalculateControlPoint(Vector2Int start, Vector2Int end) {
 			int dx = end.x - start.x;
 			int dy = end.y - start.y;
 
-			// 대각선 이동일 경우 곡선이 필요함
+			//대각선 이동일 경우 곡선이 필요함
 			if (Mathf.Abs(dx) == 1 && Mathf.Abs(dy) == 1) {
-				// 두 가지 가능한 모서리 중 하나를 제어점으로 선택해야 합니다.
-				// 미니 모터웨이의 타일 연결 방식(CornerData)을 고려할 때,
-				// 타일 경계의 교차점을 제어점으로 삼아 부드러운 곡선을 만듭니다.
-				// (start.x, end.y) 또는 (end.x, start.y) 중 하나가 제어점이 됩니다.
-				// 간단하게 한쪽 직각 모서리를 제어점으로 반환합니다.
+				//두 가지 가능한 모서리 중 하나를 제어점으로 선택해야 합니다.
+				//미니 모터웨이의 타일 연결 방식(CornerData)을 고려할 때,
+				//타일 경계의 교차점을 제어점으로 삼아 부드러운 곡선을 만듭니다.
+				//(start.x, end.y) 또는 (end.x, start.y) 중 하나가 제어점이 됩니다.
+				//간단하게 한쪽 직각 모서리를 제어점으로 반환합니다.
 				
-				// 시각적으로 도로가 어떤 모서리를 도는지 확인하기 위해 
-				// 임의로 한 쪽을 제어점으로 삼습니다. (필요 시 기존 맵 데이터 참조)
-				// 좀 더 완벽한 둥근 코너를 위해 타일 중앙 + 모서리 오프셋을 사용.
+				//시각적으로 도로가 어떤 모서리를 도는지 확인하기 위해 
+				//임의로 한 쪽을 제어점으로 삼습니다. (필요 시 기존 맵 데이터 참조)
+				//좀 더 완벽한 둥근 코너를 위해 타일 중앙 + 모서리 오프셋을 사용.
 				Vector2 pStart = new Vector2(start.x + 0.5f, start.y + 0.5f);
 				Vector2 pEnd = new Vector2(end.x + 0.5f, end.y + 0.5f);
 				
-				// 교차점(모서리)을 제어점으로 설정
+				//교차점(모서리)을 제어점으로 설정
 				Vector2 cornerPoint;
 				if (dx == 1 && dy == 1) cornerPoint = new Vector2(start.x + 1f, start.y + 1f);
 				else if (dx == -1 && dy == -1) cornerPoint = new Vector2(start.x, start.y);
@@ -145,7 +145,7 @@ namespace Motorways.Managers {
 				return cornerPoint;
 			}
 			
-			// 직선일 경우 제어점 없음
+			//직선일 경우 제어점 없음
 			return null;
 		}
 

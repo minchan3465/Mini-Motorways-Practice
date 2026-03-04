@@ -9,15 +9,39 @@ namespace Motorways {
 		public static MapManager Instance;
 
 		public Dictionary<Vector2Int, TileData> _grid =  new Dictionary<Vector2Int, TileData>();
-		// [Ãß°¡µÊ] ÄÚ³Ê µ¥ÀÌÅÍ¸¦ µ¶¸³ÀûÀ¸·Î °ü¸®ÇÏ´Â µñ¼Å³Ê¸®
+		//í˜„ì¬ í”Œë ˆì´ ê°€ëŠ¥í•œ ë§µ ë²”ìœ„
+		[SerializeField] 
+		private RectInt _initialPlayableArea = new RectInt(-9, -5, 18, 10);
+		public RectInt PlayableArea { get; private set; }
+
+		//ì½”ë„ˆ ë°ì´í„°ë¥¼ ê´€ë¦¬í•˜ëŠ” ë”•ì…”ë„ˆë¦¬
 		public Dictionary<Vector2Int, CornerData> _cornerGrid = new Dictionary<Vector2Int, CornerData>();
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
+
+			PlayableArea = _initialPlayableArea;
 		}
 
-		//--- Á¶È¸ ---
+		//--- ë²”ìœ„ ì²´í¬ ---
+		public bool IsInPlayableArea(Vector2Int coord) {
+			return PlayableArea.Contains(coord);
+		}
+
+		//--- ë²”ìœ„ í™•ì¥ ---
+		public void ExpandPlayableArea(int amount) {
+			PlayableArea = new RectInt(
+				PlayableArea.x - amount,
+				PlayableArea.y - amount,
+				PlayableArea.width + (amount * 2),
+				PlayableArea.height + (amount * 2)
+			);
+			Debug.Log($"Map Expanded: {PlayableArea}");
+		}
+
+
+		//--- ï¿½ï¿½È¸ ---
 		public TileData GetTileData(Vector2Int coord) {
 			_grid.TryGetValue(coord, out TileData tile);
 			return tile;
@@ -28,7 +52,7 @@ namespace Motorways {
 			return corner;
 		}
 
-		//---µ¥ÀÌÅÍ »ı¼º---
+		//---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½---
 		public void RegisterTile(Vector2Int coord, TileData data) {
 			if (!_grid.ContainsKey(coord)) _grid.Add(coord, data);
 		}
@@ -42,11 +66,11 @@ namespace Motorways {
 			return newCorner;
 		}
 
-		//---µµ·Î ¿¬°á µ¥ÀÌÅÍ µ¿±âÈ­---
+		//---ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­---
 		public void ConnectLaneToMap(Lane lane) {
-			//½ÃÀÛÁ¡ Å¸ÀÏÀ» Ã£¾Æ¼­, ÇØ´ç ¹æÇâ¿¡ µµ·Î°¡ »ı°å´Ù°í ¾Ë¸².
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½, ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½Ë¸ï¿½.
 			if(_grid.TryGetValue(lane.StartNode, out TileData tile)) {
-				//¹æÇâ °è»ê.
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
 				tile.ConnectLane(dir, lane);
 			}
@@ -55,12 +79,12 @@ namespace Motorways {
 			if (_grid.TryGetValue(lane.StartNode, out TileData StartTile)) {
 				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
 
-				// Å¸ÀÏ¿¡°Ô ¿¬°á ÇØÁ¦ Áö½Ã (TileData ³»ºÎ¿¡¼­ null Ã³¸® + RoadState None Ã³¸®)
+				//Å¸ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (TileData ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ null Ã³ï¿½ï¿½ + RoadState None Ã³ï¿½ï¿½)
 				StartTile.DisconnectLane(dir);
 			}
 		}
 
-		//¸Ê È®Àå½Ã »ç¿ëÇÒ°Å.
+		//ï¿½ï¿½ È®ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½.
 		//public TileData GetOrCreateTile(Vector2Int coord) {
 		//	if(_grid.TryGetValue(coord, out TileData tile)) {
 		//		return tile;

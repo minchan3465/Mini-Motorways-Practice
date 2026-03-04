@@ -79,7 +79,7 @@ namespace Motorways {
 			Lanes[index] = lane;
 			RoadStates[index] = RoadState.Active;
 
-			// [추가] 처음 도로가 깔리는 시점의 시간을 기록 (이미 기록되어 있다면 유지)
+			//처음 도로가 깔리는 시점의 시간을 기록 (이미 기록되어 있다면 유지)
 			if (creationTime < 0f) creationTime = Time.time;
 			
 		}

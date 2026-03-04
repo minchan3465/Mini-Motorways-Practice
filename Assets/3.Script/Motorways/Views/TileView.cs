@@ -8,7 +8,7 @@ namespace Motorways.Views {
         private RoadView _activeRoadView;
         private RoadView _mothballedRoadView;
         
-        // 코너용 뷰 추가
+        //코너용 뷰 추가
         private RoadView _activeCornerView;
         private RoadView _mothballedCornerView;
         
@@ -17,16 +17,16 @@ namespace Motorways.Views {
         public void Initialize(Vector2Int coord, RoadTileAtlas atlas, Material roadMat, Material outlineMat, Material mothballedMat) {
             this.Coordinates = coord;
             this._atlas = atlas;
-            // 타일 중심 좌표 설정
+            //타일 중심 좌표 설정
             this.transform.position = new Vector3(coord.x + 0.5f, 0, coord.y + 0.5f);
 
-            // 1. 활성 도로용 View 생성
+            //1. 활성 도로용 View 생성
             _activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 10);
 
-            // 2. Mothballed 도로용 View 생성
+            //2. Mothballed 도로용 View 생성
             _mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, outlineMat, 5);
 
-            // 3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
+            //3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
             _activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
             _activeCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
             
@@ -43,10 +43,10 @@ namespace Motorways.Views {
         }
 
         public void Refresh(TileData data) {
-            // 도로 리프레시
+            //도로 리프레시
             RefreshRoads(data);
             
-            // 코너 리프레시
+            //코너 리프레시
             RefreshCorners();
         }
 
@@ -59,7 +59,7 @@ namespace Motorways.Views {
                 return;
             }
 
-            // 1. Active View: 오직 Active 상태인 도로만 포함 (Mothballed와 단절되어 보임)
+            //1. Active View: 오직 Active 상태인 도로만 포함 (Mothballed와 단절되어 보임)
             RoadTileSignature activeSig = BuildSignature(data, false); 
             if (activeSig != null && activeSig.Count > 0) {
                 _activeRoadView.SetVisibility(true);
@@ -69,8 +69,8 @@ namespace Motorways.Views {
                 _activeRoadView.UpdateMesh(null);
             }
 
-            // 2. Mothballed View: Active + Mothballed를 모두 포함하여 연결 유지
-            // 타일에 Mothballed 도로가 하나라도 존재할 때만 활성화
+            //2. Mothballed View: Active + Mothballed를 모두 포함하여 연결 유지
+            //타일에 Mothballed 도로가 하나라도 존재할 때만 활성화
             bool hasMothballedInTile = false;
             for (int i = 0; i < 8; i++) {
                 if (data.RoadStates[i] == RoadState.Mothballed) {
@@ -100,7 +100,7 @@ namespace Motorways.Views {
                 return;
             }
 
-            // 코너 리프레시 로직
+            //코너 리프레시 로직
             UpdateCornerView(_activeCornerView, corner, RoadState.Active);
             UpdateCornerView(_mothballedCornerView, corner, RoadState.Mothballed);
         }
@@ -128,7 +128,7 @@ namespace Motorways.Views {
 
             for (int i = 0; i < 8; i++) {
                 RoadState s = data.RoadStates[i];
-                // includeMothballed가 true면 Active와 Mothballed 모두 포함, false면 Active만 포함
+                //includeMothballed가 true면 Active와 Mothballed 모두 포함, false면 Active만 포함
                 if (s == RoadState.Active || (includeMothballed && s == RoadState.Mothballed)) {
                     dirs.Add((TileDirection)(1 << i));
                 }

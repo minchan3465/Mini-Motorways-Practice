@@ -15,14 +15,14 @@ namespace Motorways.Process {
 			int latestLaneChange = CityModel.LatestLaneChangeFrame;
 
 			foreach (Vehicle v in allVehicles) {
-				// 원작과 동일하게 도로망이 변했으면(latestLaneChangeFrame이 더 높으면) 재탐색 요청
+				//원작과 동일하게 도로망이 변했으면(latestLaneChangeFrame이 더 높으면) 재탐색 요청
 				if (v.LatestAttemptedPathfindFrame < latestLaneChange) {
 					v.RequestPathfind();
 				}
 
 				if (v.RepathUrgency == PathfindUrgency.WhenPossible) {
 					ProcessPathfindForVehicle(v);
-					v.LatestAttemptedPathfindFrame = Time.frameCount; // 현재 프레임 기록
+					v.LatestAttemptedPathfindFrame = Time.frameCount; //현재 프레임 기록
 				}
 			}
 		}
@@ -33,7 +33,7 @@ namespace Motorways.Process {
 			Lane lastLane = path[path.Count - 1];
 			if (lastLane.EndNode == targetNode) return true;
 
-			// ������ ��尡 ��ǥ�� �ٷ� ��(�Ÿ� 1)���� Ȯ��
+			//������ ��尡 ��ǥ�� �ٷ� ��(�Ÿ� 1)���� Ȯ��
 			if (Vector2Int.Distance(lastLane.EndNode, targetNode) <= 1.5f) {
 				if (MapManager.Instance._grid.TryGetValue(lastLane.EndNode, out TileData roadTile)) {
 					foreach (var lane in roadTile.Lanes) {

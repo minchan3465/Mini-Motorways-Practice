@@ -34,9 +34,9 @@ namespace Motorways.Utils {
             }
         }
 
-        // 방향 Enum을 정수 인덱스(0~7)로 변환 (TileData 배열 접근용)
+        //방향 Enum을 정수 인덱스(0~7)로 변환 (TileData 배열 접근용)
         public static int GetDirectionIndex(TileDirection dir) {
-            // 사용자가 제공한 Math.Log 방식 활용 (단, 0인 경우 예외처리 필요)
+            //사용자가 제공한 Math.Log 방식 활용 (단, 0인 경우 예외처리 필요)
             if (dir == TileDirection.None) return -1;
             return (int)Mathf.Log((int)dir, 2);
         }
@@ -58,7 +58,7 @@ namespace Motorways.Utils {
         public static void Shuffle<T>(this IList<T> list) {
             for (int i = list.Count - 1; i > 0; i--) {
                 int j = Random.Range(0, i + 1);
-                (list[i], list[j]) = (list[j], list[i]); // Tuple Deconstruction Swap
+                (list[i], list[j]) = (list[j], list[i]); //Tuple Deconstruction Swap
             }
         }
 
@@ -66,8 +66,8 @@ namespace Motorways.Utils {
             if (dir == TileDirection.None || dir == TileDirection.All) return dir;
             byte mask = (byte)dir;
 
-            // 시계 방향 회전 (8방향 기준)
-            // steps가 음수일 경우를 대비한 처리 필요 시: ((steps % 8) + 8) % 8
+            //시계 방향 회전 (8방향 기준)
+            //steps가 음수일 경우를 대비한 처리 필요 시: ((steps % 8) + 8) % 8
             int s = steps % 8;
             byte rotated = (byte)((mask << s) | (mask >> (8 - s)));
             return (TileDirection)rotated;

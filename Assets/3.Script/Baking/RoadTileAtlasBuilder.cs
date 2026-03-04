@@ -27,10 +27,10 @@ namespace Motorways.Baking {
 			List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
 			HashSet<byte> processedMasks = new HashSet<byte>();
 
-			for (int i = 1; i < 256; i++) { // 1(00000001) 부터 255(11111111)까지 
+			for (int i = 1; i < 256; i++) { //1(00000001) 부터 255(11111111)까지 
 				byte mask = (byte)i;
 
-				// 1. 비트 마스크 기반 회전 중복 검사 (수학적으로 가장 정확함)
+				//1. 비트 마스크 기반 회전 중복 검사 (수학적으로 가장 정확함)
 				bool isDuplicate = false;
 				for (int step = 0; step < 8; step++) {
 					int s = step % 8;
@@ -42,15 +42,15 @@ namespace Motorways.Baking {
 				}
 				if (isDuplicate) continue;
 
-				processedMasks.Add(mask); // 고유 마스크 등록
+				processedMasks.Add(mask); //고유 마스크 등록
 
-				// 2. 고유 마스크에 해당하는 방향 추출
+				//2. 고유 마스크에 해당하는 방향 추출
 				List<TileDirection> activeDirs = new List<TileDirection>();
 				for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
 					if ((mask & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
 				}
 
-				// 3. 시그니처 조립 (기존 로직과 동일)
+				//3. 시그니처 조립 (기존 로직과 동일)
 				RoadTileSignature tempSignature = new RoadTileSignature();
 				if (activeDirs.Count == 1) {
 					tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
@@ -81,7 +81,7 @@ namespace Motorways.Baking {
 
 			//	RoadTileSignature tempSignature = new RoadTileSignature();
 
-			//	// 조합 로직: 막힌 길이면 U턴 1개, 그 이상이면 모든 활성 방향끼리 명확한 쌍으로 연결
+			//	//조합 로직: 막힌 길이면 U턴 1개, 그 이상이면 모든 활성 방향끼리 명확한 쌍으로 연결
 			//	if (activeDirs.Count == 1) {
 			//		tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
 			//	} else {
@@ -169,7 +169,7 @@ namespace Motorways.Baking {
 					pathPoints.Add(BezierUtils.GetPoint(inCurveStart, handleA, handleB, outCurveStart, t)); //3차 베지어 곡선
 				}
 
-				// 막다른 길이 아닐 때만 끝점 연장 추가
+				//막다른 길이 아닐 때만 끝점 연장 추가
 				if (outIsDiagonal) pathPoints.Add(outPos);
 			} else {
 				//--U-Turn (막힌 길)--
@@ -181,20 +181,20 @@ namespace Motorways.Baking {
 			return pathPoints;
 		}
 
-		// [추가됨] 대각선 틈새를 메우는 코너 전용 경로 생성 (길이: 약 0.414)
+		//[추가됨] 대각선 틈새를 메우는 코너 전용 경로 생성 (길이: 약 0.414)
 		public List<Vector2> ConstructCornerPath() {
 			List<Vector2> pathPoints = new List<Vector2>();
 
-			// 타일 중심(0.5, 0.5)을 잇는 대각선 사이의 빈 공간 길이
+			//타일 중심(0.5, 0.5)을 잇는 대각선 사이의 빈 공간 길이
 			float cornerRadius = (Mathf.Sqrt(2f) - 1f) * 0.5f;
 
-			// 코너 조각은 중심(0,0)을 가로지르는 단순한 직선 경로입니다.
-			// 남서(SW)에서 북동(NE) 방향으로 관통하는 기준 경로 하나만 만들면, 
-			// 나중에 회전시켜서 북서(NW) <-> 남동(SE) 방향으로도 쓸 수 있습니다.
-			Vector2 dir = new Vector2(1, 1).normalized; // 북동쪽 방향 벡터
+			//코너 조각은 중심(0,0)을 가로지르는 단순한 직선 경로입니다.
+			//남서(SW)에서 북동(NE) 방향으로 관통하는 기준 경로 하나만 만들면, 
+			//나중에 회전시켜서 북서(NW) <-> 남동(SE) 방향으로도 쓸 수 있습니다.
+			Vector2 dir = new Vector2(1, 1).normalized; //북동쪽 방향 벡터
 
-			Vector2 startPos = -dir * cornerRadius; // 남서쪽 끝
-			Vector2 endPos = dir * cornerRadius;    // 북동쪽 끝
+			Vector2 startPos = -dir * cornerRadius; //남서쪽 끝
+			Vector2 endPos = dir * cornerRadius;    //북동쪽 끝
 
 			pathPoints.Add(startPos);
 			pathPoints.Add(endPos);
@@ -234,20 +234,20 @@ namespace Motorways.Baking {
 
 				//중간 점들은 이전 점과 다음 점을 이용해 방향을 평균화(스무딩) 합니다.
 				if (!roundEnds && i == 0) {
-					// 시작점: 위치 벡터의 역방향이 곡선의 출발 진행 방향 (inBase 없이 해결)
+					//시작점: 위치 벡터의 역방향이 곡선의 출발 진행 방향 (inBase 없이 해결)
 					forward = -currentPoint.normalized;
 				} else if (!roundEnds && i == pointCount - 1) {
-					// 끝점: 위치 벡터의 정방향이 곡선의 도착 진행 방향
+					//끝점: 위치 벡터의 정방향이 곡선의 도착 진행 방향
 					forward = currentPoint.normalized;
 				} else {
-					// 중간 점들 (또는 라운드 캡이 켜진 경우의 양끝점): 이전/다음 점을 이용해 방향 스무딩
+					//중간 점들 (또는 라운드 캡이 켜진 경우의 양끝점): 이전/다음 점을 이용해 방향 스무딩
 					if (i < pointCount - 1) {
 						forward += (visualPoints[i + 1] - currentPoint);
 					}
 					if (i > 0) {
 						forward += (currentPoint - visualPoints[i - 1]);
 					}
-					forward = forward.normalized; // 원작처럼 더한 뒤 정규화
+					forward = forward.normalized; //원작처럼 더한 뒤 정규화
 				}
 
 				Vector2 left = new Vector2(-forward.y, forward.x);
@@ -270,7 +270,7 @@ namespace Motorways.Baking {
 					int capStartIndex = pointCount * 2;
 
 					for (int capIndex = 1; capIndex <= 12; capIndex++) {
-						// 기준점(left)을 회전시켜 부채꼴 정점 위치 도출
+						//기준점(left)을 회전시켜 부채꼴 정점 위치 도출
 						float rad = -angleStep * capIndex * Mathf.Deg2Rad;
 						float cos = Mathf.Cos(rad);
 						float sin = Mathf.Sin(rad);
@@ -302,8 +302,8 @@ namespace Motorways.Baking {
 
 			if (roundEnds) {
 				int capStartIndex = pointCount * 2;
-				int centerRightIndex = (pointCount - 1) * 2 + 1; // 원의 중심 역할 (마지막 우측 정점)
-				int lastLeftIndex = (pointCount - 1) * 2;        // 부채꼴 시작점 (마지막 좌측 정점)
+				int centerRightIndex = (pointCount - 1) * 2 + 1; //원의 중심 역할 (마지막 우측 정점)
+				int lastLeftIndex = (pointCount - 1) * 2;        //부채꼴 시작점 (마지막 좌측 정점)
 
 				int previousIndex = lastLeftIndex;
 				for (int capIndex = 0; capIndex < 12; capIndex++) {
@@ -317,14 +317,14 @@ namespace Motorways.Baking {
 			return data;
 		}
 
-		// [추가] 여러 개의 RoadMeshData를 하나로 병합하는 함수
+		//여러 개의 RoadMeshData를 하나로 병합하는 함수
 		public RoadMeshData CombineMeshData(List<RoadMeshData> meshList) {
 			if (meshList == null || meshList.Count == 0) return new RoadMeshData();
 
 			int totalVerts = 0;
 			int totalTris = 0;
 
-			// 전체 크기 계산
+			//전체 크기 계산
 			foreach (var mesh in meshList) {
 				if (mesh.vertices != null) totalVerts += mesh.vertices.Length;
 				if (mesh.triangles != null) totalTris += mesh.triangles.Length;
@@ -342,20 +342,20 @@ namespace Motorways.Baking {
 			foreach (var mesh in meshList) {
 				if (mesh.vertices == null || mesh.vertices.Length == 0) continue;
 
-				// 정점 복사
+				//정점 복사
 				System.Array.Copy(mesh.vertices, 0, combined.vertices, vertOffset, mesh.vertices.Length);
 				System.Array.Copy(mesh.uvs, 0, combined.uvs, vertOffset, mesh.uvs.Length);
 
 				if (mesh.uv2 != null && mesh.uv2.Length == mesh.vertices.Length) {
 					System.Array.Copy(mesh.uv2, 0, combined.uv2, vertOffset, mesh.uv2.Length);
 				} else {
-					// 방어 코드: 만약 uv2가 없다면 0으로라도 채워줍니다.
+					//방어 코드: 만약 uv2가 없다면 0으로라도 채워줍니다.
 					for (int i = 0; i < mesh.vertices.Length; i++) {
 						combined.uv2[vertOffset + i] = Vector2.zero;
 					}
 				}
 
-				// 삼각형 인덱스 복사 (오프셋 적용)
+				//삼각형 인덱스 복사 (오프셋 적용)
 				for (int i = 0; i < mesh.triangles.Length; i++) {
 					combined.triangles[triOffset + i] = mesh.triangles[i] + vertOffset;
 				}

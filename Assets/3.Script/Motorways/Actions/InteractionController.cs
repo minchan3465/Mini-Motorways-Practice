@@ -5,50 +5,34 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Motorways.Actions {
-	using Motorways.Managers;
-	using Motorways.Models;
-	using Motorways.Utils;
+	using Views;
 
 	public class InteractionController : MonoBehaviour {
 		[Header("Settings")]
 		[SerializeField] private Camera _mainCamera;
 
-		//Å¬¸¯ ÈÄ µå·¡±×·Î ÀÎÁ¤¹Ş±â À§ÇÑ ÃÖ¼Ò °Å¸® (ÇÈ¼¿ ´ÜÀ§ ¾Æ´Ô, ¿ùµå ´ÜÀ§) = Å¬¸¯ ¹Ì½º¸¦ ¹æÁöÇÏ´Â Deadzone
+		//í´ë¦­ í›„ ë“œë˜ê·¸ë¡œ ì¸ì •ë°›ê¸° ìœ„í•œ ìµœì†Œ ê±°ë¦¬ (í”½ì…€ ë‹¨ìœ„ ì•„ë‹˜, ì›”ë“œ ë‹¨ìœ„) = í´ë¦­ ë…¸ì´ì¦ˆë¥¼ ë°©ì§€í•˜ëŠ” Deadzone
 		[SerializeField, Range(0.1f, 1.0f)] private float _initialDragDeadzone = 0.3f;
 
-		//Å¸ÀÏ Áß¾Ó¿¡¼­ ¸¶¿ì½º°¡ ¾ó¸¶³ª ¸Ö¾îÁ®¾ß µµ·Î°¡ ¿¬°áµÇ´Â°¡?
+		//íƒ€ì¼ ì¤‘ì•™ì—ì„œ ë§ˆìš°ìŠ¤ê°€ ì–¼ë§ˆë‚˜ ë–¨ì–´ì ¸ì•¼ ê±´ì„¤ì´ ê²°ì •ë˜ëŠ”ê°€?
 		[SerializeField, Range(0.5f, 2.0f)] private float _connectionDistanceThreshold = 0.8f;
 
 		private PlayerInput _input;
 		private Plane _groundPlane;
 		private Vector2 _mouseScreenPos;
 
-		//¸¶¿ì½º°¡ °¡¸®Å°°í ÀÖ´Â ±×¸®µå ÁÂÇ¥
+		//ë§ˆìš°ìŠ¤ê°€ ê°€ë¦¬í‚¤ê³  ìˆëŠ” ê·¸ë¦¬ë“œ ì¢Œí‘œ
 		public Vector2Int CurrentGridPointer { get; private set; }
 		public bool IsPointerValid { get; private set; }
 
-		private bool _isDraggingBuild = false;
-		private bool _isDraggingRemove = false;
-		private bool _hasPassedDeadzone = false; // µ¥µåÁ¸À» ³Ñ¾ú´ÂÁö ¿©ºÎ
+		private MotorwaysPlayerAction _currentAction = null;
 
-		private Vector3 _clickOriginWorldPos;   // ÃÖÃÊ Å¬¸¯ÇÑ ¿ùµå ÁÂÇ¥ (Deadzone Ã¼Å©¿ë)
-		private Vector2Int _lastGridPointer;    // ¸¶Áö¸·À¸·Î µµ·Î°¡ ±ò¸° Å¸ÀÏ ÁÂÇ¥
-		//private Vector2Int _startDragPointer;   // µå·¡±× ½ÃÀÛ Å¸ÀÏ ÁÂÇ¥
-
-		//Áı È¸Àü Á¶ÀÛ¿ë
-		private House _dragStartHouse = null; // È¸Àü Á¶ÀÛ ÁßÀÎ °Ç¹°
-
-		#region Gizmos¿ë ¤½ÇÁ·ÎÆÛÆ¼
-		public bool IsDraggingBuild => _isDraggingBuild;
-		public Vector3 ClickOriginWorldPos => _clickOriginWorldPos;
-		public bool HasPassedDeadzone => _hasPassedDeadzone;
-		//public House DragStartHouse => _dragStartHouse;
-		public Vector2Int LastGridPointer => _lastGridPointer;
+		#region Getters
 		public float InitialDragDeadzone => _initialDragDeadzone;
 		public float ConnectionDistanceThreshold => _connectionDistanceThreshold;
+		public bool IsDragging => _currentAction != null;
 		#endregion
 
-		//-----------------------------------------------
 		private void Awake() {
 			_input = new PlayerInput();
 			_groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -58,223 +42,129 @@ namespace Motorways.Actions {
 		private void OnEnable() {
 			_input.Enable();
 			_input.Player.CursorPosition.performed += OnCursorMove;
-			_input.Player.Build.started += OnBuildStarted;   // ´­·¶À» ¶§
-			_input.Player.Build.canceled += OnBuildCanceled; // ¶ÃÀ» ¶§
+			_input.Player.Build.started += OnBuildStarted;   //ê±´ì„¤ ì‹œì‘
+			_input.Player.Build.canceled += OnBuildCanceled; //ê±´ì„¤ ë
 			_input.Player.Remove.started += OnRemoveStarted;
 			_input.Player.Remove.canceled += OnRemoveCanceled;
 		}
+
 		private void OnDisable() {
 			_input.Disable();
 			_input.Player.CursorPosition.performed -= OnCursorMove;
-			_input.Player.Build.started += OnBuildStarted;   // ´­·¶À» ¶§
-			_input.Player.Build.canceled += OnBuildCanceled; // ¶ÃÀ» ¶§
+			_input.Player.Build.started -= OnBuildStarted;
+			_input.Player.Build.canceled -= OnBuildCanceled;
 			_input.Player.Remove.started -= OnRemoveStarted;
 			_input.Player.Remove.canceled -= OnRemoveCanceled;
 		}
 
+		private void Update() {
+			if (_currentAction != null) {
+				_currentAction.Tick(Time.deltaTime);
+				if (_currentAction.IsComplete) _currentAction = null;
+			}
+		}
 
-		//---------- °Ç¼³(ÁÂÅ¬¸¯)
+		//---------- ê±´ì„¤(ì¢Œí´ë¦­)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
-			if (_isDraggingRemove || !IsPointerValid) return;
+			if (_currentAction != null || !IsPointerValid) return;
+			
+			_currentAction = new DrawRoadAction();
+			_currentAction.Initialize(this);
+			_currentAction.OnActionBegin(Time.time);
 
-			_isDraggingBuild = true;
-			_hasPassedDeadzone = false;
-
-			_lastGridPointer = CurrentGridPointer; // ÇöÀç À§Ä¡ ±â¾ï
-			//_startDragPointer = CurrentGridPointer; // ½ÃÀÛÁ¡ ±â¾ï
-			_clickOriginWorldPos = GetWorldPositionFromMouse();
-
-			if (MapManager.Instance._grid.TryGetValue(CurrentGridPointer, out TileData cell)) {
-				if (cell.Building is House house) {
-					_dragStartHouse = house;
-					return; // °Ç¹°À» Àâ¾ÒÀ¸´Ï µµ·Î °Ç¼³ ¸ğµå´Â ½ºÅµ
-				} else if (cell.Building is Destination) {
-					//¸ñÀûÁö¸¦ Å¬¸¯ÇßÀ» ¶§´Â µµ·Î °Ç¼³ ÀÚÃ¼¸¦ ¸·À½
-					_isDraggingBuild = false;
-					return;
-				}
-			}
-
-			//if (RoadSystem.Instance.IsRoadBuildable(CurrentGridPointer)) RoadSystem.Instance.CreateRoadNode(CurrentGridPointer);
-			//else _isDraggingBuild = false;
+			//ê·¸ë¦¬ë“œ í‘œì‹œ
+			if (GridView.Instance != null) GridView.Instance.SetVisible(true, false);
 		}
+
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
-			if (_isDraggingBuild) {
-				_isDraggingBuild = false;
-				_dragStartHouse = null;
+			if (_currentAction is DrawRoadAction) {
+				_currentAction.OnActionComplete();
+				//ê·¸ë¦¬ë“œ ìˆ¨ê¹€
+				if (GridView.Instance != null) GridView.Instance.SetVisible(false);
 			}
 		}
 
-		//---------- »èÁ¦(¿ìÅ¬¸¯)
+		//---------- ì‚­ì œ(ìš°í´ë¦­)
 		private void OnRemoveStarted(InputAction.CallbackContext context) {
-			if (!IsPointerValid || _isDraggingBuild) return;
-			_isDraggingRemove = true;
-			_lastGridPointer = CurrentGridPointer;
+			if (_currentAction != null || !IsPointerValid) return;
 
-			RoadNetworkManager.Instance.TryRemoveRoad(CurrentGridPointer);
+			_currentAction = new RemoveRoadAction();
+			_currentAction.Initialize(this);
+			_currentAction.OnActionBegin(Time.time);
+
+			//ê·¸ë¦¬ë“œ í‘œì‹œ
+			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);	//ì‚­ì œë¼ì„œ ë’¤ ë§¤ê°œë³€ìˆ˜ true
 		}
+
 		private void OnRemoveCanceled(InputAction.CallbackContext context) {
-			_isDraggingRemove = false;
+			if (_currentAction is RemoveRoadAction) {
+				_currentAction.OnActionComplete();
+				//ê·¸ë¦¬ë“œ ìˆ¨ê¹€
+				if (GridView.Instance != null) GridView.Instance.SetVisible(false);
+			}
 		}
 
-		//---------- Á¶ÀÛ(¸¶¿ì½º ÀÌµ¿)
+		//---------- ì´ë™(ë§ˆìš°ìŠ¤ ì´ë™)
 		private void OnCursorMove(InputAction.CallbackContext context) {
 			_mouseScreenPos = context.ReadValue<Vector2>();
 
-			//±âÁ¸ Æ÷ÀÎÅÍ °»½Å
+			//ê·¸ë¦¬ë“œ ì¢Œí‘œ ê°±ì‹ 
 			UpdateGridPointer();
-			if (!IsPointerValid) return;
-
-			if (_isDraggingBuild) {
-				Vector3 currentMouseWorldPos = GetWorldPositionFromMouse();
-				//Á¶°Ç1. µ¥µåÁ¸ Ã¼Å©.
-				if (!_hasPassedDeadzone) {
-					//¾È³Ñ¾î°¬´Ù¸é
-					float distFromClick = Vector3.Distance(_clickOriginWorldPos, currentMouseWorldPos);
-
-					//¶Ç ºĞ±âÁ¡. Áı ¹æÇâ ¹Ù²Ù´Â ½ÃÁ¡ÀÎÁö, ºó Å¸ÀÏ¿¡¼­ ÇÏ´Â µµ·ÎÀÎÁö.
-					if (distFromClick > _initialDragDeadzone) {
-						//¸¸¾à Å¬¸¯ ¹üÀ§°¡ µ¥µåÁ¸ ¹üÀ§ ¹ÛÀ¸·Î ³Ñ¾î°¬À¸¸é,
-						//Á¶°Ç2·Î ³Ñ¾î°¨. (Å¸ÀÏ Áß½ÉÀ¸·Î ±âÁØ ÆÇÁ¤).
-						_hasPassedDeadzone = true;
-					} else {
-						//¾ÆÁ÷ µ¥µåÁ¸ ¾ÈÀÌ¸é Å¬¸¯ÆÇÁ¤ À¯Áö (Á¶°Ç0 = Å¬¸¯ÆÇÁ¤)
-						return;
-					}
-				} else {
-					//= if(_hasPassedDeadzone)
-					//¸¸¾à µ¥µåÁ¸ ¹Ù±ùÀÇ ¹üÀ§¶ó¸é
-					//Å¸ÀÏ Áß½ÉÀ¸·Î ÆÇÁ¤³»±â À§ÇØ ´ÙÀ½ ¸Ş¼­µå·Î ³Ñ¾î°¨!
-					//if (_dragStartHouse != null) {
-					if (_dragStartHouse != null) {
-						ProcessHouseRotation(currentMouseWorldPos);
-					} else {
-						ProcessBuildDrag(currentMouseWorldPos);
-					};
-				}
-			} else if (_isDraggingRemove) { //»èÁ¦
-				if (CurrentGridPointer != _lastGridPointer) {
-					RoadNetworkManager.Instance.TryRemoveRoad(CurrentGridPointer);
-					_lastGridPointer = CurrentGridPointer;
-				}
-			}
 		}
 
-		//---------- °Ç¼³(ÆÇÁ¤) => ÄÚ¾î ¸ŞÄ«´Ğ.
-		private void ProcessBuildDrag(Vector3 mousePos) {
-			//È¤½Ã ¸ğ¸¦ ¿¹¿ÜÃ³¸®.
-			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
-
-			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
-			Vector3 diff = mousePos - lastTileCenter;
-			//float distance = diff.magnitude;
-			float squareDist = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
-
-			//¹Ì¸®º¸±â Mesh ¸¸µå´Â°Å ³ªÁß¿¡ Ãß°¡ÇÏ±â.
-
-			//Á¶°Ç4. ÀÏÁ¤ °Å¸® ÀÌ»ó µå·¡±× ÇßÀ» °æ¿ì.
-			//¿©±â¼­ ¿øÀ¸·Î Çß´Âµ¥, ÀÌ·¯´Ï±î ´ë°¢¼±ÀÇ ±æÀÌ´Â Àû´çÇÏ³ª, °¡·Î ¼¼·ÎÀÇ ±æÀÌ´Â Àû´çÇÏÁö ¾ÊÀ½.
-			//µû¶ó¼­ ¿øÀÌ ¾Æ´Ñ, ³×¸ğ·Î º¯°æ.
-			if (squareDist >= _connectionDistanceThreshold) {
-				//¿©±â±îÁö µé¾î¿ÔÀ¸¸é »ç½Ç»ó °Ç¼³ÇÏ¸é µË´Ï´Ù.
-				Vector2Int offset = CalculateSnappedDirection(diff);
-				Vector2Int candidatePos = _lastGridPointer + offset;
-				if (Vector2Int.Distance(_lastGridPointer, candidatePos) <= 1.5f) {
-					if (MapManager.Instance._grid.TryGetValue(candidatePos, out TileData candidateTile)) {
-						if (candidateTile.Building != null) {
-							if (candidateTile.Building is Destination) {
-								//µå·¡±× Áß ¸ñÀûÁö¿¡ ´êÀ¸¸é °Ç¼³ °­Á¦ Ãë¼Ò
-								_isDraggingBuild = false;
-								return;
-							} else if (candidateTile.Building is House targetHouse) {
-								//¿ÜºÎ µµ·Î¿¡¼­ ÁıÀ¸·Î ¿¬°áÇßÀ» ¶§
-								//Áı(candidatePos) ÀÔÀå¿¡¼­ Á÷Àü Å¸ÀÏ(µµ·Î, _lastGridPointer)À» ¹Ù¶óº¸´Â ¹æÇâÀ» ±¸ÇÔ
-								Vector2Int dirToRoad = _lastGridPointer - candidatePos;
-								TileDirection newDir = TileUtils.GetDirection(Vector2Int.zero, dirToRoad);
-
-								if (newDir != TileDirection.None) {
-									targetHouse.RotateEntrance(newDir);
-								}
-
-								_dragStartHouse = targetHouse;
-								_lastGridPointer = candidatePos;
-								_clickOriginWorldPos = new Vector3(candidatePos.x + 0.5f, 0, candidatePos.y + 0.5f);
-
-								return;
-							}
-						}
-					}
-					//°Ç¹°ÀÌ ¾øÀ¸¸é Æò¼Ò´ë·Î µµ·Î °Ç¼³ ½Ãµµ.
-					RoadNetworkManager.Instance.TryBuildRoad(_lastGridPointer, candidatePos);
-					_lastGridPointer = candidatePos;
-				}
-			}
-		}
-
-		//¿ä°Ç ÁıÀÏ¶§ ±âÁØ. °Ç¼³º¸´Ü È¸ÀüÀÇ ´À³¦.
-		private void ProcessHouseRotation(Vector3 mousePos) {
-			Vector3 diff = mousePos - _clickOriginWorldPos;
-			float squareDist = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
-
-			if (squareDist >= _connectionDistanceThreshold) {
-				Vector2Int offset = CalculateSnappedDirection(diff);
-				TileDirection newDir = TileUtils.GetDirection(Vector2Int.zero, offset);
-				if (newDir != TileDirection.None) {
-					_dragStartHouse.RotateEntrance(newDir);
-					_lastGridPointer = _dragStartHouse.RoadCoordinate;
-					_dragStartHouse = null;
-				}
-			}
-		}
-
-		//---------- À¯Æ¿
 		private void UpdateGridPointer() {
-			//¸¶¿ì½º ÁÂÇ¥(±×¸®µå) °»½Å
+			//ë§ˆìš°ìŠ¤ ì¢Œí‘œ(ê·¸ë¦¬ë“œìƒ) ê³„ì‚°
 			Vector3 hitPoint = GetWorldPositionFromMouse();
 			if (IsPointerValid) {
 				int x = Mathf.FloorToInt(hitPoint.x);
 				int y = Mathf.FloorToInt(hitPoint.z);
-				CurrentGridPointer = new Vector2Int(x, y);
+				Vector2Int coord = new Vector2Int(x, y);
+
+				//ë§µ ë²”ìœ„ ë‚´ì— ìˆëŠ”ì§€ ì²´í¬
+				if (MapManager.Instance.IsInPlayableArea(coord)) {
+					CurrentGridPointer = coord;
+				} else {
+					IsPointerValid = false;
+				}
 			}
 		}
-		private Vector3 GetWorldPositionFromMouse() {
+
+		public Vector3 GetWorldPositionFromMouse() {
 			Ray ray = _mainCamera.ScreenPointToRay(_mouseScreenPos);
 			if (_groundPlane.Raycast(ray, out float enter)) {
-				//¶¥¿¡ ´ê¾ÒÀ½!! (ÀÎ½ÄµÈ ¹üÀ§ ³»)
+				//ë°”ë‹¥ë©´ íˆíŠ¸!! (ì¸ì‹ëœ ì§€ì  ë°˜í™˜)
 				IsPointerValid = true;
-				return ray.GetPoint(enter); //ÁÂÇ¥ °è»êÇÏ°í ¹İÈ¯.
+				return ray.GetPoint(enter); //ì¢Œí‘œ ì €ì¥í•˜ê³  ë°˜í™˜.
 			}
-			//¸ø´ê¾ÒÀ¸¸é ±×³É 0¹İÈ¯ (½ÇÆĞ)
+			//ë°”ë‹¥ì—†ìœ¼ë©´ ê·¸ëƒ¥ 0ë°˜í™˜ (ë¶ˆê°€)
 			IsPointerValid = false;
 			return Vector3.zero;
 		}
 
-		//¸¶¿ì½º°¡ ÀÌµ¿ÇÑ ÁÂÇ¥ (Å¬¸¯->µå·¡±×) º¤ÅÍÀÇ °¢µµ¸¦ ±¸ÇÏ´Â°Å. Á¤±ÔÈ­ ¹× 8¹æÇâÀ¸·Î ½º³ÀÇÎÇÕ´Ï´Ù.
-		private Vector2Int CalculateSnappedDirection(Vector3 diff) {
-			// °¢µµ °è»ê (Atan2´Â ¶óµğ¾È ¹İÈ¯)
-			// z¸¦ yÃàÀ¸·Î »ı°¢ÇÏ¿© °è»ê
+		//ë§ˆìš°ìŠ¤ê°€ ì´ë™í•œ ì¢Œí‘œ (í´ë¦­->ë“œë˜ê·¸) ê¸°ë°˜ìœ¼ë¡œ ë°©í–¥ì„ êµ¬í•˜ëŠ”ê²ƒ. ì •ê·œí™” í›„ 8ë°©í–¥ìœ¼ë¡œ ìŠ¤ëƒ…í•‘í•©ë‹ˆë‹¤.
+		public Vector2Int CalculateSnappedDirection(Vector3 diff) {
+			//ê°ë„ ê³„ì‚° (Atan2ë¡œ ê°ë„ ë³€í™˜)
+			//zë¥¼ yì¶•ìœ¼ë¡œ ì‚¬ìš©í•´ì„œ ê³„ì‚°
 			float angle = Mathf.Atan2(diff.z, diff.x) * Mathf.Rad2Deg;
 
-			// À½¼ö °¢µµ º¸Á¤ (0 ~ 360)
+			//ì–‘ìˆ˜ ê°ë„ ê³ ì • (0 ~ 360)
 			if (angle < 0) angle += 360f;
 
-			// 8¹æÇâ ½º³À (45µµ¾¿ ºĞÇÒ -> 22.5µµ ¿ÀÇÁ¼ÂÀ¸·Î ¹İ¿Ã¸² Ã³¸®)
-			// 0:East, 1:NE, 2:North, 3:NW, 4:West, 5:SW, 6:South, 7:SE
+			//8ë°©í–¥ ì„¹í„° (45ë„ì”© ë¶„í•  -> 22.5ë„ ì˜¤í”„ì…‹ìœ¼ë¡œ ë°˜ì˜¬ë¦¼ ì²˜ë¦¬)
+			//0:East, 1:NE, 2:North, 3:NW, 4:West, 5:SW, 6:South, 7:SE
 			int sector = Mathf.RoundToInt(angle / 45f) % 8;
 
 			switch (sector) {
-				case 0: return new Vector2Int(1, 0);   // East
-				case 1: return new Vector2Int(1, 1);   // NE
-				case 2: return new Vector2Int(0, 1);   // North
-				case 3: return new Vector2Int(-1, 1);  // NW
-				case 4: return new Vector2Int(-1, 0);  // West
-				case 5: return new Vector2Int(-1, -1); // SW
-				case 6: return new Vector2Int(0, -1);  // South
-				case 7: return new Vector2Int(1, -1);  // SE
+				case 0: return new Vector2Int(1, 0);   //East
+				case 1: return new Vector2Int(1, 1);   //NE
+				case 2: return new Vector2Int(0, 1);   //North
+				case 3: return new Vector2Int(-1, 1);  //NW
+				case 4: return new Vector2Int(-1, 0);  //West
+				case 5: return new Vector2Int(-1, -1); //SW
+				case 6: return new Vector2Int(0, -1);  //South
+				case 7: return new Vector2Int(1, -1);  //SE
 			}
 			return Vector2Int.zero;
 		}
-		//ÀÌ°Ç Vector2Int ¿ÀÇÁ¼ÂÀ» RoadDirection Enum
-
 	}
 }

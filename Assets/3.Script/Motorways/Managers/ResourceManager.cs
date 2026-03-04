@@ -20,7 +20,7 @@ namespace Motorways {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
 
-			// 초기화
+			//초기화
 			_inventory.Add(ItemType.Road, _startRoadCount);
 			_inventory.Add(ItemType.TrafficLight, 0);
 			_inventory.Add(ItemType.Roundabout, 0);

@@ -63,11 +63,11 @@ namespace Motorways.Models {
             //»ý¼º.
             //var grid = MapManager.Instance._grid;
             //if (grid.TryGetValue(entranceNode, out TileData newEntranceTile)) {
-            //    newEntranceTile.ConnectLane(DrivewayDirection, EntranceLane);
+            //   newEntranceTile.ConnectLane(DrivewayDirection, EntranceLane);
             //}
             //if (grid.TryGetValue(newRoadCoord, out TileData newRoadTile)) {
-            //    TileDirection newOpposite = TileUtils.GetOppositeDirection(DrivewayDirection);
-            //    newRoadTile.ConnectLane(newOpposite, IncomingLane);
+            //   TileDirection newOpposite = TileUtils.GetOppositeDirection(DrivewayDirection);
+            //   newRoadTile.ConnectLane(newOpposite, IncomingLane);
             //}
         }
     }

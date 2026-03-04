@@ -41,8 +41,8 @@ namespace Motorways.Process {
 				if(!isAffected && v.ReturnPath != null) {
 					foreach(Lane lane in v.ReturnPath) {
                         //if (CityModel.ChangedLanes.Contains(laneInPath) || laneInPath.State == RoadState.Mothballed) {
-                        //    isAffected = true;
-                        //    break;
+                        //   isAffected = true;
+                        //   break;
                         //}
                         if (CityModel.ChangedNodes.Contains(lane.StartNode) ||
                             CityModel.ChangedNodes.Contains(lane.EndNode) ||

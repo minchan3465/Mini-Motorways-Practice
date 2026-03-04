@@ -35,8 +35,8 @@ namespace Motorways.Models {
 		public float CurrentSpeed = 0f;
 		public float MaxSpeed = 2f;
 		public float TargetSpeed = 5f;
-		public float Acceleration = 3.5f; // 초당 속도 증가량
-		public float Braking = 6.0f;     // 초당 속도 감소량 (제동)
+		public float Acceleration = 3.5f; //초당 속도 증가량
+		public float Braking = 6.0f;     //초당 속도 감소량 (제동)
 
 		public float ParkingTimer = 0f;
 		public float ParkingDuration = 2.0f; //

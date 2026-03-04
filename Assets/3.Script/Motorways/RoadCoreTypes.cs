@@ -7,10 +7,10 @@ namespace Motorways {
 	using Motorways.Utils;
 
 	public enum RoadType {
-		TwoLane,    // 일반 도로
-		Driveway,   // 집/목적지 진입로 (짧은 곡선)
-		Roundabout, // 회전교차로 (추후 확장용)
-		Motorway    // 고속도로 (추후 확장용)
+		TwoLane,    //일반 도로
+		Driveway,   //집/목적지 진입로 (짧은 곡선)
+		Roundabout, //회전교차로 (추후 확장용)
+		Motorway    //고속도로 (추후 확장용)
 	}
 
 	[Serializable]
