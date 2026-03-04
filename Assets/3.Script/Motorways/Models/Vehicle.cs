@@ -33,12 +33,7 @@ namespace Motorways.Models {
 
 		public float DistanceAlongLane = 0f;
 		public float CurrentSpeed = 0f;
-		public float MaxSpeed = 5f; //
-		public float Acceleration = 15f;	//가속
-		public float Deceleration = 20f;	//감속
-		public float MinGap = 0.6f; //앞차와의 최소 안전거리
-
-		public float CurrentAcceleration = 0f;
+		public float MaxSpeed = 5f;
 
 		public float ParkingTimer = 0f;
 		public float ParkingDuration = 2.0f; //
