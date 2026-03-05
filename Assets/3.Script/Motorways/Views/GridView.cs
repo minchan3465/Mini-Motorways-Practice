@@ -30,6 +30,8 @@ namespace Motorways.Views {
 
 			if (_gridRenderer != null) {
 				//머티리얼 인스턴스 참조 및 초기화
+				_gridRenderer.sortingLayerName = "Grid";
+				_gridRenderer.sortingOrder = -100;
 				_gridMaterial = _gridRenderer.material;
 				_gridMaterial.SetFloat("_Thickness", 0f);
 				_gridRenderer.gameObject.SetActive(false);
@@ -79,7 +81,7 @@ namespace Motorways.Views {
 			_gridMaterial.SetVector("_PLAYABLE_AREA", bounds);
 
 			// 최하단 배치를 위해 Y값을 0로 아주 낮게 설정
-			Vector3 center = new Vector3((area.xMin + area.xMax) * 0.5f, 0, (area.yMin + area.yMax) * 0.5f);
+			Vector3 center = new Vector3((area.xMin + area.xMax) * 0.5f, -0.01f, (area.yMin + area.yMax) * 0.5f);
 			_gridRenderer.transform.position = center;
 
 			// 스케일 불균형을 막기 위해 가로/세로를 동일하게 크게 설정 (예: 200x200)

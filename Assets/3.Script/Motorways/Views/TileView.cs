@@ -2,154 +2,153 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Views {
-    public class TileView : MonoBehaviour {
-        public Vector2Int Coordinates { get; private set; }
-        
-        private RoadView _activeRoadView;
-        private RoadView _mothballedRoadView;
-        
-        //코너용 뷰 추가
-        private RoadView _activeCornerView;
-        private RoadView _mothballedCornerView;
-        
-        private RoadTileAtlas _atlas;
+	public class TileView : MonoBehaviour {
+		public Vector2Int Coordinates { get; private set; }
 
-        public void Initialize(Vector2Int coord, RoadTileAtlas atlas, Material roadMat, Material outlineMat, Material mothballedMat) {
-            this.Coordinates = coord;
-            this._atlas = atlas;
-            //타일 중심 좌표 설정
-            this.transform.position = new Vector3(coord.x + 0.5f, 0, coord.y + 0.5f);
+		private RoadView _activeRoadView;
+		private RoadView _mothballedRoadView;
 
-            //1. 활성 도로용 View 생성
-            _activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 10);
+		//코너용 뷰 추가
+		private RoadView _activeCornerView;
+		private RoadView _mothballedCornerView;
 
-            //2. Mothballed 도로용 View 생성
-            _mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, outlineMat, 5);
+		private RoadTileAtlas _atlas;
 
-            //3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
-            _activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
-            _activeCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
-            
-            _mothballedCornerView = CreateRoadView("MothballedCorner", mothballedMat, outlineMat, 6);
-            _mothballedCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
-        }
+		public void Initialize(Vector2Int coord, RoadTileAtlas atlas, Material roadMat, Material outlineMat, Material mothballedMat) {
+			this.Coordinates = coord;
+			this._atlas = atlas;
+			//타일 중심 좌표 설정
+			this.transform.position = new Vector3(coord.x + 0.5f, 0, coord.y + 0.5f);
 
-        private RoadView CreateRoadView(string name, Material mainMat, Material outlineMat, int sortingOrder) {
-            GameObject obj = new GameObject(name);
-            obj.transform.SetParent(this.transform, false);
-            RoadView rv = obj.AddComponent<RoadView>();
-            rv.Initialize(mainMat, outlineMat, sortingOrder);
-            return rv;
-        }
+			//1.활성 도로용 View 생성
+			//2.Mothballed 도로용 View 생성
+			_activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 1);
+			_mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, outlineMat, 5);
 
-        public void Refresh(TileData data) {
-            //도로 리프레시
-            RefreshRoads(data);
-            
-            //코너 리프레시
-            RefreshCorners();
-        }
+			//3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
+			_activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
+			_activeCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
 
-        private void RefreshRoads(TileData data) {
-            if (data == null || !data.HasAnyRoad) {
-                _activeRoadView.SetVisibility(false);
-                _activeRoadView.UpdateMesh(null);
-                _mothballedRoadView.SetVisibility(false);
-                _mothballedRoadView.UpdateMesh(null);
-                return;
-            }
+			_mothballedCornerView = CreateRoadView("MothballedCorner", mothballedMat, outlineMat, 6);
+			_mothballedCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
+		}
 
-            //1. Active View: 오직 Active 상태인 도로만 포함 (Mothballed와 단절되어 보임)
-            RoadTileSignature activeSig = BuildSignature(data, false); 
-            if (activeSig != null && activeSig.Count > 0) {
-                _activeRoadView.SetVisibility(true);
-                _activeRoadView.UpdateMesh(_atlas.ConstructDefinitionFromSignature(activeSig));
-            } else {
-                _activeRoadView.SetVisibility(false);
-                _activeRoadView.UpdateMesh(null);
-            }
+		private RoadView CreateRoadView(string name, Material mainMat, Material outlineMat, int sortingOrder) {
+			GameObject obj = new GameObject(name);
+			obj.transform.SetParent(this.transform, false);
+			RoadView rv = obj.AddComponent<RoadView>();
+			rv.Initialize(mainMat, outlineMat, sortingOrder);
+			return rv;
+		}
 
-            //2. Mothballed View: Active + Mothballed를 모두 포함하여 연결 유지
-            //타일에 Mothballed 도로가 하나라도 존재할 때만 활성화
-            bool hasMothballedInTile = false;
-            for (int i = 0; i < 8; i++) {
-                if (data.RoadStates[i] == RoadState.Mothballed) {
-                    hasMothballedInTile = true;
-                    break;
-                }
-            }
+		public void Refresh(TileData data) {
+			//도로 리프레시
+			RefreshRoads(data);
 
-            if (hasMothballedInTile) {
-                RoadTileSignature fullSig = BuildSignature(data, true); 
-                _mothballedRoadView.SetVisibility(true);
-                _mothballedRoadView.UpdateMesh(_atlas.ConstructDefinitionFromSignature(fullSig));
-            } else {
-                _mothballedRoadView.SetVisibility(false);
-                _mothballedRoadView.UpdateMesh(null);
-            }
-        }
+			//코너 리프레시
+			RefreshCorners();
+		}
 
-        private void RefreshCorners() {
-            CornerData corner = MapManager.Instance.GetCornerData(Coordinates);
-            
-            if (corner == null || !corner.HasAnyDiagonal) {
-                _activeCornerView.SetVisibility(false);
-                _activeCornerView.UpdateMesh(null);
-                _mothballedCornerView.SetVisibility(false);
-                _mothballedCornerView.UpdateMesh(null);
-                return;
-            }
+		private void RefreshRoads(TileData data) {
+			if (data == null || !data.HasAnyRoad) {
+				_activeRoadView.SetVisibility(false);
+				_activeRoadView.UpdateMesh(null);
+				_mothballedRoadView.SetVisibility(false);
+				_mothballedRoadView.UpdateMesh(null);
+				return;
+			}
 
-            //코너 리프레시 로직
-            UpdateCornerView(_activeCornerView, corner, RoadState.Active);
-            UpdateCornerView(_mothballedCornerView, corner, RoadState.Mothballed);
-        }
+			//1. Active View: 오직 Active 상태인 도로만 포함 (Mothballed와 단절되어 보임)
+			RoadTileSignature activeSig = BuildSignature(data, false);
+			if (activeSig != null && activeSig.Count > 0) {
+				_activeRoadView.SetVisibility(true);
+				_activeRoadView.UpdateMesh(_atlas.ConstructDefinitionFromSignature(activeSig));
+			} else {
+				_activeRoadView.SetVisibility(false);
+				_activeRoadView.UpdateMesh(null);
+			}
 
-        private void UpdateCornerView(RoadView view, CornerData corner, RoadState targetState) {
-            CornerDiagonalType diag = CornerDiagonalType.None;
-            if (corner.HasDiagonal(CornerDiagonalType.SW_to_NE) && corner.GetState(CornerDiagonalType.SW_to_NE) == targetState) {
-                diag = CornerDiagonalType.SW_to_NE;
-            } else if (corner.HasDiagonal(CornerDiagonalType.NW_to_SE) && corner.GetState(CornerDiagonalType.NW_to_SE) == targetState) {
-                diag = CornerDiagonalType.NW_to_SE;
-            }
+			//2. Mothballed View: Active + Mothballed를 모두 포함하여 연결 유지
+			//타일에 Mothballed 도로가 하나라도 존재할 때만 활성화
+			bool hasMothballedInTile = false;
+			for (int i = 0; i < 8; i++) {
+				if (data.RoadStates[i] == RoadState.Mothballed) {
+					hasMothballedInTile = true;
+					break;
+				}
+			}
 
-            if (diag != CornerDiagonalType.None) {
-                view.SetVisibility(true);
-                view.UpdateMesh(_atlas.GetCornerDefinition(diag));
-            } else {
-                view.SetVisibility(false);
-                view.UpdateMesh(null);
-            }
-        }
+			if (hasMothballedInTile) {
+				RoadTileSignature fullSig = BuildSignature(data, true);
+				_mothballedRoadView.SetVisibility(true);
+				_mothballedRoadView.UpdateMesh(_atlas.ConstructDefinitionFromSignature(fullSig));
+			} else {
+				_mothballedRoadView.SetVisibility(false);
+				_mothballedRoadView.UpdateMesh(null);
+			}
+		}
 
-        private RoadTileSignature BuildSignature(TileData data, bool includeMothballed) {
-            RoadTileSignature sig = new RoadTileSignature();
-            List<TileDirection> dirs = new List<TileDirection>();
+		private void RefreshCorners() {
+			CornerData corner = MapManager.Instance.GetCornerData(Coordinates);
 
-            for (int i = 0; i < 8; i++) {
-                RoadState s = data.RoadStates[i];
-                //includeMothballed가 true면 Active와 Mothballed 모두 포함, false면 Active만 포함
-                if (s == RoadState.Active || (includeMothballed && s == RoadState.Mothballed)) {
-                    dirs.Add((TileDirection)(1 << i));
-                }
-            }
+			if (corner == null || !corner.HasAnyDiagonal) {
+				_activeCornerView.SetVisibility(false);
+				_activeCornerView.UpdateMesh(null);
+				_mothballedCornerView.SetVisibility(false);
+				_mothballedCornerView.UpdateMesh(null);
+				return;
+			}
 
-            if (dirs.Count == 0) return null;
+			//코너 리프레시 로직
+			UpdateCornerView(_activeCornerView, corner, RoadState.Active);
+			UpdateCornerView(_mothballedCornerView, corner, RoadState.Mothballed);
+		}
 
-            if (dirs.Count == 1) {
-                sig.AddConnection(new RoadTileConnection(
-                    new RoadTileNode(dirs[0], RoadType.TwoLane), 
-                    new RoadTileNode(dirs[0], RoadType.TwoLane)));
-            } else {
-                for (int a = 0; a < dirs.Count; a++) {
-                    for (int b = a + 1; b < dirs.Count; b++) {
-                        sig.AddConnection(new RoadTileConnection(
-                            new RoadTileNode(dirs[a], RoadType.TwoLane),
-                            new RoadTileNode(dirs[b], RoadType.TwoLane)));
-                    }
-                }
-            }
-            return sig;
-        }
-    }
+		private void UpdateCornerView(RoadView view, CornerData corner, RoadState targetState) {
+			CornerDiagonalType diag = CornerDiagonalType.None;
+			if (corner.HasDiagonal(CornerDiagonalType.SW_to_NE) && corner.GetState(CornerDiagonalType.SW_to_NE) == targetState) {
+				diag = CornerDiagonalType.SW_to_NE;
+			} else if (corner.HasDiagonal(CornerDiagonalType.NW_to_SE) && corner.GetState(CornerDiagonalType.NW_to_SE) == targetState) {
+				diag = CornerDiagonalType.NW_to_SE;
+			}
+
+			if (diag != CornerDiagonalType.None) {
+				view.SetVisibility(true);
+				view.UpdateMesh(_atlas.GetCornerDefinition(diag));
+			} else {
+				view.SetVisibility(false);
+				view.UpdateMesh(null);
+			}
+		}
+
+		private RoadTileSignature BuildSignature(TileData data, bool includeMothballed) {
+			RoadTileSignature sig = new RoadTileSignature();
+			List<TileDirection> dirs = new List<TileDirection>();
+
+			for (int i = 0; i < 8; i++) {
+				RoadState s = data.RoadStates[i];
+				//includeMothballed가 true면 Active와 Mothballed 모두 포함, false면 Active만 포함
+				if (s == RoadState.Active || (includeMothballed && s == RoadState.Mothballed)) {
+					dirs.Add((TileDirection)(1 << i));
+				}
+			}
+
+			if (dirs.Count == 0) return null;
+
+			if (dirs.Count == 1) {
+				sig.AddConnection(new RoadTileConnection(
+					new RoadTileNode(dirs[0], RoadType.TwoLane),
+					new RoadTileNode(dirs[0], RoadType.TwoLane)));
+			} else {
+				for (int a = 0; a < dirs.Count; a++) {
+					for (int b = a + 1; b < dirs.Count; b++) {
+						sig.AddConnection(new RoadTileConnection(
+							new RoadTileNode(dirs[a], RoadType.TwoLane),
+							new RoadTileNode(dirs[b], RoadType.TwoLane)));
+					}
+				}
+			}
+			return sig;
+		}
+	}
 }

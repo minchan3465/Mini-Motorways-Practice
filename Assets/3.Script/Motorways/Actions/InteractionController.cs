@@ -67,7 +67,7 @@ namespace Motorways.Actions {
 		//---------- 건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
 			if (_currentAction != null || !IsPointerValid) return;
-			
+
 			_currentAction = new DrawRoadAction();
 			_currentAction.Initialize(this);
 			_currentAction.OnActionBegin(Time.time);
@@ -93,7 +93,7 @@ namespace Motorways.Actions {
 			_currentAction.OnActionBegin(Time.time);
 
 			//그리드 표시
-			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);	//삭제라서 뒤 매개변수 true
+			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);    //삭제라서 뒤 매개변수 true
 		}
 
 		private void OnRemoveCanceled(InputAction.CallbackContext context) {
@@ -143,28 +143,15 @@ namespace Motorways.Actions {
 
 		//마우스가 이동한 좌표 (클릭->드래그) 기반으로 방향을 구하는것. 정규화 후 8방향으로 스냅핑합니다.
 		public Vector2Int CalculateSnappedDirection(Vector3 diff) {
-			//각도 계산 (Atan2로 각도 변환)
-			//z를 y축으로 사용해서 계산
-			float angle = Mathf.Atan2(diff.z, diff.x) * Mathf.Rad2Deg;
+			// 8방향 스냅 최적화: 절대값 중 큰 값을 기준으로 나누어 정규화
+			float max = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
+			if (max < 0.05f) return Vector2Int.zero;	//미세한 움직임은 무시.
 
-			//양수 각도 고정 (0 ~ 360)
-			if (angle < 0) angle += 360f;
-
-			//8방향 섹터 (45도씩 분할 -> 22.5도 오프셋으로 반올림 처리)
-			//0:East, 1:NE, 2:North, 3:NW, 4:West, 5:SW, 6:South, 7:SE
-			int sector = Mathf.RoundToInt(angle / 45f) % 8;
-
-			switch (sector) {
-				case 0: return new Vector2Int(1, 0);   //East
-				case 1: return new Vector2Int(1, 1);   //NE
-				case 2: return new Vector2Int(0, 1);   //North
-				case 3: return new Vector2Int(-1, 1);  //NW
-				case 4: return new Vector2Int(-1, 0);  //West
-				case 5: return new Vector2Int(-1, -1); //SW
-				case 6: return new Vector2Int(0, -1);  //South
-				case 7: return new Vector2Int(1, -1);  //SE
-			}
-			return Vector2Int.zero;
+			// x, z를 max로 나누면 -1, 0, 1 중 하나로 반올림됩니다.
+			return new Vector2Int(
+				Mathf.RoundToInt(diff.x / max),
+				Mathf.RoundToInt(diff.z / max)
+			);
 		}
 	}
 }
