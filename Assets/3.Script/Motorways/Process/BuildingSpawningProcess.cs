@@ -159,7 +159,7 @@ private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
 			if (instance.TryGetComponent(out DestinationView destView)) {
 				bool isHorizontal = finalLayout.Footprint.x > finalLayout.Footprint.y;
 				TileDirection doorDir = finalLayout.Driveways[0];
-				bool isPositive = (doorDir == TileDirection.North || doorDir == TileDirection.West);
+				bool isPositive = (doorDir == TileDirection.South || doorDir == TileDirection.West);
 				
 				destView.UpdateVisuals(isHorizontal, isPositive);
 				destView.UpdateColor(ticket.GroupIndex);
