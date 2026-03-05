@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Motorways.Process {
 	using Motorways.Managers;
 	using Motorways.Models;
+	using Motorways.Views;
 	using Utils;
 
 	public class BuildingSpawningProcess : MonoBehaviour, ISimulationProcess {
@@ -42,27 +43,34 @@ namespace Motorways.Process {
 			bool isHouse = ticket.Type == BuildingType.House;
 			var layouts = isHouse ? BuildingManager.Instance.HouseLayouts : BuildingManager.Instance.DestinationLayouts;
 
-			//ÁÂÇ¥ ¼±ÅÃ (·£´ıÀ¸·Î, ·ê·¿ ÈÙÀ» »ç¿ë)
-			if (!TryPickRandomCoordinate(ticket.Type, out Vector2Int rootCoord)) return false;
+			// í›„ë³´ ì¢Œí‘œ ì„ íƒ (ì´ ì¢Œí‘œëŠ” 'ì…êµ¬ íƒ€ì¼'ì˜ ê·¸ë¦¬ë“œ ì¢Œí‘œì…ë‹ˆë‹¤)
+			if (!TryPickRandomCoordinate(ticket.Type, out Vector2Int entranceCoord)) return false;
 
-			//4¹æÇâ È¸Àü ¸ğµÎ ½Ãµµ. (ÁıÀº È¸Àü ¾ÈÇÔ)
-			List<int> rotations = new List<int> { 0, 1, 2, 3 };
-			rotations.Shuffle();
+			if (isHouse) {
+				BuildingLayout baseLayout = layouts[0];
+				List<int> rotations = new List<int> { 0, 1, 2, 3 };
+				rotations.Shuffle();
 
-			foreach (var baseLayout in layouts) {
 				foreach (int rotIndex in rotations) {
-					//1. È¸ÀüµÈ Å©±â °è»ê
-					//2. È¸ÀüµÈ ÀÔ±¸ À§Ä¡(Local) °è»ê
-					//3. È¸ÀüµÈ ÀÔ±¸ ¹æÇâ °è»ê
 					BuildingLayout rotatedLayout = new BuildingLayout {
-						Footprint = RotateUtils.RotateSize(baseLayout.Footprint, rotIndex),
-						LocalEntrance = RotateUtils.RotatePoint(baseLayout.LocalEntrance, baseLayout.Footprint, rotIndex),
+						Footprint = baseLayout.Footprint,
+						LocalEntrance = baseLayout.LocalEntrance,
 						Driveways = new List<TileDirection> { RotateUtils.RotateDirection(baseLayout.Driveways[0], rotIndex) }
 					};
 
-					if (IsValidPlacement(rootCoord, rotatedLayout)) {
-						//¼º°ø ½Ã, ¹èÄ¡ ½ÇÇàÇÕ´Ï´Ù.
-						SpawnBuilding(ticket, rootCoord, rotatedLayout, rotIndex);
+					if (IsValidPlacement(entranceCoord, rotatedLayout)) {
+						SpawnBuilding(ticket, entranceCoord, rotatedLayout, rotIndex);
+						return true;
+					}
+				}
+			} else {
+				// ëª©ì ì§€: ì •ì˜ëœ 4ê°œ íŒ¨í„´ ì¤‘ ì ì ˆí•œ ìœ„ì¹˜ íƒìƒ‰
+				List<BuildingLayout> shuffledLayouts = new List<BuildingLayout>(layouts);
+				shuffledLayouts.Shuffle();
+
+				foreach (var layout in shuffledLayouts) {
+					if (IsValidPlacement(entranceCoord, layout)) {
+						SpawnBuilding(ticket, entranceCoord, layout, 0);
 						return true;
 					}
 				}
@@ -70,60 +78,67 @@ namespace Motorways.Process {
 
 			return false;
 		}
+private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
+	var grid = MapManager.Instance._grid;
 
-		//¹èÄ¡ À¯È¿¼º °Ë»ç
-		private bool IsValidPlacement(Vector2Int root, BuildingLayout layout) {
-			var grid = MapManager.Instance._grid;
+	// 1. ì…êµ¬ ì¢Œí‘œë¡œë¶€í„° ê±´ë¬¼ì˜ í•˜ë‹¨ ì¢Œì¸¡ ì‹œì‘ì  ì—­ì‚°
+	Vector2Int bottomLeft = entrance - layout.LocalEntrance;
 
-			//1. ¼³Ä¡ÇÒ ºÎºĞÀÇ Å¸ÀÏÀÌ ¸ğµÎ ºñ¾îÀÖ³ª¿ä?
-			for (int x = 0; x < layout.Footprint.x; x++) {
-				for (int y = 0; y < layout.Footprint.y; y++) {
-					Vector2Int pos = root + new Vector2Int(x, y);
-					if (!grid.TryGetValue(pos, out TileData tile) || !tile.IsBuildable()) return false;
-				}
-			}
+	// 2. ê±´ë¬¼ì´ ì°¨ì§€í•  ëª¨ë“  íƒ€ì¼ì´ ë§µ ë²”ìœ„(PlayableArea) ë‚´ì— ìˆê³  ê±´ì„¤ ê°€ëŠ¥í•œì§€ ê²€ì‚¬
+	for (int x = 0; x < layout.Footprint.x; x++) {
+		for (int y = 0; y < layout.Footprint.y; y++) {
+			Vector2Int pos = bottomLeft + new Vector2Int(x, y);
 
-			//2. ÀÔ±¸ ¾Õ¿¡ µµ·Î¸¦ ¿¬°á °¡´ÉÇÑ »óÅÂÀÎ°¡¿ä? (ÁÖÀ§¿¡ °Ç¹°·Î µÑ·¯ ½×¿© ¼³Ä¡°¡ ºÒ°¡´ÉÇÏ´Ù¸é ½ÇÆĞ)
-			Vector2Int entranceWorld = root + layout.LocalEntrance;
-			Vector2Int roadTarget = entranceWorld + TileUtils.GetDirectionVector(layout.Driveways[0]);
-
-			if (grid.TryGetValue(roadTarget, out TileData roadTile)) {
-				//ºñ¾îÀÖ°Å³ª µµ·Î¸é ¼³Ä¡ °¡´ÉÇÕ´Ï´Ù. (µµ·Î¸é ¹Ù·Î ÀÌ¾îÁÖ¸é µÇ´Ï±î.)
-				return roadTile.IsBuildable() || roadTile.HasAnyRoad || roadTile.type == TileLogicType.Motorway;
-			}
-			return false;   //¸Ê ¹ÛÀÌ¸é ¾ÈµÊ.
+			// ë§µ ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ê±°ë‚˜, íƒ€ì¼ ë°ì´í„°ê°€ ì—†ê±°ë‚˜, ê±´ì„¤ ë¶ˆê°€ëŠ¥í•œ ì§€í˜•ì´ë©´ íƒˆë½
+			if (!MapManager.Instance.IsInPlayableArea(pos)) return false;
+			if (!grid.TryGetValue(pos, out TileData tile) || !tile.IsBuildable()) return false;
 		}
+	}
 
-		//--- ½ÇÁ¦ »ı¼º. (¸®ÆÑÅä¸µ ÇÏ¸é¼­, Áı°ú ¸ñÀûÁöÀÇ »ı¼ºÀ» ÅëÇÕ) ---
-		private void SpawnBuilding(ScheduledBuilding ticket, Vector2Int root, BuildingLayout finalLayout, int rotIndex) {
-			BuildingBase building;
-			GameObject prefab;
-			TileLogicType type;
+	// 3. ì…êµ¬ ë°”ë¡œ ì• ë°©í–¥ì— ë„ë¡œê°€ ìƒê¸¸ ê³µê°„ì´ ìˆëŠ”ì§€ ê²€ì‚¬ (ì—­ì‹œ ë§µ ë²”ìœ„ ë‚´ì—¬ì•¼ í•¨)
+	Vector2Int roadTarget = entrance + TileUtils.GetDirectionVector(layout.Driveways[0]);
+	if (!MapManager.Instance.IsInPlayableArea(roadTarget)) return false;
 
-			if(ticket.Type == BuildingType.House) {
-				building = new House();
-				prefab = BuildingManager.Instance.HousePrefab;
-				type = TileLogicType.House;
-			} else {
-				building = new Destination();
-				prefab = BuildingManager.Instance.DestinationPrefab;
-				type = TileLogicType.Destination;
-			}
+	if (grid.TryGetValue(roadTarget, out TileData roadTile)) {
+		return roadTile.IsBuildable() || roadTile.HasAnyRoad || roadTile.type == TileLogicType.Motorway;
+	}
+	return false;
+}
 
-			for (int x = 0; x < finalLayout.Footprint.x; x++) {
-				for (int y = 0; y < finalLayout.Footprint.y; y++) {
-					Vector2Int pos = root + new Vector2Int(x, y);
-					if(MapManager.Instance._grid.TryGetValue(pos, out TileData tile)) {
-						tile.type = type;
-					}
+		private void SpawnBuilding(ScheduledBuilding ticket, Vector2Int entrance, BuildingLayout finalLayout, int rotIndex) {
+			BuildingBase building = (ticket.Type == BuildingType.House) ? new House() : new Destination();
+			GameObject prefab = (ticket.Type == BuildingType.House) ? BuildingManager.Instance.HousePrefab : BuildingManager.Instance.DestinationPrefab;
+
+			// ë°ì´í„° ì´ˆê¸°í™” (ì…êµ¬ ì¢Œí‘œ ì „ë‹¬)
+			building.Initialize(ticket.GroupIndex, entrance, finalLayout);
+			
+			// ê·¸ë¦¬ë“œ ë§µ ë°ì´í„° ì ìœ  ìƒíƒœ ì—…ë°ì´íŠ¸
+			var grid = MapManager.Instance._grid;
+			foreach(var pos in building.OccupiedCoordinates) {
+				if(grid.TryGetValue(pos, out TileData tile)) {
+					tile.type = (building.Type == BuildingType.House) ? TileLogicType.House : TileLogicType.Destination;
+					tile.Building = building;
 				}
 			}
 
-			building.Initialize(ticket.GroupIndex, root, finalLayout);
-			UpdateMapData(building);
-
-			Vector3 centerPos = new Vector3(root.x + finalLayout.Footprint.x / 2.0f, 0, root.y + finalLayout.Footprint.y / 2.0f);
-			Quaternion rotation = Quaternion.Euler(0, rotIndex * 90f, 0);
+			// [í•µì‹¬] ì‹œê°ì  ì¤‘ì‹¬ì  ê³„ì‚° (íƒ€ì¼ ìŠ¤ì¼€ì¼ 2ë°°ìˆ˜ ì ìš©)
+			// bottomLeft ì¢Œí‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ Footprintì˜ ì ˆë°˜ì„ ë”í•´ ì •í™•í•œ 'ë„í˜•ì˜ ì¤‘ì‹¬' ì›”ë“œ ì¢Œí‘œ ì‚°ì¶œ
+			Vector2Int bottomLeft = entrance - finalLayout.LocalEntrance;
+			Vector3 centerPos = new Vector3(
+				(bottomLeft.x + (finalLayout.Footprint.x * 0.5f)) * MapSettings.TILE_SIZE, 
+				0, 
+				(bottomLeft.y + (finalLayout.Footprint.y * 0.5f)) * MapSettings.TILE_SIZE
+			);
+			
+			// HouseëŠ” íšŒì „ X, Destinationì€ ë©”ì‰¬ ì›ë³¸ ë°©í–¥ ìœ ì§€
+			Quaternion rotation;
+			if (ticket.Type == BuildingType.House) {
+				rotation = Quaternion.identity;
+			} else {
+				// ê°€ë¡œí˜•(3x2)ì€ 0ë„, ì„¸ë¡œí˜•(2x3)ì€ 90ë„ íšŒì „
+				bool isVertical = finalLayout.Footprint.y > finalLayout.Footprint.x;
+				rotation = isVertical ? Quaternion.Euler(0, -90f, 0) : Quaternion.identity;
+			}
 			
 			if (building is House house) {
 				if (DispatchProcess.Instance != null) DispatchProcess.Instance.RegisterHouse(house);
@@ -134,40 +149,39 @@ namespace Motorways.Process {
 				if (DispatchProcess.Instance != null) DispatchProcess.Instance.RegisterDestination(dest);
 			}
 
-			Instantiate(prefab, centerPos, rotation);	
-		}
+			GameObject instance = Instantiate(prefab, centerPos, rotation);
 
+			// ë·° ì—…ë°ì´íŠ¸ (í˜•íƒœ, ë°©í–¥, ìƒ‰ìƒ ì „ë‹¬)
+			if(instance.TryGetComponent(out HouseView houseView)) {
+				houseView.UpdateColor(ticket.GroupIndex);
+			}
 
-		//---À¯Æ¿---
-		private void UpdateMapData(BuildingBase building) {
-			var grid = MapManager.Instance._grid;
-			foreach(var pos in building.OccupiedCoordinates) {
-				if(grid.TryGetValue(pos, out TileData tile)) {
-					tile.type = (building.Type == BuildingType.House)
-								? TileLogicType.House : TileLogicType.Destination;
-					tile.Building = building;
-				}
+			if (instance.TryGetComponent(out DestinationView destView)) {
+				bool isHorizontal = finalLayout.Footprint.x > finalLayout.Footprint.y;
+				TileDirection doorDir = finalLayout.Driveways[0];
+				bool isPositive = (doorDir == TileDirection.North || doorDir == TileDirection.West);
+				
+				destView.UpdateVisuals(isHorizontal, isPositive);
+				destView.UpdateColor(ticket.GroupIndex);
 			}
 		}
 
 		private bool TryPickRandomCoordinate(BuildingType type, out Vector2Int bestCoord) {
 			bestCoord = Vector2Int.zero;
-
 			var grid = MapManager.Instance._grid;
 			List<Vector2Int> candidates = new List<Vector2Int>();
 			float totalWeight = 0f;
 			bool isHouse = type == BuildingType.House;
 
-			//À½... ±× ¹¹³Ä
-			//·ê·¿ ÈÙ ¾Ë°í¸®ÁòÀ¸·Î À§Ä¡ Ã£±â.
-			//1. °¡ÁßÄ¡°¡ ÀÖ´Â Å¸ÀÏµé ³Ö±â.
 			foreach (var kvp in grid) {
 				TileData tile = kvp.Value;
+				if (!tile.IsBuildable()) continue;
 
-				if (!tile.IsBuildable()) continue;  //ºñ¾îÀÖ´Â ¶¥ÀÌ ¾Æ´Ï¸é ³Ñ°Ü.
+				// í˜„ì¬ ë§µ í™•ì¥ ë²”ìœ„(PlayableArea) ë‚´ì— ìˆëŠ” íƒ€ì¼ë§Œ ìŠ¤í° í›„ë³´ë¡œ ì„ ì •
+				if (!MapManager.Instance.IsInPlayableArea(tile.coordinate)) continue;
 
 				float weight = isHouse ? tile.WeightHouseSpawn : tile.WeightDestinationSpawn;
-				if (weight <= 0.01f) continue; //°¡ÁßÄ¡°¡ ³Ê¹« Àû¾îµµ ³Ñ±â±â.
+				if (weight <= 0.01f) continue;
 
 				candidates.Add(tile.coordinate);
 				totalWeight += weight;
@@ -175,22 +189,17 @@ namespace Motorways.Process {
 
 			if (candidates.Count == 0) return false;
 
-			//2. ·ê·¿ ÈÙ µ¹¸®±â
 			float randomPoint = Random.value * totalWeight;
 			float currentSum = 0f;
-
 			foreach (var pos in candidates) {
 				TileData c = grid[pos];
 				float w = isHouse ? c.WeightHouseSpawn : c.WeightDestinationSpawn;
-
 				currentSum += w;
 				if (currentSum >= randomPoint) {
 					bestCoord = pos;
 					return true;
 				}
 			}
-
-			//¾ÈÀüÀåÄ¡.
 			bestCoord = candidates[0];
 			return true;
 		}
@@ -205,6 +214,9 @@ namespace Motorways.Process {
 					}
 				}
 				house.RegisterVehicle(vehicle.Id);
+				if(vehicleObj.TryGetComponent(out VehicleView vehicleView)) {
+					vehicleView.UpdateColor(house.GroupIndex);
+				}
 			}
 		}
 	}

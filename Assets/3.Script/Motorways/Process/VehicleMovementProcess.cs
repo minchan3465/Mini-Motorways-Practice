@@ -11,8 +11,8 @@ namespace Motorways.Process {
 	public class VehicleMovementProcess : MonoBehaviour, ISimulationProcess {
 		public static VehicleMovementProcess Instance;
 
-		public List<Vehicle> _activeVehicle = new List<Vehicle>();  //�����̴� ���� ����.
-		private Dictionary<int, Vehicle> _vehicleMap = new Dictionary<int, Vehicle>();  //Vehicle ID�� ������ ã��.
+		public List<Vehicle> _activeVehicle = new List<Vehicle>();  // 현재 이동 중인 차량 리스트
+		private Dictionary<int, Vehicle> _vehicleMap = new Dictionary<int, Vehicle>();  // ID로 차량 조회를 위한 맵
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
@@ -62,36 +62,36 @@ namespace Motorways.Process {
 
 			//--- [Step 2 & 3] 가감속 및 충돌 회피 로직 ---
 			v.TargetSpeed = v.MaxSpeed;
-			float minDistanceToBrake = 0.5f; //브레이크를 밟기 시작할 전방 거리
+			float minDistanceToBrake = 0.5f * MapSettings.TILE_SIZE; // 브레이크를 밟기 시작할 전방 거리
 
-			//1. 같은 레인 앞차와의 간격 유지
+			// 1. 같은 레인 앞차와의 간격 유지
 			foreach (int otherId in lane.VehiclesOnLane) {
 				if (otherId == v.Id) continue;
 				Vehicle other = GetVehicle(otherId);
 				if (other == null) continue;
 
 				float dist = other.DistanceAlongLane - v.DistanceAlongLane;
-				//자신보다 앞에 있고, 감지 거리 안에 있을 때
+				// 자신보다 앞에 있고, 감지 거리 안에 있을 때
 				if (dist > 0 && dist < minDistanceToBrake) {
 					v.TargetSpeed = Mathf.Min(v.TargetSpeed, other.CurrentSpeed * 0.8f);
 				}
 			}
 
-			//2. 다음 레인(교차로) 진입 전 양보 (Yielding)
+			// 2. 다음 레인(교차로) 진입 전 양보 (Yielding)
 			if (v.DistanceAlongLane > lane.Length - minDistanceToBrake) {
 				Lane nextLane = v.CurrentPath.Count > 1 ? v.CurrentPath.ElementAt(1) : null;
 				if (nextLane != null) {
-					//다음 레인에 이미 다른 차가 있다면 (교차로 점유 확인)
+					// 다음 레인에 이미 다른 차가 있다면 (교차로 점유 확인)
 					if (nextLane.VehiclesOnLane.Count > 0) {
-						v.TargetSpeed = 0f; //일단 정지하여 양보
+						v.TargetSpeed = 0f; // 일단 정지하여 양보
 					}
 				} else {
-					//목적지 도착 직전 감속
+					// 목적지 도착 직전 감속
 					v.TargetSpeed = Mathf.Lerp(0.5f, v.MaxSpeed, (lane.Length - v.DistanceAlongLane) / minDistanceToBrake);
 				}
 			}
 
-			//3. 현재 속도 업데이트 (가속/감속 적용)
+			// 3. 현재 속도 업데이트 (가속/감속 적용)
 			float speedDiff = v.TargetSpeed - v.CurrentSpeed;
 			if (speedDiff > 0) {
 				v.CurrentSpeed = Mathf.MoveTowards(v.CurrentSpeed, v.TargetSpeed, v.Acceleration * deltaTime);
@@ -99,11 +99,11 @@ namespace Motorways.Process {
 				v.CurrentSpeed = Mathf.MoveTowards(v.CurrentSpeed, v.TargetSpeed, v.Braking * deltaTime);
 			}
 
-			//이동 수행
+			// 이동 수행
 			float moveStep = v.CurrentSpeed * deltaTime;
 			v.DistanceAlongLane += moveStep;
 
-			//레인 전환 처리
+			// 레인 전환 처리
 			if (v.DistanceAlongLane >= lane.Length) {
 				float overflow = v.DistanceAlongLane - lane.Length;
 
@@ -129,17 +129,15 @@ namespace Motorways.Process {
 
 		private void HandleArrival(Vehicle v) {
 			if (v.State == VehicleState.Driving) {
-				//Desination �ǹ����� �˸�. (Event�� ó��)
+				// 목적지 도착 알림 (이벤트 처리 권장)
 				v.State = VehicleState.Arrived;
 				v.ParkingTimer = 0f;
 			} else if (v.State == VehicleState.Returning) {
-				//�� �����ߴٰ� �˸�.
+				// 집으로 귀환 완료
 				v.State = VehicleState.Ready;
 
 				v.ClearAllReservations();
 			}
-
-			//������ ���� �� ���� ó�� (���� ��)
 		}
 
 		private void StartReturnTrip(Vehicle v) {
@@ -151,7 +149,6 @@ namespace Motorways.Process {
 				v.State = VehicleState.Returning;
 
 				v.GetCurrentLane()?.Enter(v.Id);
-				//�� �����ٰ� �˸�.
 			}
 		}
 

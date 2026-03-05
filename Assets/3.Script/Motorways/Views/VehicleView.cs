@@ -3,17 +3,22 @@ using System.Linq;
 using Motorways.Models;
 
 namespace Motorways.Views {
-    ///<summary>
-    ///Vehicle 모델의 논리적 데이터를 바탕으로 시각적인 위치(Transform)를 업데이트합니다.
-    ///</summary>
+    //Vehicle 모델의 논리적 데이터를 바탕으로 시각적인 위치(Transform)를 업데이트합니다.
     public class VehicleView : MonoBehaviour {
         [SerializeField] private Vehicle _vehicleModel;
 
         private Lane _prevLane;
         private Lane _currentLane;
 
-        public void Initialize(Vehicle model) {
-            _vehicleModel = model;
+        [SerializeField] private MeshRenderer CarBody;
+
+
+		public void Initialize(Vehicle model) {
+			_vehicleModel = model;
+		}
+
+		public void UpdateColor(int groupIndex) {
+            CarBody.material.color = GroupColor.GetGroupColor(groupIndex);
         }
 
         private void Start() {
@@ -85,7 +90,7 @@ namespace Motorways.Views {
             //Transform 업데이트 전에 차선 오프셋 적용
             //진행 방향(tangent)을 기준으로 우측(혹은 좌측)으로 약간 띄워줍니다.
             //Vector3.Cross(Vector3.up, tangent)를 하면 접선에 수직인 벡터(우측 방향)가 나옵니다.
-            float laneOffset = 0.1f; //차선 오프셋 크기 (도로 폭에 맞게 조절 필요)
+            float laneOffset = 0.2f; //차선 오프셋 크기 (도로 폭에 맞게 조절 필요)
             Vector3 normal = Vector3.Cross(Vector3.up, tangent).normalized;
             
             //미니 모터웨이는 보통 좌측 통행을 하므로, 진행 방향의 좌측(-normal)으로 오프셋을 줍니다.

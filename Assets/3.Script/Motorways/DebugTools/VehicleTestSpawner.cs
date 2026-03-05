@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // New Input System »ç¿ë
+using UnityEngine.InputSystem; // New Input System ï¿½ï¿½ï¿½
 using System.Collections.Generic;
 
 namespace Motorways.DebugTools {
@@ -7,19 +7,19 @@ namespace Motorways.DebugTools {
     using Motorways.Models;
     using Motorways.Process;
     using Motorways.Navigation;
-    using Motorways.Actions; // InteractionController Á¢±Ù¿ë
+    using Motorways.Actions; // InteractionController ï¿½ï¿½ï¿½Ù¿ï¿½
 
     public class VehicleTestSpawner : MonoBehaviour {
         [Header("Settings")]
         public GameObject VehiclePrefab;
         public InteractionController InputController;
 
-        // ½ÃÀÛÁ¡ »óÅÂ ÀúÀåÀ» À§ÇÑ º¯¼ö
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         private bool _hasStartPos = false;
         private Vector2Int _savedStartPos;
 
         private void Update() {
-            // New Input SystemÀ» ÀÌ¿ëÇÑ KÅ° ÀÔ·Â Ã³¸®
+            // New Input Systemï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ KÅ° ï¿½Ô·ï¿½ Ã³ï¿½ï¿½
             if (Keyboard.current != null && Keyboard.current.kKey.wasPressedThisFrame) {
                 HandleInput();
             }
@@ -31,7 +31,7 @@ namespace Motorways.DebugTools {
             Vector2Int currentPos = InputController.CurrentGridPointer;
             TileData tile = MapManager.Instance.GetTileData(currentPos);
 
-            // 1. ÇØ´ç Å¸ÀÏ¿¡ µµ·Î°¡ ÀÖ´ÂÁö È®ÀÎ
+            // 1. ï¿½Ø´ï¿½ Å¸ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (tile == null) return;
 
             bool hasRoad = false;
@@ -45,32 +45,32 @@ namespace Motorways.DebugTools {
             }
 
             if (!hasRoad) {
-                Debug.LogWarning($"({currentPos}) À§Ä¡¿¡´Â µµ·Î°¡ ¾ø½À´Ï´Ù.");
+                Debug.LogWarning($"({currentPos}) ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
                 return;
             }
 
-            // 2. ÀÔ·Â »óÅÂ¿¡ µû¸¥ ºÐ±â Ã³¸® (½ÃÀÛÁ¡ ÁöÁ¤ -> ¸ñÀûÁö ÁöÁ¤)
+            // 2. ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½ Ã³ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
             if (!_hasStartPos) {
-                // Ã¹ ¹øÂ° KÅ° ÀÔ·Â: ½ÃÀÛÁ¡ ÀúÀå
+                // Ã¹ ï¿½ï¿½Â° KÅ° ï¿½Ô·ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 _savedStartPos = currentPos;
                 _hasStartPos = true;
-                Debug.Log($"[1/2] ½ÃÀÛÁ¡ ¼³Á¤µÊ: {_savedStartPos}. ÀÌÁ¦ ¸ñÀûÁö¿¡¼­ K¸¦ ´©¸£¼¼¿ä.");
+                Debug.Log($"[1/2] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {_savedStartPos}. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Kï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
             } else {
-                // µÎ ¹øÂ° KÅ° ÀÔ·Â: ¸ñÀûÁö ¼³Á¤ ¹× »ý¼º
+                // ï¿½ï¿½ ï¿½ï¿½Â° KÅ° ï¿½Ô·ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (currentPos == _savedStartPos) {
-                    Debug.LogWarning("½ÃÀÛÁ¡°ú ¸ñÀûÁö°¡ °°½À´Ï´Ù. ´Ù¸¥ °÷À» Âï¾îÁÖ¼¼¿ä.");
+                    Debug.LogWarning("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
                     return;
                 }
 
                 SpawnTestVehicle(_savedStartPos, currentPos);
 
-                // ´ÙÀ½ Å×½ºÆ®¸¦ À§ÇØ »óÅÂ ÃÊ±âÈ­
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
                 _hasStartPos = false;
             }
         }
 
         private void SpawnTestVehicle(Vector2Int startPos, Vector2Int targetPos) {
-            // 3. Â÷·® »ý¼º ¹× ¼³Á¤
+            // 3. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             GameObject go;
             if (VehiclePrefab != null) go = Instantiate(VehiclePrefab);
             else {
@@ -78,25 +78,25 @@ namespace Motorways.DebugTools {
                 go.transform.localScale = Vector3.one * 0.3f;
             }
 
-            // À§Ä¡ ÃÊ±âÈ­ (±âÁ¸ ÄÚµåÀÇ targetPos.y ¿ÀÅ¸¸¦ startPos.y·Î ¼öÁ¤)
-            go.transform.position = new Vector3(startPos.x + 0.5f, 0, startPos.y + 0.5f);
+            // ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­ (ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ targetPos.y ï¿½ï¿½Å¸ï¿½ï¿½ startPos.yï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+            go.transform.position = new Vector3(startPos.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, startPos.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 
             Vehicle newVehicle = go.GetComponent<Vehicle>();
             if (newVehicle == null) newVehicle = go.AddComponent<Vehicle>();
 
-            // 4. ¸Å´ÏÀú µî·Ï ¹× ¹èÂ÷ (ÁÂÇ¥¸¸ ³Ñ±è)
-            // ±æÃ£±â´Â VehiclePathfindingProcess°¡ VehicleState.Ready »óÅÂ¸¦ °¨ÁöÇÏ¿© ¾Ë¾Æ¼­ ¼öÇàÇÕ´Ï´Ù.
+            // 4. ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Ñ±ï¿½)
+            // ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ VehiclePathfindingProcessï¿½ï¿½ VehicleState.Ready ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             VehicleMovementProcess.Instance.RegisterVehicle(newVehicle);
             newVehicle.Dispatch(startPos, targetPos);
 
-            Debug.Log($"[2/2] Â÷·® {newVehicle.Id} ¹èÄ¡ ¿Ï·á! ({startPos} -> {targetPos}) °æ·Î Å½»ö ½Ã½ºÅÛÀÌ ¿¬»êÀ» ½ÃÀÛÇÕ´Ï´Ù.");
+            Debug.Log($"[2/2] ï¿½ï¿½ï¿½ï¿½ {newVehicle.Id} ï¿½ï¿½Ä¡ ï¿½Ï·ï¿½! ({startPos} -> {targetPos}) ï¿½ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         }
 
-        // ¼±ÅÃµÈ ½ÃÀÛÁ¡À» Scene View¿¡¼­ ½Ã°¢ÀûÀ¸·Î È®ÀÎÇÏ±â À§ÇÑ Gizmo
+        // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Scene Viewï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Gizmo
         private void OnDrawGizmos() {
             if (_hasStartPos) {
                 Gizmos.color = Color.green;
-                Vector3 pos = new Vector3(_savedStartPos.x + 0.5f, 0.5f, _savedStartPos.y + 0.5f);
+                Vector3 pos = new Vector3(_savedStartPos.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0.5f, _savedStartPos.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
                 Gizmos.DrawWireSphere(pos, 0.4f);
                 Gizmos.DrawLine(pos, pos + Vector3.up * 2);
             }

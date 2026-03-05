@@ -132,15 +132,15 @@ namespace Motorways.Managers {
 				//시각적으로 도로가 어떤 모서리를 도는지 확인하기 위해 
 				//임의로 한 쪽을 제어점으로 삼습니다. (필요 시 기존 맵 데이터 참조)
 				//좀 더 완벽한 둥근 코너를 위해 타일 중앙 + 모서리 오프셋을 사용.
-				Vector2 pStart = new Vector2(start.x + 0.5f, start.y + 0.5f);
-				Vector2 pEnd = new Vector2(end.x + 0.5f, end.y + 0.5f);
+				Vector2 pStart = new Vector2(start.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, start.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
+				Vector2 pEnd = new Vector2(end.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, end.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 				
 				//교차점(모서리)을 제어점으로 설정
 				Vector2 cornerPoint;
-				if (dx == 1 && dy == 1) cornerPoint = new Vector2(start.x + 1f, start.y + 1f);
-				else if (dx == -1 && dy == -1) cornerPoint = new Vector2(start.x, start.y);
-				else if (dx == 1 && dy == -1) cornerPoint = new Vector2(start.x + 1f, start.y);
-				else cornerPoint = new Vector2(start.x, start.y + 1f);
+				if (dx == 1 && dy == 1) cornerPoint = new Vector2(start.x * MapSettings.TILE_SIZE + MapSettings.TILE_SIZE, start.y * MapSettings.TILE_SIZE + MapSettings.TILE_SIZE);
+				else if (dx == -1 && dy == -1) cornerPoint = new Vector2(start.x * MapSettings.TILE_SIZE, start.y * MapSettings.TILE_SIZE);
+				else if (dx == 1 && dy == -1) cornerPoint = new Vector2(start.x * MapSettings.TILE_SIZE + MapSettings.TILE_SIZE, start.y * MapSettings.TILE_SIZE);
+				else cornerPoint = new Vector2(start.x * MapSettings.TILE_SIZE, start.y * MapSettings.TILE_SIZE + MapSettings.TILE_SIZE);
 
 				return cornerPoint;
 			}

@@ -44,8 +44,8 @@ namespace Motorways {
             EndNode = end;
 
             //월드 좌표 계산 (타일 중심)
-            Vector3 pStart = new Vector3(start.x + 0.5f, 0, start.y + 0.5f);
-            Vector3 pEnd = new Vector3(end.x + 0.5f, 0, end.y + 0.5f);
+            Vector3 pStart = new Vector3(start.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, start.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
+            Vector3 pEnd = new Vector3(end.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, end.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
             
             if (controlPoint.HasValue) {
                 //곡선: 주어진 제어점을 사용

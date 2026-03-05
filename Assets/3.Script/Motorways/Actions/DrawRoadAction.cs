@@ -55,7 +55,7 @@ namespace Motorways.Actions {
 			} else {
 				ProcessBuildDrag(currentMouseWorldPos);
 				if (_controller.IsPointerValid) {
-					Vector3 lastCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
+					Vector3 lastCenter = new Vector3(_lastGridPointer.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, _lastGridPointer.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 					Vector2Int snappedDir = _controller.CalculateSnappedDirection(currentMouseWorldPos - lastCenter);
 					RoadPreviewView.Instance?.UpdatePreview(lastCenter, currentMouseWorldPos, snappedDir);
 				}
@@ -72,7 +72,7 @@ namespace Motorways.Actions {
 			//혹시 리소스 부족 처리.
 			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
 
-			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x + 0.5f, 0, _lastGridPointer.y + 0.5f);
+			Vector3 lastTileCenter = new Vector3(_lastGridPointer.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, _lastGridPointer.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 			Vector3 diff = mousePos - lastTileCenter;
 			float squareDist = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
 
@@ -103,7 +103,7 @@ namespace Motorways.Actions {
 
 								_dragStartHouse = targetHouse;
 								_lastGridPointer = candidatePos;
-								_clickOriginWorldPos = new Vector3(candidatePos.x + 0.5f, 0, candidatePos.y + 0.5f);
+								_clickOriginWorldPos = new Vector3(candidatePos.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, candidatePos.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 								return;
 							}
 						}

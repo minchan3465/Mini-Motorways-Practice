@@ -28,8 +28,8 @@ namespace Motorways.Actions {
 		private MotorwaysPlayerAction _currentAction = null;
 
 		#region Getters
-		public float InitialDragDeadzone => _initialDragDeadzone;
-		public float ConnectionDistanceThreshold => _connectionDistanceThreshold;
+		public float InitialDragDeadzone => _initialDragDeadzone * MapSettings.TILE_SIZE;
+		public float ConnectionDistanceThreshold => _connectionDistanceThreshold * MapSettings.TILE_SIZE;
 		public bool IsDragging => _currentAction != null;
 		#endregion
 
@@ -116,8 +116,8 @@ namespace Motorways.Actions {
 			//마우스 좌표(그리드상) 계산
 			Vector3 hitPoint = GetWorldPositionFromMouse();
 			if (IsPointerValid) {
-				int x = Mathf.FloorToInt(hitPoint.x);
-				int y = Mathf.FloorToInt(hitPoint.z);
+				int x = Mathf.FloorToInt(hitPoint.x / MapSettings.TILE_SIZE);
+				int y = Mathf.FloorToInt(hitPoint.z / MapSettings.TILE_SIZE);
 				Vector2Int coord = new Vector2Int(x, y);
 
 				//맵 범위 내에 있는지 체크

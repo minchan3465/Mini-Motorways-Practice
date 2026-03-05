@@ -16,21 +16,19 @@ namespace Motorways.Baking {
 			TileDirection.SouthWest, 
 			TileDirection.West, 
 			TileDirection.NorthWest
-			//ÀÌ°Ô ¿Ö ¶Ç ÀÖ³Ä°í ¹¯´Â´Ù¸é... enumÀÇ °ªÀº ºñÆ® ¸¶½ºÅ©·Î ±¸º°ÇÏ±â À§ÇØ 1,2,4,8,16...À¸·Î °è»êµÇ¹Ç·Î for¹® µ¹¸®±â ¾Ö¸ÅÇÔ.
 		};
 
-		//Å¸ÀÏÀÇ °æ·Î ¸ğ¾çÀº 2^8À¸·Î, 256°¡Áö°¡ µÈ´Ù.
-		//ÀÌ°É ¸ğµÎ ¸¸µé±â¿¡´Â ³Ê¹«... ³Ê¹« ¸¹À¸¹Ç·Î, ¸ğ¾çÀÌ °ãÄ¡´Â Mesh´Â ÃßÈÄ È¸Àü ÀÛ¾÷À¸·Î ´ëÀÔ.
-		//Áï, °æ¿ìÀÇ ¼ö¸¦ ¾ĞÃà ¹× Áßº¹ Á¦°Å¸¦ ÇØÁÖ±â.
+		// íƒ€ì¼ì˜ ëª¨ë“  ì—°ê²° ì¡°í•©ì€ 2^8 = 256ê°€ì§€ì„.
+		// ì´ë¥¼ ëª¨ë‘ ìƒì„±í•˜ëŠ” ëŒ€ì‹ , íšŒì „ ëŒ€ì¹­ì„ ê³ ë ¤í•˜ì—¬ ê³ ìœ í•œ ì‹œê·¸ë‹ˆì²˜ë§Œ ì¶”ì¶œí•¨.
 
 		public List<RoadTileSignature> GenerateAllUniqueSignatures() {
 			List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
 			HashSet<byte> processedMasks = new HashSet<byte>();
 
-			for (int i = 1; i < 256; i++) { //1(00000001) ºÎÅÍ 255(11111111)±îÁö 
+			for (int i = 1; i < 256; i++) {
 				byte mask = (byte)i;
 
-				//1. ºñÆ® ¸¶½ºÅ© ±â¹İ È¸Àü Áßº¹ °Ë»ç (¼öÇĞÀûÀ¸·Î °¡Àå Á¤È®ÇÔ)
+				// 1. ë¹„íŠ¸ ë§ˆìŠ¤í¬ íšŒì „ ì¤‘ë³µ ê²€ì‚¬
 				bool isDuplicate = false;
 				for (int step = 0; step < 8; step++) {
 					int s = step % 8;
@@ -42,15 +40,15 @@ namespace Motorways.Baking {
 				}
 				if (isDuplicate) continue;
 
-				processedMasks.Add(mask); //°íÀ¯ ¸¶½ºÅ© µî·Ï
+				processedMasks.Add(mask);
 
-				//2. °íÀ¯ ¸¶½ºÅ©¿¡ ÇØ´çÇÏ´Â ¹æÇâ ÃßÃâ
+				// 2. í˜„ì¬ ë§ˆìŠ¤í¬ì— í•´ë‹¹í•˜ëŠ” í™œì„± ë°©í–¥ ì¶”ì¶œ
 				List<TileDirection> activeDirs = new List<TileDirection>();
 				for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
 					if ((mask & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
 				}
 
-				//3. ½Ã±×´ÏÃ³ Á¶¸³ (±âÁ¸ ·ÎÁ÷°ú µ¿ÀÏ)
+				// 3. ì‹œê·¸ë‹ˆì²˜ ìƒì„± (ëª¨ë“  ë…¸ë“œ ê°„ ì—°ê²° ì„¤ì •)
 				RoadTileSignature tempSignature = new RoadTileSignature();
 				if (activeDirs.Count == 1) {
 					tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
@@ -66,96 +64,45 @@ namespace Motorways.Baking {
 				uniqueSignatures.Add(tempSignature);
 			}
 			return uniqueSignatures;
-
-			//List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
-			//int totalCombinations = 1 << 8; //ÀÌ·Ğ»ó °¡´ÉÇÑ 256°¡ÁöÀÇ ¸ğµç Á¶ÇÕ »ı¼º.
-
-			////ÇÑ¹ø¸¸ ±Á´Â ÀÛ¾÷À» ÇÒ ¿¹Á¤ÀÌ´Ï, 256¹ø ÀÛ¾÷À» ¸Å¹øÇÏ´Â°Ç ¾Æ´Ô...
-			//for (int i = 0; i < totalCombinations; i++) {
-			//	List<TileDirection> activeDirs = new List<TileDirection>();
-			//	for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
-			//		if ((i & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
-			//	}
-			//	if (activeDirs.Count == 0) continue;
-
-
-			//	RoadTileSignature tempSignature = new RoadTileSignature();
-
-			//	//Á¶ÇÕ ·ÎÁ÷: ¸·Èù ±æÀÌ¸é UÅÏ 1°³, ±× ÀÌ»óÀÌ¸é ¸ğµç È°¼º ¹æÇâ³¢¸® ¸íÈ®ÇÑ ½ÖÀ¸·Î ¿¬°á
-			//	if (activeDirs.Count == 1) {
-			//		tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
-			//	} else {
-			//		for (int a = 0; a < activeDirs.Count; a++) {
-			//			for (int b = a + 1; b < activeDirs.Count; b++) {
-			//				tempSignature.AddConnection(new RoadTileConnection(
-			//					new RoadTileNode(activeDirs[a], RoadType.TwoLane),
-			//					new RoadTileNode(activeDirs[b], RoadType.TwoLane)));
-			//			}
-			//		}
-			//	}
-
-			//	//È¸Àü Áßº¹À» °Ë»çÇÕ½Ã´Ù.
-			//	bool isDuplicate = false;
-			//	foreach (RoadTileSignature existingSig in uniqueSignatures) {
-			//		for (int step = 0; step < 8; step++) {
-			//			if (existingSig.Equals(tempSignature.CreateRotatedSignature(step))) {
-			//				isDuplicate = true;
-			//				break;
-			//			}
-			//		}
-			//		if (isDuplicate) break;
-			//	}
-			//	if (!isDuplicate) uniqueSignatures.Add(tempSignature);
-			//}
-			//return uniqueSignatures;
 		}
 
 		public List<Vector2> ConstructPathForConnection(RoadTileConnection connection) {
-			//TODO: BezierUtils¸¦ È°¿ëÇÏ¿© Input¿¡¼­ OutputÀ¸·Î °¡´Â ¼öÇĞÀû °î¼± µµÃâ
-			//´ë°¢¼± Extend Ã³¸®, Á÷°¢ CornerHandleScale Ã³¸® µî ¿øÀÛ ¼öÇĞ ·ÎÁ÷ ±¸Çö
-
 			List<Vector2> pathPoints = new List<Vector2>();
 
 			TileDirection inDir = connection.input.direction;
 			TileDirection outDir = connection.output.direction;
 
-			float cornerHandleScale = 0.276f;
-			float tightCornerHandleScale = 0.1f;
+			float cornerHandleScale = 0.276f * MapSettings.TILE_SIZE;
+			float tightCornerHandleScale = 0.1f * MapSettings.TILE_SIZE;
 			int resolution = 24;
 
-			//Å¸ÀÏ ¹İ°æ ¼³Á¤.
-			float tileRadius = 0.5f;
+			// íƒ€ì¼ ë°˜ì§€ë¦„ ì„¤ì •
+			float tileRadius = MapSettings.HALF_TILE;
 
-			//´ë°¢¼± ¿¬°á ½Ã, Ãß°¡ÀûÀ¸·Î Á¶±İ Á÷¼±À¸·Î ‹º¾î³ª¿Ã °Å¸®.
-			float diagonalExtension = 0.15f;
+			// ëŒ€ê°ì„  ì—°ê²° ì‹œ ì¶”ê°€ í™•ì¥ ê±°ë¦¬
+			float diagonalExtension = 0.15f * MapSettings.TILE_SIZE;
 
-			//¹æÇâ º¤ÅÍ ±¸ÇÏ°í, Å¸ÀÏ °æ°èÀÇ ½ÃÀÛÁ¡°ú µµÂøÁ¡À» °è»êÇÕ´Ï´Ù.
-			//TileUtils.GetDirectionVector´Â (1,1) °°Àº Á¤¼ö º¤ÅÍ¸¦ ¹İÈ¯ÇÏ¹Ç·Î ¹İµå½Ã Á¤±ÔÈ­(normalized)°¡ ÇÊ¿äÇÕ´Ï´Ù.
 			Vector2 inBase = ((Vector2)TileUtils.GetDirectionVector(inDir)).normalized;
 			Vector2 outBase = ((Vector2)TileUtils.GetDirectionVector(outDir)).normalized;
 
 			Vector2 inPos = inBase * tileRadius;
 			Vector2 outPos = outBase * tileRadius;
 
-			//´ë°¢¼± ÆÇº°.
+			// ëŒ€ê°ì„  íŒë³„
 			bool inIsDiagonal = Mathf.Abs(inBase.x) > 0.1f && Mathf.Abs(inBase.y) > 0.1f;
 			bool outIsDiagonal = Mathf.Abs(outBase.x) > 0.1f && Mathf.Abs(outBase.y) > 0.1f;
 
-			//´ë°¢¼±ÀÌ¸é, Å¸ÀÏ °æ°è¿¡¼­ ¹Ù·Î °î¼± ½ÃÀÛ x. °­Á¦·Î Á÷¼± ±¸°£À» ¹Ğ¾î³Ö±â.
+			// ëŒ€ê°ì„ ì¼ ê²½ìš° ë³´ê°„ ê³¡ì„  ì‹œì‘ì  ì¡°ì •
 			Vector2 inCurveStart = inIsDiagonal ? inPos - (inBase * diagonalExtension) : inPos;
 			Vector2 outCurveStart = outIsDiagonal ? outPos - (outBase * diagonalExtension) : outPos;
 
-			//¿¬ÀåµÈ Á÷¼± ±¸°£ÀÇ Á¡À» ¸ÕÀú °æ·Î¿¡ Ãß°¡ÇÕ´Ï´Ù.
 			if (inIsDiagonal) pathPoints.Add(inPos);
 
-			//ÀÔ·Â ¹æÇâ°ú Ãâ·Â ¹æÇâ¿¡ µû¸¥ º£Áö¾î Á¦¾îÁ¡ °è»ê.
 			if (inDir != outDir) {
-				//--ÀÏ¹İ ±³Â÷·Î ¹× ÄÚ¼­--
 				float inHandleScale = cornerHandleScale;
 				float outHandleScale = cornerHandleScale;
 
-				//³»ÀûÀ» ÅëÇÏ¿©, µÎ ¹æÇâ »çÀÌÀÇ °¢µµ¸¦ À¯ÃßÇÕ´Ï´Ù.
-				//1¿¡ °¡±î¿ï¼ö·Ï ¿¹°¢ -> Å¸ÀÌÆ®ÇÑ ÄÚ³Ê·Î ÆÇÁ¤ÇÏ¿©, ÇÚµé ±æÀÌ ÁÙÀÌ±â.
+				// ê¸‰ì»¤ë¸Œ(1ë‹¨ê³„ ì°¨ì´)ì¼ ê²½ìš° í•¸ë“¤ ìŠ¤ì¼€ì¼ ì¶•ì†Œ
 				if (Vector2.Dot(inBase, outBase) > 0.1f) {
 					inHandleScale = tightCornerHandleScale;
 					outHandleScale = tightCornerHandleScale;
@@ -166,13 +113,12 @@ namespace Motorways.Baking {
 
 				for (int i = 0; i<=resolution; i++) {
 					float t = i / (float)resolution;
-					pathPoints.Add(BezierUtils.GetPoint(inCurveStart, handleA, handleB, outCurveStart, t)); //3Â÷ º£Áö¾î °î¼±
+					pathPoints.Add(BezierUtils.GetPoint(inCurveStart, handleA, handleB, outCurveStart, t));
 				}
 
-				//¸·´Ù¸¥ ±æÀÌ ¾Æ´Ò ¶§¸¸ ³¡Á¡ ¿¬Àå Ãß°¡
 				if (outIsDiagonal) pathPoints.Add(outPos);
 			} else {
-				//--U-Turn (¸·Èù ±æ)--
+				// Uí„´ ì²˜ë¦¬
 				pathPoints.Add(inCurveStart);
 				pathPoints.Add(Vector2.zero);
 			}
@@ -181,20 +127,17 @@ namespace Motorways.Baking {
 			return pathPoints;
 		}
 
-		//[Ãß°¡µÊ] ´ë°¢¼± Æ´»õ¸¦ ¸Ş¿ì´Â ÄÚ³Ê Àü¿ë °æ·Î »ı¼º (±æÀÌ: ¾à 0.414)
+		// ëŒ€ê°ì„  êµì°¨ì  ì½”ë„ˆ ê²½ë¡œ ìƒì„±
 		public List<Vector2> ConstructCornerPath() {
 			List<Vector2> pathPoints = new List<Vector2>();
 
-			//Å¸ÀÏ Áß½É(0.5, 0.5)À» ÀÕ´Â ´ë°¢¼± »çÀÌÀÇ ºó °ø°£ ±æÀÌ
-			float cornerRadius = (Mathf.Sqrt(2f) - 1f) * 0.5f;
+			// íƒ€ì¼ ê²½ê³„ì— ë§ì¶˜ ì½”ë„ˆ ë°˜ì§€ë¦„ ê³„ì‚°
+			float cornerRadius = (Mathf.Sqrt(2f) - 1f) * MapSettings.HALF_TILE;
 
-			//ÄÚ³Ê Á¶°¢Àº Áß½É(0,0)À» °¡·ÎÁö¸£´Â ´Ü¼øÇÑ Á÷¼± °æ·ÎÀÔ´Ï´Ù.
-			//³²¼­(SW)¿¡¼­ ºÏµ¿(NE) ¹æÇâÀ¸·Î °üÅëÇÏ´Â ±âÁØ °æ·Î ÇÏ³ª¸¸ ¸¸µé¸é, 
-			//³ªÁß¿¡ È¸Àü½ÃÄÑ¼­ ºÏ¼­(NW) <-> ³²µ¿(SE) ¹æÇâÀ¸·Îµµ ¾µ ¼ö ÀÖ½À´Ï´Ù.
-			Vector2 dir = new Vector2(1, 1).normalized; //ºÏµ¿ÂÊ ¹æÇâ º¤ÅÍ
+			Vector2 dir = new Vector2(1, 1).normalized;
 
-			Vector2 startPos = -dir * cornerRadius; //³²¼­ÂÊ ³¡
-			Vector2 endPos = dir * cornerRadius;    //ºÏµ¿ÂÊ ³¡
+			Vector2 startPos = -dir * cornerRadius;
+			Vector2 endPos = dir * cornerRadius;
 
 			pathPoints.Add(startPos);
 			pathPoints.Add(endPos);
@@ -202,7 +145,7 @@ namespace Motorways.Baking {
 			return pathPoints;
 		}
 
-		public RoadMeshData ConstructMeshFromPath(List<Vector2> visualPoints, float roadWidth, bool roundEnds, float yOffset = 0f) {    //TODO: visualPoints¸¦ ¼øÈ¸ÇÏ¸ç ÁÂ¿ì Á¤Á¡(Vertices)°ú »ï°¢Çü(Triangles) »ı¼º
+		public RoadMeshData ConstructMeshFromPath(List<Vector2> visualPoints, float roadWidth, bool roundEnds, float yOffset = 0f) {
 			RoadMeshData data = new RoadMeshData();
 
 			if (visualPoints == null || visualPoints.Count < 2) return data;
@@ -213,53 +156,43 @@ namespace Motorways.Baking {
 			int capVerticesCount = roundEnds ? 12 : 0;
 			int totalVertices = (pointCount * 2) + capVerticesCount;
 
-			//ÁÂ¿ì Á¤Á¡ÀÌ ÇÊ¿äÇÏ´Ï, ÀüÃ¼ Æ÷ÀÎÆ® ¼öÀÇ µÎ¹è¸¦ ´Ã·ÁÁİ½Ã´Ù.
 			data.vertices = new Vector3[totalVertices];
 			data.uvs = new Vector2[totalVertices];
+			data.uv2 = new Vector2[totalVertices];
 
-			data.uv2 = new Vector2[totalVertices];//¾Ö´Ï¸ŞÀÌ¼Ç¿ë
-			Vector2 centerPivot = Vector2.zero;
-
-			//»ç°¢Çü (Quad) ÇÏ³ª´ç, »ï°¢Çü 2°³... ~> Á¤Á¡ ÀÎµ¦½º 6°³°¡ µË´Ï´Ù.
 			int bodyTriangles = (pointCount - 1) * 6;
 			int capTriangles = roundEnds ? (12 * 3) : 0;
 			data.triangles = new int[bodyTriangles + capTriangles];
 
 			float currentLength = 0f;
 			
-			//Á¤Á¡, UV °è»ê
+			// ì •ì  ë° UV ìƒì„±
 			for (int i =0; i< pointCount; i++) {
 				Vector2 currentPoint = visualPoints[i];
 				Vector2 forward = Vector2.zero;
 
-				//Áß°£ Á¡µéÀº ÀÌÀü Á¡°ú ´ÙÀ½ Á¡À» ÀÌ¿ëÇØ ¹æÇâÀ» Æò±ÕÈ­(½º¹«µù) ÇÕ´Ï´Ù.
 				if (!roundEnds && i == 0) {
-					//½ÃÀÛÁ¡: À§Ä¡ º¤ÅÍÀÇ ¿ª¹æÇâÀÌ °î¼±ÀÇ Ãâ¹ß ÁøÇà ¹æÇâ (inBase ¾øÀÌ ÇØ°á)
 					forward = -currentPoint.normalized;
 				} else if (!roundEnds && i == pointCount - 1) {
-					//³¡Á¡: À§Ä¡ º¤ÅÍÀÇ Á¤¹æÇâÀÌ °î¼±ÀÇ µµÂø ÁøÇà ¹æÇâ
 					forward = currentPoint.normalized;
 				} else {
-					//Áß°£ Á¡µé (¶Ç´Â ¶ó¿îµå Ä¸ÀÌ ÄÑÁø °æ¿ìÀÇ ¾ç³¡Á¡): ÀÌÀü/´ÙÀ½ Á¡À» ÀÌ¿ëÇØ ¹æÇâ ½º¹«µù
 					if (i < pointCount - 1) {
 						forward += (visualPoints[i + 1] - currentPoint);
 					}
 					if (i > 0) {
 						forward += (currentPoint - visualPoints[i - 1]);
 					}
-					forward = forward.normalized; //¿øÀÛÃ³·³ ´õÇÑ µÚ Á¤±ÔÈ­
+					forward = forward.normalized;
 				}
 
 				Vector2 left = new Vector2(-forward.y, forward.x);
 				if (i > 0) currentLength += Vector2.Distance(visualPoints[i], visualPoints[i - 1]);
 
-				//¿ŞÂÊ Á¤Á¡
 				data.vertices[i * 2] = new Vector3(currentPoint.x + left.x * halfWidth, yOffset, currentPoint.y + left.y * halfWidth);
-				data.uvs[i * 2] = new Vector2(0f, currentLength); //U´Â 0 (¿ŞÂÊ ³¡)
+				data.uvs[i * 2] = new Vector2(0f, currentLength);
 
-				//¿À¸¥ÂÊ Á¤Á¡
 				data.vertices[i * 2 + 1] = new Vector3(currentPoint.x - left.x * halfWidth, yOffset, currentPoint.y - left.y * halfWidth);
-				data.uvs[i * 2 + 1] = new Vector2(1f, currentLength);//U´Â 1 (¿À¸¥ÂÊ ³¡)
+				data.uvs[i * 2 + 1] = new Vector2(1f, currentLength);
 
 				data.uv2[i * 2] = currentPoint;
 				data.uv2[i * 2 + 1] = currentPoint;
@@ -270,7 +203,6 @@ namespace Motorways.Baking {
 					int capStartIndex = pointCount * 2;
 
 					for (int capIndex = 1; capIndex <= 12; capIndex++) {
-						//±âÁØÁ¡(left)À» È¸Àü½ÃÄÑ ºÎÃ¤²Ã Á¤Á¡ À§Ä¡ µµÃâ
 						float rad = -angleStep * capIndex * Mathf.Deg2Rad;
 						float cos = Mathf.Cos(rad);
 						float sin = Mathf.Sin(rad);
@@ -278,7 +210,6 @@ namespace Motorways.Baking {
 
 						data.vertices[capStartIndex + capIndex - 1] = new Vector3(endPos.x + rotatedLeft.x * halfWidth, 0f, endPos.y + rotatedLeft.y * halfWidth);
 						data.uvs[capStartIndex + capIndex - 1] = new Vector2(0.5f, currentLength + halfWidth);
-
 						data.uv2[capStartIndex + capIndex - 1] = endPos;
 					}
 				}
@@ -302,8 +233,8 @@ namespace Motorways.Baking {
 
 			if (roundEnds) {
 				int capStartIndex = pointCount * 2;
-				int centerRightIndex = (pointCount - 1) * 2 + 1; //¿øÀÇ Áß½É ¿ªÇÒ (¸¶Áö¸· ¿ìÃø Á¤Á¡)
-				int lastLeftIndex = (pointCount - 1) * 2;        //ºÎÃ¤²Ã ½ÃÀÛÁ¡ (¸¶Áö¸· ÁÂÃø Á¤Á¡)
+				int centerRightIndex = (pointCount - 1) * 2 + 1;
+				int lastLeftIndex = (pointCount - 1) * 2;
 
 				int previousIndex = lastLeftIndex;
 				for (int capIndex = 0; capIndex < 12; capIndex++) {
@@ -317,14 +248,12 @@ namespace Motorways.Baking {
 			return data;
 		}
 
-		//¿©·¯ °³ÀÇ RoadMeshData¸¦ ÇÏ³ª·Î º´ÇÕÇÏ´Â ÇÔ¼ö
 		public RoadMeshData CombineMeshData(List<RoadMeshData> meshList) {
 			if (meshList == null || meshList.Count == 0) return new RoadMeshData();
 
 			int totalVerts = 0;
 			int totalTris = 0;
 
-			//ÀüÃ¼ Å©±â °è»ê
 			foreach (var mesh in meshList) {
 				if (mesh.vertices != null) totalVerts += mesh.vertices.Length;
 				if (mesh.triangles != null) totalTris += mesh.triangles.Length;
@@ -333,7 +262,7 @@ namespace Motorways.Baking {
 			RoadMeshData combined = new RoadMeshData();
 			combined.vertices = new Vector3[totalVerts];
 			combined.uvs = new Vector2[totalVerts];
-			combined.uv2 = new Vector2[totalVerts];	//¾Ö´Ï¸ŞÀÌ¼Ç¿ë...
+			combined.uv2 = new Vector2[totalVerts];
 			combined.triangles = new int[totalTris];
 
 			int vertOffset = 0;
@@ -342,20 +271,17 @@ namespace Motorways.Baking {
 			foreach (var mesh in meshList) {
 				if (mesh.vertices == null || mesh.vertices.Length == 0) continue;
 
-				//Á¤Á¡ º¹»ç
 				System.Array.Copy(mesh.vertices, 0, combined.vertices, vertOffset, mesh.vertices.Length);
 				System.Array.Copy(mesh.uvs, 0, combined.uvs, vertOffset, mesh.uvs.Length);
 
 				if (mesh.uv2 != null && mesh.uv2.Length == mesh.vertices.Length) {
 					System.Array.Copy(mesh.uv2, 0, combined.uv2, vertOffset, mesh.uv2.Length);
 				} else {
-					//¹æ¾î ÄÚµå: ¸¸¾à uv2°¡ ¾ø´Ù¸é 0À¸·Î¶óµµ Ã¤¿öÁİ´Ï´Ù.
 					for (int i = 0; i < mesh.vertices.Length; i++) {
 						combined.uv2[vertOffset + i] = Vector2.zero;
 					}
 				}
 
-				//»ï°¢Çü ÀÎµ¦½º º¹»ç (¿ÀÇÁ¼Â Àû¿ë)
 				for (int i = 0; i < mesh.triangles.Length; i++) {
 					combined.triangles[triOffset + i] = mesh.triangles[i] + vertOffset;
 				}

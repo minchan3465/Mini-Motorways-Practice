@@ -41,7 +41,7 @@ namespace Motorways {
 		}
 
 
-		//--- ��ȸ ---
+		//--- 조회 ---
 		public TileData GetTileData(Vector2Int coord) {
 			_grid.TryGetValue(coord, out TileData tile);
 			return tile;
@@ -52,7 +52,7 @@ namespace Motorways {
 			return corner;
 		}
 
-		//---������ ����---
+		//--- 타일 등록 ---
 		public void RegisterTile(Vector2Int coord, TileData data) {
 			if (!_grid.ContainsKey(coord)) _grid.Add(coord, data);
 		}
@@ -66,11 +66,11 @@ namespace Motorways {
 			return newCorner;
 		}
 
-		//---���� ���� ������ ����ȭ---
+		//--- 차선 데이터 연결 ---
 		public void ConnectLaneToMap(Lane lane) {
-			//������ Ÿ���� ã�Ƽ�, �ش� ���⿡ ���ΰ� ����ٰ� �˸�.
+			// 시작 지점 타일을 찾아서, 해당 방향에 차선이 연결되었다고 알림.
 			if(_grid.TryGetValue(lane.StartNode, out TileData tile)) {
-				//���� ���.
+				// 방향 계산.
 				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
 				tile.ConnectLane(dir, lane);
 			}
@@ -79,12 +79,12 @@ namespace Motorways {
 			if (_grid.TryGetValue(lane.StartNode, out TileData StartTile)) {
 				TileDirection dir = TileUtils.GetDirection(lane.StartNode, lane.EndNode);
 
-				//Ÿ�Ͽ��� ���� ���� ���� (TileData ���ο��� null ó�� + RoadState None ó��)
+				// 타일에서 차선 연결 해제 (TileData 내부에서 null 처리 + RoadState None 처리)
 				StartTile.DisconnectLane(dir);
 			}
 		}
 
-		//�� Ȯ��� ����Ұ�.
+		// 맵 확장 시 사용 가능.
 		//public TileData GetOrCreateTile(Vector2Int coord) {
 		//	if(_grid.TryGetValue(coord, out TileData tile)) {
 		//		return tile;

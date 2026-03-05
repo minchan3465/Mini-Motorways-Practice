@@ -7,24 +7,16 @@ namespace Motorways.Models {
 	public class Destination : BuildingBase {
 		public CarPark _CarPark { get; private set; }
 
-		public int UnassignedPins { get; set; } //¾ÆÁ÷ ´ë±âÁßÀÎ ÇÉ
-		public int IncomingPins { get; set; }   //¹èÂ÷µÈ ÇÉ
+		public int UnassignedPins { get; set; } // ì•„ì§ ì°¨ëŸ‰ì´ ë°°ì •ë˜ì§€ ì•Šì€ í•€ ìˆ˜
+		public int IncomingPins { get; set; }   // ì°¨ëŸ‰ì´ ì˜¤ê³  ìžˆëŠ” í•€ ìˆ˜
 
-		public float PinSpawnTimer;     //ÇÉ »ý¼º ³²Àº ½Ã°£
-		public float OverCrowdingTimer; //°úºÎÇÏ±îÁö ³²Àº ½Ã°£
+		public float PinSpawnTimer;     // ë‹¤ìŒ í•€ ìƒì„±ê¹Œì§€ ë‚¨ì€ ì‹œê°„
+		public float OverCrowdingTimer; // ê³¼ë°€í™”(ê²Œìž„ ì˜¤ë²„)ê¹Œì§€ ë‚¨ì€ ì‹œê°„
 		public bool isOverCrowding => (UnassignedPins + IncomingPins) > 6;
 
-		public override void Initialize(int groupIndex, Vector2Int originCoord, BuildingLayout layout) {
-			base.Initialize(groupIndex, originCoord, layout);
+		public override void Initialize(int groupIndex, Vector2Int entranceCoord, BuildingLayout layout) {
+			base.Initialize(groupIndex, entranceCoord, layout);
 			Type = BuildingType.Destination;
-
-			OccupiedCoordinates = new List<Vector2Int>();
-			OccupiedCoordinates = new List<Vector2Int>();
-			for (int x = 0; x < layout.Footprint.x; x++) {
-				for (int y = 0; y < layout.Footprint.y; y++) {
-					OccupiedCoordinates.Add(originCoord + new Vector2Int(x, y));
-				}
-			}
 
 			_CarPark = new CarPark();
 			_CarPark.Initialize(this, IncomingLane.EndNode, IncomingLane.StartNode);
@@ -39,8 +31,6 @@ namespace Motorways.Models {
 			if (_CarPark.TryParkVehicle(vehicleId, 2.0f)) {
 				if (IncomingPins > 0) IncomingPins--;
 				else if (UnassignedPins > 0) UnassignedPins--;
-
-				//Á¡¼ö Ãß°¡.
 			}
 
 		}
@@ -52,4 +42,3 @@ namespace Motorways.Models {
 		}
 	}
 }
-

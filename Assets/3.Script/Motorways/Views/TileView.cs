@@ -18,7 +18,7 @@ namespace Motorways.Views {
 			this.Coordinates = coord;
 			this._atlas = atlas;
 			//타일 중심 좌표 설정
-			this.transform.position = new Vector3(coord.x + 0.5f, 0, coord.y + 0.5f);
+			this.transform.position = new Vector3(coord.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, coord.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 
 			//1.활성 도로용 View 생성
 			//2.Mothballed 도로용 View 생성
@@ -27,10 +27,10 @@ namespace Motorways.Views {
 
 			//3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
 			_activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
-			_activeCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
+			_activeCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0, MapSettings.HALF_TILE);
 
 			_mothballedCornerView = CreateRoadView("MothballedCorner", mothballedMat, outlineMat, 6);
-			_mothballedCornerView.transform.localPosition = new Vector3(0.5f, 0, 0.5f);
+			_mothballedCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0, MapSettings.HALF_TILE);
 		}
 
 		private RoadView CreateRoadView(string name, Material mainMat, Material outlineMat, int sortingOrder) {

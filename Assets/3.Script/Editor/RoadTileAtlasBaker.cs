@@ -12,22 +12,22 @@ namespace Motorways.Editor {
 		public static void BakeAtlas() {
 			string savePath = "Assets/2.Model/RoadTileAtlas.asset";
 
-			//»õ ¾ÆÆ²¶ó½º ¿¡¼Â »ı¼º
+			// ìƒˆ ì•„í‹€ë¼ìŠ¤ ì—ì…‹ íŒŒì¼ ìƒì„±
 			RoadTileAtlas atlas = ScriptableObject.CreateInstance<RoadTileAtlas>();
 			AssetDatabase.CreateAsset(atlas, savePath);
 
-			//ºô´õ ÁØºñ
+			// ë¹Œë” ì¤€ë¹„
 			RoadTileAtlasBuilder builder = new RoadTileAtlasBuilder();
 
-			//°øÁ¤ 1. ¸ğµç °íÀ¯ ½Ã±×´ÏÃ³ ÃßÃâ.
+			// ë‹¨ê³„ 1. ê°€ëŠ¥í•œ ëª¨ë“  ì—°ê²° ì‹œê·¸ë‹ˆì²˜ ìƒì„±
 			List<RoadTileSignature> uniqueSignatures = builder.GenerateAllUniqueSignatures();
 
 			int index = 0;
 
-			float bodyWidth = 0.4f;
-			float outlineWidth = 0.5f;
-			float bodyYOffset = 0.01f;   //º»Ã¼´Â ¾à°£ À§¿¡ ¹èÄ¡ÇÏ¿© ±ôºıÀÓ ¹æÁö
-			//float outlineYOffset = 0.00f; //Å×µÎ¸®´Â ¹Ù´Ú¿¡ ¹ĞÂø
+			// ë„ë¡œ ë‘ê»˜ ì„¤ì •
+			float bodyWidth = 0.8f;
+			float outlineWidth = 1.2f;
+			float bodyYOffset = 0.01f;   // ë„ë¡œ ë³¸ì²´ë¥¼ ì•½ê°„ ë†’ê²Œ ë°°ì¹˜í•˜ì—¬ ê²¹ì¹¨ ë°©ì§€
 
 			foreach (var signature in uniqueSignatures) {
 				RoadTileDefinition def = new RoadTileDefinition();
@@ -35,34 +35,31 @@ namespace Motorways.Editor {
 				def.signature = signature;
 				def.mesh = new RoadTileMesh();
 
-				//List<Vector2> combinedVisualPoints = new List<Vector2>();
 				List<RoadMeshData> roadMeshes = new List<RoadMeshData>();
 				List<RoadMeshData> outlineMeshes = new List<RoadMeshData>();
 
 
-				//°øÁ¤ 2. °¢ ¿¬°á¼±¸¶´Ù º£Áö¾î °î¼± µµÃâ.
+				// ë‹¨ê³„ 2. ê° ì—°ê²° ìƒíƒœì— ë”°ë¥¸ ë² ì§€ì–´ ê³¡ì„  ìƒì„± ë° ë©”ì‰¬í™”
 				foreach (var connection in signature.connections) {
 					List<Vector2> pathPoints = builder.ConstructPathForConnection(connection);
 					def.connectionToPath.Add(connection, pathPoints);
-					//combinedVisualPoints.AddRange(pathPoints);
+					
 					bool roundEnds = signature.IsDeadEnd;
 					roadMeshes.Add(builder.ConstructMeshFromPath(pathPoints, bodyWidth, roundEnds, bodyYOffset));
 					outlineMeshes.Add(builder.ConstructMeshFromPath(pathPoints, outlineWidth, roundEnds, 0f));
 				}
 
-				//³¡ÀÌ¸é µÕ±Û°Ô ¸¶°¨.
-				//bool roundEnds = signature.IsDeadEnd;
-
+				// ê°œë³„ ë©”ì‰¬ë“¤ì„ í•˜ë‚˜ë¡œ í•©ì³ì„œ ì €ì¥
 				def.mesh.road = builder.CombineMeshData(roadMeshes);
 				def.mesh.outline = builder.CombineMeshData(outlineMeshes);
 
 				atlas.definitions.Add(def);
 			}
 
-			//--- 2. ÄÚ³Ê ¸Ş½¬ ±Á±â Ãß°¡ ---
+			//--- 3. ì½”ë„ˆ(êµì°¨ì )ìš© ë©”ì‰¬ ì¶”ê°€ ìƒì„± ---
 			List<Vector2> cornerPath = builder.ConstructCornerPath();
 			atlas.cornerMesh = new RoadTileMesh();
-			//ÄÚ³Ê´Â ³¡À» µÕ±Û°Ô(roundEnds) ¸¶°¨ÇÒ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù. ºóÆ´¸¸ ¸Ş¿ì±â ¶§¹®ÀÔ´Ï´Ù.
+			// ì½”ë„ˆëŠ” ë‘¥ê·¼ ëë‹¨ ì²˜ë¦¬ê°€ í•„ìš” ì—†ìœ¼ë¯€ë¡œ false ì „ë‹¬
 			atlas.cornerMesh.road = builder.ConstructMeshFromPath(cornerPath, bodyWidth, false, bodyYOffset);
 			atlas.cornerMesh.outline = builder.ConstructMeshFromPath(cornerPath, outlineWidth, false, 0f);
 
@@ -70,7 +67,7 @@ namespace Motorways.Editor {
 			EditorUtility.SetDirty(atlas);
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
-			Debug.Log($"[Motorways] ¾ÆÆ²¶ó½º ±Á±â ¿Ï·á! ÃÑ {uniqueSignatures.Count}°³ÀÇ °íÀ¯ Å¸ÀÏ ¸Ş½¬°¡ »ı¼ºµÇ¾ú½À´Ï´Ù. À§Ä¡: {savePath}");
+			Debug.Log($"[Motorways] ì•„í‹€ë¼ìŠ¤ ìƒì„± ì™„ë£Œ! ì´ {uniqueSignatures.Count}ê°œì˜ ë„ë¡œ íƒ€ì… ë©”ì‰¬ê°€ êµ¬ì›Œì¡ŒìŠµë‹ˆë‹¤. ìœ„ì¹˜: {savePath}");
 		}
 	}
 }

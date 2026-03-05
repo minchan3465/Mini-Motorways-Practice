@@ -7,16 +7,16 @@ namespace Motorways.Managers {
 
 	public class MapBootstrapper : MonoBehaviour {
 		[Header("Layers (Visual DB)")]
-		[Tooltip("±âº» ÁöÇü (°Ç¼³ °¡´É/ºÒ°¡ ÆÇ´Ü)")]
+		[Tooltip("ê¸°ë³¸ ì§€í˜• (ê±´ì„¤ ê°€ëŠ¥/ë¶ˆê°€ íŒì •)")]
 		[SerializeField] private Tilemap _terrainLayer;
 
-		[Tooltip("Áı(Supply) ½ºÆù °¡ÁßÄ¡ ·¹ÀÌ¾î (Åõ¸íµµ È°¿ë)")]
+		[Tooltip("ì§‘(Supply) ìƒì„± ê°€ì¤‘ì¹˜ ë ˆì´ì–´ (ì•ŒíŒŒê°’ í™œìš©)")]
 		[SerializeField] private Tilemap _houseWeightLayer;
 
-		[Tooltip("¸ñÀûÁö(Demand) ½ºÆù °¡ÁßÄ¡ ·¹ÀÌ¾î (Åõ¸íµµ È°¿ë)")]
+		[Tooltip("ëª©ì ì§€(Demand) ìƒì„± ê°€ì¤‘ì¹˜ ë ˆì´ì–´ (ì•ŒíŒŒê°’ í™œìš©)")]
 		[SerializeField] private Tilemap _destWeightLayer;
 
-		//TODO : °Ç¹° ¹ĞµµÀÇ ¼öÄ¡µµ ÀÔ·ÂµÈ ·¹ÀÌ¾îµµ Ãß°¡ÇØ¾ßÇÔ.
+		//TODO : ê±´ë¬¼ ë°ì´í„°ë¥¼ ë°°ì¹˜í•  ë ˆì´ì–´ë„ ì¶”ê°€í•´ì•¼ í•¨.
 
 		private void Start() {
 			if (_terrainLayer == null) return;
@@ -24,46 +24,17 @@ namespace Motorways.Managers {
 		}
 
 		private void ExtractDataFromTilemap() {
-			_terrainLayer.CompressBounds();    //Å¸ÀÏ¸Ê ¿øÁ¡ º¸Á¤. (TilemapÀº 0,0 ÁÂÇ¥°¡ Áß¾ÓÀÏ ¼ö ÀÖÀ½)
-			BoundsInt bounds = _terrainLayer.cellBounds;   //ÇöÀç ¸ÊÀÇ Å©±â ÀúÀå.
+			_terrainLayer.CompressBounds();    // íƒ€ì¼ë§µ ë²”ìœ„ ì••ì¶• (0,0 ê¸°ì¤€ ì •ë ¬)
+			BoundsInt bounds = _terrainLayer.cellBounds;   // ì‹¤ì œ íƒ€ì¼ë§µ í¬ê¸° íšë“
 
-			// 2. Å¸ÀÏ¸Ê ¼øÈ¸ (Extraction Loop)
-			///Àü¿¡ Å×½ºÆ®ÇÏ¸é¼­ Àû¾ú´ø°Çµ¥ ¿Ö ³¯·ÈÀ»±î...
-			///cellBounds = (Å¸ÀÏÀÌ ÀÖÀ» °æ¿ì) ¼³Ä¡µÈ Å¸ÀÏÀ» ¸ğµÎ °¨½Î´Â Á÷»ç°¢Çü Å©±â
-			///allPositionWithin = ±× Á÷»ç°¢ÇüÀÇ Å©±â ³»ºÎ¿¡ ÀÖ´Â ¸ğµç Å¸ÀÏÀÇ À§Ä¡
-			#region var ÀÚ·áÇü¿¡ °üÇÑ °íÂû
-			/*
-			var ÀÚ·áÇüÀº ±²ÀåÇÑ ¸¹Àº ÀÌ¾ß±â°¡ ÀÖ´Ù.
-			  ÀåÁ¡
-				1. °¡µ¶¼ºÀÌ ¿Ã¶ó°¨
-				2. ³²ÀÇ API »ç¿ë¶§ ¾î¶»°Ô ¹Ş¾Æ¿ÃÁö ¸ğ¸¦ ¶§ »ç¿ëÇÔ.
-				3. ÆíÇÔ
-				4. °ªÀÌ ´Ş¶óÁú °æ¿ì, À¯¿ëÇÏ°Ô ¹Ş¾Æ¿Ã ¼ö ÀÖÀ½.
-			  ´ÜÁ¡
-				1. °¡µ¶¼ºÀÌ ³ª»İ (Å¸ÀÎÀÌ º¼¶§)
-				2. ¿À·ù µµÃâ°¡´É¼º ÀÖÀ½
-
-			¾îÂ·µç Àå´ÜÁ¡ÀÌ µÇ°Ô ¸íÈ®ÇÑµ¥, ÀûÀıÈ÷ ¾²¸é ÁÁ´Ù·Î »ı°¢.
-			º¸Åë foreach¹®¿¡¼­ ¸¹ÀÌ ¾´´Ù°í ¸»À» ÇÑ´Ù.
-			°³ÀÎÀûÀ¸·Î´Â ÀÚ·áÇüÀ» ¹Ù·Î ¾Ë¾Æº¸°í ½Í¾î¼­ Á¦´ë·ÎµÈ º¯¼ö¸íÀ» ÇÏ´Â°É ÁÁ¾ÆÇÏÁö¸¸.
-			¹İ´ë·Î °³ÀÎÀûÀ¸·Î ÇÏ´Ï±î ¿ÀÈ÷·Á var·Î Â¥µµ ±¦ÂúÁö ¾Ê³ª »ı°¢ÁßÀÌ´Ù.
-
-			¿©·¯ ÀÇ°ßµé Áß...
-			+ ¾îÂ¥ÇÇ ¸¶¿ì½º ¿Ã·Áº¸¸é º¯¼ö¸í ´Ù º¸ÀÌ´Âµ¥ »ó°ü¾ø´Ù.
-			°³ÀÎÀûÀÎ ÀÇ°ß
-			+ ÀÎÁ¤ÇÑ´Ù. ¾îÂ¥ÇÇ ÄÚµå Â¥´Ùº¸¸é ÇÏ´Ü¿¡ º¯¼ö¸íÀ» ÀûÀ»¶§°¡ ¸¹´Ù...
-			+ ±×¸®°í varÀÌ ¾ÈÁÁ¾Ò´Ù¸é ¾ğÁ¨°¡ »ç¶óÁ³°ÚÁö¸¸, °è¼Ó ³²¾ÆÀÖ´Âµ¥´Â ÀÌÀ¯°¡ ´Ù ÀÖ´Ù°í »ı°¢.
-			 */
-			#endregion
+			// 2. íƒ€ì¼ë§µ ìˆœíšŒ (Extraction Loop)
 			foreach (var pos in bounds.allPositionsWithin) {
 				Vector3Int localPos = new Vector3Int(pos.x, pos.y, pos.z);
 				Vector2Int gridCoord = new Vector2Int(pos.x, pos.y);
 
 				TileData tile = new TileData(gridCoord);
 
-				//ÁöÇü Å¸ÀÏÀÌ ¾ø´Ù = ¸Ê ¹ÛÀÌ°Å³ª Å¸ÀÏÀ» ¾È¼³Ä¡ÇÔ.
-				//¸Ê ³»ºÎ´Ï±î, ¾îÂ·µç Empty·Î ÇØ¼­ ¼³Ä¡ °¡´ÉÇÏ°Ô.
-				//±Ùµ¥ ¾ÖÃÊ¿¡ Empty·Î ±ò¾Æµ×´Âµ¥... ¿Ö ¾ÈµÇ´Â°ÅÁö.
+				// ì§€í˜• ë°ì´í„° ì„¤ì •
 				if (_terrainLayer.HasTile(localPos)) {
 					tile.type = TileLogicType.Empty;
 				} else {
@@ -73,12 +44,11 @@ namespace Motorways.Managers {
 				MapManager.Instance._grid.Add(gridCoord, tile);
 			}
 
-			//À§¿¡¼­ ÁöÇü¿¡ ´ëÇÑ Á¤º¸¸¦ ´Ù ÇØÁáÀ¸´Ï, ÀÌÁ¦ ½ºÆù À§Ä¡¿¡ ´ëÇÑ °¡ÁßÄ¡¸¦ °è»êÇÕ½Ã´Ù.
+			// ê°€ì¤‘ì¹˜ ë°ì´í„° ì ìš©
 			ApplyWeightLayer(_houseWeightLayer, isHouse: true);
 			ApplyWeightLayer(_destWeightLayer, isHouse: false);
 
-			// ½Ã°¢Àû Å¸ÀÏ¸ÊÀº ÀÌÁ¦ ÇÊ¿ä ¾øÀ¸¹Ç·Î ·»´õ·¯¸¦ ²ô°Å³ª, ¹è°æÀ¸·Î¸¸ »ç¿ë
-			//TileMapRendererDisable(_terrainLayer);
+			// ì‹œê°ìš© íƒ€ì¼ë§µ ë¹„í™œì„±í™” (ë¡œì§ ë°ì´í„°ë§Œ ì¶”ì¶œ í›„ ê°€ë¦¼)
 			TileMapRendererDisable(_houseWeightLayer);
 			TileMapRendererDisable(_destWeightLayer);
 		}
@@ -87,7 +57,6 @@ namespace Motorways.Managers {
 			if (layer == null) return;
 
 			foreach (var pos in layer.cellBounds.allPositionsWithin) {
-				//À§ÀÇ ÁöÇü°ú µ¿ÀÏÇÏ°Ô, ¼³Ä¡µÈ Å¸ÀÏµéÀ» ÅëÇÏ¿© ·ÎÁ÷À» ±¸Çö.
 				Vector3Int localPos = new Vector3Int(pos.x, pos.y, pos.z);
 				if (!layer.HasTile(localPos)) continue;
 				Vector2Int gridCoord = new Vector2Int(pos.x, pos.y);
@@ -108,4 +77,3 @@ namespace Motorways.Managers {
 		}
 	}
 }
-

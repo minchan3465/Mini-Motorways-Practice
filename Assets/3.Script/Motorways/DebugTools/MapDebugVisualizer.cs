@@ -20,7 +20,7 @@ namespace Motorways.DebugTools {
 
 //       [Range(0.1f, 1f)] public float TileSize = 0.9f;
 
-//       //¹Ù´Ú °ãÄ§(Z-Fighting) ¹æÁö¿ë ¿ÀÇÁ¼Â
+//       //ï¿½Ù´ï¿½ ï¿½ï¿½Ä§(Z-Fighting) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //       private Vector3 _offset = new Vector3(0, 0.1f, 0);
 
 //       private void OnDrawGizmos() {
@@ -36,7 +36,7 @@ namespace Motorways.DebugTools {
 //       private void DrawMapData() {
 //           foreach (var kvp in MapManager.Instance._grid) {
 //               TileData tile = kvp.Value;
-//               Vector3 center = new Vector3(tile.coordinate.x + 0.5f, 0, tile.coordinate.y + 0.5f);
+//               Vector3 center = new Vector3(tile.coordinate.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, tile.coordinate.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 
 //               Gizmos.color = new Color(0, 0, 0, 0.2f);
 //               if (tile.type != TileLogicType.Empty) {
@@ -46,21 +46,21 @@ namespace Motorways.DebugTools {
 
 //               Gizmos.DrawWireCube(center, new Vector3(TileSize, 0, TileSize));
 
-//               //--- °Ç¹° ÀÔ±¸(Entrance) ½Ã°¢È­ ---
+//               //--- ï¿½Ç¹ï¿½ ï¿½Ô±ï¿½(Entrance) ï¿½Ã°ï¿½È­ ---
 //               if (tile.type == TileLogicType.House || tile.type == TileLogicType.Destination) {
 //                   if (tile.Lanes == null) continue;
 
-//                   //°Ç¹°¿¡ ¿¬°áµÈ Â÷¼±(EntranceLane) Ã£±â
+//                   //ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(EntranceLane) Ã£ï¿½ï¿½
 //                   for (int i = 0; i < tile.Lanes.Length; i++) {
 //                       Lane entranceLane = tile.Lanes[i];
 //                       if (entranceLane != null) {
-//                           Vector3 entranceEndPos = new Vector3(entranceLane.EndNode.x + 0.5f, 0, entranceLane.EndNode.y + 0.5f) + _offset;
+//                           Vector3 entranceEndPos = new Vector3(entranceLane.EndNode.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, entranceLane.EndNode.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE) + _offset;
 
-//                           //ÀÔ±¸ ¹æÇâÀ» ±½°í ¸íÈ®ÇÏ°Ô Ç¥½Ã (½Ã¾È»ö)
+//                           //ï¿½Ô±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½Ï°ï¿½ Ç¥ï¿½ï¿½ (ï¿½Ã¾È»ï¿½)
 //                           Gizmos.color = Color.cyan;
 //                           Gizmos.DrawLine(center + _offset, entranceEndPos);
 
-//                           //µµ·Î¿Í ¿¬°áµÇ¾î¾ß ÇÏ´Â ÇÙ½É ³ëµå(Å¸ÀÏ Áß¾Ó)¿¡ µ¿±×¶ó¹Ì ¸¶Ä¿ Ç¥½Ã
+//                           //ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½(Å¸ï¿½ï¿½ ï¿½ß¾ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½×¶ï¿½ï¿½ ï¿½ï¿½Ä¿ Ç¥ï¿½ï¿½
 //                           Gizmos.DrawWireSphere(entranceEndPos, 0.2f);
 //                       }
 //                   }
@@ -71,30 +71,30 @@ namespace Motorways.DebugTools {
 //       private void DrawLanes() {
 //           if (RoadNetworkManager.Instance == null) return;
 
-//           //Å¸ÀÏ ±âÁØÀÌ ¾Æ´Ñ RoadNetworkManagerÀÇ ÀüÃ¼ ¸®½ºÆ®¸¦ ¼øÈ¸ÇÕ´Ï´Ù.
+//           //Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ RoadNetworkManagerï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Õ´Ï´ï¿½.
 //           foreach (Lane lane in RoadNetworkManager.Instance.AllLanes) {
 //               if (lane == null) continue;
 
-//               Vector3 start = new Vector3(lane.StartNode.x + 0.5f, 0, lane.StartNode.y + 0.5f) + _offset;
-//               Vector3 end = new Vector3(lane.EndNode.x + 0.5f, 0, lane.EndNode.y + 0.5f) + _offset;
+//               Vector3 start = new Vector3(lane.StartNode.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, lane.StartNode.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE) + _offset;
+//               Vector3 end = new Vector3(lane.EndNode.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, lane.EndNode.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE) + _offset;
 
-//               //[ÇÙ½É] InboundVehicles(¿¹¾àÀÚ)°¡ ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+//               //[ï¿½Ù½ï¿½] InboundVehicles(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
 //               int resCount = lane.InboundVehicles.Count;
 //               bool isReserved = resCount > 0;
 
 //               if (isReserved) {
-//                   Gizmos.color = Color.yellow; //¿¹¾àµÈ µµ·Î´Â ³ë¶õ»ö Å×µÎ¸®
+//                   Gizmos.color = Color.yellow; //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×µÎ¸ï¿½
 //                   Vector3 cross = Vector3.Cross((end - start).normalized, Vector3.up) * 0.15f;
 //                   Gizmos.DrawLine(start - cross, end - cross);
 //                   Gizmos.DrawLine(start + cross, end + cross);
 //               }
 
-//               //Mothballed »óÅÂ¸é »¡°£»ö, ¾Æ´Ï¸é Èò»ö
+//               //Mothballed ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½
 //               Gizmos.color = (lane.State == RoadState.Mothballed) ? Color.red : Color.white;
 //               Gizmos.DrawLine(start, end);
 
 //#if UNITY_EDITOR
-//               //¿¹¾àÀÚ ¼ö¸¦ ¶óº§·Î Ç¥½Ã (InboundVehicles ¼ö)
+//               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½óº§·ï¿½ Ç¥ï¿½ï¿½ (InboundVehicles ï¿½ï¿½)
 //               if (resCount > 0 || lane.State == RoadState.Mothballed) {
 //                   Vector3 midPoint = Vector3.Lerp(start, end, 0.5f) + Vector3.up * 0.5f;
 //                   Handles.Label(midPoint, $"Res: {resCount}", new GUIStyle {
@@ -109,7 +109,7 @@ namespace Motorways.DebugTools {
 //       //private void DrawVehicles() {
 //       //   if (VehicleMovementProcess.Instance == null) return;
 
-//       //   //_activeVehicle ¸®½ºÆ® Á¢±Ù
+//       //   //_activeVehicle ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 //       //   foreach (var v in VehicleMovementProcess.Instance._activeVehicle) {
 //       //       if (v == null) continue;
 //       //       Gizmos.color = Color.blue;
@@ -122,23 +122,23 @@ namespace Motorways.DebugTools {
 //       private void DrawInteractionVisuals() {
 //           if (_interactionController == null || !_interactionController.IsPointerValid) return;
 
-//           //ÇöÀç Ä¿¼­
+//           //ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½
 //           Vector2Int currentGrid = _interactionController.CurrentGridPointer;
-//           Vector3 cursorPos = new Vector3(currentGrid.x + 0.5f, 0, currentGrid.y + 0.5f) + _offset;
+//           Vector3 cursorPos = new Vector3(currentGrid.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, currentGrid.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE) + _offset;
 //           Gizmos.color = Color.magenta;
 //           Gizmos.DrawWireCube(cursorPos, Vector3.one * 0.9f);
 
-//           //µå·¡±× ½Ã°¢È­
+//           //ï¿½å·¡ï¿½ï¿½ ï¿½Ã°ï¿½È­
 //           if (_interactionController.IsDraggingBuild) {
 //               Vector2Int lastPtr = _interactionController.LastGridPointer;
-//               Vector3 startPos = new Vector3(lastPtr.x + 0.5f, 0, lastPtr.y + 0.5f) + _offset;
+//               Vector3 startPos = new Vector3(lastPtr.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, lastPtr.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE) + _offset;
 
 //               if (!_interactionController.HasPassedDeadzone) {
 //                   Gizmos.color = Color.yellow;
 //                   Gizmos.DrawWireSphere(_interactionController.ClickOriginWorldPos + _offset, _interactionController.InitialDragDeadzone);
 //               } else {
 //                   float size = _interactionController.ConnectionDistanceThreshold * 2;
-//                   Gizmos.color = new Color(0, 1, 0, 0.5f); //¿¬°á °¡´É ¹üÀ§ (ÃÊ·Ï)
+//                   Gizmos.color = new Color(0, 1, 0, 0.5f); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê·ï¿½)
 //                   Gizmos.DrawWireCube(startPos, new Vector3(size, 0.1f, size));
 //               }
 //           }
@@ -153,7 +153,7 @@ namespace Motorways.DebugTools {
 //       }
 
 //#if UNITY_EDITOR
-//       //[¼öÁ¤ 2] ¶óº§¿¡ ¿¹¾à ¼ö(Res)¸¦ Ãâ·ÂÇÏµµ·Ï ¸Å°³º¯¼ö Ãß°¡
+//       //[ï¿½ï¿½ï¿½ï¿½ 2] ï¿½óº§¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(Res)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 //       private void DrawLaneInfoLabel(Lane lane, Vector3 start, Vector3 end, int reservationCount) {
 //           if (reservationCount > 0 || lane.State == RoadState.Mothballed) {
 //               Vector3 midPoint = Vector3.Lerp(start, end, 0.5f) + Vector3.up * 0.5f;
@@ -162,7 +162,7 @@ namespace Motorways.DebugTools {
 //               style.fontSize = 12;
 //               style.fontStyle = FontStyle.Bold;
 
-//               //È­¸é¿¡ 'Res: ¼ýÀÚ' ÇüÅÂ·Î Ç¥½Ã
+//               //È­ï¿½é¿¡ 'Res: ï¿½ï¿½ï¿½ï¿½' ï¿½ï¿½ï¿½Â·ï¿½ Ç¥ï¿½ï¿½
 //               UnityEditor.Handles.Label(midPoint, $"Res: {reservationCount}", style);
 //           }
 //       }

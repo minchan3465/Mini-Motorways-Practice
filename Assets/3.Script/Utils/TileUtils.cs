@@ -19,7 +19,7 @@ namespace Motorways.Utils {
             return TileDirection.None;
         }
 
-        //¹İ´ë ¹æÇâ ±¸ÇÏ±â
+        // ë°˜ëŒ€ ë°©í–¥ êµ¬í•˜ê¸°
         public static TileDirection GetOppositeDirection(TileDirection dir) {
             switch (dir) {
                 case TileDirection.North: return TileDirection.South;
@@ -34,9 +34,8 @@ namespace Motorways.Utils {
             }
         }
 
-        //¹æÇâ EnumÀ» Á¤¼ö ÀÎµ¦½º(0~7)·Î º¯È¯ (TileData ¹è¿­ Á¢±Ù¿ë)
+        // ë°©í–¥ Enumì„ 0~7 ì‚¬ì´ì˜ ì¸ë±ìŠ¤ë¡œ ë³€í™˜ (TileData ë°°ì—´ ì ‘ê·¼ìš©)
         public static int GetDirectionIndex(TileDirection dir) {
-            //»ç¿ëÀÚ°¡ Á¦°øÇÑ Math.Log ¹æ½Ä È°¿ë (´Ü, 0ÀÎ °æ¿ì ¿¹¿ÜÃ³¸® ÇÊ¿ä)
             if (dir == TileDirection.None) return -1;
             return (int)Mathf.Log((int)dir, 2);
         }
@@ -58,7 +57,7 @@ namespace Motorways.Utils {
         public static void Shuffle<T>(this IList<T> list) {
             for (int i = list.Count - 1; i > 0; i--) {
                 int j = Random.Range(0, i + 1);
-                (list[i], list[j]) = (list[j], list[i]); //Tuple Deconstruction Swap
+                (list[i], list[j]) = (list[j], list[i]);
             }
         }
 
@@ -66,12 +65,10 @@ namespace Motorways.Utils {
             if (dir == TileDirection.None || dir == TileDirection.All) return dir;
             byte mask = (byte)dir;
 
-            //½Ã°è ¹æÇâ È¸Àü (8¹æÇâ ±âÁØ)
-            //steps°¡ À½¼öÀÏ °æ¿ì¸¦ ´ëºñÇÑ Ã³¸® ÇÊ¿ä ½Ã: ((steps % 8) + 8) % 8
+            // ë¹„íŠ¸ ì‹œí”„íŠ¸ë¥¼ ì´ìš©í•œ 8ë°©í–¥ íšŒì „
             int s = steps % 8;
             byte rotated = (byte)((mask << s) | (mask >> (8 - s)));
             return (TileDirection)rotated;
         }
     }
 }
-

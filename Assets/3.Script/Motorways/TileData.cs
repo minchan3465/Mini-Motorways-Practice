@@ -21,14 +21,14 @@ namespace Motorways {
 	[Flags]
 	public enum TileDirection {
 		None = 0,
-		North = 1 << 0,     //1
-		NorthEast = 1 << 1, //2
-		East = 1 << 2,      //4
-		SouthEast = 1 << 3, //8
-		South = 1 << 4,     //16
-		SouthWest = 1 << 5, //32
-		West = 1 << 6,      //64
-		NorthWest = 1 << 7, //128
+		North = 1 << 0,     // 1
+		NorthEast = 1 << 1, // 2
+		East = 1 << 2,      // 4
+		SouthEast = 1 << 3, // 8
+		South = 1 << 4,     // 16
+		SouthWest = 1 << 5, // 32
+		West = 1 << 6,      // 64
+		NorthWest = 1 << 7, // 128
 		All = 255
 	}
 
@@ -36,14 +36,14 @@ namespace Motorways {
 		public Vector2Int coordinate { get; private set; }
 		public TileLogicType type { get; set; }
 
-		public RoadState[] RoadStates { get; private set; } //8¹æÇâ µµ·Î »óÅÂ ÀúÀå.
-		public Lane[] Lanes { get; private set; }
+		public RoadState[] RoadStates { get; private set; } // 8ë°©í–¥ ë„ë¡œ ì—°ê²° ìƒíƒœ
+		public Lane[] Lanes { get; private set; } // 8ë°©í–¥ ì‹¤ì œ ì°¨ì„  ë°ì´í„°
 
-		public BuildingBase Building { get; set; }   //Å¸ÀÏ À§¿¡ ¿ÀºêÁ§Æ® ÂüÁ¶.
+		public BuildingBase Building { get; set; }   // íƒ€ì¼ ìœ„ì— ìˆëŠ” ê±´ë¬¼ ì •ë³´
 
-		public float creationTime { get; private set; }	//µµ·Î°¡ Ã³À½ ¼³Ä¡µÈ ½Ã°£.
+		public float creationTime { get; private set; }	// ë„ë¡œê°€ ì²˜ìŒ ì„¤ì¹˜ëœ ì‹œê°„
 
-		//°Ç¹° »ı¼º °¡ÁßÄ¡
+		// ê±´ë¬¼ ìƒì„± ê°€ì¤‘ì¹˜
 		public float WeightHouseSpawn;
 		public float WeightDestinationSpawn;
 
@@ -71,7 +71,7 @@ namespace Motorways {
 		public bool IsBuildable() => type == TileLogicType.Empty && !HasAnyRoad;
 
 
-		//---Lane---
+		//--- Lane ê´€ë¦¬ ---
 		public void ConnectLane(TileDirection dir, Lane lane) {
 			int index = GetIndex(dir);
 			if (index == -1) return;
@@ -79,7 +79,7 @@ namespace Motorways {
 			Lanes[index] = lane;
 			RoadStates[index] = RoadState.Active;
 
-			//Ã³À½ µµ·Î°¡ ±ò¸®´Â ½ÃÁ¡ÀÇ ½Ã°£À» ±â·Ï (ÀÌ¹Ì ±â·ÏµÇ¾î ÀÖ´Ù¸é À¯Áö)
+			// ì²˜ìŒ ë„ë¡œê°€ ì„¤ì¹˜ë˜ëŠ” ìˆœê°„ì˜ ì‹œê°„ ê¸°ë¡
 			if (creationTime < 0f) creationTime = Time.time;
 			
 		}
@@ -97,7 +97,8 @@ namespace Motorways {
 			if (index == -1) return null;
 			return Lanes[index];
 		}
-		//---RoadState---
+		
+		//--- RoadState ê´€ë¦¬ ---
 		public void SetRoadState(TileDirection direction, RoadState state) {
 			int index = GetIndex(direction);
 			if (index >= 0 && index < 8) {
@@ -111,11 +112,10 @@ namespace Motorways {
 		}
 
 
-		//ÀÎµ¦½º ±¸ÇÏ±â
+		// ë°©í–¥ ì¸ë±ìŠ¤ êµ¬í•˜ê¸°
 		private int GetIndex(TileDirection dir) {
 			if (dir == TileDirection.None) return -1;
 			return TileUtils.GetDirectionIndex(dir);
 		}
 	}
 }
-

@@ -15,51 +15,39 @@ namespace Motorways.Models {
         public BuildingType Type { get; protected set; }
         public int GroupIndex { get; protected set; }
 
-        public Vector2Int OriginCoordinate { get; protected set; }
+        public Vector2Int OriginCoordinate { get; protected set; } // ì…êµ¬(Entrance) íƒ€ì¼ ì¢Œí‘œ
         public List<Vector2Int> OccupiedCoordinates { get; protected set; }
 
         public TileDirection DrivewayDirection { get; protected set; }
         public Lane EntranceLane { get; protected set; }
         public Lane IncomingLane { get; protected set; }
-        public Vector2Int EntranceCoordinate => IncomingLane.EndNode;
-        public Vector2Int RoadCoordinate => IncomingLane.StartNode;
+        public Vector2Int EntranceCoordinate => OriginCoordinate;
+        public Vector2Int RoadCoordinate => OriginCoordinate + Utils.TileUtils.GetDirectionVector(DrivewayDirection);
 
-        //----ÃÊ±âÈ­---
-        public virtual void Initialize(int groupIndex, Vector2Int originCoord, BuildingLayout layout) {
+        //---- ì´ˆê¸°í™” ---
+        public virtual void Initialize(int groupIndex, Vector2Int entranceCoord, BuildingLayout layout) {
             GroupIndex = groupIndex;
-            OriginCoordinate = originCoord;
+            OriginCoordinate = entranceCoord;
             DrivewayDirection = layout.Driveways[0];
 
-            Vector2Int entranceNode = originCoord + layout.LocalEntrance;
-            Vector2Int roadCoord = entranceNode + Utils.TileUtils.GetDirectionVector(DrivewayDirection);
+            Vector2Int entranceNode = entranceCoord;
+            Vector2Int roadCoord = EntranceCoordinate + Utils.TileUtils.GetDirectionVector(DrivewayDirection);
 
+            // ì‹œìŠ¤í…œ ë„ë¡œ ê±´ì„¤ (ì…êµ¬ <-> ë„ë¡œ)
             RoadNetworkManager.Instance.BuildSystemRoad(entranceNode, roadCoord, out Lane eLane, out Lane iLane);
             EntranceLane = eLane;
             IncomingLane = iLane;
+
+            // ì ìœ  íƒ€ì¼ ê³„ì‚° (ì…êµ¬ íƒ€ì¼ ê¸°ì¤€ ìƒëŒ€ì  ì—­ì‚°)
+            OccupiedCoordinates = new List<Vector2Int>();
+            Vector2Int bottomLeft = entranceCoord - layout.LocalEntrance;
+            for (int x = 0; x < layout.Footprint.x; x++) {
+                for (int y = 0; y < layout.Footprint.y; y++) {
+                    OccupiedCoordinates.Add(bottomLeft + new Vector2Int(x, y));
+                }
+            }
         }
 
         public abstract void OnVehicleArrived(int vehicleId);
-
-        //--- À¯Å». ÀÔ±¸ ¹æÇâ¿¡ µû¸¥ µµ·ÎÅ¸ÀÏ À§Ä¡ °è»ê. ---
-        protected Vector2Int GetRoadCoordinate(Vector2Int origin, TileDirection dir, Vector2Int size) {
-            switch (dir) {
-                case TileDirection.North: return origin + new Vector2Int(0, size.y);
-                case TileDirection.South: return origin + new Vector2Int(0, -1);
-                case TileDirection.East: return origin + new Vector2Int(size.x, 0);
-                case TileDirection.West: return origin + new Vector2Int(-1, 0);
-                default: return origin;
-            }
-        }
-
-        protected Vector2Int GetEntranceNode(Vector2Int origin, TileDirection dir, Vector2Int size) {
-            switch (dir) {
-                case TileDirection.North: return origin + new Vector2Int(0, size.y - 1);
-                case TileDirection.South: return origin + new Vector2Int(0, 0);
-                case TileDirection.East: return origin + new Vector2Int(size.x - 1, 0);
-                case TileDirection.West: return origin + new Vector2Int(0, 0);
-                default: return origin;
-            }
-        }
     }
 }
-

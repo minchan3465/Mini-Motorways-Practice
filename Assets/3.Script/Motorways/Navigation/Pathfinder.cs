@@ -8,10 +8,10 @@ namespace Motorways.Navigation {
 		private class Node {
 			public Vector2Int Coord;
 			public Node Parent;
-			public Lane ConnectionLane; //ÀÌ ³ëµå·Î ¿À±â À§ÇØ Å¸°í ¿Â µµ·Î
+			public Lane ConnectionLane; // ì´ ë…¸ë“œë¡œ ì˜¤ê¸° ìœ„í•´ ì‚¬ìš©í•œ íƒ€ì¼ ê°„ ì°¨ì„ 
 
-			public float G; //½ÃÀÛÁ¡¿¡¼­ Áö±İ±îÁöÀÇ ºñ¿ë
-			public float H; //¸ñÀûÁö±îÁöÀÇ ¿¹»ó ºñ¿ë (Heuristic)
+			public float G; // ì‹œì‘ì ìœ¼ë¡œë¶€í„° í˜„ì¬ê¹Œì§€ì˜ ì‹¤ì œ ë¹„ìš©
+			public float H; // í˜„ì¬ë¶€í„° ëª©ì ì§€ê¹Œì§€ì˜ ì¶”ì • ë¹„ìš© (Heuristic)
 			public float F => G + H;
 
 			public Node(Vector2Int coord, Node parent, Lane lane, float g, float h) {
@@ -27,7 +27,7 @@ namespace Motorways.Navigation {
 			Node endNode = SolveAStar(start, target);
 			if (endNode == null) return -1f;
 
-			return endNode.G; // G°ªÀÌ °ğ ´©Àû ºñ¿ë
+			return endNode.G; // Gê°’ì´ ì´ ì´ë™ ë¹„ìš©
 		}
 
 		public static List<Lane> FindPath(Vector2Int start, Vector2Int target) {
@@ -44,17 +44,17 @@ namespace Motorways.Navigation {
 			if (!grid.ContainsKey(start) || !grid.ContainsKey(target)) return null;
 
 
-			//¿ì¼±¼øÀ§ Å¥ ¿ªÇÒÀ» ÇÒ ¸®½ºÆ® (°£°áÇÔÀ» À§ÇØ SortedList³ª PriorityQueue ´ë¿ë)
+			// ìš°ì„ ìˆœìœ„ í ëŒ€ìš©ì˜ ë¦¬ìŠ¤íŠ¸ (ìµœì í™” ì‹œ SortedListë‚˜ PriorityQueue ê¶Œì¥)
 			var openSet = new List<Node>();
 			var closedSet = new HashSet<Vector2Int>();
 
 			openSet.Add(new Node(start, null, null, 0, Vector2Int.Distance(start, target)));
 
 			while (openSet.Count > 0) {
-				// F°ªÀÌ °¡Àå ³·Àº ³ëµå ¼±ÅÃ (ÃÖÀûÈ­: Èü/¿ì¼±¼øÀ§ Å¥ »ç¿ë °¡´É)
+				// Fê°’ì´ ê°€ì¥ ë‚®ì€ ë…¸ë“œ ì„ íƒ (ìµœì í™”: í™/ìš°ì„ ìˆœìœ„ í ì‚¬ìš© ê¶Œì¥)
 				Node current = openSet.OrderBy(n => n.F).First();
 
-				//¸¸¾à ¸ñÀûÁö¿¡ µµ´ŞÇß´Ù¸é.
+				// ëª©ì ì§€ì— ë„ë‹¬í–ˆë‹¤ë©´
 				if (current.Coord == target) {
 					return current;
 				}
@@ -62,7 +62,7 @@ namespace Motorways.Navigation {
 				openSet.Remove(current);
 				closedSet.Add(current.Coord);
 
-				//¾Æ´Ï¶ó¸é ÀÎÁ¢ Å¸ÀÏ Å½»öÇÕ´Ï´Ù.
+				// ì•„ë‹ˆë©´ ì¸ì ‘ íƒ€ì¼ íƒìƒ‰
 				if (!grid.TryGetValue(current.Coord, out TileData currentTile)) continue;
 
 				foreach (Lane outboundLane in currentTile.Lanes) {
@@ -72,14 +72,14 @@ namespace Motorways.Navigation {
 
 					if (closedSet.Contains(neighborCoord)) continue;
 
-					//LaneÀÇ ÇöÀç »óÅÂ¿¡ µû¸¥ ºñ¿ë °è»ê. (Mothballed »óÅÂ¸é 100,000 ÀÌ¶ó °¡´ÉÇÏ¸é È¸ÇÇ.)
+					// Laneì˜ í˜„ì¬ ìƒíƒœì— ë”°ë¥¸ ê°€ì¤‘ì¹˜ ì ìš© (Mothballed ìƒíƒœëŠ” ë§¤ìš° ë†’ì€ ë¹„ìš©ì„ ë¶€ì—¬í•˜ì—¬ íšŒí”¼)
 					float movementCostToNeighbor = outboundLane.GetPathfindingCost();
 					float newG = current.G + movementCostToNeighbor;
 
 					Node neighborInOpen = openSet.Find(n => n.Coord == neighborCoord);
 
 					if(neighborInOpen == null || newG < neighborInOpen.G) {
-						float h = Vector2.Distance(neighborCoord, target);	//¸ÇÇØÆ° °Å¸® or À¯Å¬¸®µå.
+						float h = Vector2.Distance(neighborCoord, target);	// ë§¨í•´íŠ¼ ê±°ë¦¬ ë˜ëŠ” ìœ í´ë¦¬ë“œ ê±°ë¦¬
 						
 						if(neighborInOpen == null) {
 							openSet.Add(new Node(neighborCoord, current, outboundLane, newG, h));
@@ -91,7 +91,7 @@ namespace Motorways.Navigation {
 					}
 				}
 			}
-			return null; //°æ·Î Å½»ö ½ÇÆĞ
+			return null; // ê²½ë¡œ íƒìƒ‰ ì‹¤íŒ¨
 		}
 
 		private static List<Lane> RetracePath(Node endNode) {
@@ -108,259 +108,3 @@ namespace Motorways.Navigation {
 		}
 	}
 }
-		/* LaneÀ¸·Î °è»ê (old)
-		private class PathNode {
-			public Vector2Int Position; //ÇöÀç ³ëµå ÁÂÇ¥.
-			public PathNode Parent;     //¾îµğ¼­ ¿Ô´ÂÁö. (À§Ä¡)
-			public Lane IncomingLane;   //¾î¶² µµ·ÎºÎÅÍ ¿Ô´ÂÁö.
-
-			public int GCost;   //½ÃÀÛÀ¸·ÎºÎÅÍ ÇöÀç±îÁö ´©Àû ºñ¿ë.
-			public int HCost;   //ÈŞ¸®½ºÆ½ ¾Ë°í¸®Áò.
-			public int FCost => GCost + HCost;
-
-			public PathNode(Vector2Int pos) {
-				Position = pos;
-				GCost = int.MaxValue; // ÃÊ±â°ªÀº ¹«ÇÑ´ë (¾ÆÁ÷ ¹æ¹® ¾È ÇÔ)
-				HCost = 0;
-				Parent = null;
-				IncomingLane = null;
-			}
-		}
-
-		//--- Lane ±â¹İ ±æÃ£±â ---
-		public static List<Lane> FindLanePath(Vector2Int startNodePos, Vector2Int targetNodePos) {
-			if (RoadNetwork.Instance == null) return null;
-			if (RoadNetwork.Instance.GetOutboundLanes(startNodePos) == null) return null;
-
-			List<PathNode> openList = new List<PathNode>();
-			HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
-			Dictionary<Vector2Int, PathNode> allNodes = new Dictionary<Vector2Int, PathNode>();
-
-			PathNode startNode = new PathNode(startNodePos);
-			openList.Add(startNode);
-			allNodes.Add(startNodePos, startNode);
-
-			while(openList.Count > 0) {
-				//F°ªÀÌ °¡Àå ³·Àº ³ëµå¸¦ ²¨³À´Ï´Ù. (ÃÖÀûÈ­ °¡´É : Èü »ç¿ë. ±Ùµ¥ ¸®½ºÆ®µµ ¹¹...)
-				PathNode currentNode = GetLowestFCostNode(openList);
-				for(int i = 1; i<openList.Count; i++) {
-					if (openList[i].FCost < currentNode.FCost ||
-						(openList[i].FCost == currentNode.FCost && openList[i].HCost < currentNode.HCost))
-						currentNode = openList[i];
-				}
-
-				openList.Remove(currentNode);
-				closedSet.Add(currentNode.Position);
-
-				//¸ñÀûÁö µµÂøÇß´ÂÁö.
-				if(currentNode.Position == targetNodePos) {
-					return RetraceLanePath(startNode, currentNode);
-				}
-
-				//ÀÌ¿ô Å½»öÇÕ´Ï´Ù.
-				List<Lane> outboundLanes = RoadNetwork.Instance.GetOutboundLanes(currentNode.Position);
-				if(outboundLanes != null) {
-					foreach(Lane lane in outboundLanes) {
-						Vector2Int neighborPos = lane.EndNode;  //LaneÀÇ ³¡ÀÌ °ğ ÀÌ¿ô³ëµå.
-						if (closedSet.Contains(neighborPos)) continue;
-
-						//ÀÌµ¿ ºñ¿ë °è»ê.
-						//±Ùµ¥ Lane.Cost°¡ Mothballed »óÅÂ¸é Å« ¼ıÀÚÀÌ¹Ç·Î, ±×ÂÊÀ¸·Î ¾È°¥°Í.
-						int newMovementCost = currentNode.GCost + lane.Cost;
-
-						PathNode neighborNode;
-						if(!allNodes.TryGetValue(neighborPos, out neighborNode)) {
-							neighborNode = new PathNode(neighborPos);
-							allNodes.Add(neighborPos, neighborNode);
-							openList.Add(neighborNode); //Ã³À½º¸¸é Ãß°¡.
-						}
-
-						//´õ ÀûÀº ºñ¿ëÀÇ °æ·Î or ¾ÆÁ÷ ¹æ¹® ¾ÈÇÑ °æ·Î¶ó¸é °»½Å
-						if(newMovementCost < neighborNode.GCost || !openList.Contains(neighborNode)) {
-							neighborNode.GCost = newMovementCost;
-							neighborNode.HCost = GetHeuristic(neighborPos, targetNodePos);
-							neighborNode.Parent = currentNode;
-							neighborNode.IncomingLane = lane;   //¾î¶² LaneÀ» ÅÀ´ÂÁö ±â·ÏÇÕ´Ï´Ù. ÀÌ´Â °ğ Â÷·®ÀÇ °æ·Î°¡ µË´Ï´Ù.
-						}
-
-						if(!openList.Contains(neighborNode)) {
-							openList.Add(neighborNode);
-						}
-					}
-				}
-			}
-			return null;
-		}
-
-		private static PathNode GetLowestFCostNode(List<PathNode> pathNodes) {
-			PathNode lowest = pathNodes[0];
-			for (int i = 1; i < pathNodes.Count; i++) {
-				if (pathNodes[i].FCost < lowest.FCost ||
-				   (pathNodes[i].FCost == lowest.FCost && pathNodes[i].HCost < lowest.HCost)) {
-					lowest = pathNodes[i];
-				}
-			}
-			return lowest;
-		}
-
-		private static List<Lane> RetraceLanePath(PathNode startNode, PathNode endNode) {
-			List<Lane> path = new List<Lane>();
-			PathNode currentNode = endNode;
-
-			while(currentNode != startNode) {
-				//ÀÌ ³ëµå¸¦ µé¾î¿Ã ¶§ ÅÀ´ø LaneÀ» Ãß°¡.
-				if(currentNode.IncomingLane != null) {
-					path.Add(currentNode.IncomingLane);
-				}
-				currentNode = currentNode.Parent;
-			}
-
-			path.Reverse();
-			return path;
-		}
-
-		private static int GetHeuristic(Vector2Int a, Vector2Int b) {
-			return Mathf.RoundToInt(Vector2Int.Distance(a, b) * 10);
-		}
-		*/
-		/* ±×¸®µå(Å¸ÀÏ) ±â¹İ ºñÆ®¸¶½ºÅ©·Î °æ·Î °è»êÇÏ´Â °Í. (±¸½Ä)
-		//A* ¾Ë°í¸®Áò¿ë ³ëµå Å¬·¡½º
-		private class Node {
-			public Vector2Int Position;
-			public Node Parent;
-			public float GCost; // ½ÃÀÛÁ¡ºÎÅÍ ºñ¿ë
-			public float HCost; // ¸ñÀûÁö±îÁö ÃßÁ¤ ºñ¿ë
-			public float FCost => GCost + HCost;
-
-			public Node(Vector2Int pos) { Position = pos; }
-		}
-
-		// 8¹æÇâ ¿ÀÇÁ¼Â
-		private static readonly Vector2Int[] _directions = new Vector2Int[]
-		{
-			new Vector2Int(0, 1),  // North
-			new Vector2Int(0, -1), // South
-			new Vector2Int(1, 0),  // East
-			new Vector2Int(-1, 0), // West
-			new Vector2Int(1, 1),  // NorthEast
-			new Vector2Int(1, -1), // SouthEast
-			new Vector2Int(-1, -1),// SouthWest
-			new Vector2Int(-1, 1)  // NorthWest
-		};
-
-		//--- ±æÃ£±â ¾Ë°í¸®Áò ---
-		public static List<Vector2Int> FindPath(Vector2Int startPos, Vector2Int targetPos, bool allowMothballed = false) {
-			// ¸Ê¿¡ ¾ø´Â ÁÂÇ¥¸é Ãë¼Ò
-			if (MapBootstrapper.Grid == null ||
-				!MapBootstrapper.Grid.ContainsKey(startPos) ||
-				!MapBootstrapper.Grid.ContainsKey(targetPos)) return null;
-
-			List<Node> openList = new List<Node>();
-			HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
-
-			Node startNode = new Node(startPos);
-			Node targetNode = new Node(targetPos);
-
-			openList.Add(startNode);
-
-			while (openList.Count > 0) {
-				//F°ªÀÌ °¡Àå ³·Àº ³ëµå ¼±ÅÃ
-				Node currentNode = openList[0];
-				for (int i = 1; i < openList.Count; i++) {
-					if (openList[i].FCost < currentNode.FCost ||
-					   (openList[i].FCost == currentNode.FCost && openList[i].HCost < currentNode.HCost)) {
-						currentNode = openList[i];
-					}
-				}
-
-				openList.Remove(currentNode);
-				closedSet.Add(currentNode.Position);
-
-				//¸ñÀûÁö µµÂøÇÏ¸é ±×³É ³¡³»±â.
-				if (currentNode.Position == targetNode.Position) {
-					return RetracePath(startNode, currentNode);
-				}
-
-				//ÀÌ¿ô Å½»ö...
-				foreach (Vector2Int neighborPos in GetConnectedNeighbors(currentNode.Position, allowMothballed)) {
-					if (closedSet.Contains(neighborPos)) continue;
-
-					// ÀÌµ¿ ºñ¿ë (Á÷¼±: 1 / ´ë°¢¼±: 1.414)
-					float moveCost = Vector2Int.Distance(currentNode.Position, neighborPos);
-					float newMovementCost = currentNode.GCost + moveCost;
-
-					Node neighborNode = openList.Find(n => n.Position == neighborPos);
-
-					if (neighborNode == null || newMovementCost < neighborNode.GCost) {
-						if (neighborNode == null) {
-							neighborNode = new Node(neighborPos);
-							openList.Add(neighborNode);
-						}
-
-						neighborNode.GCost = newMovementCost;
-						neighborNode.HCost = GetHeuristic(neighborPos, targetNode.Position);
-						neighborNode.Parent = currentNode;
-					}
-				}
-			}
-
-			return null;
-		}
-
-		// °æ·Î ¿ªÃßÀû
-		private static List<Vector2Int> RetracePath(Node startNode, Node endNode) {
-			List<Vector2Int> path = new List<Vector2Int>();
-			Node currentNode = endNode;
-
-			while (currentNode != startNode) {
-				path.Add(currentNode.Position);
-				currentNode = currentNode.Parent;
-			}
-			// path.Add(startNode.Position); // ½ÃÀÛÁ¡ Æ÷ÇÔ ¿©ºÎ´Â ¼±ÅÃ (Â÷·® ÀÌµ¿ ½Ã Á¦¿ÜÇÏ´Â °Ô º¸Åë)
-			path.Add(startNode.Position);
-
-			path.Reverse();
-			return path;
-		}
-
-		// ÈŞ¸®½ºÆ½ (À¯Å¬¸®µå °Å¸®)
-		private static float GetHeuristic(Vector2Int a, Vector2Int b) {
-			return Vector2.Distance(a, b);
-		}
-
-		// [ÇÙ½É] ÇöÀç À§Ä¡¿¡¼­ 'µµ·ÎÀûÀ¸·Î ¿¬°áµÈ' ÀÌ¿ô¸¸ ¹İÈ¯.
-		private static List<Vector2Int> GetConnectedNeighbors(Vector2Int current, bool allowMothballed) {
-			List<Vector2Int> neighbors = new List<Vector2Int>();
-			if (!MapBootstrapper.Grid.TryGetValue(current, out CellData currentData)) {
-				return neighbors;
-			}
-
-			foreach (Vector2Int dir in _directions) {
-				RoadDirection dirEnum = DirUtiles.GetDirectionFromVector(dir);
-
-				bool isOutgoingValid = false;
-
-				if (allowMothballed) {
-					//2Â÷ Å½»ö - ¹°¸®Àû ¿¬°á¸¸ ÀÕÀ¸¸é ok (ConnectionMask È®ÀÎÇÕ´Ï´Ù)
-					if (currentData.HasConnection(dirEnum)) isOutgoingValid = true;
-				} else {
-					//1Â÷ Å½»ö - È°¼º ¿¬°á¸¸ OK (ActiveMask È®ÀÎÇÕ´Ï´Ù)
-					if (currentData.IsActiveConnection(dirEnum)) isOutgoingValid = true;
-				}
-
-				if (isOutgoingValid) {
-					Vector2Int neighborPos = current + dir;
-
-					//¾Æ¹«Æ° °æ·Î°¡ ÀÖ´Ù¸é
-					if (MapBootstrapper.Grid.TryGetValue(neighborPos, out CellData neighborData)) {
-						if (neighborData.IsDriveable) {
-							//È¤½Ã ¸ğ¸¦ È®ÀÎ.
-							neighbors.Add(neighborPos);
-						}
-					}
-				}
-			}
-			return neighbors;
-		}
-		*/
-

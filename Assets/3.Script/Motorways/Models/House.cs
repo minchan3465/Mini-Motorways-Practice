@@ -28,48 +28,34 @@ namespace Motorways.Models {
             if (OwnVehicles.Contains(vehicleId) && !WaitingVehicles.Contains(vehicleId)) {
                 WaitingVehicles.Add(vehicleId);
             }
-
-            //ÀÌÈÄ Æ¯Á¤ ½Ã°¢Àû Ã³¸®
         }
 
         public bool TryDispatchVehicle(Vector2Int destNode) {
             if (WaitingVehicles.Count == 0) return false;
             int vehicleId = WaitingVehicles[0];
             Vehicle vehicle = VehicleMovementProcess.Instance.GetVehicle(vehicleId);
-            //vehicle.Dispatch(this.EntranceCoordinate, destNode, this.IncomingLane);
             vehicle.Dispatch(this.OriginCoordinate, destNode);
             WaitingVehicles.RemoveAt(0);
             return true;
         }   
 
         public void RotateEntrance(TileDirection newDir) {
-            if (DrivewayDirection == newDir) return;    //ÀÌ¹Ì ±× ¹æÇâ°ú µ¿ÀÏÇÏ¸é È¸Àü X
+            if (DrivewayDirection == newDir) return;    // ì´ë¯¸ ê°™ì€ ë°©í–¥ì´ë©´ íšŒì „í•˜ì§€ ì•ŠìŒ
 
-            //»èÁ¦ ¿äÃ»
+            // ê¸°ì¡´ ì…êµ¬ ë„ë¡œ ì‚­ì œ ëŒ€ê¸° ìƒíƒœë¡œ ì „í™˜
             RoadNetworkManager.Instance.MothballSystemRoad(EntranceLane, IncomingLane);
 
-            //¹æÇâ »óÅÂ ¾÷µ¥ÀÌÆ®.
+            // ë°©í–¥ ì •ë³´ ì—…ë°ì´íŠ¸
             DrivewayDirection = newDir;
 
-            //Àû¿ë
+            // ìƒˆ ìœ„ì¹˜ ê³„ì‚°
             Vector2Int entranceNode = OriginCoordinate;
             Vector2Int newRoadCoord = entranceNode + TileUtils.GetDirectionVector(DrivewayDirection);
 
-            //µµ·Î °Ç¼³.
+            // ìƒˆ ì‹œìŠ¤í…œ ë„ë¡œ ê±´ì„¤
             RoadNetworkManager.Instance.BuildSystemRoad(entranceNode, newRoadCoord, out Lane eLane , out Lane iLane);
             EntranceLane = eLane;
             IncomingLane = iLane;
-
-            //»ı¼º.
-            //var grid = MapManager.Instance._grid;
-            //if (grid.TryGetValue(entranceNode, out TileData newEntranceTile)) {
-            //   newEntranceTile.ConnectLane(DrivewayDirection, EntranceLane);
-            //}
-            //if (grid.TryGetValue(newRoadCoord, out TileData newRoadTile)) {
-            //   TileDirection newOpposite = TileUtils.GetOppositeDirection(DrivewayDirection);
-            //   newRoadTile.ConnectLane(newOpposite, IncomingLane);
-            //}
         }
     }
 }
-
