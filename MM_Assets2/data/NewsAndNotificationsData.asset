@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1758724831, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: NewsAndNotificationsData
+  m_EditorClassIdentifier:
+  _newsAndNotificationObjects:
+  - ContentIndicatorID: HongKong_MetroCrossPromo_SteamWindows
+    HeaderID: 1
+    BodyID: 1203
+    WebLink: https://store.steampowered.com/app/287980/Mini_Metro
+    StartDateTimeEditable:
+      Day: 9
+      Month: 10
+      Year: 2024
+    EndDateTimeEditable:
+      Day: 31
+      Month: 3
+      Year: 2026
+    AvailablePlatform: 2
+    AvailableVariant: 1
+  - ContentIndicatorID: HongKong_MetroCrossPromo_SteamOSX
+    HeaderID: 1
+    BodyID: 1203
+    WebLink: https://store.steampowered.com/app/287980/Mini_Metro
+    StartDateTimeEditable:
+      Day: 9
+      Month: 10
+      Year: 2024
+    EndDateTimeEditable:
+      Day: 31
+      Month: 3
+      Year: 2026
+    AvailablePlatform: 1
+    AvailableVariant: 1
+  - ContentIndicatorID: HongKong_MetroCrossPromo_AppStoreOSX
+    HeaderID: 1
+    BodyID: 1204
+    WebLink: https://apple.co/-MiniMetro
+    StartDateTimeEditable:
+      Day: 9
+      Month: 10
+      Year: 2024
+    EndDateTimeEditable:
+      Day: 31
+      Month: 3
+      Year: 2026
+    AvailablePlatform: 1
+    AvailableVariant: 4
+  - ContentIndicatorID: HongKong_MetroCrossPromo_AppStoreiOS
+    HeaderID: 1
+    BodyID: 1204
+    WebLink: https://apple.co/-MiniMetro
+    StartDateTimeEditable:
+      Day: 9
+      Month: 10
+      Year: 2024
+    EndDateTimeEditable:
+      Day: 31
+      Month: 3
+      Year: 2026
+    AvailablePlatform: 8
+    AvailableVariant: 4
+  - ContentIndicatorID: HongKong_MetroCrossPromo_ArcadeOSX
+    HeaderID: 1
+    BodyID: 1204
+    WebLink: https://apple.co/-MiniMetro
+    StartDateTimeEditable:
+      Day: 9
+      Month: 10
+      Year: 2024
+    EndDateTimeEditable:
+      Day: 31
+      Month: 3
+      Year: 2026
+    AvailablePlatform: 1
+    AvailableVariant: 3
+  - ContentIndicatorID: HongKong_MetroCrossPromo_ArcadeiOS
+    HeaderID: 1
+    BodyID: 1204
+    WebLink: https://apple.co/-MiniMetro
+    StartDateTimeEditable:
+      Day: 9
+      Month: 10
+      Year: 2024
+    EndDateTimeEditable:
+      Day: 31
+      Month: 3
+      Year: 2026
+    AvailablePlatform: 8
+    AvailableVariant: 3

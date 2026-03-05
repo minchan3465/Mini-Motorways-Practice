@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Mumbai_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 56f4104814c56034fb2e230a75fb2b4c, type: 2}
+  - {fileID: 11400000, guid: 5564e02f64bb42f43a1ba4803b12d52a, type: 2}
+  - {fileID: 11400000, guid: bd99377f47dde654b8dc18f7f8c5be59, type: 2}
+  - {fileID: 11400000, guid: 686366b6d0737314eaae75c504fab5b6, type: 2}
+  - {fileID: 11400000, guid: f2c72fcf8f38f0747995e6959df77025, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 3aaad2b050e6e4141bcd74c1cba8fe45, type: 2}
+  - {fileID: 11400000, guid: d6b4d4b331c57f643b1be02fa40b794b, type: 2}
+  - {fileID: 11400000, guid: 674bbb79aed9d664e99ca2820a46aca5, type: 2}
+  - {fileID: 11400000, guid: 315fcf45f76f9f545a76337865244c75, type: 2}
+  - {fileID: 11400000, guid: 288bb08a52913c1458bae0893e6c3794, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 471d843118a222e419a5f59e40457f03, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

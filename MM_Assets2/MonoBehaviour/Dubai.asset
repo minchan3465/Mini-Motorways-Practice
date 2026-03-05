@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Dubai
+  m_EditorClassIdentifier:
+  cityName: Dubai
+  mapName: Dubai
+  mapDescription: DubaiDescription
+  mapAssetBundle: dubai
+  mapPrefabName: Dubai
+  themes:
+  - {fileID: 11400000, guid: a23026e3d5bf6374cae867407813c11a, type: 2}
+  - {fileID: 11400000, guid: d00211f467973e9468be838a8865a7d7, type: 2}
+  - {fileID: 11400000, guid: f8b9c7e11a453af459c816f8698e4cb4, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: c4de1db5988396340b9a120463a2afda, type: 2}
+  - {fileID: 21300000, guid: 4f4aa6fd0d7a7794e8bbe3b578bccfff, type: 2}
+  - {fileID: 21300000, guid: 2481de8813f3513418936a6efb336cd2, type: 2}
+  - {fileID: 21300000, guid: 2481de8813f3513418936a6efb336cd2, type: 2}
+  - {fileID: 21300000, guid: 4f4aa6fd0d7a7794e8bbe3b578bccfff, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 8fbe7773cf64ef346ad563378dc22086, type: 2}
+  - {fileID: 11400000, guid: 1db961f2c7784344f983cd1a3d405a44, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: 569866c6aff22a64d8ea48b512a7bbc7, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: 63d5c1aca056df34cbb85b591cb8565b, type: 2}
+  - {fileID: 11400000, guid: 54c41dad07e02aa409cfc7cff4151fb8, type: 2}
+  - {fileID: 11400000, guid: e91c26689a414da4182c47ea082ebca3, type: 2}
+  - {fileID: 11400000, guid: 594b154c509ec3442b684825d6525bea, type: 2}
+  - {fileID: 11400000, guid: bec30b209984579488ee94d5e595099b, type: 2}
+  howToUnlockDescription: AchievementDescription_MapUnlock_Score250
+  isTrainMap: 0
+  isBoatMap: 0

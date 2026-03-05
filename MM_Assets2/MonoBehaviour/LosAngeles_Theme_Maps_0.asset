@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: LosAngeles_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 440d885f20149b44298780a1623c7d86, type: 2}
+  - {fileID: 11400000, guid: 0164a3949f8de1a42b7a4f385cadb3ee, type: 2}
+  - {fileID: 11400000, guid: 60c8059048ab2d74ab72fd06d72f6de9, type: 2}
+  - {fileID: 11400000, guid: 867a512476ecea4458e26baa2641dca8, type: 2}
+  - {fileID: 11400000, guid: 744a8db6003ba664eb78aa62bd416bf2, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 31d44a730a937804689a1b8f6413af79, type: 2}
+  - {fileID: 11400000, guid: 13c280aa118252940a08e1b9eecc02d7, type: 2}
+  - {fileID: 11400000, guid: 4144396932e67444bbfc676dcc509cc5, type: 2}
+  - {fileID: 11400000, guid: b08cb81ddf9e6514c90e27924c9cc099, type: 2}
+  - {fileID: 11400000, guid: 077f2639d40628240bdb073b2b5b68a6, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 198162b6ff2761d4483084ee77452dde, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

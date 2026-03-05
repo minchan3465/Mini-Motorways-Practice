@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Tokyo_Theme_Dark
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 0853b5923ffcd3143b47be26cb98bf0e, type: 2}
+  - {fileID: 11400000, guid: ba333643dd35b25438873ea79f08974a, type: 2}
+  - {fileID: 11400000, guid: 0876553d5c57d014597ee97f2439906b, type: 2}
+  - {fileID: 11400000, guid: 2490ea8fa69c692458da8dd2752d6085, type: 2}
+  - {fileID: 11400000, guid: 26f5fddd4c0fc3447a9c02fb1356cb86, type: 2}
+  - {fileID: 11400000, guid: 37a322062213890488939dc8183ac55e, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: f49f766e71fff894a8e0c09e4c06c730, type: 2}
+  - {fileID: 11400000, guid: 080eb20b87274e74eadba579609a6274, type: 2}
+  - {fileID: 11400000, guid: f494460b93913d248ad53552620c13c1, type: 2}
+  - {fileID: 11400000, guid: e0ade1f191572544a918c1234934cd0b, type: 2}
+  - {fileID: 11400000, guid: bf6f94bb10e2bb948b1527503e4d0f56, type: 2}
+  - {fileID: 11400000, guid: f1fd31f9610fd6d4d9f935cf8bd1d29d, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.733
+  overrideSaturationMultiplier: 0.72
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 6e1f83002e25cbd459148a679151d523, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.1
+    blurLevelsOffset: 0.25

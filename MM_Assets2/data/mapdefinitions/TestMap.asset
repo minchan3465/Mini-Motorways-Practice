@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: TestMap
+  m_EditorClassIdentifier:
+  cityName: None
+  mapName: 4
+  mapDescription: 21
+  mapAssetBundle: testlevel
+  mapPrefabName: TestLevel
+  themes:
+  - {fileID: 11400000, guid: 4078250f8535a0b418178ad3f86d9158, type: 2}
+  - {fileID: 11400000, guid: 654c01e78589b424eb8443b569ccfc86, type: 2}
+  - {fileID: 11400000, guid: 8f01fd97aedd1a043a537ba85246a253, type: 2}
+  - {fileID: 11400000, guid: a5a272a6e91a7fa4b8df6809019d8a9f, type: 2}
+  - {fileID: 11400000, guid: 175561dc158392e4d9d2112242cd7a9f, type: 2}
+  themePreviewSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  availableUpgrades: 00000000010000000200000003000000
+  challengeModeTargetScore: 0
+  cityChallenges: []
+  _expertRequiredAchievement: {fileID: 0}
+  _achievementsThatUnlockMap:
+  - {fileID: 0}
+  howToUnlockDescription: None
+  isTrainMap: 0
+  isBoatMap: 0

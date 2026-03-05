@@ -1,0 +1,3075 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1345510735, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: 2026-challenges-HongKongUpdate
+  m_EditorClassIdentifier:
+  seed: 420
+  year: 2025
+  monthsOfDailyChallenges:
+  - name: January
+    dailyChallenges:
+    - name: 01/01
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 02/01
+      challenges:
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 03/01
+      challenges:
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 04/01
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 22
+      overriden: 1
+      serverOverride: 0
+    - name: 05/01
+      challenges:
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 06/01
+      challenges:
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 07/01
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 08/01
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 09/01
+      challenges:
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 10/01
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 11/01
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 12/01
+      challenges:
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 13/01
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 14/01
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 15/01
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: efd15d55bafb0ef4c82aa675186ad566, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 16/01
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 17/01
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 18/01
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: efd15d55bafb0ef4c82aa675186ad566, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 19/01
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 20/01
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 21/01
+      challenges:
+      - {fileID: 11400000, guid: 0d82e4a5cc4fb23488abab0ec0688177, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 22/01
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 23/01
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 24/01
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 25/01
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 26/01
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 27/01
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 28/01
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 29/01
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 30/01
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 31/01
+      challenges:
+      - {fileID: 11400000, guid: d98aa464685e6d04da0bbde5344a6609, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    month: 1
+  - name: February
+    dailyChallenges:
+    - name: 01/02
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 02/02
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 03/02
+      challenges:
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 04/02
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 05/02
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 06/02
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 07/02
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 08/02
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 09/02
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 10/02
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 11/02
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 12/02
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 13/02
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 14/02
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 15/02
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 16/02
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 17/02
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 18/02
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 19/02
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 20/02
+      challenges:
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: efd15d55bafb0ef4c82aa675186ad566, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 21/02
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 22/02
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 23/02
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 24/02
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 25/02
+      challenges:
+      - {fileID: 11400000, guid: 0a7c158376393f64ca6ceed3d6c1e9c1, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 26/02
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 27/02
+      challenges:
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 28/02
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    month: 2
+  - name: March
+    dailyChallenges:
+    - name: 01/03
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 02/03
+      challenges:
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: d98aa464685e6d04da0bbde5344a6609, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 03/03
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 04/03
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 05/03
+      challenges:
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 06/03
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 07/03
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 08/03
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 09/03
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 10/03
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 11/03
+      challenges:
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 12/03
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 13/03
+      challenges:
+      - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 14/03
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 15/03
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 16/03
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 17/03
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 18/03
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 19/03
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 20/03
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 21/03
+      challenges:
+      - {fileID: 11400000, guid: d98aa464685e6d04da0bbde5344a6609, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 22/03
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 23/03
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 24/03
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 25/03
+      challenges:
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 26/03
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 27/03
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 28/03
+      challenges:
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 29/03
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 30/03
+      challenges:
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 31/03
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    month: 3
+  - name: April
+    dailyChallenges:
+    - name: 01/04
+      challenges:
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 02/04
+      challenges:
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 03/04
+      challenges:
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 04/04
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 05/04
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 06/04
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 07/04
+      challenges:
+      - {fileID: 11400000, guid: d98aa464685e6d04da0bbde5344a6609, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 08/04
+      challenges:
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 09/04
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 10/04
+      challenges:
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 11/04
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 12/04
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 13/04
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 14/04
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 15/04
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: 0a7c158376393f64ca6ceed3d6c1e9c1, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 16/04
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 17/04
+      challenges:
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 18/04
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 19/04
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 20/04
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 21/04
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: f80dcaddd3224c346b6b4b51e9fafd46, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 22/04
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 23/04
+      challenges:
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 24/04
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 25/04
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 26/04
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 27/04
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 28/04
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 29/04
+      challenges:
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 30/04
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    month: 4
+  - name: May
+    dailyChallenges:
+    - name: 01/05
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 02/05
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 03/05
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 0a7c158376393f64ca6ceed3d6c1e9c1, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 04/05
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 05/05
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 06/05
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 07/05
+      challenges:
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 08/05
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 09/05
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 10/05
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 11/05
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 12/05
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 13/05
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 14/05
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 15/05
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 16/05
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 17/05
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 18/05
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 19/05
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 20/05
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 21/05
+      challenges:
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 22/05
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 23/05
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 24/05
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 25/05
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 26/05
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 27/05
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 28/05
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 29/05
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 30/05
+      challenges:
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: efd15d55bafb0ef4c82aa675186ad566, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 31/05
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    month: 5
+  - name: June
+    dailyChallenges:
+    - name: 01/06
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 02/06
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 03/06
+      challenges:
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 04/06
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 05/06
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 06/06
+      challenges:
+      - {fileID: 11400000, guid: 0a7c158376393f64ca6ceed3d6c1e9c1, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 07/06
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 08/06
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 09/06
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 10/06
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 0d82e4a5cc4fb23488abab0ec0688177, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 11/06
+      challenges:
+      - {fileID: 11400000, guid: 481a6e379afeb8a41a575677a30454ee, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 12/06
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 13/06
+      challenges:
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 14/06
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 15/06
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 16/06
+      challenges:
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 17/06
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 18/06
+      challenges:
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 19/06
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 20/06
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 20ed177c4c484c048927e01de8aea0e7, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 21/06
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 22/06
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 23/06
+      challenges:
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 24/06
+      challenges:
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 25/06
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 26/06
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 27/06
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 28/06
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 29/06
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 30/06
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    month: 6
+  - name: July
+    dailyChallenges:
+    - name: 01/07
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 02/07
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 03/07
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 04/07
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 05/07
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 06/07
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 07/07
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 08/07
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 09/07
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 10/07
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 11/07
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 12/07
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: efd15d55bafb0ef4c82aa675186ad566, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 13/07
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 14/07
+      challenges:
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 15/07
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 16/07
+      challenges:
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 17/07
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 18/07
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 19/07
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 20/07
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 21/07
+      challenges:
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 22/07
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 23/07
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 24/07
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 25/07
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 26/07
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 27/07
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 28/07
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 29/07
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 30/07
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 31/07
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    month: 7
+  - name: August
+    dailyChallenges:
+    - name: 01/08
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 02/08
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 03/08
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 04/08
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 05/08
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 06/08
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 07/08
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 08/08
+      challenges:
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 09/08
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 10/08
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 11/08
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 12/08
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 13/08
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 14/08
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 15/08
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 16/08
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 17/08
+      challenges:
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: d98aa464685e6d04da0bbde5344a6609, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 18/08
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 19/08
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 20/08
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 21/08
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 22/08
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 23/08
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 24/08
+      challenges:
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 25/08
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 26/08
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: d98aa464685e6d04da0bbde5344a6609, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 27/08
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 28/08
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 29/08
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 481a6e379afeb8a41a575677a30454ee, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 30/08
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 31/08
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    month: 8
+  - name: September
+    dailyChallenges:
+    - name: 01/09
+      challenges:
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 02/09
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 03/09
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 04/09
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 05/09
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 06/09
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 07/09
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 08/09
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 09/09
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 20ed177c4c484c048927e01de8aea0e7, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 10/09
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 11/09
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 12/09
+      challenges:
+      - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 13/09
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 14/09
+      challenges:
+      - {fileID: 11400000, guid: 40886609081f37f40897054231a93ba1, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 15/09
+      challenges:
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 16/09
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 17/09
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 18/09
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 19/09
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 20/09
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 21/09
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 22/09
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 23/09
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 24/09
+      challenges:
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 25/09
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 26/09
+      challenges:
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 27/09
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 28/09
+      challenges:
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 29/09
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 30/09
+      challenges:
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    month: 9
+  - name: October
+    dailyChallenges:
+    - name: 01/10
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 02/10
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 03/10
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 04/10
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 05/10
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 06/10
+      challenges:
+      - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 07/10
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 08/10
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 09/10
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 10/10
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 11/10
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 12/10
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 13/10
+      challenges:
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 14/10
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 15/10
+      challenges:
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 16/10
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 17/10
+      challenges:
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 18/10
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 19/10
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 20/10
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 21/10
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 22/10
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 23/10
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 24/10
+      challenges:
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 25/10
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 26/10
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 27/10
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 28/10
+      challenges:
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 29/10
+      challenges:
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 30/10
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 31/10
+      challenges:
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    month: 10
+  - name: November
+    dailyChallenges:
+    - name: 01/11
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 10
+      overriden: 0
+      serverOverride: 0
+    - name: 02/11
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 03/11
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 04/11
+      challenges:
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 05/11
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 06/11
+      challenges:
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 07/11
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 08/11
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 09/11
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 10/11
+      challenges:
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 11/11
+      challenges:
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 12/11
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 13/11
+      challenges:
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    - name: 14/11
+      challenges:
+      - {fileID: 11400000, guid: 40886609081f37f40897054231a93ba1, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 15/11
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 16/11
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 17/11
+      challenges:
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 4
+      overriden: 0
+      serverOverride: 0
+    - name: 18/11
+      challenges:
+      - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+      - {fileID: 11400000, guid: 40886609081f37f40897054231a93ba1, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 19/11
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 20/11
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 21/11
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 22/11
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 23/11
+      challenges:
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 24/11
+      challenges:
+      - {fileID: 11400000, guid: 88941d7052387cc4686ee95021ffa6d1, type: 2}
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 25/11
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 26/11
+      challenges:
+      - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+      - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 27/11
+      challenges:
+      - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+      - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 28/11
+      challenges:
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 29/11
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 30/11
+      challenges:
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 15
+      overriden: 0
+      serverOverride: 0
+    month: 11
+  - name: December
+    dailyChallenges:
+    - name: 01/12
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 16
+      overriden: 0
+      serverOverride: 0
+    - name: 02/12
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      city: 24
+      overriden: 0
+      serverOverride: 0
+    - name: 03/12
+      challenges:
+      - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+      - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+      city: 24
+      overriden: 0
+      serverOverride: 0
+    - name: 04/12
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 24
+      overriden: 0
+      serverOverride: 0
+    - name: 05/12
+      challenges:
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 24
+      overriden: 0
+      serverOverride: 0
+    - name: 06/12
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 24
+      overriden: 0
+      serverOverride: 0
+    - name: 07/12
+      challenges:
+      - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+      - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+      city: 24
+      overriden: 0
+      serverOverride: 0
+    - name: 08/12
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 09/12
+      challenges:
+      - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 10/12
+      challenges:
+      - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 11
+      overriden: 0
+      serverOverride: 0
+    - name: 11/12
+      challenges:
+      - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 1
+      overriden: 0
+      serverOverride: 0
+    - name: 12/12
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+      city: 7
+      overriden: 0
+      serverOverride: 0
+    - name: 13/12
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 14/12
+      challenges:
+      - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 17
+      overriden: 0
+      serverOverride: 0
+    - name: 15/12
+      challenges:
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 16/12
+      challenges:
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 17/12
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 18/12
+      challenges:
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+      city: 13
+      overriden: 0
+      serverOverride: 0
+    - name: 19/12
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: 40886609081f37f40897054231a93ba1, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    - name: 20/12
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+      - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+      city: 20
+      overriden: 0
+      serverOverride: 0
+    - name: 21/12
+      challenges:
+      - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 2
+      overriden: 0
+      serverOverride: 0
+    - name: 22/12
+      challenges:
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+      city: 6
+      overriden: 0
+      serverOverride: 0
+    - name: 23/12
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      city: 22
+      overriden: 0
+      serverOverride: 0
+    - name: 24/12
+      challenges:
+      - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+      - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+      city: 3
+      overriden: 0
+      serverOverride: 0
+    - name: 25/12
+      challenges:
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+      city: 9
+      overriden: 0
+      serverOverride: 0
+    - name: 26/12
+      challenges:
+      - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 18
+      overriden: 0
+      serverOverride: 0
+    - name: 27/12
+      challenges:
+      - {fileID: 11400000, guid: 7fad27fe524bf8e4e95fb1624a0da027, type: 2}
+      - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+      - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+      city: 8
+      overriden: 0
+      serverOverride: 0
+    - name: 28/12
+      challenges:
+      - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      city: 14
+      overriden: 0
+      serverOverride: 0
+    - name: 29/12
+      challenges:
+      - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+      - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+      city: 19
+      overriden: 0
+      serverOverride: 0
+    - name: 30/12
+      challenges:
+      - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+      - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+      city: 21
+      overriden: 0
+      serverOverride: 0
+    - name: 31/12
+      challenges:
+      - {fileID: 11400000, guid: 481a6e379afeb8a41a575677a30454ee, type: 2}
+      - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+      city: 12
+      overriden: 0
+      serverOverride: 0
+    month: 12
+  weeklyChallenges:
+  - name: 06/01
+    challenges:
+    - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+    - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+    - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+    city: 14
+    overriden: 1
+    serverOverride: 0
+  - name: 13/01
+    challenges:
+    - {fileID: 11400000, guid: ed806eb0a13526340a1cd6ba3e3bdf53, type: 2}
+    - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+    - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+    city: 3
+    overriden: 0
+    serverOverride: 0
+  - name: 20/01
+    challenges:
+    - {fileID: 11400000, guid: 5b2a3d3f45ea77842b7554e4699ea1d5, type: 2}
+    - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+    - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+    city: 11
+    overriden: 0
+    serverOverride: 0
+  - name: 27/01
+    challenges:
+    - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+    - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+    - {fileID: 11400000, guid: efd15d55bafb0ef4c82aa675186ad566, type: 2}
+    city: 2
+    overriden: 1
+    serverOverride: 0
+  - name: 03/02
+    challenges:
+    - {fileID: 11400000, guid: b5c32800c06f57d4cafd727b13f57607, type: 2}
+    - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+    - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+    city: 13
+    overriden: 0
+    serverOverride: 0
+  - name: 10/02
+    challenges:
+    - {fileID: 11400000, guid: aedbfce1972dda54894910e1105046fe, type: 2}
+    - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+    - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+    city: 15
+    overriden: 1
+    serverOverride: 0
+  - name: 17/02
+    challenges:
+    - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+    - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+    - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+    city: 19
+    overriden: 0
+    serverOverride: 0
+  - name: 24/02
+    challenges:
+    - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+    - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+    - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+    city: 22
+    overriden: 0
+    serverOverride: 0
+  - name: 03/03
+    challenges:
+    - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+    city: 9
+    overriden: 0
+    serverOverride: 0
+  - name: 10/03
+    challenges:
+    - {fileID: 11400000, guid: b5c32800c06f57d4cafd727b13f57607, type: 2}
+    - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+    - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+    city: 8
+    overriden: 0
+    serverOverride: 0
+  - name: 17/03
+    challenges:
+    - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}
+    - {fileID: 11400000, guid: 2c75da60fce0e1440ac96d6654598881, type: 2}
+    - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+    city: 18
+    overriden: 0
+    serverOverride: 0
+  - name: 24/03
+    challenges:
+    - {fileID: 11400000, guid: 3c45c6ac736756b4b92dc81ffb2068f9, type: 2}
+    - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+    - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+    city: 6
+    overriden: 1
+    serverOverride: 0
+  - name: 31/03
+    challenges:
+    - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+    - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+    - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+    city: 12
+    overriden: 0
+    serverOverride: 0
+  - name: 07/04
+    challenges:
+    - {fileID: 11400000, guid: 0cf517df6bec1ff4c83b0c0c45335531, type: 2}
+    - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+    - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+    city: 13
+    overriden: 0
+    serverOverride: 0
+  - name: 14/04
+    challenges:
+    - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+    - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+    - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+    city: 17
+    overriden: 0
+    serverOverride: 0
+  - name: 21/04
+    challenges:
+    - {fileID: 11400000, guid: b5c32800c06f57d4cafd727b13f57607, type: 2}
+    - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+    - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+    city: 19
+    overriden: 0
+    serverOverride: 0
+  - name: 28/04
+    challenges:
+    - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+    - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+    - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+    city: 14
+    overriden: 0
+    serverOverride: 0
+  - name: 05/05
+    challenges:
+    - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+    - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+    - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+    city: 16
+    overriden: 0
+    serverOverride: 0
+  - name: 12/05
+    challenges:
+    - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}
+    - {fileID: 11400000, guid: 1415d38573e3db448b0afca18d5df8a0, type: 2}
+    - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+    city: 15
+    overriden: 0
+    serverOverride: 0
+  - name: 19/05
+    challenges:
+    - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+    - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+    - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+    city: 20
+    overriden: 0
+    serverOverride: 0
+  - name: 26/05
+    challenges:
+    - {fileID: 11400000, guid: 3c45c6ac736756b4b92dc81ffb2068f9, type: 2}
+    - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    city: 3
+    overriden: 0
+    serverOverride: 0
+  - name: 02/06
+    challenges:
+    - {fileID: 11400000, guid: 04bf730c5b180f249856467c202cc6db, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+    city: 13
+    overriden: 0
+    serverOverride: 0
+  - name: 09/06
+    challenges:
+    - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}
+    - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    city: 18
+    overriden: 0
+    serverOverride: 0
+  - name: 16/06
+    challenges:
+    - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+    - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+    city: 12
+    overriden: 1
+    serverOverride: 0
+  - name: 23/06
+    challenges:
+    - {fileID: 11400000, guid: aedbfce1972dda54894910e1105046fe, type: 2}
+    - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    city: 9
+    overriden: 0
+    serverOverride: 0
+  - name: 30/06
+    challenges:
+    - {fileID: 11400000, guid: 3c45c6ac736756b4b92dc81ffb2068f9, type: 2}
+    - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+    city: 19
+    overriden: 1
+    serverOverride: 0
+  - name: 07/07
+    challenges:
+    - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+    - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+    - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+    city: 20
+    overriden: 0
+    serverOverride: 0
+  - name: 14/07
+    challenges:
+    - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+    - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+    - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+    city: 17
+    overriden: 0
+    serverOverride: 0
+  - name: 21/07
+    challenges:
+    - {fileID: 11400000, guid: 0cf517df6bec1ff4c83b0c0c45335531, type: 2}
+    - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+    - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+    city: 15
+    overriden: 0
+    serverOverride: 0
+  - name: 28/07
+    challenges:
+    - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+    - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+    - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}
+    city: 21
+    overriden: 0
+    serverOverride: 0
+  - name: 04/08
+    challenges:
+    - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+    city: 7
+    overriden: 0
+    serverOverride: 0
+  - name: 11/08
+    challenges:
+    - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+    city: 8
+    overriden: 0
+    serverOverride: 0
+  - name: 18/08
+    challenges:
+    - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+    - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    city: 1
+    overriden: 0
+    serverOverride: 0
+  - name: 25/08
+    challenges:
+    - {fileID: 11400000, guid: 4bd16ba6fab96b34eb32698205e8e50e, type: 2}
+    - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+    - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+    city: 10
+    overriden: 0
+    serverOverride: 0
+  - name: 01/09
+    challenges:
+    - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+    - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    city: 3
+    overriden: 0
+    serverOverride: 0
+  - name: 08/09
+    challenges:
+    - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+    - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+    - {fileID: 11400000, guid: 0a2a655c68d8fc549bd073d42c70200e, type: 2}
+    city: 6
+    overriden: 0
+    serverOverride: 0
+  - name: 15/09
+    challenges:
+    - {fileID: 11400000, guid: 0cf517df6bec1ff4c83b0c0c45335531, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+    city: 18
+    overriden: 0
+    serverOverride: 0
+  - name: 22/09
+    challenges:
+    - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+    city: 4
+    overriden: 0
+    serverOverride: 0
+  - name: 29/09
+    challenges:
+    - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+    - {fileID: 11400000, guid: 0a7c158376393f64ca6ceed3d6c1e9c1, type: 2}
+    - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+    city: 10
+    overriden: 0
+    serverOverride: 0
+  - name: 06/10
+    challenges:
+    - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+    - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+    - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+    city: 16
+    overriden: 0
+    serverOverride: 0
+  - name: 13/10
+    challenges:
+    - {fileID: 11400000, guid: 3c45c6ac736756b4b92dc81ffb2068f9, type: 2}
+    - {fileID: 11400000, guid: 172d68ff4cdfdd748b048e579a6bdb58, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    city: 3
+    overriden: 0
+    serverOverride: 0
+  - name: 20/10
+    challenges:
+    - {fileID: 11400000, guid: b5c32800c06f57d4cafd727b13f57607, type: 2}
+    - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    city: 11
+    overriden: 0
+    serverOverride: 0
+  - name: 27/10
+    challenges:
+    - {fileID: 11400000, guid: ed806eb0a13526340a1cd6ba3e3bdf53, type: 2}
+    - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}
+    - {fileID: 11400000, guid: c84e6629dbcd0974b9c16e87d6a085a9, type: 2}
+    city: 20
+    overriden: 0
+    serverOverride: 0
+  - name: 03/11
+    challenges:
+    - {fileID: 11400000, guid: 5b2a3d3f45ea77842b7554e4699ea1d5, type: 2}
+    - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+    - {fileID: 11400000, guid: fbfe17a511ae1064a8e8d8e4ad405a09, type: 2}
+    city: 12
+    overriden: 0
+    serverOverride: 0
+  - name: 10/11
+    challenges:
+    - {fileID: 11400000, guid: 4bd16ba6fab96b34eb32698205e8e50e, type: 2}
+    - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+    - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+    city: 21
+    overriden: 0
+    serverOverride: 0
+  - name: 17/11
+    challenges:
+    - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}
+    - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+    - {fileID: 11400000, guid: 7a11b240894c60547a04520d18394344, type: 2}
+    city: 2
+    overriden: 0
+    serverOverride: 0
+  - name: 24/11
+    challenges:
+    - {fileID: 11400000, guid: 3c45c6ac736756b4b92dc81ffb2068f9, type: 2}
+    - {fileID: 11400000, guid: 83a33d46d13606c4dae41a3772ebf48a, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    city: 22
+    overriden: 0
+    serverOverride: 0
+  - name: 01/12
+    challenges:
+    - {fileID: 11400000, guid: b5c32800c06f57d4cafd727b13f57607, type: 2}
+    - {fileID: 11400000, guid: 301029f7570278947949da36f4aab5ad, type: 2}
+    - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+    city: 7
+    overriden: 0
+    serverOverride: 0
+  - name: 08/12
+    challenges:
+    - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+    - {fileID: 11400000, guid: 1a1e05c69ec703b48a280fe643ca931b, type: 2}
+    - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+    city: 13
+    overriden: 0
+    serverOverride: 0
+  - name: 15/12
+    challenges:
+    - {fileID: 11400000, guid: 04bf730c5b180f249856467c202cc6db, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: 41cf32b128ce22d4697af930a78f6bff, type: 2}
+    city: 17
+    overriden: 0
+    serverOverride: 0
+  - name: 22/12
+    challenges:
+    - {fileID: 11400000, guid: 3c45c6ac736756b4b92dc81ffb2068f9, type: 2}
+    - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+    - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+    city: 11
+    overriden: 0
+    serverOverride: 0
+  - name: 29/12
+    challenges:
+    - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}
+    - {fileID: 11400000, guid: 481a6e379afeb8a41a575677a30454ee, type: 2}
+    - {fileID: 11400000, guid: 0d175e612889ff9489f9139600bbdc9f, type: 2}
+    city: 10
+    overriden: 0
+    serverOverride: 0

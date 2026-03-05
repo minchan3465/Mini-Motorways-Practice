@@ -1,0 +1,70 @@
+ManifestFileVersion: 0
+CRC: 1834398262
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 43d7c84d0427414c89ef3595c302ecce
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 03ff298121901377af167f582a33fde6
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 43d7c84d0427414c89ef3595c302ecce
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 54d082fefff074db9a0e4eae217c18e7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 56b49d24870744130be54851f981c883, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0938073644cee479cad5d47ffd94d6b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dcbec8d7940854ad4b9c7fe7cc4239f4, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 156049354
+  Script: {instanceID: 0}
+- Class: 483693784
+  Script: {instanceID: 0}
+- Class: 1839735485
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: App
+  ClassName: Motorways.CityStartOffsets
+- AssemblyName: App
+  ClassName: Motorways.CityTileTypeDefinition
+- AssemblyName: App
+  ClassName: Motorways.PlannedBuilding
+- AssemblyName: App
+  ClassName: Motorways.ScheduleChunk
+- AssemblyName: App
+  ClassName: Motorways.SpawnRampParameters
+- AssemblyName: App
+  ClassName: Motorways.UpgradeCycleDefinition
+- AssemblyName: App
+  ClassName: Motorways.UpgradePackageDefinition
+- AssemblyName: App
+  ClassName: Motorways.WeeklyUpgradeDefinition
+- AssemblyName: App
+  ClassName: Motorways.ZoomParameters
+- AssemblyName: App
+  ClassName: SwapByFeature_CityTilemap
+- AssemblyName: FixedMath
+  ClassName: FixMath.Fix64
+Assets:
+- Assets/Prefabs/Maps/TestLevel.prefab
+Dependencies: []

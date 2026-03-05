@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Vancouver_Theme_Dark
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 8b865a911af47e34ba8bb4ffd99a3c85, type: 2}
+  - {fileID: 11400000, guid: 8ca7c4a57b72f2b458097ac603ada7d3, type: 2}
+  - {fileID: 11400000, guid: b36fef13af1d22d4ebf76e9379f9081f, type: 2}
+  - {fileID: 11400000, guid: 9ecc47a12bb20cc4897088932a8575b4, type: 2}
+  - {fileID: 11400000, guid: b2d3a7e594d2cff41951f304ee00a705, type: 2}
+  - {fileID: 11400000, guid: 4400bc9b61d9576449596656f1a85393, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: f49f766e71fff894a8e0c09e4c06c730, type: 2}
+  - {fileID: 11400000, guid: 0975f3615f42e6648b4a264935440d0c, type: 2}
+  - {fileID: 11400000, guid: ade6e43d4157c8943b7fc891d1095fb3, type: 2}
+  - {fileID: 11400000, guid: 19c880d8459cc6241835ead50c965e96, type: 2}
+  - {fileID: 11400000, guid: 2bb992deb6ad5424687e622734df6f09, type: 2}
+  - {fileID: 11400000, guid: 8042f2f0c92cdee478d23e2482b32cbc, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.733
+  overrideSaturationMultiplier: 0.72
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 768a5f90d2d0b4844bb0c5a8cf19b9bb, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.1
+    blurLevelsOffset: 0.25

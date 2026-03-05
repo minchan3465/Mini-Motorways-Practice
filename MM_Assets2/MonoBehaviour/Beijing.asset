@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Beijing
+  m_EditorClassIdentifier:
+  cityName: Beijing
+  mapName: Beijing
+  mapDescription: BeijingDescription
+  mapAssetBundle: beijing
+  mapPrefabName: Beijing
+  themes:
+  - {fileID: 11400000, guid: 3b617476f0e04a54bbdb5242ddb84fc6, type: 2}
+  - {fileID: 11400000, guid: f97161b48611bda43acc97f24958a94f, type: 2}
+  - {fileID: 11400000, guid: d384f972cf33cb449868e062deb85f28, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: 08b7552ea826bdb4ab19bcdec6c6038f, type: 2}
+  - {fileID: 21300000, guid: 1bbb5baaed7b59240ad752b4868e176e, type: 2}
+  - {fileID: 21300000, guid: 16f108e31baa9294ca3118cfe481369c, type: 2}
+  - {fileID: 21300000, guid: 16f108e31baa9294ca3118cfe481369c, type: 2}
+  - {fileID: 21300000, guid: 1bbb5baaed7b59240ad752b4868e176e, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 8c5fc2eada8c98744bc87afaf01b96ac, type: 2}
+  - {fileID: 11400000, guid: 68b569e47b62ee14abd6dc760967fee4, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: b900795eb82a66340a0414af2a201ea7, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 0}
+  howToUnlockDescription:
+  isTrainMap: 0
+  isBoatMap: 0

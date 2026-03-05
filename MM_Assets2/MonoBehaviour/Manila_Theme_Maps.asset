@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Manila_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 3e160ee426b967645a8a7b7105711154, type: 2}
+  - {fileID: 11400000, guid: 31fc2d4dfb3e1a64db2a5d40ea5df6e3, type: 2}
+  - {fileID: 11400000, guid: 3cb6191e11f93394a96432f14935e983, type: 2}
+  - {fileID: 11400000, guid: d3bf0368b946ad94b8a75f1fdb8179ef, type: 2}
+  - {fileID: 11400000, guid: 482d071f20946ef4bb3692cdcba118d1, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: c8f04b29b9a2d264b9d1a249ddea7066, type: 2}
+  - {fileID: 11400000, guid: b13013257d14b7b43aa4e5ba8d684e53, type: 2}
+  - {fileID: 11400000, guid: 1b39f3b7ce9fbc34a95cbef437382e8c, type: 2}
+  - {fileID: 11400000, guid: 9f1e54f6c9f237b40b494485fe057256, type: 2}
+  - {fileID: 11400000, guid: 2faef098851cca1449e3eebd16154ad9, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: c8ca346b37bb6ab48bc64fe94eb70513, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Tokyo
+  m_EditorClassIdentifier:
+  cityName: Tokyo
+  mapName: Tokyo
+  mapDescription: TokyoDescription
+  mapAssetBundle: tokyo
+  mapPrefabName: Tokyo
+  themes:
+  - {fileID: 11400000, guid: 1be8aee9e2c895a459aaf1b361a3d069, type: 2}
+  - {fileID: 11400000, guid: e53c54bcaf8665943a6193dc6bbde8e7, type: 2}
+  - {fileID: 11400000, guid: 05a1d79472e0b3e4e85f59023e68bda7, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: d3b301fa9e74191409e428d95860759e, type: 2}
+  - {fileID: 21300000, guid: 82b3eeadfce31b14887c0de70b0f88da, type: 2}
+  - {fileID: 21300000, guid: 2ebea26121ee1cc4392ff29ab5fa02fa, type: 2}
+  - {fileID: 21300000, guid: 2ebea26121ee1cc4392ff29ab5fa02fa, type: 2}
+  - {fileID: 21300000, guid: 82b3eeadfce31b14887c0de70b0f88da, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 5dffc58c2103a1f4db139e2161830980, type: 2}
+  - {fileID: 11400000, guid: f3b6d3d343866d14e9601601dee481cc, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: 86d4c58fb2da97747bc2172b2becf935, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 0}
+  howToUnlockDescription: None
+  isTrainMap: 0
+  isBoatMap: 0

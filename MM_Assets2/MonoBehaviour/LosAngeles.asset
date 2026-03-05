@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: LosAngeles
+  m_EditorClassIdentifier:
+  cityName: LosAngeles
+  mapName: LosAngeles
+  mapDescription: LosAngelesDescription
+  mapAssetBundle: losangeles
+  mapPrefabName: LosAngeles
+  themes:
+  - {fileID: 11400000, guid: 70693ae39a5037a4f90cf1ed24766881, type: 2}
+  - {fileID: 11400000, guid: 2c0512eabf9b6b84987073873cd66f45, type: 2}
+  - {fileID: 11400000, guid: 4e3032ec68f98e742b00fa64ead8f9d9, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: 2888b6d38b1a2e042be678cc03f34f5c, type: 2}
+  - {fileID: 21300000, guid: c05ec86bffbe9894ea4130c7fbed9f80, type: 2}
+  - {fileID: 21300000, guid: e77d30c42e13635449e940083ae36a92, type: 2}
+  - {fileID: 21300000, guid: e77d30c42e13635449e940083ae36a92, type: 2}
+  - {fileID: 21300000, guid: c05ec86bffbe9894ea4130c7fbed9f80, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: e2917f2759158cd428ed27dc9c11c262, type: 2}
+  - {fileID: 11400000, guid: 92060bdfdc14c7b4cb4f4843b8b90941, type: 2}
+  - {fileID: 11400000, guid: 55fa088492fdd8c499df7979aed26482, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: 992f7e83843dcd64381086ff3d5a31ea, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 0}
+  howToUnlockDescription: None
+  isTrainMap: 0
+  isBoatMap: 0

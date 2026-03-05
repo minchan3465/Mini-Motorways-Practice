@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862640949, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: MiniMotorwaysRenderFeature
+  m_EditorClassIdentifier:
+  m_Active: 1
+  settings:
+    highestMotorwayShader: {fileID: 4800000, guid: 10ecb2a3bff8d984a8c725a708ad71b7, type: 3}
+    shadowTypeShader: {fileID: 4800000, guid: faa933fff797a8543b69e052a759f72f, type: 3}
+    shadowFadeoutShader: {fileID: 4800000, guid: 21bb7b037f693f2479694a4df9348f9e, type: 3}
+    headlightOcclusionShader: {fileID: 4800000, guid: adffdba1cfc9f9644a3ae9dfafa32e86, type: 3}
+    headlightMaterial: {fileID: 2100000, guid: 5747944a020e5be409be656ce4e6ccf6, type: 2}

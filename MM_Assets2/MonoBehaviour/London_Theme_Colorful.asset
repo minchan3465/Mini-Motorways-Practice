@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: London_Theme_Colorful
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: dd5aef559797c2141ab7a2073c3efe90, type: 2}
+  - {fileID: 11400000, guid: 93313b88aeb6c1d42af3f1273b25a061, type: 2}
+  - {fileID: 11400000, guid: c95d752284ad1744d99c4b290bd70d5b, type: 2}
+  - {fileID: 11400000, guid: 4b14cdf17aa89a149b2bff78d49c6df8, type: 2}
+  - {fileID: 11400000, guid: 2f08dcf1e26605441850673390a40f4a, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: b07f35aef25aaf34f9b82ee5b5a546bd, type: 2}
+  - {fileID: 11400000, guid: 757291f8f4310a94eb0287fba4b50cdd, type: 2}
+  - {fileID: 11400000, guid: 52b5d658dbed9684394c54c46e5bd57b, type: 2}
+  - {fileID: 11400000, guid: 3786aa8c4b1966348b24c63da6180bf7, type: 2}
+  - {fileID: 11400000, guid: 04affcee9369c904ba81d7ff71bf9099, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.709
+  overrideSaturationMultiplier: 0.776
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 4f3191a1e734b2c4683d71ef213e8bd6, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

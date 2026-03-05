@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: upgrades-startwith0_Bridge
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Upgrades_StartWithNoBridgesTitle
+  challengeDescription: Challenge_Upgrades_StartWithNoBridgesDescription
+  icon: {fileID: 21300000, guid: 34e7afb9268636345a83fff5069d3a78, type: 2}
+  subIconBackground: {fileID: 21300000, guid: ae4346d98a7d3c84b856ce5791487e22, type: 2}
+  subIcon: {fileID: 21300000, guid: 073c3edbaacd4e3478e46071ef749e0e, type: 2}
+  modifiers:
+  - type: 0
+    upgradeType: 1
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 0
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups:
+  - {fileID: 11400000, guid: 8869ed9387786d34c81f71f329d79fef, type: 2}
+  - {fileID: 11400000, guid: b95f0a41a89315f45b3756b662e975ea, type: 2}
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: f80dcaddd3224c346b6b4b51e9fafd46, type: 2}
+  - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+  - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+  - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+  - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+  - {fileID: 11400000, guid: ed806eb0a13526340a1cd6ba3e3bdf53, type: 2}
+  - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+  - {fileID: 11400000, guid: aedbfce1972dda54894910e1105046fe, type: 2}
+  manualIncompatibleChallenges:
+  - {fileID: 11400000, guid: 1a80c936a42ff1e44a308e46b4ef6b1b, type: 2}
+  - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+  - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}

@@ -1,0 +1,478 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 605451025, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: SimulationConstantsData
+  m_EditorClassIdentifier:
+  trainSpeed:
+    m_rawValue: 12884901888
+  trainAcceleration:
+    m_rawValue: 1717986944
+  trainDeceleration:
+    m_rawValue: 2362232064
+  trainMinimumSpeedDuringDeceleration:
+    m_rawValue: 1288490240
+  trainStoppingDistanceFromBuffer:
+    m_rawValue: 3435973888
+  trainCrossingSignalDistance:
+    m_rawValue: 30064771072
+  maxDemandFromTrain: 4
+  minDemandFromTrain: 1
+  demandPerHouse:
+    m_rawValue: 1073741824
+  maxAccelerationOnCrossings:
+    m_rawValue: 858993472
+  targetSpeedTowardsCrossings:
+    m_rawValue: 2147483648
+  decelerationExponentTowardsCrossings:
+    m_rawValue: 4294967296
+  crossingSlowDistance:
+    m_rawValue: 12884901888
+  crossingStopDistance:
+    m_rawValue: 7730940928
+  crossingWaitTime:
+    m_rawValue: 8589934592
+  trainStationWaitTime:
+    m_rawValue: 8589934592
+  trainCenterToWheelDistance:
+    m_rawValue: 2362232064
+  trainCarriageSeparationDistance:
+    m_rawValue: 5798205952
+  boatSpeed:
+    m_rawValue: 11166914560
+  boatAcceleration:
+    m_rawValue: 4724464128
+  boatUndockingAcceleration:
+    m_rawValue: 987842496
+  boatDeceleration:
+    m_rawValue: 9878424576
+  boatMinimumSpeedDuringDeceleration:
+    m_rawValue: 429496736
+  boatStoppingDistanceFromBuffer:
+    m_rawValue: 2147483648
+  boatCenterToPivotDistance:
+    m_rawValue: 3435973888
+  boatCenterToBowDistance:
+    m_rawValue: 2362232064
+  boatTerminalWaitTime:
+    m_rawValue: 3435973888
+  boatDockingSpeedThreshold:
+    m_rawValue: 6442450944
+  boatUndockingSpeedThreshold:
+    m_rawValue: 4294967296
+  boatUndockingMidpointOffset: {x: 1, y: 0.09}
+  maxAcceleration:
+    m_rawValue: 2319282432
+  controlledIntersectionAcceleration:
+    m_rawValue: 3435973888
+  roundaboutAcceleration:
+    m_rawValue: 3865470464
+  accelerationExponent:
+    m_rawValue: 17179869184
+  maxDeceleration:
+    m_rawValue: 51539607552
+  decelerationExponent:
+    m_rawValue: 25769803776
+  targetSpeedTowardsIntersections:
+    m_rawValue: 2362232064
+  decelerationExponentTowardsIntersections:
+    m_rawValue: 6871947776
+  speedMultiplier:
+    m_rawValue: 4294967296
+  MaximumTimeToWaitAtIntersection:
+    m_rawValue: 193273528320
+  NumberOfRoadsAtIntersectionToSlowDownFor: 3
+  IgnoreHousesForIntersectionSlowDown: 1
+  IgnoreDestinationsForIntersectionSlowDown: 1
+  PercentageOfStraightLanesIntoRoundaboutsToCountOutside:
+    m_rawValue: 2147483648
+  TreatStraightRoundaboutEntrancesAsNotRoundabouts: 0
+  LookaheadDistance:
+    m_rawValue: 21474836480
+  useAverageLaneSpeedRatherThanMin: 1
+  useAverageLaneSpeedRatherThanMinOnMotorways: 0
+  minSpeedBeforePushingCycle:
+    m_rawValue: 858993472
+  defaultLaneSpeed:
+    m_rawValue: 4294967296
+  sharpTurnSpeedMultiplier:
+    m_rawValue: 1431655808
+  rightAngleTurnSpeedMultiplier:
+    m_rawValue: 2863311616
+  intersectionSpeedMultiplier:
+    m_rawValue: 2147483648
+  roundaboutSpeedMultiplier:
+    m_rawValue: 5153960960
+  maxSpeedOnMotorways:
+    m_rawValue: 12884901888
+  changeDelay:
+    m_rawValue: 12884901888
+  overtimeChangeDelay:
+    m_rawValue: 4294967296
+  amberDelay:
+    m_rawValue: 3006477056
+  minimumNearbyCarsBeforeSwapping: 3
+  distanceToCountForNearbyCars:
+    m_rawValue: 4294967296
+  MaximumIdleTimeAtTrafficLightBeforeMaxWeight:
+    m_rawValue: 128849018880
+  IdleTimeAtTrafficLightWeightMultiplier:
+    m_rawValue: 4294967296
+  IdleTimeAtTrafficLightWeightMultiplierOnMothballedLane:
+    m_rawValue: 17179869184
+  CanTurnRightWeightModifier:
+    m_rawValue: 429496736
+  CarparkPriorityModifier:
+    m_rawValue: 42949672960
+  BlockedCarWeightModifier:
+    m_rawValue: 429496736
+  americanRedLightRules: 1
+  greenLightsIgnoreCollisions: 1
+  FailedHouseSpawnCooldown:
+    m_rawValue: 8589934592
+  FailedDestinationRetryDelay:
+    m_rawValue: 85899345920
+  MaxFailedBuildingSpawnsBeforeIgnoringWeights: 5
+  MaxFailedDoubleCarparkSpawnsBeforeConvertingToSingle: 4
+  MaxFailedDestinationSpawnsBeforeConvertingToUpgrade: 15
+  MinimumTimeBetweenDestinationSpawns:
+    m_rawValue: 42949672960
+  DelayBetweenSameGroupHouseSpawns:
+    m_rawValue: 42949672960
+  _houseDistanceToContributionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 7
+      value: 0.92
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 1
+    - serializedVersion: 3
+      time: 10
+      value: 0.87
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 12
+      value: 0.78
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 14
+      value: 0.68
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 16
+      value: 0.6
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 21
+      value: 0.5
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 26
+      value: 0.45
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 28
+      value: 0.45
+      inSlope: Infinity
+      outSlope: Infinity
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _houseContributionMultiplier:
+    m_rawValue: 3758096384
+  GroupDestinationCountToHouseValueMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10700823
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: -0.61948067
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.12176384
+    - serializedVersion: 3
+      time: 2
+      value: 0.5
+      inSlope: -0.13249233
+      outSlope: -0.13249233
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.15384854
+    - serializedVersion: 3
+      time: 3
+      value: 0.375
+      inSlope: -0.058333337
+      outSlope: -0.058333337
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 0.325
+      inSlope: -0.041666668
+      outSlope: -0.041666668
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 6
+      value: 0.25
+      inSlope: -0.049999993
+      outSlope: -0.049999993
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 8
+      value: 0.2
+      inSlope: -0.0010544584
+      outSlope: -0.0010544584
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14293303
+    - serializedVersion: 3
+      time: 10
+      value: 0.2
+      inSlope: -0
+      outSlope: -0.009999998
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MinimumSuburbCountScale:
+    m_rawValue: 3006477056
+  MinimumSuburbCountExponent:
+    m_rawValue: 5153960960
+  MaximumSuburbCountScale:
+    m_rawValue: 1717986944
+  MaximumSuburbCountExponent:
+    m_rawValue: 6012954112
+  MinimumSpawnAttemptsForSuburbMultiplier: 5
+  MaximumSpawnAttemptsForSuburbMultiplier: 10
+  MaximumDelayedBuildingSuburbCountMultiplier:
+    m_rawValue: 17179869184
+  MaxOvercrowdTime:
+    m_rawValue: 214748364800
+  GracePeriodTime:
+    m_rawValue: 8589934592
+  OvercrowdTimerAcceleration:
+    m_rawValue: 4294967296
+  OvercrowdTimerCarArrivalDeceleration:
+    m_rawValue: 85899344
+  OvercrowdTimerReturnSpeed:
+    m_rawValue: 8589934592
+  OvercrowdTimerSpeedMultiplierByDemand:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 3
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.08537616
+    - serializedVersion: 3
+      time: 15
+      value: 4
+      inSlope: 0.03381362
+      outSlope: 0.03381362
+      weightedMode: 0
+      inWeight: 0.053254507
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  CarArrivalPinReductionMultiplierOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 900
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1800
+      value: 0.75
+      inSlope: -0.00063979893
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0.056862794
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2400
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  PercentageToReduceTimerOnCarArrival:
+    m_rawValue: 42949672960
+  MinimumAmountToReduceTimerOnCarArrival:
+    m_rawValue: 0
+  MaximumAmountToReduceTimerOnCarArrival:
+    m_rawValue: 12884901888
+  MinimumOvercrowdTimerSpeed:
+    m_rawValue: 0
+  MaximumOvercrowdTimerSpeed:
+    m_rawValue: 4294967296
+  DemandMultiplierForBuildings:
+    m_rawValue: 3435973888
+  DemandMultiplierForUpgradedBuildings:
+    m_rawValue: 6871947776
+  AverageCarsPerDay:
+    m_rawValue: 6657199104
+  DelayBeforeFirstPinOfDestination:
+    m_rawValue: 17179869184
+  DemandMultiplierForBoatTerminals:
+    m_rawValue: 6012954112
+  DemandMultiplierForUpgradedBoatTerminals:
+    m_rawValue: 7301444608
+  PathDistanceToEfficiencyScore:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.75
+      outSlope: 0.75
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 75
+      inSlope: 0.75
+      outSlope: 0.75
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  EndlessDemandMultiplier:
+    m_rawValue: 2147483648
+  MilestoneIncreaseAfterPrecalculatedIntervals: 80
+  PercentageOfMilestoneToLose:
+    m_rawValue: 214748368
+  PercentageOfMilestoneToLoseMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: 0.5
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.5
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  EndlessSpawnRampMultiplier:
+    m_rawValue: 4294967296
+  ExpansionTimePerMilestone:
+    m_rawValue: 601295421440
+  BonusExpansionTime:
+    m_rawValue: 601295421440
+  AdditionalHousesPerGroup: 1
+  TimeAtHouseBeforeCarIsAvailable:
+    m_rawValue: 42949672960
+  DurationTillRoadPermanence:
+    m_rawValue: 171798691840
+  PercentageOfPermanenceTimerWhereRoadsCannotBeDemolished:
+    m_rawValue: 1073741824
+  MaxUpgradeChoicesAwardedInExpertMode: 8
+  DryingRoadSpeedMultiplier:
+    m_rawValue: 3350074368
+  CreativeDemandMultiplier:
+    m_rawValue: 6442450944

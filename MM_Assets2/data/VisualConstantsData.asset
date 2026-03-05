@@ -1,0 +1,499 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1489021473, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: VisualConstantsData
+  m_EditorClassIdentifier:
+  _profileIconOptions:
+  - {fileID: 21300000, guid: 3df39b1bac9ff4a4184942676e3452fc, type: 2}
+  - {fileID: 21300000, guid: a16fb3a4b31e1354a82197ddc8d302c4, type: 2}
+  - {fileID: 21300000, guid: 064a3f1ec3fdd8c43b83bc8c93bc1e8f, type: 2}
+  - {fileID: 21300000, guid: a66beb30732e699499bae30b4b71b897, type: 2}
+  - {fileID: 21300000, guid: a7322a58b281ac24caf1e500025e517d, type: 2}
+  - {fileID: 21300000, guid: 68c69e1eeed0f0741a84642f08507996, type: 2}
+  InGameMessageAppearEasingFunction: 20
+  InGameMessageAppearEasingDuration: 0.6
+  InGameMessageDismissIcon: {fileID: 21300000, guid: 073c3edbaacd4e3478e46071ef749e0e, type: 2}
+  InGameMessageQueuedIcon: {fileID: 21300000, guid: 4449e5fe1d0e8914baa7e7a1a4d34ab2, type: 2}
+  RepeatRecentErrorTimeWindow: 5
+  RepeatRecentErrorCount: 3
+  TimeAfterIconAppearsWhenNotificationAppears: 1
+  BuildingEchoAlertColor: 1
+  UpgradeAlertColor: 1
+  CooldownTimeBetweenNewPins: 0.5
+  PostponementForNewPinsAfterPinRemoved: 2
+  PostponementForOverflowPinsAfterBigPin: 1
+  MinOvercrowdingTimeBeforeTimerPin: 0.8
+  FirstPartTransitionInEaseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.00044904422
+      outSlope: 0.00044904422
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.6674536
+    - serializedVersion: 3
+      time: 0.54469186
+      value: 0.2744122
+      inSlope: 1.3570768
+      outSlope: 1.3570768
+      weightedMode: 3
+      inWeight: 0.31446835
+      outWeight: 0.19905658
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.6622058
+      outSlope: 1.6622058
+      weightedMode: 1
+      inWeight: 0.41062245
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SecondPartTransitionInEaseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 4.587541
+      outSlope: 4.587541
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.1907237
+    - serializedVersion: 3
+      time: 0.67283565
+      value: 0.97138625
+      inSlope: 0.28139764
+      outSlope: 0.28139764
+      weightedMode: 3
+      inWeight: 0.4003213
+      outWeight: 0.30053797
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.0061377552
+      outSlope: 0.0061377552
+      weightedMode: 1
+      inWeight: 0.36521065
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  FirstPartTransitionOutEaseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.006073188
+      outSlope: 0.006073188
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.3692623
+    - serializedVersion: 3
+      time: 0.21252893
+      value: 0.036511876
+      inSlope: 0.60518396
+      outSlope: 0.60518396
+      weightedMode: 3
+      inWeight: 0.29977903
+      outWeight: 0.19469962
+    - serializedVersion: 3
+      time: 1.0000598
+      value: 0.9988408
+      inSlope: 1.4467143
+      outSlope: 1.4467143
+      weightedMode: 1
+      inWeight: 0.36157608
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SecondPartTransitionOutEaseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.7180753
+      outSlope: 1.8380798
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.22454551
+    - serializedVersion: 3
+      time: 0.48224914
+      value: 0.8568966
+      inSlope: 1.2613392
+      outSlope: 1.2613392
+      weightedMode: 3
+      inWeight: 0.33333334
+      outWeight: 0.24399747
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.036247153
+      outSlope: 0.036247153
+      weightedMode: 1
+      inWeight: 0.26146364
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  PercentageOfDurationToUseForInitialMovement: 0.35
+  MapSelectScreenExitOffset: {x: 100, y: 0}
+  MapSelectScreenEntryOffset: {x: 60, y: -30}
+  MapSelectScreenEntryStartHandle: {x: 0, y: 0}
+  MapSelectScreenEntryEndHandle: {x: 0, y: -10}
+  AppearDuration: 0.39
+  OutlineAppearCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0012817383
+      inSlope: 5.2619104
+      outSlope: 5.2619104
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.06906893
+    - serializedVersion: 3
+      time: 0.21486828
+      value: 0.65422994
+      inSlope: 1.966266
+      outSlope: 1.966266
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04749938
+    - serializedVersion: 3
+      time: 0.8
+      value: 1.0011749
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  InnerAppearCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.23
+      value: 0
+      inSlope: 5.354268
+      outSlope: 5.354268
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.05095835
+    - serializedVersion: 3
+      time: 0.44347775
+      value: 0.6775981
+      inSlope: 1.7539243
+      outSlope: 1.7539243
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.03870815
+    - serializedVersion: 3
+      time: 0.9995084
+      value: 1
+      inSlope: -0.019479727
+      outSlope: -0.019479727
+      weightedMode: 0
+      inWeight: 0.37749755
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  DisappearDuration: 0.11
+  DisappearCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.046704117
+      outSlope: -0.046704117
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.42770284
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.5929875
+      outSlope: -2.5929875
+      weightedMode: 0
+      inWeight: 0.023011625
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  DeadEndEmergeDuration: 0.1
+  DeadEndEmergeEasingFunction: 5
+  DeadEndCollapseDuration: 0.33
+  DeadEndCollapseEasingFunction: 5
+  DeadEndEditDistortionStartDuration: 0.13
+  DeadEndEditDistortionStartEasingFunction: 2
+  DeadEndEditDistortionReturnDuration: 0.1
+  DeadEndEditDistortionReturnEasingFunction: 5
+  RoadDrawingStepDistance: 1.68
+  DiagonalRoadDrawingStepDistance: 1.55
+  InteractionCircleOffsetAdjustmentDuration: 1
+  TrafficLightsOffsetAdjustmentDuration: 1
+  InteractionCircleAndTrafficLightAdjustmentEasingFunction: 5
+  DryingRoadFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0018730164
+      value: 0
+      inSlope: 0.011918927
+      outSlope: 0.011918927
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.5925235
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.7379003
+      outSlope: 2.7379003
+      weightedMode: 0
+      inWeight: 0.04299063
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  DryingMotorwayHazardStripesFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  DryingTunnelFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  MaxDryingTunnelOpacity: 0.5
+  DryingInteractionCircleFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UpgradeBarSeparationPadding: 30
+  UpgradeBarSeparationPaddingWithCount: 59
+  UpgradeBarRightSeparationPadding: 62
+  UpgradeBarLeftInactiveSeparationPadding: 64
+  AvailableColorfulColorBlindColorGroups:
+  - {fileID: 11400000, guid: 0ca1614585ff4e3479b6fe859116dc99, type: 2}
+  - {fileID: 11400000, guid: ba4073646b70a5748872e556703fb36d, type: 2}
+  - {fileID: 11400000, guid: f6b2b009c8bdd364e950d5e3eee754bb, type: 2}
+  - {fileID: 11400000, guid: 3d57999dfec91854f812e6f1fd1d6309, type: 2}
+  - {fileID: 11400000, guid: 5bbcaf3052acf0b4ea2f98da4843cb68, type: 2}
+  - {fileID: 11400000, guid: 9c35b09a0f546364a952a0bd3beaa718, type: 2}
+  - {fileID: 11400000, guid: fac21b632f8ce084aa7daf31c63179ff, type: 2}
+  - {fileID: 11400000, guid: 163f9768007dbcc4a9735fa8b89568c9, type: 2}
+  - {fileID: 11400000, guid: 3abf30bb945769743a07b0d28fabc110, type: 2}
+  - {fileID: 11400000, guid: a1be7a7138abdb2448f7304940404612, type: 2}
+  - {fileID: 11400000, guid: b92681eca577b9a459f885584bbcd3b8, type: 2}
+  - {fileID: 11400000, guid: 34b4e1fb1ae24644fa9c58fd68d6afa9, type: 2}
+  AvailableDarkColorBlindColorGroups:
+  - {fileID: 11400000, guid: fc31de442303ec14d87cb335b0fe49e1, type: 2}
+  - {fileID: 11400000, guid: 7db893278db477844ac030eef0324cd1, type: 2}
+  - {fileID: 11400000, guid: 3cbb14b6a0034fa4db04ada6b3c65490, type: 2}
+  - {fileID: 11400000, guid: 46582a9aaece27b48a19fb583c3c1eee, type: 2}
+  - {fileID: 11400000, guid: f1cb4f262f80b544896193dd9d8ba9ef, type: 2}
+  - {fileID: 11400000, guid: 9e0ee584f27870f4f838d3ad39b0cb70, type: 2}
+  - {fileID: 11400000, guid: 5d4747ad48b2bf641b65506e904ee498, type: 2}
+  - {fileID: 11400000, guid: 215fb76977406ea4da21bd0a049a8256, type: 2}
+  - {fileID: 11400000, guid: b969e7e7a8bad184eab90bf45ab9528d, type: 2}
+  - {fileID: 11400000, guid: 4d8f1f8873159d841bba1f71b977d12c, type: 2}
+  - {fileID: 11400000, guid: 44a4f018ac4215141a25fd6338ed572b, type: 2}
+  - {fileID: 11400000, guid: cbe14eb7a9bc2d5489374fed0d9dbb21, type: 2}
+  MeanVehicleHeadlightResponseTime: 0.95
+  StandardDeviationVehicleHeadlightResponseTime: 0.6
+  TrainShadowOffset: 0.5
+  TrainHeadlightSwitchTransitionTime: 0.5
+  TrainHeadlightSwitchTransitionEasingFunction: 1
+  TrainHeadlightDayNightTransitionTime: 0.5
+  TrainHeadlightDayNightTransitionEasingFunction: 0
+  ControllerAccelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04128585
+    - serializedVersion: 3
+      time: 4
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  BaseControllerSpeedOverZoom:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1.25
+      inSlope: 0
+      outSlope: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  BaseControllerSpeed: 7.8
+  ShowGridOnZoom: 1
+  ZoomLevelsCameraMin:
+  - 10
+  - 9
+  - 8
+  - 6
+  - 5
+  PanningSpeedPerZoomLevel:
+  - 0.8
+  - 0.6
+  - 0.6
+  - 0.6
+  - 0.4
+  ControllerSpeedSensitivityOptions:
+  - 0.4
+  - 0.7
+  - 1
+  - 1.4
+  - 1.8
+  NormalTabButtonColor: {r: 0.5921569, g: 0.7450981, b: 0.7490196, a: 1}
+  EndlessTabButtonColor: {r: 0.5058824, g: 0.7137255, b: 0.91764706, a: 1}
+  ExpertTabButtonColor: {r: 0.9529412, g: 0.5019608, b: 0.5411765, a: 1}
+  CreativeTabButtonColor: {r: 0.537255, g: 0.7554902, b: 0.4372549, a: 1}
+  ExpertPermanentRoadsFadeLength: 0.157
+  ExpertPermanentRoadsFadeDuration: 0.1
+  RemoveHarshAngles: 1
+  PermanenceDebugViewOpacity: 0
+  PermanenceDebugViewZoneIndex: 33
+  RailWidth: 0.1
+  RailNotchWidth: 0.2
+  RailNotchLength: 0.6
+  RailEndLength: 1.4
+  RailNotchCornerRadius: 0.06
+  BoatPathWidth: 0.3
+  BoatPathDashLength: 0.3
+  BoatPathDashGapLength: 0.7
+  BoatPathCardinalDegreesCorrection: 4
+  boatMaximumRippleEmission: 6
+  boatRippleEmissionStopFactor: 2
+  boatRippleSpeed: 35
+  boatLightBlinkTime: 1
+  boatShadowPivotDistance: 0.2
+  boatTrailDistanceFromTargetFadeIn: 4
+  boatTrailDistanceFromTargetVisible: 1
+  boatNormalTrailRendererTime: 0.8
+  boatDoubleSpeedTrailRendererTime: 0.4
+  boatGifCaptureTrailRendererTime: 0.2
+  boatMovementBobbingAmplitude: 0.08
+  boatMovementBobbingPeriod: 2
+  boatMovementBobbingForwardsAmplitude: 0.1
+  boatMovementLookAheadDistance: 2
+  MaximumDurationOnIdleCar: 5
+  WaitDurationBetweenCompletedJourneyAndNewAgent: 5
+  MaximumDurationOnTrain: 160
+  MinimumDurationOnTrain: 40
+  ChanceToSelectTrain: 0.3
+  DistanceAtWhichToLowerChanceToSelectTrain: 10
+  CinematicCameraAccelerationWhenChangingAgent: 0.05
+  CinematicCameraMoveSpeed: 50
+  CinematicCameraZoomSpeed: 20
+  CinematicCameraSpringDuration: 0.45
+  CinematicCameraEasingFunction: 8
+  CinematicTransitionOutBlurSpeed: 0.4
+  iCloudLinkString: https://dinopoloclub.com/icloud-support/

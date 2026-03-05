@@ -1,0 +1,56 @@
+{
+    "FeatureToggles": [
+        {
+            "Feature": "RecordSimulationJournal",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "RecordStorageAuditTrail",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "ValidateSimulationDeterminism",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "InGameDevTools",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "DiagnosticReports",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "DiagnosticReportsButton",
+            "ToggleState": "Enabled"
+        },
+        {
+          "Feature": "SubmitDiagnosticReportOnException",
+          "ToggleState": "Disabled"
+        },
+        {
+            "Feature": "OptionsDebugMenu",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "RecordIntersectionDecisions",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "ValidatePooledObjectScrubbing",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "TrackScopedAllocations",
+            "ToggleState": "Enabled"
+        },
+        {
+            "Feature": "RecordStackTracesForScopedAllocations",
+            "ToggleState": "Disabled"
+        },
+        {
+          "Feature": "SteamBetaLeaderboards",
+          "ToggleState": "Enabled"
+        }
+    ]
+}

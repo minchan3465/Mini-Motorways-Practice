@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1378339571, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: MotorwayVisualParameters
+  m_EditorClassIdentifier:
+  roadWidth: 0.81
+  roadOutlineWidth: 0.19
+  splineSegmentCount: 90
+  splineDistanceBetweenStripes: 2.4
+  splineStripeRotationDegrees: 45
+  splineEndFadeoutDistance: 1.2
+  hazardStripeFadeoutOffset: 0.7
+  hazardFadeoutDistance: 2.3
+  maxHazardStripeWidth: 0.74
+  hazardStripeInDuration: 0.25
+  hazardStripeOutDuration: 0.12
+  hazardStripeAnimationFunction: 6
+  hazardStripeOpacityFactorFadeDuration: 0.3
+  editModeOpacity: 0.673
+  mothballedOpacity: 0.5
+  viewModeOpacityInDuration: 0.35
+  viewModeOpacityOutDuration: 0.25
+  viewModeOpacityAnimationFunction: 15
+  blendingSize: 0
+  shadowFadeouts:
+  - startDistance: 0.1
+    endDistance: 0.82470703
+  - startDistance: 0.1
+    endDistance: 0.750618
+  - startDistance: 0.1
+    endDistance: 0.497609
+  - startDistance: 0.1
+    endDistance: 0.750618
+  - startDistance: 0.1
+    endDistance: 0.750618

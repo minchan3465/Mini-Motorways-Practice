@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1922163413, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Zurich_Theme_Dark_Road
+  m_EditorClassIdentifier:
+  title: Road
+  themedColors:
+  - type: RoadInner
+    color: {r: 0.28627452, g: 0.30980393, b: 0.34901962, a: 1}
+    propertyToChange: _Color
+  - type: RoadOutline
+    color: {r: 0.52156866, g: 0.54901963, b: 0.5921569, a: 1}
+    propertyToChange: _Color
+  - type: RoadMothballed
+    color: {r: 0.52156866, g: 0.54901963, b: 0.5921569, a: 1}
+    propertyToChange: _Color
+  - type: CarparkOutline
+    color: {r: 0.6313726, g: 0.6901961, b: 0.78431374, a: 1}
+    propertyToChange: _Color
+  - type: CarparkDetail
+    color: {r: 0.6603774, g: 0.3333037, b: 0.35254332, a: 1}
+    propertyToChange: _Color
+  - type: BridgeOutline
+    color: {r: 1, g: 1, b: 1, a: 1}
+    propertyToChange: _Color
+  - type: BridgeRamp
+    color: {r: 0.27058825, g: 0.29411766, b: 0.34117648, a: 1}
+    propertyToChange: _Color
+  - type: MotorwayHeader
+    color: {r: 0.9450981, g: 0.3019608, b: 0.27058825, a: 1}
+    propertyToChange: _Color
+  - type: TunnelOutline
+    color: {r: 1, g: 1, b: 1, a: 1}
+    propertyToChange: _Color
+  - type: RoadCursor
+    color: {r: 0.53333336, g: 0.56078434, b: 0.5921569, a: 0.2784314}
+    propertyToChange: _Color
+  - type: RoundaboutFilling
+    color: {r: 0.12941177, g: 0.14509805, b: 0.19215687, a: 1}
+    propertyToChange: _Color
+  - type: RoundaboutInnerOutline
+    color: {r: 0.39607844, g: 0.41960785, b: 0.45490196, a: 1}
+    propertyToChange: _Color
+  - type: RoadInner
+    color: {r: 0.42875, g: 0.47366667, b: 0.53900003, a: 1}
+    propertyToChange: _DryingColor
+  - type: DryingTunnel
+    color: {r: 1, g: 1, b: 1, a: 1}
+    propertyToChange: _Color

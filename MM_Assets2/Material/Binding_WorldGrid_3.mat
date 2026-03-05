@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Binding_WorldGrid
+  m_Shader: {fileID: 4800000, guid: 2a9985979be15834e86a946c6d7b4eec, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties:
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: {}
+    m_Ints: {}
+    m_Floats:
+      _BumpScale: 1
+      _CityLimitsAlpha: 0.6
+      _CityLimitsHalfLineThickness: 0.4
+      _CityLimitsSmoothing: 0.01
+      _CityLimitsSpacing: 0.9
+      _CityLimitsThickness: 0.3
+      _Cutoff: 0.5
+      _DetailNormalMapScale: 1
+      _DstBlend: 0
+      _GlossMapScale: 1
+      _Glossiness: 0.5
+      _GlossyReflections: 1
+      _GridHalfLineThickness: 0.02
+      _GridSmoothing: 0.01
+      _GridSpacing: 2
+      _GridThickness: 0.02
+      _Metallic: 0
+      _Mode: 0
+      _OcclusionStrength: 1
+      _OutOfBoundsSmoothing: 0
+      _OutOfBoundsThickness: 0.35
+      _OutOfBoundsWidth: 0.9
+      _Parallax: 0.02
+      _Smoothing: 0
+      _SmoothnessTextureChannel: 0
+      _SpecularHighlights: 1
+      _SrcBlend: 1
+      _UVSec: 0
+      _ZWrite: 1
+    m_Colors:
+      _BaseColor: {r: 0, g: 0, b: 0, a: 0}
+      _BaseColour: {r: 0, g: 0, b: 0, a: 0}
+      _Color: {r: 0.32156864, g: 0.34509805, b: 0.3882353, a: 0.10980392}
+      _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+      _GridColor: {r: 1, g: 0.08528899, b: 0, a: 1}
+      _GridColour: {r: 0.4862745, g: 0.4509804, b: 0.42352942, a: 0.40784314}
+      _GridOffset: {r: 20, g: 20, b: 0, a: 0}
+  m_BuildTextureStacks: []

@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1922163413, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Cairns_Theme_Colorful_Environment
+  m_EditorClassIdentifier:
+  title: Environment
+  themedColors:
+  - type: WaterGrid
+    color: {r: 0.25882354, g: 0.81960785, b: 0.81960785, a: 1}
+    propertyToChange: _BackgroundColor
+  - type: WaterGrid
+    color: {r: 0.2784314, g: 0.74509805, b: 0.76862746, a: 1}
+    propertyToChange: _GridColor
+  - type: WaterGrid
+    color: {r: 0.26762193, g: 0.569676, b: 0.5849056, a: 1}
+    propertyToChange: _DropShadowColor
+  - type: TypographyWater
+    color: {r: 0.26486292, g: 0.5562628, b: 0.6037736, a: 0.9647059}
+    propertyToChange: _Color
+  - type: TypographyLand
+    color: {r: 0.6981132, g: 0.43689066, b: 0.15477037, a: 1}
+    propertyToChange: _Color
+  - type: Beach
+    color: {r: 0.8980392, g: 0.6784314, b: 0.61960787, a: 1}
+    propertyToChange: _Color
+  - type: Grass
+    color: {r: 0.9528302, g: 0.82447815, b: 0.7056337, a: 1}
+    propertyToChange: _Color
+  - type: Land
+    color: {r: 0.9490196, g: 0.89411765, b: 0.8392157, a: 1}
+    propertyToChange: _Color
+  - type: TreeA
+    color: {r: 0.8666667, g: 0.27058825, b: 0.15686275, a: 1}
+    propertyToChange: _Color
+  - type: TreeB
+    color: {r: 0.3372549, g: 0.2784314, b: 0.21176471, a: 1}
+    propertyToChange: _Color
+  - type: TreeC
+    color: {r: 1, g: 0.7254902, b: 0.24313726, a: 1}
+    propertyToChange: _Color
+  - type: MountainA
+    color: {r: 0.8784314, g: 0.48235294, b: 0.32941177, a: 1}
+    propertyToChange: _Color
+  - type: MountainB
+    color: {r: 0.9372549, g: 0.62352943, b: 0.32156864, a: 1}
+    propertyToChange: _Color
+  - type: MountainC
+    color: {r: 1, g: 0.79607844, b: 0.4509804, a: 1}
+    propertyToChange: _Color
+  - type: MountainA
+    color: {r: 0.8301887, g: 0.48667488, b: 0.3485226, a: 1}
+    propertyToChange: _DotColor
+  - type: MountainB
+    color: {r: 0.9372549, g: 0.62352943, b: 0.32156864, a: 1}
+    propertyToChange: _DotColor
+  - type: MountainC
+    color: {r: 1, g: 0.79607844, b: 0.4509804, a: 1}
+    propertyToChange: _DotColor
+  - type: MountainA
+    color: {r: 0.73800004, g: 0.18819, b: 0.43027058, a: 0.13333334}
+    propertyToChange: _DiagonalColor
+  - type: MountainB
+    color: {r: 0.83, g: 0.22409998, b: 0.4419071, a: 0.08627451}
+    propertyToChange: _DiagonalColor
+  - type: MountainC
+    color: {r: 0.922, g: 0.333764, b: 0.5450317, a: 0.11372549}
+    propertyToChange: _DiagonalColor
+  - type: VehicleSilhouette
+    color: {r: 0.35686275, g: 0.10907934, b: 0.09411764, a: 0.7490196}
+    propertyToChange: _Color
+  - type: Wave
+    color: {r: 0.61489856, g: 0.9245283, b: 0.91580635, a: 1}
+    propertyToChange: _BaseColor
+  - type: Shadow
+    color: {r: 0.3764706, g: 0.18039216, b: 0.3042536, a: 0.28235295}
+    propertyToChange: _Color
+  - type: Rail
+    color: {r: 0.27058825, g: 0.2627451, b: 0.37254903, a: 1}
+    propertyToChange: _Color
+  - type: Train
+    color: {r: 0.8078432, g: 0.8431373, b: 0.854902, a: 1}
+    propertyToChange: _Color
+  - type: TrainHeadlights
+    color: {r: 1, g: 0.9490196, b: 0.8509804, a: 1}
+    propertyToChange: _Color
+  - type: TrainHeadlightBeams
+    color: {r: 1, g: 0.9490196, b: 0.8509804, a: 1}
+    propertyToChange: _Color
+  - type: RailBridge
+    color: {r: 0, g: 0, b: 0, a: 1}
+    propertyToChange: _Color
+  - type: RailBridgeOutline
+    color: {r: 0, g: 0, b: 0, a: 1}
+    propertyToChange: _Color
+  - type: Reef
+    color: {r: 0.2784314, g: 0.74509805, b: 0.76862746, a: 0.6745098}
+    propertyToChange: _Color
+  - type: ReefOutline
+    color: {r: 0.2784314, g: 0.74509805, b: 0.76862746, a: 0.5019608}
+    propertyToChange: _Color
+  - type: BoatBody
+    color: {r: 0.7019608, g: 0.79215693, b: 0.81568635, a: 1}
+    propertyToChange: _Color
+  - type: BoatCabin
+    color: {r: 0.8235295, g: 0.90196085, b: 0.91372555, a: 1}
+    propertyToChange: _Color
+  - type: BoatLight
+    color: {r: 0.7019608, g: 0.79215693, b: 0.81568635, a: 1}
+    propertyToChange: _Color
+  - type: BoatPath
+    color: {r: 0.8228907, g: 0.8679245, b: 0.8641717, a: 1}
+    propertyToChange: _Color
+  - type: BoatRipple
+    color: {r: 0.36356357, g: 0.75161964, b: 0.8113208, a: 1}
+    propertyToChange: _BaseColor
+  - type: BoatTrail
+    color: {r: 0.36356357, g: 0.75161964, b: 0.8113208, a: 1}
+    propertyToChange: _Color

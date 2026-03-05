@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1922163413, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Zurich_Theme_Colorful_Interaction
+  m_EditorClassIdentifier:
+  title: Interaction
+  themedColors:
+  - type: TrafficLightInteraction
+    color: {r: 1, g: 1, b: 0.96862745, a: 1}
+    propertyToChange: _Color
+  - type: MotorwayInteraction
+    color: {r: 1, g: 1, b: 0.96862745, a: 1}
+    propertyToChange: _Color
+  - type: RoundaboutInteraction
+    color: {r: 1, g: 1, b: 0.96862745, a: 1}
+    propertyToChange: _Color
+  - type: WorldGrid
+    color: {r: 0.2735849, g: 0.2542275, b: 0.24132253, a: 0.15686275}
+    propertyToChange: _Color
+  - type: TrafficLightInteraction
+    color: {r: 0.493859, g: 0.5099261, b: 0.5849056, a: 1}
+    propertyToChange: _DryColor
+  - type: RoundaboutInteraction
+    color: {r: 0.7214311, g: 0.7323575, b: 0.7924528, a: 1}
+    propertyToChange: _DryColor
+  - type: MotorwayInteraction
+    color: {r: 0.49411768, g: 0.50980395, b: 0.58431375, a: 1}
+    propertyToChange: _DryColor
+  - type: Train
+    color: {r: 0.8078432, g: 0.8431373, b: 0.854902, a: 1}
+    propertyToChange: _Color

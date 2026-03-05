@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Warsaw
+  m_EditorClassIdentifier:
+  cityName: Warsaw
+  mapName: Warsaw
+  mapDescription: WarsawDescription
+  mapAssetBundle: warsaw
+  mapPrefabName: Warsaw
+  themes:
+  - {fileID: 11400000, guid: fe15d16270a2b14468327cbaee671a5a, type: 2}
+  - {fileID: 11400000, guid: 39d9627e495e0bc45b33c50dcd4ddb17, type: 2}
+  - {fileID: 11400000, guid: 0f847e7b2b8bb254b8f36e9a6c1d2d84, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: 82d0e5b2e9af57e4ca753beb5b9fa443, type: 2}
+  - {fileID: 21300000, guid: 0199f060ffcdfac4ebf1d79787f103d9, type: 2}
+  - {fileID: 21300000, guid: 5530337a16a96874ba0d4a2706f3f1c5, type: 2}
+  - {fileID: 21300000, guid: 5530337a16a96874ba0d4a2706f3f1c5, type: 2}
+  - {fileID: 21300000, guid: 0199f060ffcdfac4ebf1d79787f103d9, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 76d3d5bdc44e83445a5c1ee354300603, type: 2}
+  - {fileID: 11400000, guid: f58b0f9589c8b324ea545d7006d0a6cb, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: aea59531dde2ec347847efb2dd863b29, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: 63d5c1aca056df34cbb85b591cb8565b, type: 2}
+  - {fileID: 11400000, guid: 54c41dad07e02aa409cfc7cff4151fb8, type: 2}
+  - {fileID: 11400000, guid: e91c26689a414da4182c47ea082ebca3, type: 2}
+  - {fileID: 11400000, guid: 594b154c509ec3442b684825d6525bea, type: 2}
+  - {fileID: 11400000, guid: bec30b209984579488ee94d5e595099b, type: 2}
+  howToUnlockDescription: AchievementDescription_MapUnlock_Score250
+  isTrainMap: 0
+  isBoatMap: 0

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: HongKong_Theme_Colorful
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 70f78a7bf11d7144baf32f79f9e7102a, type: 2}
+  - {fileID: 11400000, guid: 2b83d1a9312e25348a80d95e2ea055c3, type: 2}
+  - {fileID: 11400000, guid: 18fefb61fca278c499a3bd6ed84259f7, type: 2}
+  - {fileID: 11400000, guid: 4a43a2fe55e2ac84a8fd719dd0cb3f23, type: 2}
+  - {fileID: 11400000, guid: df0a2e1928ad2d849896e32705f8d1f6, type: 2}
+  - {fileID: 11400000, guid: c216c50a75915ac4ab41f41d2403d3e4, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 43796b2a4d2566243bb15a247f9b10d0, type: 2}
+  - {fileID: 11400000, guid: 9d7e1ca5a95722b488679f8e5b1620f3, type: 2}
+  - {fileID: 11400000, guid: c843194a9b8a7894aba5fef15e4c25e6, type: 2}
+  - {fileID: 11400000, guid: 2f06e95bb040acb48bf7c8f7cb58407d, type: 2}
+  - {fileID: 11400000, guid: b092eb7f873f5db40b79e7087f780636, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 536dcc369b463d94d91d4373ef258691, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

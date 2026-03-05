@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: destinations-allcircles
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Destinations_AllCircleDestinationsTitle
+  challengeDescription: Challenge_Destinations_AllCircleDestinationsDescription
+  icon: {fileID: 21300000, guid: 1db12ebfa3a1a2140a35f87abbb14db4, type: 2}
+  subIconBackground: {fileID: 0}
+  subIcon: {fileID: 0}
+  modifiers:
+  - type: 10
+    upgradeType: 0
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 0
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: 659e9045b432276439a57dce27a8709b, type: 2}
+  - {fileID: 11400000, guid: 7879e4753e9cbbd4b8bfbc7f7bedd0e3, type: 2}
+  - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+  manualIncompatibleChallenges:
+  - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}

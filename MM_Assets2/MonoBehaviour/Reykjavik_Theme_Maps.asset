@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Reykjavik_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: a0d4068ecbf69214e8431595e55f73c5, type: 2}
+  - {fileID: 11400000, guid: 412d550ee347afc4fa63584f5de27c05, type: 2}
+  - {fileID: 11400000, guid: d748069ee53e1bb4bb97315404a929eb, type: 2}
+  - {fileID: 11400000, guid: 3b0d8f77a093b364081e504677eea94c, type: 2}
+  - {fileID: 11400000, guid: 524ca2a44957cbb49839c27428dd1ae2, type: 2}
+  - {fileID: 11400000, guid: f856403c1d1f3e749a3e89940e713ec9, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: defb2cd351d49f245bbaae7325401317, type: 2}
+  - {fileID: 11400000, guid: bb4a74db640fa9247b4751809a9e3399, type: 2}
+  - {fileID: 11400000, guid: 1866248b6a7e2874e9ebfdb55c7a81b9, type: 2}
+  - {fileID: 11400000, guid: 2e138194253b6a047bf71c83cf7b31e2, type: 2}
+  - {fileID: 11400000, guid: 65796b302dfff274aa3271ca99096ce7, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 146eda97c22d7d64c8ddf24dd35833fe, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Copenhagen_Theme_Colorful
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 35e8839884f114340a03527ddcc8c2ec, type: 2}
+  - {fileID: 11400000, guid: 241c7a9b50ceadf49bdf6ecd72d449a7, type: 2}
+  - {fileID: 11400000, guid: 7056874fe07175a469eb99cbaa3cd5c6, type: 2}
+  - {fileID: 11400000, guid: 9994f59ed02871b4cbc93b9222186fcb, type: 2}
+  - {fileID: 11400000, guid: 3e4bc82ca1fccf84b92215ab0ef1a244, type: 2}
+  - {fileID: 11400000, guid: de352b9f4f3e65147a0b591b2e7acc6e, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 620ce8c55d7ceae44ab14b737c38c202, type: 2}
+  - {fileID: 11400000, guid: a0cb29be21cb42146ab83d996c6d5b14, type: 2}
+  - {fileID: 11400000, guid: 14c40764ff46efd44ad6ae8d49cf95a0, type: 2}
+  - {fileID: 11400000, guid: 550ff2bd63670ff43a2a6333c3cc03e7, type: 2}
+  - {fileID: 11400000, guid: 4487b34f42a0498459c48e8c81a8c5fb, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 71333d20fb4e3c343a50b4d28f68cc41, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

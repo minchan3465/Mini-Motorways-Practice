@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: upgrades-unlimited_Concrete
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Upgrades_UnlimitedConcrete
+  challengeDescription: Challenge_Upgrades_UnlimitedConcreteDescription
+  icon: {fileID: 21300000, guid: ed596ee2c533a2e4ea6f15ef67a1daa5, type: 2}
+  subIconBackground: {fileID: 21300000, guid: b3db49db6310c78428d532602dc0af7e, type: 2}
+  subIcon: {fileID: 21300000, guid: b91053f9f2da82245b0056831a9f2ecb, type: 2}
+  modifiers:
+  - type: 17
+    upgradeType: 0
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 0
+  - type: 1
+    upgradeType: 0
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 0
+  - type: 5
+    upgradeType: 0
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 0
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+  - {fileID: 11400000, guid: fbf7569ba288af742919aef7db351c2d, type: 2}
+  - {fileID: 11400000, guid: 931b67626ee431e45b0d8aaa54fec884, type: 2}
+  - {fileID: 11400000, guid: f436c99a4e095714b8b95cde534fd109, type: 2}
+  - {fileID: 11400000, guid: ea59a1d38b902504d98386f274a32316, type: 2}
+  - {fileID: 11400000, guid: 25e03081b1fea7c49b57e46f6dd2364e, type: 2}
+  - {fileID: 11400000, guid: ae913fb82acf2c2499b7dc66d8ee2140, type: 2}
+  - {fileID: 11400000, guid: 54a133e2787dbee43b6063bae0727147, type: 2}
+  - {fileID: 11400000, guid: 88941d7052387cc4686ee95021ffa6d1, type: 2}
+  - {fileID: 11400000, guid: f80dcaddd3224c346b6b4b51e9fafd46, type: 2}
+  - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+  - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+  - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+  - {fileID: 11400000, guid: 0d82e4a5cc4fb23488abab0ec0688177, type: 2}
+  - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+  - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+  - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+  - {fileID: 11400000, guid: a1bbd1ed85bebb949bc6078bdb437b65, type: 2}
+  - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+  - {fileID: 11400000, guid: 481a6e379afeb8a41a575677a30454ee, type: 2}
+  - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+  - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+  - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+  - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+  - {fileID: 11400000, guid: 0cf517df6bec1ff4c83b0c0c45335531, type: 2}
+  - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+  - {fileID: 11400000, guid: 5b2a3d3f45ea77842b7554e4699ea1d5, type: 2}
+  - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+  - {fileID: 11400000, guid: 1931cee58c88d504b8b7c4dd0a347980, type: 2}
+  - {fileID: 11400000, guid: aedbfce1972dda54894910e1105046fe, type: 2}
+  - {fileID: 11400000, guid: 4bd16ba6fab96b34eb32698205e8e50e, type: 2}
+  - {fileID: 11400000, guid: 04bf730c5b180f249856467c202cc6db, type: 2}
+  - {fileID: 11400000, guid: b5c32800c06f57d4cafd727b13f57607, type: 2}
+  manualIncompatibleChallenges:
+  - {fileID: 11400000, guid: 0d4fb02c4ac821544835bf661ba682ed, type: 2}
+  - {fileID: 11400000, guid: 5b2a3d3f45ea77842b7554e4699ea1d5, type: 2}
+  - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+  - {fileID: 11400000, guid: 1931cee58c88d504b8b7c4dd0a347980, type: 2}

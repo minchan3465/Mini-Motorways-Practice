@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Mumbai
+  m_EditorClassIdentifier:
+  cityName: Mumbai
+  mapName: Mumbai
+  mapDescription: MumbaiDescription
+  mapAssetBundle: mumbai
+  mapPrefabName: Mumbai
+  themes:
+  - {fileID: 11400000, guid: 5903ff751c28a2344b368713d80b6dab, type: 2}
+  - {fileID: 11400000, guid: 649976bfab867c7458922a6ca8e7ff6e, type: 2}
+  - {fileID: 11400000, guid: ab015215c43c2304589ec749fe998be7, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: 576ff61fdeed368489c120d93dafc85b, type: 2}
+  - {fileID: 21300000, guid: f444122a669ea784090461864f79b3a2, type: 2}
+  - {fileID: 21300000, guid: 81ee441843ac4764e9dee83afc568299, type: 2}
+  - {fileID: 21300000, guid: 81ee441843ac4764e9dee83afc568299, type: 2}
+  - {fileID: 21300000, guid: f444122a669ea784090461864f79b3a2, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 6126d0c611e315241bdf63d58aedbe1c, type: 2}
+  - {fileID: 11400000, guid: 218a9d6121bcd3e45a56716a0de8d89e, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: 4fc2359105831404f9162487a98de67c, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: f2decb39a82cdf942b49c9a9e7a3fc4a, type: 2}
+  howToUnlockDescription: AchievementDescription_London_Score_1
+  isTrainMap: 1
+  isBoatMap: 0

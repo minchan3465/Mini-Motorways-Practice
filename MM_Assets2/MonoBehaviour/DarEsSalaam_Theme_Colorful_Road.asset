@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1922163413, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: DarEsSalaam_Theme_Colorful_Road
+  m_EditorClassIdentifier:
+  title: Road
+  themedColors:
+  - type: RoadInner
+    color: {r: 0.9529412, g: 0.9529412, b: 0.92941177, a: 1}
+    propertyToChange: _Color
+  - type: RoadOutline
+    color: {r: 0.95294124, g: 0.95294124, b: 0.9294118, a: 1}
+    propertyToChange: _Color
+  - type: RoadMothballed
+    color: {r: 0.85130435, g: 0.89, b: 0.8242174, a: 1}
+    propertyToChange: _Color
+  - type: CarparkOutline
+    color: {r: 0.86153847, g: 0.9, b: 0.83461535, a: 1}
+    propertyToChange: _Color
+  - type: CarparkDetail
+    color: {r: 0.8862746, g: 0.9215687, b: 0.8470589, a: 1}
+    propertyToChange: _Color
+  - type: BridgeOutline
+    color: {r: 0.29803923, g: 0.2392157, b: 0.21960786, a: 1}
+    propertyToChange: _Color
+  - type: BridgeRamp
+    color: {r: 0.9294118, g: 0.9294118, b: 0.93725497, a: 1}
+    propertyToChange: _Color
+  - type: MotorwayHeader
+    color: {r: 0.5416567, g: 0.8113208, b: 0.48602706, a: 1}
+    propertyToChange: _Color
+  - type: TunnelOutline
+    color: {r: 0.29803923, g: 0.2392157, b: 0.21960786, a: 1}
+    propertyToChange: _Color
+  - type: RoadCursor
+    color: {r: 0.40268043, g: 0.504, b: 0.43125775, a: 0.1764706}
+    propertyToChange: _Color
+  - type: RoundaboutFilling
+    color: {r: 0.85490197, g: 0.8901961, b: 0.827451, a: 1}
+    propertyToChange: _Color
+  - type: RoundaboutInnerOutline
+    color: {r: 0.78950596, g: 0.8301887, b: 0.763617, a: 1}
+    propertyToChange: _Color
+  - type: RoadInner
+    color: {r: 0.712287, g: 0.851, b: 0.8113677, a: 1}
+    propertyToChange: _DryingColor
+  - type: DryingTunnel
+    color: {r: 0.29803923, g: 0.2392157, b: 0.21960786, a: 1}
+    propertyToChange: _Color

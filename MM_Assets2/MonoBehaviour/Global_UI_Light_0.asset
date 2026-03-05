@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1922163413, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Global_UI_Light
+  m_EditorClassIdentifier:
+  title:
+  themedColors:
+  - type: Light
+    color: {r: 0.9137255, g: 0.90588236, b: 0.87058824, a: 1}
+    propertyToChange: _Color
+  - type: Dark
+    color: {r: 0.23137255, g: 0.24705882, b: 0.26666668, a: 1}
+    propertyToChange: _Color
+  - type: TrafficLightRed
+    color: {r: 0.9339623, g: 0.24230155, b: 0.28462768, a: 1}
+    propertyToChange: _Color
+  - type: TrafficLightAmber
+    color: {r: 0.9811321, g: 0.56339204, b: 0.32858673, a: 1}
+    propertyToChange: _Color
+  - type: TrafficLightGreen
+    color: {r: 0.227451, g: 0.8509804, b: 0.55414987, a: 1}
+    propertyToChange: _Color
+  - type: HighlightedButton
+    color: {r: 0.9882353, g: 0.7921569, b: 0.41960785, a: 1}
+    propertyToChange: _Color
+  - type: LightSecondary
+    color: {r: 0.92941177, g: 0.92156863, b: 0.89411765, a: 1}
+    propertyToChange: _Color
+  - type: DarkSecondary
+    color: {r: 0.19215687, g: 0.20392157, b: 0.21568628, a: 1}
+    propertyToChange: _Color
+  - type: ChallengeIcon
+    color: {r: 0.92156863, g: 0.92941177, b: 0.93333334, a: 1}
+    propertyToChange: _Color
+  - type: ChallengeAdditional
+    color: {r: 0.92156863, g: 0.92941177, b: 0.93333334, a: 1}
+    propertyToChange: _Color
+  - type: LightSubheading
+    color: {r: 0.9150943, g: 0.2460395, b: 0.8232634, a: 1}
+    propertyToChange: _Color
+  - type: DarkSubheading
+    color: {r: 0.38964042, g: 0.3987311, b: 0.41509432, a: 1}
+    propertyToChange: _Color
+  - type: Grey
+    color: {r: 0.97900003, g: 0.97514373, b: 0.95158803, a: 1}
+    propertyToChange: _Color
+  - type: LockedMap
+    color: {r: 0.83183336, g: 0.8433209, b: 0.851, a: 1}
+    propertyToChange: _Color
+  - type: DisabledUpgradeOption
+    color: {r: 0.8117647, g: 0.8117647, b: 0.8117647, a: 1}
+    propertyToChange: _Color
+  - type: HistogramRulers
+    color: {r: 0.6862745, g: 0.6901961, b: 0.6862745, a: 1}
+    propertyToChange: _Color
+  - type: HistogramLine
+    color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+    propertyToChange: _Color
+  - type: IndicatorGrey
+    color: {r: 0.5764706, g: 0.58431375, b: 0.5921569, a: 1}
+    propertyToChange: _Color
+  - type: TenYearAnniversaryButtonNormal
+    color: {r: 0.23529412, g: 0.2509804, b: 0.26666668, a: 1}
+    propertyToChange: _Color
+  - type: TenYearAnniversaryButtonHighlight
+    color: {r: 0.3137255, g: 0.32941177, b: 0.34117648, a: 1}
+    propertyToChange: _Color
+  - type: TenYearAnniversaryButtonPressed
+    color: {r: 0.15294118, g: 0.16470589, b: 0.18039216, a: 1}
+    propertyToChange: _Color
+  - type: TenYearAnniversaryButtonShadow
+    color: {r: 0.20392157, g: 0.20392157, b: 0.20392157, a: 0.25882354}
+    propertyToChange: _Color

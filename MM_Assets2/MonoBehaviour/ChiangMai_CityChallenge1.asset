@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -868251045, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: ChiangMai_CityChallenge1
+  m_EditorClassIdentifier:
+  challenges:
+  - {fileID: 11400000, guid: dd81b60c571fd7e4d89f1319323baf96, type: 2}
+  - {fileID: 11400000, guid: e99527c576edb7741bd3f4e1ff27724b, type: 2}
+  - {fileID: 11400000, guid: b6f64bf35eaf8c841b395e1ddbdda949, type: 2}
+  titleStringId: CityChallenge_ChiangMai_1
+  descriptionStringId: CityChallenge_ChiangMai_1
+  targetScore: 0

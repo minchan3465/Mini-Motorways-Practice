@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: upgrades-1_upgradechoice
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Upgrades_OnlyOneWeeklyChoiceTitle
+  challengeDescription: Challenge_Upgrades_OnlyOneWeeklyChoiceDescription
+  icon: {fileID: 21300000, guid: a61dfdde82f7f4a4f9db035e65497429, type: 2}
+  subIconBackground: {fileID: 0}
+  subIcon: {fileID: 0}
+  modifiers:
+  - type: 4
+    upgradeType: 1
+    intParameter: 1
+    fix64Parameter:
+      m_rawValue: 0
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+  - {fileID: 11400000, guid: d0c69466c6517dc4c8112fb7c6049712, type: 2}
+  - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+  - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+  manualIncompatibleChallenges: []

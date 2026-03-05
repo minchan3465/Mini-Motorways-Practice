@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Wellington
+  m_EditorClassIdentifier:
+  cityName: Wellington
+  mapName: Wellington
+  mapDescription: WellingtonDescriptionID
+  mapAssetBundle: wellington
+  mapPrefabName: Wellington
+  themes:
+  - {fileID: 11400000, guid: f9acae3cc25918d40a42d8f570229697, type: 2}
+  - {fileID: 11400000, guid: 76997d1fb0e63a14fb7f68eb9b60267a, type: 2}
+  - {fileID: 11400000, guid: 32e1c6f6117e96d408eff7ef2f8bcc3d, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: a36f396973c17d24aa12446affe2ddfe, type: 2}
+  - {fileID: 21300000, guid: 08926aa150f53bf44a98e270c279c381, type: 2}
+  - {fileID: 21300000, guid: ddaba107001abd84cb18aea904501f50, type: 2}
+  - {fileID: 21300000, guid: ddaba107001abd84cb18aea904501f50, type: 2}
+  - {fileID: 21300000, guid: 08926aa150f53bf44a98e270c279c381, type: 2}
+  availableUpgrades: 000000000500000002000000030000000400000001000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: b51c7159f7589bb4b9ad9444576558a7, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: 962bb95c1ab373047b6e4618d552103f, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: 63d5c1aca056df34cbb85b591cb8565b, type: 2}
+  - {fileID: 11400000, guid: 54c41dad07e02aa409cfc7cff4151fb8, type: 2}
+  - {fileID: 11400000, guid: e91c26689a414da4182c47ea082ebca3, type: 2}
+  - {fileID: 11400000, guid: 594b154c509ec3442b684825d6525bea, type: 2}
+  - {fileID: 11400000, guid: bec30b209984579488ee94d5e595099b, type: 2}
+  howToUnlockDescription: AchievementDescription_MapUnlock_Score250
+  isTrainMap: 0
+  isBoatMap: 0

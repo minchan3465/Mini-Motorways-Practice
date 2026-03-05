@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Munich_Theme_Colorful
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: fd524542177fea042811e528412f22d9, type: 2}
+  - {fileID: 11400000, guid: 5eef80794cafe2d4eb5fab209eb27f87, type: 2}
+  - {fileID: 11400000, guid: a29706576148f7e4b9c9594fed23a01f, type: 2}
+  - {fileID: 11400000, guid: 8e3fce17dd1024b4fa2302eae792b306, type: 2}
+  - {fileID: 11400000, guid: e30fbfd24528c80418ead0eb8a60ed3e, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 5abf6a60881ba624e96039619b068c30, type: 2}
+  - {fileID: 11400000, guid: 63c27354abf450a4181ef296f2400d80, type: 2}
+  - {fileID: 11400000, guid: 29e088a422c92e64c8e148e617e9e08c, type: 2}
+  - {fileID: 11400000, guid: a23ebdc9ee4336248ab97129222739df, type: 2}
+  - {fileID: 11400000, guid: 159c7160832f51e42a13429a721af128, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.717
+  overrideSaturationMultiplier: 0.695
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 41b06bae1a384cb42b010d8eb5773f87, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: upgrades-double_TrafficLight
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Upgrades_DoubleTrafficLightsTitle
+  challengeDescription: Challenge_Upgrades_DoubleTrafficLightsDescription
+  icon: {fileID: 21300000, guid: 6ddf1633eca6d3240a75556c695e0d69, type: 2}
+  subIconBackground: {fileID: 21300000, guid: f5509545b2c2e0f47bedd907862f8196, type: 2}
+  subIcon: {fileID: 21300000, guid: ec127aa7ba4c8164eba98f0ac428f896, type: 2}
+  modifiers:
+  - type: 3
+    upgradeType: 3
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 8589934592
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+  - {fileID: 11400000, guid: 88941d7052387cc4686ee95021ffa6d1, type: 2}
+  - {fileID: 11400000, guid: 7082cbc3c54cef74bbf7587f823a1847, type: 2}
+  - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+  - {fileID: 11400000, guid: 201b135d917abdc4abc0d2c9fe5fad72, type: 2}
+  - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+  - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+  - {fileID: 11400000, guid: cef416f3541873e48b20fd539de24776, type: 2}
+  manualIncompatibleChallenges: []

@@ -1,0 +1,3350 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 936739236, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: PermanenceTextureMappingDatabase
+  m_EditorClassIdentifier:
+  visualConstantsData: {fileID: 11400000, guid: 187191fd6220861409efd71fcb241e1d, type: 2}
+  generationIndexToZoneIdMappings:
+  - zoneId: 0
+    fadeFromIndexA: 0
+    fadeToIndexA: 0
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 8
+    zoneType: 0
+    sectionDirection: -1
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 1
+    fadeFromIndexA: 1
+    fadeToIndexA: 1
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 0
+    zoneType: 0
+    sectionDirection: 0
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 2
+    fadeFromIndexA: 2
+    fadeToIndexA: 2
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 13
+    zoneType: 0
+    sectionDirection: 1
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 3
+    fadeFromIndexA: 3
+    fadeToIndexA: 3
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 1
+    zoneType: 0
+    sectionDirection: 2
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 4
+    fadeFromIndexA: 4
+    fadeToIndexA: 4
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 14
+    zoneType: 0
+    sectionDirection: 3
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 5
+    fadeFromIndexA: 5
+    fadeToIndexA: 5
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 2
+    zoneType: 0
+    sectionDirection: 4
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 6
+    fadeFromIndexA: 6
+    fadeToIndexA: 6
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 15
+    zoneType: 0
+    sectionDirection: 5
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 7
+    fadeFromIndexA: 7
+    fadeToIndexA: 7
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 3
+    zoneType: 0
+    sectionDirection: 6
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 8
+    fadeFromIndexA: 8
+    fadeToIndexA: 8
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 16
+    zoneType: 0
+    sectionDirection: 7
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 9
+    fadeFromIndexA: 15
+    fadeToIndexA: 15
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 49
+    zoneType: 0
+    sectionDirection: 1
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 10
+    fadeFromIndexA: 26
+    fadeToIndexA: 26
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 50
+    zoneType: 0
+    sectionDirection: 3
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 11
+    fadeFromIndexA: 13
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 51
+    zoneType: 0
+    sectionDirection: 5
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 12
+    fadeFromIndexA: 27
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 52
+    zoneType: 0
+    sectionDirection: 7
+    insideSectionDirection: -1
+    fadeFromZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 13
+    fadeFromIndexA: 1
+    fadeToIndexA: 29
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 4
+    zoneType: 1
+    sectionDirection: 0
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 14
+    fadeFromIndexA: 1
+    fadeToIndexA: 0
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 9
+    zoneType: 1
+    sectionDirection: 0
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 15
+    fadeFromIndexA: 31
+    fadeToIndexA: 2
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 17
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: 0
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 16
+    fadeFromIndexA: 10
+    fadeToIndexA: 15
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 53
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 1
+      insideSection: 0
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 17
+    fadeFromIndexA: 36
+    fadeToIndexA: 2
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 18
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: 2
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 18
+    fadeFromIndexA: 9
+    fadeToIndexA: 15
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 54
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 1
+      insideSection: 2
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 19
+    fadeFromIndexA: 3
+    fadeToIndexA: 2
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 19
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 20
+    fadeFromIndexA: 11
+    fadeToIndexA: 15
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 55
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 1
+      insideSection: 4
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 21
+    fadeFromIndexA: 1
+    fadeToIndexA: 2
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 20
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 22
+    fadeFromIndexA: 12
+    fadeToIndexA: 15
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 56
+    zoneType: 1
+    sectionDirection: 1
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 1
+      insideSection: 6
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 23
+    fadeFromIndexA: 3
+    fadeToIndexA: 35
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 5
+    zoneType: 1
+    sectionDirection: 2
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 2
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 24
+    fadeFromIndexA: 3
+    fadeToIndexA: 0
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 10
+    zoneType: 1
+    sectionDirection: 2
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 25
+    fadeFromIndexA: 3
+    fadeToIndexA: 4
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 21
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 26
+    fadeFromIndexA: 18
+    fadeToIndexA: 26
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 57
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 3
+      insideSection: 0
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 27
+    fadeFromIndexA: 37
+    fadeToIndexA: 26
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 22
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: 2
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 28
+    fadeFromIndexA: 16
+    fadeToIndexA: 26
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 58
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 3
+      insideSection: 2
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 29
+    fadeFromIndexA: 41
+    fadeToIndexA: 4
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 23
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: 4
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 30
+    fadeFromIndexA: 14
+    fadeToIndexA: 26
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 59
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 3
+      insideSection: 4
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 31
+    fadeFromIndexA: 5
+    fadeToIndexA: 4
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 24
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 32
+    fadeFromIndexA: 17
+    fadeToIndexA: 26
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 60
+    zoneType: 1
+    sectionDirection: 3
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 3
+      insideSection: 6
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 33
+    fadeFromIndexA: 5
+    fadeToIndexA: 40
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 6
+    zoneType: 1
+    sectionDirection: 4
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 4
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 34
+    fadeFromIndexA: 5
+    fadeToIndexA: 0
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 11
+    zoneType: 1
+    sectionDirection: 4
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 35
+    fadeFromIndexA: 7
+    fadeToIndexA: 6
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 25
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 36
+    fadeFromIndexA: 19
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 61
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 5
+      insideSection: 0
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 37
+    fadeFromIndexA: 5
+    fadeToIndexA: 6
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 26
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 38
+    fadeFromIndexA: 20
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 62
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 5
+      insideSection: 2
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 39
+    fadeFromIndexA: 42
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 27
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: 4
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 40
+    fadeFromIndexA: 22
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 63
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 5
+      insideSection: 4
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 41
+    fadeFromIndexA: 47
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 28
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: 6
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 42
+    fadeFromIndexA: 21
+    fadeToIndexA: 13
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 64
+    zoneType: 1
+    sectionDirection: 5
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 5
+      insideSection: 6
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 43
+    fadeFromIndexA: 7
+    fadeToIndexA: 45
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 7
+    zoneType: 1
+    sectionDirection: 6
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 6
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 44
+    fadeFromIndexA: 7
+    fadeToIndexA: 0
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 12
+    zoneType: 1
+    sectionDirection: 6
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 45
+    fadeFromIndexA: 32
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 29
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: 0
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 46
+    fadeFromIndexA: 24
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 65
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: -1
+      section: 7
+      insideSection: 0
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 47
+    fadeFromIndexA: 1
+    fadeToIndexA: 8
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 30
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 48
+    fadeFromIndexA: 23
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 66
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: -1
+      section: 7
+      insideSection: 2
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 49
+    fadeFromIndexA: 7
+    fadeToIndexA: 8
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 31
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 50
+    fadeFromIndexA: 28
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 67
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: -1
+      section: 7
+      insideSection: 4
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 51
+    fadeFromIndexA: 46
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 32
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: 6
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 52
+    fadeFromIndexA: 25
+    fadeToIndexA: 27
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 68
+    zoneType: 1
+    sectionDirection: 7
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: -1
+      section: 7
+      insideSection: 6
+      sharingStatus: 2
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 1
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 53
+    fadeFromIndexA: 31
+    fadeToIndexA: 33
+    fadeFromIndexB: 2
+    fadeToIndexB: 34
+    shaderIndex: 35
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: 0
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 54
+    fadeFromIndexA: 2
+    fadeToIndexA: 36
+    fadeFromIndexB: 3
+    fadeToIndexB: 35
+    shaderIndex: 36
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 2
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 2
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 55
+    fadeFromIndexA: 1
+    fadeToIndexA: 2
+    fadeFromIndexB: 0
+    fadeToIndexB: 3
+    shaderIndex: 33
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 56
+    fadeFromIndexA: 29
+    fadeToIndexA: 31
+    fadeFromIndexB: 1
+    fadeToIndexB: 2
+    shaderIndex: 34
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 0
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 1
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 57
+    fadeFromIndexA: 3
+    fadeToIndexA: 35
+    fadeFromIndexB: 4
+    fadeToIndexB: 37
+    shaderIndex: 39
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 2
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 2
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 58
+    fadeFromIndexA: 4
+    fadeToIndexA: 37
+    fadeFromIndexB: 39
+    fadeToIndexB: 38
+    shaderIndex: 40
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 2
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 3
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 3
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 59
+    fadeFromIndexA: 0
+    fadeToIndexA: 3
+    fadeFromIndexB: 5
+    fadeToIndexB: 4
+    shaderIndex: 37
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 60
+    fadeFromIndexA: 0
+    fadeToIndexA: 3
+    fadeFromIndexB: 5
+    fadeToIndexB: 4
+    shaderIndex: 38
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 3
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 61
+    fadeFromIndexA: 7
+    fadeToIndexA: 0
+    fadeFromIndexB: 6
+    fadeToIndexB: 5
+    shaderIndex: 43
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 62
+    fadeFromIndexA: 6
+    fadeToIndexA: 5
+    fadeFromIndexB: 42
+    fadeToIndexB: 40
+    shaderIndex: 44
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 4
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 4
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 63
+    fadeFromIndexA: 37
+    fadeToIndexA: 6
+    fadeFromIndexB: 43
+    fadeToIndexB: 44
+    shaderIndex: 41
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: 2
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 5
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 5
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 64
+    fadeFromIndexA: 35
+    fadeToIndexA: 7
+    fadeFromIndexB: 37
+    fadeToIndexB: 6
+    shaderIndex: 42
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 2
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 2
+      section: 4
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 5
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 65
+    fadeFromIndexA: 31
+    fadeToIndexA: 29
+    fadeFromIndexB: 8
+    fadeToIndexB: 1
+    shaderIndex: 47
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: 0
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 66
+    fadeFromIndexA: 8
+    fadeToIndexA: 1
+    fadeFromIndexB: 7
+    fadeToIndexB: 0
+    shaderIndex: 48
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 67
+    fadeFromIndexA: 36
+    fadeToIndexA: 8
+    fadeFromIndexB: 35
+    fadeToIndexB: 7
+    shaderIndex: 45
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: 2
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 2
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 6
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 68
+    fadeFromIndexA: 48
+    fadeToIndexA: 49
+    fadeFromIndexB: 36
+    fadeToIndexB: 8
+    shaderIndex: 46
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 7
+      section: -1
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 7
+      section: 2
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 2
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: -1
+      section: 7
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 69
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 71
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 70
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 72
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 71
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 69
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 72
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 70
+    zoneType: 2
+    sectionDirection: 1
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 73
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 75
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 74
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 76
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 75
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 73
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 76
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 74
+    zoneType: 2
+    sectionDirection: 3
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 77
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 79
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 78
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 80
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 79
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 77
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 80
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 78
+    zoneType: 2
+    sectionDirection: 5
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 81
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 83
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 1
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 82
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 84
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 3
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 83
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 81
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 5
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 84
+    fadeFromIndexA: 30
+    fadeToIndexA: 30
+    fadeFromIndexB: 30
+    fadeToIndexB: 30
+    shaderIndex: 82
+    zoneType: 2
+    sectionDirection: 7
+    insideSectionDirection: 7
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: -1
+      sharingStatus: 0
+  - zoneId: 85
+    fadeFromIndexA: 10
+    fadeToIndexA: 10
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 85
+    zoneType: 0
+    sectionDirection: 1
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 86
+    fadeFromIndexA: 9
+    fadeToIndexA: 9
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 86
+    zoneType: 0
+    sectionDirection: 1
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 87
+    fadeFromIndexA: 11
+    fadeToIndexA: 11
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 87
+    zoneType: 0
+    sectionDirection: 1
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 88
+    fadeFromIndexA: 12
+    fadeToIndexA: 12
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 88
+    zoneType: 0
+    sectionDirection: 1
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 89
+    fadeFromIndexA: 18
+    fadeToIndexA: 18
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 89
+    zoneType: 0
+    sectionDirection: 3
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 90
+    fadeFromIndexA: 16
+    fadeToIndexA: 16
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 90
+    zoneType: 0
+    sectionDirection: 3
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 91
+    fadeFromIndexA: 14
+    fadeToIndexA: 14
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 91
+    zoneType: 0
+    sectionDirection: 3
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 92
+    fadeFromIndexA: 17
+    fadeToIndexA: 17
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 92
+    zoneType: 0
+    sectionDirection: 3
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 93
+    fadeFromIndexA: 19
+    fadeToIndexA: 19
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 93
+    zoneType: 0
+    sectionDirection: 5
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 94
+    fadeFromIndexA: 20
+    fadeToIndexA: 20
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 94
+    zoneType: 0
+    sectionDirection: 5
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 95
+    fadeFromIndexA: 22
+    fadeToIndexA: 22
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 95
+    zoneType: 0
+    sectionDirection: 5
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 96
+    fadeFromIndexA: 21
+    fadeToIndexA: 21
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 96
+    zoneType: 0
+    sectionDirection: 5
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 97
+    fadeFromIndexA: 24
+    fadeToIndexA: 24
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 97
+    zoneType: 0
+    sectionDirection: 7
+    insideSectionDirection: 0
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 98
+    fadeFromIndexA: 23
+    fadeToIndexA: 23
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 98
+    zoneType: 0
+    sectionDirection: 7
+    insideSectionDirection: 2
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 99
+    fadeFromIndexA: 28
+    fadeToIndexA: 28
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 99
+    zoneType: 0
+    sectionDirection: 7
+    insideSectionDirection: 4
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  - zoneId: 100
+    fadeFromIndexA: 25
+    fadeToIndexA: 25
+    fadeFromIndexB: -1
+    fadeToIndexB: -1
+    shaderIndex: 100
+    zoneType: 0
+    sectionDirection: 7
+    insideSectionDirection: 6
+    fadeFromZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneA:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeFromZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+    fadeToZoneB:
+      tile: 0
+      section: 0
+      insideSection: 0
+      sharingStatus: 0
+  shaderIndexToZoneIndex:
+  - 1
+  - 3
+  - 5
+  - 7
+  - 13
+  - 23
+  - 33
+  - 43
+  - 0
+  - 14
+  - 24
+  - 34
+  - 44
+  - 2
+  - 4
+  - 6
+  - 8
+  - 15
+  - 17
+  - 19
+  - 21
+  - 25
+  - 27
+  - 29
+  - 31
+  - 35
+  - 37
+  - 39
+  - 41
+  - 45
+  - 47
+  - 49
+  - 51
+  - 55
+  - 56
+  - 53
+  - 54
+  - 59
+  - 60
+  - 57
+  - 58
+  - 63
+  - 64
+  - 61
+  - 62
+  - 67
+  - 68
+  - 65
+  - 66
+  - 9
+  - 10
+  - 11
+  - 12
+  - 16
+  - 18
+  - 20
+  - 22
+  - 26
+  - 28
+  - 30
+  - 32
+  - 36
+  - 38
+  - 40
+  - 42
+  - 46
+  - 48
+  - 50
+  - 52
+  - 71
+  - 72
+  - 69
+  - 70
+  - 75
+  - 76
+  - 73
+  - 74
+  - 79
+  - 80
+  - 77
+  - 78
+  - 83
+  - 84
+  - 81
+  - 82
+  - 85
+  - 86
+  - 87
+  - 88
+  - 89
+  - 90
+  - 91
+  - 92
+  - 93
+  - 94
+  - 95
+  - 96
+  - 97
+  - 98
+  - 99
+  - 100
+  zoneIndexToFadeIndices:
+  - {x: 0, y: 0, z: -1, w: -1}
+  - {x: 1, y: 1, z: -1, w: -1}
+  - {x: 2, y: 2, z: -1, w: -1}
+  - {x: 3, y: 3, z: -1, w: -1}
+  - {x: 4, y: 4, z: -1, w: -1}
+  - {x: 5, y: 5, z: -1, w: -1}
+  - {x: 6, y: 6, z: -1, w: -1}
+  - {x: 7, y: 7, z: -1, w: -1}
+  - {x: 8, y: 8, z: -1, w: -1}
+  - {x: 15, y: 15, z: -1, w: -1}
+  - {x: 26, y: 26, z: -1, w: -1}
+  - {x: 13, y: 13, z: -1, w: -1}
+  - {x: 27, y: 27, z: -1, w: -1}
+  - {x: 1, y: 29, z: -1, w: -1}
+  - {x: 1, y: 0, z: -1, w: -1}
+  - {x: 31, y: 2, z: -1, w: -1}
+  - {x: 10, y: 15, z: -1, w: -1}
+  - {x: 36, y: 2, z: -1, w: -1}
+  - {x: 9, y: 15, z: -1, w: -1}
+  - {x: 3, y: 2, z: -1, w: -1}
+  - {x: 11, y: 15, z: -1, w: -1}
+  - {x: 1, y: 2, z: -1, w: -1}
+  - {x: 12, y: 15, z: -1, w: -1}
+  - {x: 3, y: 35, z: -1, w: -1}
+  - {x: 3, y: 0, z: -1, w: -1}
+  - {x: 3, y: 4, z: -1, w: -1}
+  - {x: 18, y: 26, z: -1, w: -1}
+  - {x: 37, y: 26, z: -1, w: -1}
+  - {x: 16, y: 26, z: -1, w: -1}
+  - {x: 41, y: 4, z: -1, w: -1}
+  - {x: 14, y: 26, z: -1, w: -1}
+  - {x: 5, y: 4, z: -1, w: -1}
+  - {x: 17, y: 26, z: -1, w: -1}
+  - {x: 5, y: 40, z: -1, w: -1}
+  - {x: 5, y: 0, z: -1, w: -1}
+  - {x: 7, y: 6, z: -1, w: -1}
+  - {x: 19, y: 13, z: -1, w: -1}
+  - {x: 5, y: 6, z: -1, w: -1}
+  - {x: 20, y: 13, z: -1, w: -1}
+  - {x: 42, y: 13, z: -1, w: -1}
+  - {x: 22, y: 13, z: -1, w: -1}
+  - {x: 47, y: 13, z: -1, w: -1}
+  - {x: 21, y: 13, z: -1, w: -1}
+  - {x: 7, y: 45, z: -1, w: -1}
+  - {x: 7, y: 0, z: -1, w: -1}
+  - {x: 32, y: 27, z: -1, w: -1}
+  - {x: 24, y: 27, z: -1, w: -1}
+  - {x: 1, y: 8, z: -1, w: -1}
+  - {x: 23, y: 27, z: -1, w: -1}
+  - {x: 7, y: 8, z: -1, w: -1}
+  - {x: 28, y: 27, z: -1, w: -1}
+  - {x: 46, y: 27, z: -1, w: -1}
+  - {x: 25, y: 27, z: -1, w: -1}
+  - {x: 31, y: 33, z: 2, w: 34}
+  - {x: 2, y: 36, z: 3, w: 35}
+  - {x: 1, y: 2, z: 0, w: 3}
+  - {x: 29, y: 31, z: 1, w: 2}
+  - {x: 3, y: 35, z: 4, w: 37}
+  - {x: 4, y: 37, z: 39, w: 38}
+  - {x: 0, y: 3, z: 5, w: 4}
+  - {x: 0, y: 3, z: 5, w: 4}
+  - {x: 7, y: 0, z: 6, w: 5}
+  - {x: 6, y: 5, z: 42, w: 40}
+  - {x: 37, y: 6, z: 43, w: 44}
+  - {x: 35, y: 7, z: 37, w: 6}
+  - {x: 31, y: 29, z: 8, w: 1}
+  - {x: 8, y: 1, z: 7, w: 0}
+  - {x: 36, y: 8, z: 35, w: 7}
+  - {x: 48, y: 49, z: 36, w: 8}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 30, y: 30, z: 30, w: 30}
+  - {x: 10, y: 10, z: -1, w: -1}
+  - {x: 9, y: 9, z: -1, w: -1}
+  - {x: 11, y: 11, z: -1, w: -1}
+  - {x: 12, y: 12, z: -1, w: -1}
+  - {x: 18, y: 18, z: -1, w: -1}
+  - {x: 16, y: 16, z: -1, w: -1}
+  - {x: 14, y: 14, z: -1, w: -1}
+  - {x: 17, y: 17, z: -1, w: -1}
+  - {x: 19, y: 19, z: -1, w: -1}
+  - {x: 20, y: 20, z: -1, w: -1}
+  - {x: 22, y: 22, z: -1, w: -1}
+  - {x: 21, y: 21, z: -1, w: -1}
+  - {x: 24, y: 24, z: -1, w: -1}
+  - {x: 23, y: 23, z: -1, w: -1}
+  - {x: 28, y: 28, z: -1, w: -1}
+  - {x: 25, y: 25, z: -1, w: -1}
+  solidZoneShaderIndices:
+  - tile: -1
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 0
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 2
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 3
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 4
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 5
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 6
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 7
+    insideSection: -1
+    sharingStatus: 0
+  - tile: -1
+    section: 1
+    insideSection: 2
+    sharingStatus: 2
+  - tile: -1
+    section: 1
+    insideSection: 0
+    sharingStatus: 2
+  - tile: -1
+    section: 1
+    insideSection: 4
+    sharingStatus: 2
+  - tile: -1
+    section: 1
+    insideSection: 6
+    sharingStatus: 2
+  - tile: -1
+    section: 5
+    insideSection: -1
+    sharingStatus: 1
+  - tile: -1
+    section: 3
+    insideSection: 4
+    sharingStatus: 2
+  - tile: -1
+    section: 1
+    insideSection: -1
+    sharingStatus: 1
+  - tile: -1
+    section: 3
+    insideSection: 2
+    sharingStatus: 2
+  - tile: -1
+    section: 3
+    insideSection: 6
+    sharingStatus: 2
+  - tile: -1
+    section: 3
+    insideSection: 0
+    sharingStatus: 2
+  - tile: -1
+    section: 5
+    insideSection: 0
+    sharingStatus: 2
+  - tile: -1
+    section: 5
+    insideSection: 2
+    sharingStatus: 2
+  - tile: -1
+    section: 5
+    insideSection: 6
+    sharingStatus: 2
+  - tile: -1
+    section: 5
+    insideSection: 4
+    sharingStatus: 2
+  - tile: -1
+    section: 7
+    insideSection: 2
+    sharingStatus: 2
+  - tile: -1
+    section: 7
+    insideSection: 0
+    sharingStatus: 2
+  - tile: -1
+    section: 7
+    insideSection: 6
+    sharingStatus: 2
+  - tile: -1
+    section: 3
+    insideSection: -1
+    sharingStatus: 1
+  - tile: -1
+    section: 7
+    insideSection: -1
+    sharingStatus: 1
+  - tile: -1
+    section: 7
+    insideSection: 4
+    sharingStatus: 2
+  - tile: 0
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 0
+    section: 0
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 0
+    section: 2
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 0
+    section: 6
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 1
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 1
+    section: 4
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 2
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 2
+    section: 0
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 2
+    section: 4
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 3
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 3
+    section: 6
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 4
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 4
+    section: 2
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 4
+    section: 6
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 5
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 5
+    section: 2
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 6
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 6
+    section: 0
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 6
+    section: 4
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 7
+    section: -1
+    insideSection: -1
+    sharingStatus: 0
+  - tile: 7
+    section: 2
+    insideSection: -1
+    sharingStatus: 0

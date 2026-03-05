@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Copenhagen
+  m_EditorClassIdentifier:
+  cityName: Copenhagen
+  mapName: Copenhagen
+  mapDescription: CopenhagenDescription
+  mapAssetBundle: copenhagen
+  mapPrefabName: Copenhagen
+  themes:
+  - {fileID: 11400000, guid: 831aa5c7b14ec294cb3198a4988bcba4, type: 2}
+  - {fileID: 11400000, guid: 64fd6008fabd54243a3f36051b17f797, type: 2}
+  - {fileID: 11400000, guid: c6ef8221f355fdc46b3eded8e0e022c9, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: f040a31cfecae194cae41cdc1950b231, type: 2}
+  - {fileID: 21300000, guid: bb4549a1ff7098d46be77d4ac53af229, type: 2}
+  - {fileID: 21300000, guid: 553b0d76319485e4fa1b613db0629056, type: 2}
+  - {fileID: 21300000, guid: 553b0d76319485e4fa1b613db0629056, type: 2}
+  - {fileID: 21300000, guid: bb4549a1ff7098d46be77d4ac53af229, type: 2}
+  availableUpgrades: 0000000001000000020000000300000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 2b494f7fbe9a5ea47b3a9cb2026adfc2, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: e74acfb661727ac4c83aff9ef53eebaa, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: 51654d367db1b9c439b6230906f750c9, type: 2}
+  - {fileID: 11400000, guid: 36e2079c475a4f348a2c7cec29dd1cd4, type: 2}
+  - {fileID: 11400000, guid: c331abc872435594e89b6726b8d0fae1, type: 2}
+  - {fileID: 11400000, guid: 01637329803b93940b5767f7d51897a4, type: 2}
+  - {fileID: 11400000, guid: cecaa2fa30074ac4cb0765ce0e0f26fe, type: 2}
+  howToUnlockDescription: AchievementDescription_MapUnlock_Score350
+  isTrainMap: 1
+  isBoatMap: 0

@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: destinations-demandincrease_all
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Destinations_DemandIncreaseAllTitle
+  challengeDescription: Challenge_Destinations_DemandIncreaseAllDescription
+  icon: {fileID: 21300000, guid: 74000e060ca84394da2f748a89aedd67, type: 2}
+  subIconBackground: {fileID: 21300000, guid: efbe61d36cf2f1f48ba3012a6470de9b, type: 2}
+  subIcon: {fileID: 21300000, guid: cb0745b86a62a584a9fc4b33a9333901, type: 2}
+  modifiers:
+  - type: 7
+    upgradeType: 0
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 6442450944
+  - type: 7
+    upgradeType: 0
+    intParameter: 1
+    fix64Parameter:
+      m_rawValue: 6442450944
+  - type: 7
+    upgradeType: 0
+    intParameter: 2
+    fix64Parameter:
+      m_rawValue: 6442450944
+  - type: 7
+    upgradeType: 0
+    intParameter: 3
+    fix64Parameter:
+      m_rawValue: 6442450944
+  - type: 7
+    upgradeType: 0
+    intParameter: 4
+    fix64Parameter:
+      m_rawValue: 6442450944
+  - type: 7
+    upgradeType: 0
+    intParameter: 5
+    fix64Parameter:
+      m_rawValue: 6442450944
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges: []
+  manualIncompatibleChallenges:
+  - {fileID: 11400000, guid: d864fbe2771344c459899f1d06f592f9, type: 2}

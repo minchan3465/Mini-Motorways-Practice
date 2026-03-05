@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1038542530, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Custom Post Process Render Feature
+  m_EditorClassIdentifier:
+  m_Active: 1
+  settings:
+    blurMaterial: {fileID: 2100000, guid: b55964b6f0b2ee4439f1a2db63d5c83a, type: 2}
+    vignetteMaterial: {fileID: 2100000, guid: 2a7529b86c793374db078aceb02e2d3b, type: 2}
+    tintBlend: 0.92
+    tintTexture: {fileID: 2800000, guid: 6734ba7ee04b48d4ba648ca6ee1e5f77, type: 3}
+    paperTexture: {fileID: 2800000, guid: 16a269873a6a55d41960799e17a413be, type: 3}
+    color: {r: 0.29411766, g: 0.32941177, b: 0.39607844, a: 0.90588236}
+    center: {x: 0.5, y: 0.5}
+    intensity: 0.45
+    smoothness: 0.4
+    roundness: 0.612
+    rounded: 0

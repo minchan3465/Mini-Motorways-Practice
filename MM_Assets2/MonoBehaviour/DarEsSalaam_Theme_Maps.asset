@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: DarEsSalaam_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 0caafc6e9e00d2b49b18c3f3b1820625, type: 2}
+  - {fileID: 11400000, guid: 5765660b68c6df44ca7a11eeedec2dae, type: 2}
+  - {fileID: 11400000, guid: 4f7c75f212b23554cb370496c02017ca, type: 2}
+  - {fileID: 11400000, guid: 8ae0add04b3b1114b9d96f817eff883b, type: 2}
+  - {fileID: 11400000, guid: 88089298f0c31b9469f83346faf086e2, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 09fbd5dbaf9b3f045b4f09c3a9e06065, type: 2}
+  - {fileID: 11400000, guid: 49fe415817fdf0d4196d374ddc2c4e93, type: 2}
+  - {fileID: 11400000, guid: dd35aac989bf35548984b10b7c5f5a65, type: 2}
+  - {fileID: 11400000, guid: 6e8e74ca24e7a47498b00455614d1f59, type: 2}
+  - {fileID: 11400000, guid: 20305deff79e3dd46a3d68fdc9a46e22, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 0ef307e910269994e8ea008cd02cc5f9, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

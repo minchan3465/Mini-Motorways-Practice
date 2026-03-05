@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Cairns
+  m_EditorClassIdentifier:
+  cityName: Cairns
+  mapName: Cairns
+  mapDescription: CairnsDescription
+  mapAssetBundle: cairns
+  mapPrefabName: Cairns
+  themes:
+  - {fileID: 11400000, guid: 3ab5299d0a14e9946a2fd14b7f9653a1, type: 2}
+  - {fileID: 11400000, guid: 8bf8c2677da76ea458b258d4a8504d99, type: 2}
+  - {fileID: 11400000, guid: 8976ed69f2dfd32429abf8a414c0ea44, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: 0c82ccf056098304a831d8805cb5bcaa, type: 2}
+  - {fileID: 21300000, guid: 130f9c70f22cbb948929104093f1d649, type: 2}
+  - {fileID: 21300000, guid: 1463bdcfbeab0fa4dac6e050f87401a9, type: 2}
+  - {fileID: 21300000, guid: 1463bdcfbeab0fa4dac6e050f87401a9, type: 2}
+  - {fileID: 21300000, guid: 130f9c70f22cbb948929104093f1d649, type: 2}
+  availableUpgrades: 000000000100000002000000030000000400000005000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: f38cf3dbe8059b6438b8597b02faa9fa, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: d5110a00481aaed488b400731fcce4dc, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: e4450a8c29283fc4baa3871b0a1688ea, type: 2}
+  - {fileID: 11400000, guid: 3168ef4cdc80aab44a881cdfaf02bc97, type: 2}
+  - {fileID: 11400000, guid: b47b16290e9f0864a93813717ef469f1, type: 2}
+  - {fileID: 11400000, guid: 50240672e7271fc47aae81f87554f117, type: 2}
+  - {fileID: 11400000, guid: 72746c91671123d43bbd7596790cda16, type: 2}
+  howToUnlockDescription: AchievementDescription_MapUnlock_Score300
+  isTrainMap: 0
+  isBoatMap: 0

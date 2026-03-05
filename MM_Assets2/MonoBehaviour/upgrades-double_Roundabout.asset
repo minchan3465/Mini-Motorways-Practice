@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: upgrades-double_Roundabout
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Upgrades_DoubleRoundabout
+  challengeDescription: Challenge_Upgrades_DoubleRoundaboutDescription
+  icon: {fileID: 21300000, guid: 02bf04a9de307ca4aa269df952628339, type: 2}
+  subIconBackground: {fileID: 21300000, guid: f5509545b2c2e0f47bedd907862f8196, type: 2}
+  subIcon: {fileID: 21300000, guid: ec127aa7ba4c8164eba98f0ac428f896, type: 2}
+  modifiers:
+  - type: 3
+    upgradeType: 4
+    intParameter: 0
+    fix64Parameter:
+      m_rawValue: 8589934592
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: b71590fd8c1796e45a9e4545134d9079, type: 2}
+  - {fileID: 11400000, guid: 1a5b50344660cad41a648de62fb25122, type: 2}
+  - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}
+  - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+  - {fileID: 11400000, guid: bd7d9997ce0374646b5e1f03ce9d4c78, type: 2}
+  - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+  - {fileID: 11400000, guid: 5b2a3d3f45ea77842b7554e4699ea1d5, type: 2}
+  manualIncompatibleChallenges:
+  - {fileID: 11400000, guid: eb57deb052791d14bb0f31676eb8cfab, type: 2}

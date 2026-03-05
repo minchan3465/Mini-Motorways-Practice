@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: ChiangMai_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: b8e9a77c51b582e41af988cd07a63421, type: 2}
+  - {fileID: 11400000, guid: dcae08c2e3f102d449bdd98acd972ee8, type: 2}
+  - {fileID: 11400000, guid: c333e02ec6b830a4fa29f44e648a8875, type: 2}
+  - {fileID: 11400000, guid: 139ba336b161120468513956b7411f14, type: 2}
+  - {fileID: 11400000, guid: 0f0ffb9dde8ccf34195038108a9301ff, type: 2}
+  - {fileID: 11400000, guid: 50c9e472ea2d6f645aa21cdbab73091a, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 2f986cc0a17d4834aadbbb1d992923e0, type: 2}
+  - {fileID: 11400000, guid: 677d29ba4cb4dfa4a849ea7f71285fab, type: 2}
+  - {fileID: 11400000, guid: 0f9e6d828ab15b14391c2233402c07d4, type: 2}
+  - {fileID: 11400000, guid: cb0692c52b50b4c42b3a30b2e3e11a6b, type: 2}
+  - {fileID: 11400000, guid: a0bdeaa62d312514e915e721bd2286b8, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: da72c884135600344830300af3aac7ac, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

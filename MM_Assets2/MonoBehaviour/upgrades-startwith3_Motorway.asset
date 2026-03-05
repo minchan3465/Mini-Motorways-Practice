@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835265200, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: upgrades-startwith3_Motorway
+  m_EditorClassIdentifier:
+  challengeName: Challenge_Upgrades_StartWith3MotorwaysTitle
+  challengeDescription: Challenge_Upgrades_StartWithMotorwayDescription
+  icon: {fileID: 21300000, guid: 9852b90c01c97fe47b99fb7352a6e65e, type: 2}
+  subIconBackground: {fileID: 21300000, guid: 363916aefaa4c584783335bdfdf59c60, type: 2}
+  subIcon: {fileID: 21300000, guid: cc3a223190d975f4f98a04d69ca7cdd0, type: 2}
+  modifiers:
+  - type: 0
+    upgradeType: 2
+    intParameter: 3
+    fix64Parameter:
+      m_rawValue: 0
+  modifierToUseForLocalization: 0
+  incompatibleMaps:
+  incompatibleCityGroups: []
+  automaticIncompatibleChallenges:
+  - {fileID: 11400000, guid: f80dcaddd3224c346b6b4b51e9fafd46, type: 2}
+  - {fileID: 11400000, guid: 714590008741a9540a44219f12159c5f, type: 2}
+  - {fileID: 11400000, guid: 5f63eb92c564ca246925c155ce9c9638, type: 2}
+  - {fileID: 11400000, guid: bc8fd8e4534667d4fb13897c9ccfcd24, type: 2}
+  - {fileID: 11400000, guid: 0f6f2ac4b468f204abae652f7a4e96fa, type: 2}
+  - {fileID: 11400000, guid: 1ce06001a9596a94cb5da316efe231c3, type: 2}
+  - {fileID: 11400000, guid: 80ca15cb87e964a4fb136491ed7b6cd6, type: 2}
+  - {fileID: 11400000, guid: ed806eb0a13526340a1cd6ba3e3bdf53, type: 2}
+  - {fileID: 11400000, guid: ee7be5dc682465f4ebad6c16097b42e1, type: 2}
+  manualIncompatibleChallenges:
+  - {fileID: 11400000, guid: 7a3ec4ea10e8c9a4b8a752c1c2355247, type: 2}
+  - {fileID: 11400000, guid: 81e244b4630655b44ae0fc90f2703b36, type: 2}

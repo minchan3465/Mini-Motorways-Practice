@@ -1,0 +1,4493 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2051218304, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: RoadTileConstantsData
+  m_EditorClassIdentifier:
+  trafficLightRadiusOffset: 0.75
+  roadTileConfigurations:
+  - definitionIndex: 0
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0.18462509, y: 0.7269206}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 3
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7269206, y: 0.18462509}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 15
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: 0.18462509, y: -0.7269206}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 63
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7269206, y: -0.18462509}
+    - {x: -0, y: 0}
+  - definitionIndex: 1
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.38346082, y: 0.6445601}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 7
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.6445601, y: -0.38346082}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 31
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.38346082, y: -0.6445601}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 127
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.6445601, y: 0.38346082}
+  - definitionIndex: 2
+    interactionCircleOffset: {x: 0.29, y: 0.32}
+    trafficLightOffsets:
+    - {x: 0, y: 1}
+    - {x: 0.8351178, y: 0.8351178}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 11
+    interactionCircleOffset: {x: 0.32, y: -0.29}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 1, y: -0}
+    - {x: 0.8351178, y: -0.8351178}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 47
+    interactionCircleOffset: {x: -0.29, y: -0.32}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -1}
+    - {x: -0.8351178, y: -0.8351178}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 191
+    interactionCircleOffset: {x: -0.32, y: 0.29}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -1, y: 0}
+    - {x: -0.8351178, y: 0.8351178}
+  - definitionIndex: 4
+    interactionCircleOffset: {x: 0.27, y: 0.25}
+    trafficLightOffsets:
+    - {x: 0.0013919551, y: 0.9502498}
+    - {x: 0, y: 0}
+    - {x: 0.9773307, y: 0.00063426205}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 19
+    interactionCircleOffset: {x: 0.25, y: -0.27}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.9502498, y: -0.0013919551}
+    - {x: 0, y: -0}
+    - {x: 0.00063426205, y: -0.9773307}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 79
+    interactionCircleOffset: {x: -0.27, y: -0.25}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.0013919551, y: -0.9502498}
+    - {x: -0, y: -0}
+    - {x: -0.9773307, y: -0.00063426205}
+    - {x: -0, y: -0}
+  - definitionIndex: 64
+    interactionCircleOffset: {x: -0.25, y: 0.27}
+    trafficLightOffsets:
+    - {x: -0.00063426205, y: 0.9773307}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.9502498, y: 0.0013919551}
+    - {x: -0, y: 0}
+  - definitionIndex: 5
+    interactionCircleOffset: {x: 0.41, y: 0.3}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.8824703, y: 0.8824703}
+    - {x: 1, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 23
+    interactionCircleOffset: {x: 0.3, y: -0.41}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.8824703, y: -0.8824703}
+    - {x: 0, y: -1}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 95
+    interactionCircleOffset: {x: -0.41, y: -0.3}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.8824703, y: -0.8824703}
+    - {x: -1, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 128
+    interactionCircleOffset: {x: -0.3, y: 0.41}
+    trafficLightOffsets:
+    - {x: -0, y: 1}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.8824703, y: 0.8824703}
+  - definitionIndex: 6
+    interactionCircleOffset: {x: 0.32, y: 0.27}
+    trafficLightOffsets:
+    - {x: 0.0014275293, y: 0.9489783}
+    - {x: 0.8247404, y: 0.8247404}
+    - {x: 1, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 27
+    interactionCircleOffset: {x: 0.27, y: -0.32}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.9489783, y: -0.0014275293}
+    - {x: 0.8247404, y: -0.8247404}
+    - {x: 0, y: -1}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 111
+    interactionCircleOffset: {x: -0.32, y: -0.27}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.0014275293, y: -0.9489783}
+    - {x: -0.8247404, y: -0.8247404}
+    - {x: -1, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 192
+    interactionCircleOffset: {x: -0.27, y: 0.32}
+    trafficLightOffsets:
+    - {x: -0, y: 1}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.9489783, y: 0.0014275293}
+    - {x: -0.8247404, y: 0.8247404}
+  - definitionIndex: 8
+    interactionCircleOffset: {x: 0.23, y: 0}
+    trafficLightOffsets:
+    - {x: 0.019665776, y: 0.7199024}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.63540775, y: -0.6309869}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 35
+    interactionCircleOffset: {x: 0, y: -0.23}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7199024, y: -0.019665776}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.6309869, y: -0.63540775}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 143
+    interactionCircleOffset: {x: -0.23, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.019665776, y: -0.7199024}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.63540775, y: 0.6309869}
+  - definitionIndex: 65
+    interactionCircleOffset: {x: -0, y: 0.23}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.6309869, y: 0.63540775}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7199024, y: 0.019665776}
+    - {x: -0, y: 0}
+  - definitionIndex: 9
+    interactionCircleOffset: {x: 0.39, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.6889091, y: 0.6878615}
+    - {x: 0, y: 0}
+    - {x: 0.6889091, y: -0.6878615}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 39
+    interactionCircleOffset: {x: 0, y: -0.39}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.6878615, y: -0.6889091}
+    - {x: 0, y: -0}
+    - {x: -0.6878615, y: -0.6889091}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 159
+    interactionCircleOffset: {x: -0.39, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.6889091, y: -0.6878615}
+    - {x: -0, y: -0}
+    - {x: -0.6889091, y: 0.6878615}
+  - definitionIndex: 129
+    interactionCircleOffset: {x: -0, y: 0.39}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.6878615, y: 0.6889091}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.6878615, y: 0.6889091}
+  - definitionIndex: 10
+    interactionCircleOffset: {x: 0.33, y: 0}
+    trafficLightOffsets:
+    - {x: 0.024502017, y: 0.68496066}
+    - {x: 0.67040986, y: 0.66829723}
+    - {x: 0, y: 0}
+    - {x: 0.66998327, y: -0.6685143}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 43
+    interactionCircleOffset: {x: 0, y: -0.33}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.68496066, y: -0.024502017}
+    - {x: 0.66829723, y: -0.67040986}
+    - {x: 0, y: -0}
+    - {x: -0.6685143, y: -0.66998327}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 175
+    interactionCircleOffset: {x: -0.33, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.024502017, y: -0.68496066}
+    - {x: -0.67040986, y: -0.66829723}
+    - {x: -0, y: -0}
+    - {x: -0.66998327, y: 0.6685143}
+  - definitionIndex: 193
+    interactionCircleOffset: {x: -0, y: 0.33}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.6685143, y: 0.66998327}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.68496066, y: 0.024502017}
+    - {x: -0.66829723, y: 0.67040986}
+  - definitionIndex: 12
+    interactionCircleOffset: {x: 0.25, y: 0}
+    trafficLightOffsets:
+    - {x: 0.020426182, y: 0.7139999}
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0.6425908, y: -0.6390403}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 51
+    interactionCircleOffset: {x: 0, y: -0.25}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7139999, y: -0.020426182}
+    - {x: 0, y: -0}
+    - {x: 0, y: -1}
+    - {x: -0.6390403, y: -0.6425908}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 207
+    interactionCircleOffset: {x: -0.25, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.020426182, y: -0.7139999}
+    - {x: -0, y: -0}
+    - {x: -1, y: -0}
+    - {x: -0.6425908, y: 0.6390403}
+  - definitionIndex: 66
+    interactionCircleOffset: {x: -0, y: 0.25}
+    trafficLightOffsets:
+    - {x: -0, y: 1}
+    - {x: 0.6390403, y: 0.6425908}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7139999, y: 0.020426182}
+    - {x: -0, y: 0}
+  - definitionIndex: 13
+    interactionCircleOffset: {x: 0.28, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.6536874, y: 0.6502751}
+    - {x: 1, y: 0}
+    - {x: 0.6536874, y: -0.6502751}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 55
+    interactionCircleOffset: {x: 0, y: -0.28}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.6502751, y: -0.6536874}
+    - {x: 0, y: -1}
+    - {x: -0.6502751, y: -0.6536874}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 223
+    interactionCircleOffset: {x: -0.28, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.6536874, y: -0.6502751}
+    - {x: -1, y: -0}
+    - {x: -0.6536874, y: 0.6502751}
+  - definitionIndex: 130
+    interactionCircleOffset: {x: -0, y: 0.28}
+    trafficLightOffsets:
+    - {x: -0, y: 1}
+    - {x: 0.6502751, y: 0.6536874}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.6502751, y: 0.6536874}
+  - definitionIndex: 14
+    interactionCircleOffset: {x: 0.26, y: 0}
+    trafficLightOffsets:
+    - {x: 0.020832758, y: 0.7108439}
+    - {x: 0.6470597, y: 0.64240545}
+    - {x: 1, y: 0}
+    - {x: 0.6461047, y: -0.64297986}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 59
+    interactionCircleOffset: {x: 0, y: -0.26}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7108439, y: -0.020832758}
+    - {x: 0.64240545, y: -0.6470597}
+    - {x: 0, y: -1}
+    - {x: -0.64297986, y: -0.6461047}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 239
+    interactionCircleOffset: {x: -0.26, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.020832758, y: -0.7108439}
+    - {x: -0.6470597, y: -0.64240545}
+    - {x: -1, y: -0}
+    - {x: -0.6461047, y: 0.64297986}
+  - definitionIndex: 194
+    interactionCircleOffset: {x: -0, y: 0.26}
+    trafficLightOffsets:
+    - {x: -0, y: 1}
+    - {x: 0.64297986, y: 0.6461047}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7108439, y: 0.020832758}
+    - {x: -0.64240545, y: 0.6470597}
+  - definitionIndex: 16
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 67
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.75, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 17
+    interactionCircleOffset: {x: 0.23, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.63540775, y: 0.6309869}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.019665776, y: -0.7199024}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 71
+    interactionCircleOffset: {x: 0, y: -0.23}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.6309869, y: -0.63540775}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.7199024, y: -0.019665776}
+    - {x: 0, y: -0}
+  - definitionIndex: 32
+    interactionCircleOffset: {x: -0.23, y: -0}
+    trafficLightOffsets:
+    - {x: -0.019665776, y: 0.7199024}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.63540775, y: -0.6309869}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 131
+    interactionCircleOffset: {x: -0, y: 0.23}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.7199024, y: 0.019665776}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.6309869, y: 0.63540775}
+  - definitionIndex: 18
+    interactionCircleOffset: {x: 0.11, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7418895}
+    - {x: 0.58872455, y: 0.5773412}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: -0.7418895}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 75
+    interactionCircleOffset: {x: 0, y: -0.11}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7418895, y: -0}
+    - {x: 0.5773412, y: -0.58872455}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.7418895, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 48
+    interactionCircleOffset: {x: -0.11, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7418895}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7418895}
+    - {x: -0.58872455, y: -0.5773412}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 195
+    interactionCircleOffset: {x: -0, y: 0.11}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.7418895, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7418895, y: 0}
+    - {x: -0.5773412, y: 0.58872455}
+  - definitionIndex: 20
+    interactionCircleOffset: {x: 0.12, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7403377}
+    - {x: 0, y: 0}
+    - {x: 0.86996853, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: -0.7403377}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 83
+    interactionCircleOffset: {x: 0, y: -0.12}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7403377, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0.86996853}
+    - {x: 0, y: -0}
+    - {x: -0.7403377, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 80
+    interactionCircleOffset: {x: -0.12, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7403377}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7403377}
+    - {x: -0, y: -0}
+    - {x: -0.86996853, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 68
+    interactionCircleOffset: {x: -0, y: 0.12}
+    trafficLightOffsets:
+    - {x: -0, y: 0.86996853}
+    - {x: -0, y: 0}
+    - {x: 0.7403377, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7403377, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 21
+    interactionCircleOffset: {x: 0.27, y: -0.08}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.6015052, y: 0.5927587}
+    - {x: 1, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.01182442, y: -0.7841628}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 87
+    interactionCircleOffset: {x: -0.08, y: -0.27}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5927587, y: -0.6015052}
+    - {x: 0, y: -1}
+    - {x: 0, y: -0}
+    - {x: -0.7841628, y: -0.01182442}
+    - {x: 0, y: -0}
+  - definitionIndex: 96
+    interactionCircleOffset: {x: -0.27, y: 0.08}
+    trafficLightOffsets:
+    - {x: -0.01182442, y: 0.7841628}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.6015052, y: -0.5927587}
+    - {x: -1, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 132
+    interactionCircleOffset: {x: 0.08, y: 0.27}
+    trafficLightOffsets:
+    - {x: -0, y: 1}
+    - {x: -0, y: 0}
+    - {x: 0.7841628, y: 0.01182442}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5927587, y: 0.6015052}
+  - definitionIndex: 22
+    interactionCircleOffset: {x: 0.17, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7304793}
+    - {x: 0.6126342, y: 0.6054543}
+    - {x: 0.91999555, y: -2.3283064E-10}
+    - {x: 0, y: 0}
+    - {x: 0, y: -0.7304793}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 91
+    interactionCircleOffset: {x: 0, y: -0.17}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7304793, y: -0}
+    - {x: 0.6054543, y: -0.6126342}
+    - {x: -2.3283064E-10, y: -0.91999555}
+    - {x: 0, y: -0}
+    - {x: -0.7304793, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 112
+    interactionCircleOffset: {x: -0.17, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7304793}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7304793}
+    - {x: -0.6126342, y: -0.6054543}
+    - {x: -0.91999555, y: 2.3283064E-10}
+    - {x: -0, y: -0}
+  - definitionIndex: 196
+    interactionCircleOffset: {x: -0, y: 0.17}
+    trafficLightOffsets:
+    - {x: 2.3283064E-10, y: 0.91999555}
+    - {x: -0, y: 0}
+    - {x: 0.7304793, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7304793, y: 0}
+    - {x: -0.6054543, y: 0.6126342}
+  - definitionIndex: 24
+    interactionCircleOffset: {x: 0.11, y: -0.06}
+    trafficLightOffsets:
+    - {x: 0, y: 0.6818895}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.6181406, y: -0.6116278}
+    - {x: 0, y: -0.8018895}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 99
+    interactionCircleOffset: {x: -0.06, y: -0.11}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.6818895, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.6116278, y: -0.6181406}
+    - {x: -0.8018895, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 144
+    interactionCircleOffset: {x: -0.11, y: 0.06}
+    trafficLightOffsets:
+    - {x: -0, y: 0.8018895}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.6818895}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.6181406, y: 0.6116278}
+  - definitionIndex: 69
+    interactionCircleOffset: {x: 0.06, y: 0.11}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.6116278, y: 0.6181406}
+    - {x: 0.8018895, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.6818895, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 25
+    interactionCircleOffset: {x: 0.23, y: -0.17}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5375421, y: 0.5140452}
+    - {x: 0, y: 0}
+    - {x: 0.7294808, y: -0.7294808}
+    - {x: 0.0037214225, y: -0.8850511}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 103
+    interactionCircleOffset: {x: -0.17, y: -0.23}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5140452, y: -0.5375421}
+    - {x: 0, y: -0}
+    - {x: -0.7294808, y: -0.7294808}
+    - {x: -0.8850511, y: -0.0037214225}
+    - {x: 0, y: -0}
+  - definitionIndex: 160
+    interactionCircleOffset: {x: -0.23, y: 0.17}
+    trafficLightOffsets:
+    - {x: -0.0037214225, y: 0.8850511}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5375421, y: -0.5140452}
+    - {x: -0, y: -0}
+    - {x: -0.7294808, y: 0.7294808}
+  - definitionIndex: 133
+    interactionCircleOffset: {x: 0.17, y: 0.23}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.7294808, y: 0.7294808}
+    - {x: 0.8850511, y: 0.0037214225}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5140452, y: 0.5375421}
+  - definitionIndex: 26
+    interactionCircleOffset: {x: 0.11, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7418895}
+    - {x: 0.58872455, y: 0.5773412}
+    - {x: 0, y: 0}
+    - {x: 0.58872455, y: -0.5773412}
+    - {x: 0, y: -0.7418895}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 107
+    interactionCircleOffset: {x: 0, y: -0.11}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7418895, y: -0}
+    - {x: 0.5773412, y: -0.58872455}
+    - {x: 0, y: -0}
+    - {x: -0.5773412, y: -0.58872455}
+    - {x: -0.7418895, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 176
+    interactionCircleOffset: {x: -0.11, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7418895}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7418895}
+    - {x: -0.58872455, y: -0.5773412}
+    - {x: -0, y: -0}
+    - {x: -0.58872455, y: 0.5773412}
+  - definitionIndex: 197
+    interactionCircleOffset: {x: -0, y: 0.11}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5773412, y: 0.58872455}
+    - {x: 0.7418895, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7418895, y: 0}
+    - {x: -0.5773412, y: 0.58872455}
+  - definitionIndex: 28
+    interactionCircleOffset: {x: 0.15, y: -0.08}
+    trafficLightOffsets:
+    - {x: 0, y: 0.65484697}
+    - {x: 0, y: 0}
+    - {x: 0.89570177, y: 4.2939093E-05}
+    - {x: 0.64585346, y: -0.6426982}
+    - {x: 0, y: -0.81484693}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 115
+    interactionCircleOffset: {x: -0.08, y: -0.15}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.65484697, y: -0}
+    - {x: 0, y: -0}
+    - {x: 4.2939093E-05, y: -0.89570177}
+    - {x: -0.6426982, y: -0.64585346}
+    - {x: -0.81484693, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 208
+    interactionCircleOffset: {x: -0.15, y: 0.08}
+    trafficLightOffsets:
+    - {x: -0, y: 0.81484693}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.65484697}
+    - {x: -0, y: -0}
+    - {x: -0.89570177, y: -4.2939093E-05}
+    - {x: -0.64585346, y: 0.6426982}
+  - definitionIndex: 70
+    interactionCircleOffset: {x: 0.08, y: 0.15}
+    trafficLightOffsets:
+    - {x: -4.2939093E-05, y: 0.89570177}
+    - {x: 0.6426982, y: 0.64585346}
+    - {x: 0.81484693, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.65484697, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 29
+    interactionCircleOffset: {x: 0.23, y: -0.18}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5317961, y: 0.5065997}
+    - {x: 0.9583667, y: -0.0011648524}
+    - {x: 0.7347404, y: -0.7347404}
+    - {x: 0.0031604103, y: -0.8948733}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 119
+    interactionCircleOffset: {x: -0.18, y: -0.23}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5065997, y: -0.5317961}
+    - {x: -0.0011648524, y: -0.9583667}
+    - {x: -0.7347404, y: -0.7347404}
+    - {x: -0.8948733, y: -0.0031604103}
+    - {x: 0, y: -0}
+  - definitionIndex: 224
+    interactionCircleOffset: {x: -0.23, y: 0.18}
+    trafficLightOffsets:
+    - {x: -0.0031604103, y: 0.8948733}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5317961, y: -0.5065997}
+    - {x: -0.9583667, y: 0.0011648524}
+    - {x: -0.7347404, y: 0.7347404}
+  - definitionIndex: 134
+    interactionCircleOffset: {x: 0.18, y: 0.23}
+    trafficLightOffsets:
+    - {x: 0.0011648524, y: 0.9583667}
+    - {x: 0.7347404, y: 0.7347404}
+    - {x: 0.8948733, y: 0.0031604103}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5065997, y: 0.5317961}
+  - definitionIndex: 30
+    interactionCircleOffset: {x: 0.11, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7418895}
+    - {x: 0.58872455, y: 0.5773412}
+    - {x: 0.8599602, y: 2.3283064E-10}
+    - {x: 0.58872455, y: -0.5773412}
+    - {x: 0, y: -0.7418895}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 123
+    interactionCircleOffset: {x: 0, y: -0.11}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7418895, y: -0}
+    - {x: 0.5773412, y: -0.58872455}
+    - {x: 2.3283064E-10, y: -0.8599602}
+    - {x: -0.5773412, y: -0.58872455}
+    - {x: -0.7418895, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 240
+    interactionCircleOffset: {x: -0.11, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7418895}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7418895}
+    - {x: -0.58872455, y: -0.5773412}
+    - {x: -0.8599602, y: -2.3283064E-10}
+    - {x: -0.58872455, y: 0.5773412}
+  - definitionIndex: 198
+    interactionCircleOffset: {x: -0, y: 0.11}
+    trafficLightOffsets:
+    - {x: -2.3283064E-10, y: 0.8599602}
+    - {x: 0.5773412, y: 0.58872455}
+    - {x: 0.7418895, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7418895, y: 0}
+    - {x: -0.5773412, y: 0.58872455}
+  - definitionIndex: 33
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 135
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 34
+    interactionCircleOffset: {x: -0.08, y: 0.07}
+    trafficLightOffsets:
+    - {x: -0.008790023, y: 0.8166118}
+    - {x: 0.52, y: 0.52}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: -0.53, y: -0.53}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 139
+    interactionCircleOffset: {x: 0.07, y: 0.08}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.8166118, y: 0.008790023}
+    - {x: 0.52, y: -0.52}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.53, y: 0.53}
+  - definitionIndex: 49
+    interactionCircleOffset: {x: 0.08, y: -0.07}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.53, y: 0.53}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: 0.008790023, y: -0.8166118}
+    - {x: -0.52, y: -0.52}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 199
+    interactionCircleOffset: {x: -0.07, y: -0.08}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.53, y: -0.53}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.8166118, y: -0.008790023}
+    - {x: -0.52, y: 0.52}
+  - definitionIndex: 36
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: 0, y: 0}
+    - {x: 0.7498333, y: -0.015809845}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 147
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: 0, y: -0}
+    - {x: -0.015809845, y: -0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 81
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: -0, y: -0}
+    - {x: -0.7498333, y: 0.015809845}
+    - {x: -0, y: -0}
+  - definitionIndex: 72
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: 0.015809845, y: 0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: -0, y: 0}
+  - definitionIndex: 37
+    interactionCircleOffset: {x: 0.11, y: -0.06}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.54847395, y: 0.54847395}
+    - {x: 0.8580002, y: -0.0052664783}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: -0.49847397, y: -0.49847397}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 151
+    interactionCircleOffset: {x: -0.06, y: -0.11}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.54847395, y: -0.54847395}
+    - {x: -0.0052664783, y: -0.8580002}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.49847397, y: 0.49847397}
+  - definitionIndex: 97
+    interactionCircleOffset: {x: -0.11, y: 0.06}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.49847397, y: 0.49847397}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.54847395, y: -0.54847395}
+    - {x: -0.8580002, y: 0.0052664783}
+    - {x: -0, y: -0}
+  - definitionIndex: 136
+    interactionCircleOffset: {x: 0.06, y: 0.11}
+    trafficLightOffsets:
+    - {x: 0.0052664783, y: 0.8580002}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.49847397, y: -0.49847397}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.54847395, y: 0.54847395}
+  - definitionIndex: 38
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0.015809845}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 155
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0.015809845, y: -0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 113
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0.015809845}
+    - {x: -0, y: -0}
+  - definitionIndex: 200
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: 0.015809845, y: 0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 40
+    interactionCircleOffset: {x: 0, y: -0.09}
+    trafficLightOffsets:
+    - {x: 0, y: 0.6594519}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.5794569, y: -0.56616145}
+    - {x: 0, y: 0}
+    - {x: -0.5794569, y: -0.56616145}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 163
+    interactionCircleOffset: {x: -0.09, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.6594519, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.56616145, y: -0.5794569}
+    - {x: 0, y: -0}
+    - {x: -0.56616145, y: 0.5794569}
+  - definitionIndex: 145
+    interactionCircleOffset: {x: -0, y: 0.09}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5794569, y: 0.56616145}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.6594519}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5794569, y: 0.56616145}
+  - definitionIndex: 73
+    interactionCircleOffset: {x: 0.09, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.56616145, y: 0.5794569}
+    - {x: -0, y: 0}
+    - {x: 0.56616145, y: -0.5794569}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.6594519, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 41
+    interactionCircleOffset: {x: 0.12, y: -0.08}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.54081666, y: 0.54081666}
+    - {x: 0, y: 0}
+    - {x: 0.6299286, y: -0.62995183}
+    - {x: 0, y: 0}
+    - {x: -0.50081664, y: -0.50081664}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 167
+    interactionCircleOffset: {x: -0.08, y: -0.12}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.54081666, y: -0.54081666}
+    - {x: 0, y: -0}
+    - {x: -0.62995183, y: -0.6299286}
+    - {x: 0, y: -0}
+    - {x: -0.50081664, y: 0.50081664}
+  - definitionIndex: 161
+    interactionCircleOffset: {x: -0.12, y: 0.08}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.50081664, y: 0.50081664}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.54081666, y: -0.54081666}
+    - {x: -0, y: -0}
+    - {x: -0.6299286, y: 0.62995183}
+  - definitionIndex: 137
+    interactionCircleOffset: {x: 0.08, y: 0.12}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.62995183, y: 0.6299286}
+    - {x: -0, y: 0}
+    - {x: 0.50081664, y: -0.50081664}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.54081666, y: 0.54081666}
+  - definitionIndex: 42
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.5413915, y: -0.519033}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 171
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.519033, y: -0.5413915}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 177
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.5413915, y: 0.519033}
+  - definitionIndex: 201
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.519033, y: 0.5413915}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 44
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: 0}
+    - {x: 0.7498333, y: -0.015809845}
+    - {x: 0.5413915, y: -0.519033}
+    - {x: 0, y: 0}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 179
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.015809845, y: -0.7498333}
+    - {x: -0.519033, y: -0.5413915}
+    - {x: 0, y: -0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 209
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: -0}
+    - {x: -0.7498333, y: 0.015809845}
+    - {x: -0.5413915, y: 0.519033}
+  - definitionIndex: 74
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: 0.015809845, y: 0.7498333}
+    - {x: 0.519033, y: 0.5413915}
+    - {x: -0, y: 0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 45
+    interactionCircleOffset: {x: 0.22, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.62879664, y: 0.62879664}
+    - {x: 0.96999985, y: -0.00058201014}
+    - {x: 0.62870157, y: -0.62883586}
+    - {x: 0, y: 0}
+    - {x: -0.40879667, y: -0.40879667}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 183
+    interactionCircleOffset: {x: 0, y: -0.22}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.62879664, y: -0.62879664}
+    - {x: -0.00058201014, y: -0.96999985}
+    - {x: -0.62883586, y: -0.62870157}
+    - {x: 0, y: -0}
+    - {x: -0.40879667, y: 0.40879667}
+  - definitionIndex: 225
+    interactionCircleOffset: {x: -0.22, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.40879667, y: 0.40879667}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.62879664, y: -0.62879664}
+    - {x: -0.96999985, y: 0.00058201014}
+    - {x: -0.62870157, y: 0.62883586}
+  - definitionIndex: 138
+    interactionCircleOffset: {x: -0, y: 0.22}
+    trafficLightOffsets:
+    - {x: 0.00058201014, y: 0.96999985}
+    - {x: 0.62883586, y: 0.62870157}
+    - {x: -0, y: 0}
+    - {x: 0.40879667, y: -0.40879667}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.62879664, y: 0.62879664}
+  - definitionIndex: 46
+    interactionCircleOffset: {x: 0.05, y: 0}
+    trafficLightOffsets:
+    - {x: -0.00013836753, y: 0.7481498}
+    - {x: 0.5547404, y: 0.5547404}
+    - {x: 0.7999286, y: -0.010350117}
+    - {x: 0.56337416, y: -0.54676044}
+    - {x: 0, y: 0}
+    - {x: -0.5047405, y: -0.5047405}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 187
+    interactionCircleOffset: {x: 0, y: -0.05}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.7481498, y: 0.00013836753}
+    - {x: 0.5547404, y: -0.5547404}
+    - {x: -0.010350117, y: -0.7999286}
+    - {x: -0.54676044, y: -0.56337416}
+    - {x: 0, y: -0}
+    - {x: -0.5047405, y: 0.5047405}
+  - definitionIndex: 241
+    interactionCircleOffset: {x: -0.05, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5047405, y: 0.5047405}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: 0.00013836753, y: -0.7481498}
+    - {x: -0.5547404, y: -0.5547404}
+    - {x: -0.7999286, y: 0.010350117}
+    - {x: -0.56337416, y: 0.54676044}
+  - definitionIndex: 202
+    interactionCircleOffset: {x: -0, y: 0.05}
+    trafficLightOffsets:
+    - {x: 0.010350117, y: 0.7999286}
+    - {x: 0.54676044, y: 0.56337416}
+    - {x: -0, y: 0}
+    - {x: 0.5047405, y: -0.5047405}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.7481498, y: -0.00013836753}
+    - {x: -0.5547404, y: 0.5547404}
+  - definitionIndex: 50
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 203
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 52
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: 0}
+    - {x: 0.7498333, y: -0.015809845}
+    - {x: 0, y: 0}
+    - {x: 0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 211
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.015809845, y: -0.7498333}
+    - {x: 0, y: -0}
+    - {x: -0.75, y: -0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 82
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: -0}
+    - {x: -0.7498333, y: 0.015809845}
+    - {x: -0, y: -0}
+  - definitionIndex: 76
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: 0.015809845, y: 0.7498333}
+    - {x: -0, y: 0}
+    - {x: 0.75, y: 0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 53
+    interactionCircleOffset: {x: 0.12, y: -0.12}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5165753, y: 0.5165753}
+    - {x: 0.8611444, y: -0.005086892}
+    - {x: 0, y: 0}
+    - {x: 0.0050868914, y: -0.8611444}
+    - {x: -0.5165753, y: -0.5165753}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 215
+    interactionCircleOffset: {x: -0.12, y: -0.12}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5165753, y: -0.5165753}
+    - {x: -0.005086892, y: -0.8611444}
+    - {x: 0, y: -0}
+    - {x: -0.8611444, y: -0.0050868914}
+    - {x: -0.5165753, y: 0.5165753}
+  - definitionIndex: 98
+    interactionCircleOffset: {x: -0.12, y: 0.12}
+    trafficLightOffsets:
+    - {x: -0.0050868914, y: 0.8611444}
+    - {x: 0.5165753, y: 0.5165753}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5165753, y: -0.5165753}
+    - {x: -0.8611444, y: 0.005086892}
+    - {x: -0, y: -0}
+  - definitionIndex: 140
+    interactionCircleOffset: {x: 0.12, y: 0.12}
+    trafficLightOffsets:
+    - {x: 0.005086892, y: 0.8611444}
+    - {x: -0, y: 0}
+    - {x: 0.8611444, y: 0.0050868914}
+    - {x: 0.5165753, y: -0.5165753}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5165753, y: 0.5165753}
+  - definitionIndex: 54
+    interactionCircleOffset: {x: 0.03, y: -0.05}
+    trafficLightOffsets:
+    - {x: 0, y: 0.69939977}
+    - {x: 0.51881945, y: 0.51881945}
+    - {x: 0.77905196, y: -0.01230235}
+    - {x: 0, y: 0}
+    - {x: 0, y: -0.7993998}
+    - {x: -0.5388195, y: -0.5388195}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 219
+    interactionCircleOffset: {x: -0.05, y: -0.03}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.69939977, y: -0}
+    - {x: 0.51881945, y: -0.51881945}
+    - {x: -0.01230235, y: -0.77905196}
+    - {x: 0, y: -0}
+    - {x: -0.7993998, y: -0}
+    - {x: -0.5388195, y: 0.5388195}
+  - definitionIndex: 114
+    interactionCircleOffset: {x: -0.03, y: 0.05}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7993998}
+    - {x: 0.5388195, y: 0.5388195}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.69939977}
+    - {x: -0.51881945, y: -0.51881945}
+    - {x: -0.77905196, y: 0.01230235}
+    - {x: -0, y: -0}
+  - definitionIndex: 204
+    interactionCircleOffset: {x: 0.05, y: 0.03}
+    trafficLightOffsets:
+    - {x: 0.01230235, y: 0.77905196}
+    - {x: -0, y: 0}
+    - {x: 0.7993998, y: 0}
+    - {x: 0.5388195, y: -0.5388195}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.69939977, y: 0}
+    - {x: -0.51881945, y: 0.51881945}
+  - definitionIndex: 56
+    interactionCircleOffset: {x: 0, y: -0.14}
+    trafficLightOffsets:
+    - {x: 0, y: 0.61}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.5996285, y: -0.5904948}
+    - {x: 0, y: -0.89}
+    - {x: -0.5996285, y: -0.5904948}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 227
+    interactionCircleOffset: {x: -0.14, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.61, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.5904948, y: -0.5996285}
+    - {x: -0.89, y: -0}
+    - {x: -0.5904948, y: 0.5996285}
+  - definitionIndex: 146
+    interactionCircleOffset: {x: -0, y: 0.14}
+    trafficLightOffsets:
+    - {x: -0, y: 0.89}
+    - {x: 0.5996285, y: 0.5904948}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.61}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5996285, y: 0.5904948}
+  - definitionIndex: 77
+    interactionCircleOffset: {x: 0.14, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5904948, y: 0.5996285}
+    - {x: 0.89, y: 0}
+    - {x: 0.5904948, y: -0.5996285}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.61, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 57
+    interactionCircleOffset: {x: 0, y: -0.2}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.42081666, y: 0.42081666}
+    - {x: 0, y: 0}
+    - {x: 0.6208558, y: -0.6207117}
+    - {x: 0.00097002427, y: -0.94999933}
+    - {x: -0.6208166, y: -0.6208166}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 231
+    interactionCircleOffset: {x: -0.2, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.42081666, y: -0.42081666}
+    - {x: 0, y: -0}
+    - {x: -0.6207117, y: -0.6208558}
+    - {x: -0.94999933, y: -0.00097002427}
+    - {x: -0.6208166, y: 0.6208166}
+  - definitionIndex: 162
+    interactionCircleOffset: {x: -0, y: 0.2}
+    trafficLightOffsets:
+    - {x: -0.00097002427, y: 0.94999933}
+    - {x: 0.6208166, y: 0.6208166}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.42081666, y: -0.42081666}
+    - {x: -0, y: -0}
+    - {x: -0.6208558, y: 0.6207117}
+  - definitionIndex: 141
+    interactionCircleOffset: {x: 0.2, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.6207117, y: 0.6208558}
+    - {x: 0.94999933, y: 0.00097002427}
+    - {x: 0.6208166, y: -0.6208166}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.42081666, y: 0.42081666}
+  - definitionIndex: 58
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.5413915, y: -0.519033}
+    - {x: 0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 235
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.519033, y: -0.5413915}
+    - {x: -0.75, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 178
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.5413915, y: 0.519033}
+  - definitionIndex: 205
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.519033, y: 0.5413915}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 60
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: 0}
+    - {x: 0.7498333, y: -0.015809845}
+    - {x: 0.5413915, y: -0.519033}
+    - {x: 0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 243
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.015809845, y: -0.7498333}
+    - {x: -0.519033, y: -0.5413915}
+    - {x: -0.75, y: -0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 210
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: -0}
+    - {x: -0.7498333, y: 0.015809845}
+    - {x: -0.5413915, y: 0.519033}
+  - definitionIndex: 78
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: 0.015809845, y: 0.7498333}
+    - {x: 0.519033, y: 0.5413915}
+    - {x: 0.75, y: 0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 61
+    interactionCircleOffset: {x: 0.15, y: -0.15}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.50867474, y: 0.50867474}
+    - {x: 0.88559055, y: -0.0036906088}
+    - {x: 0.6803296, y: -0.68032956}
+    - {x: 0.0036906083, y: -0.88559055}
+    - {x: -0.50867474, y: -0.50867474}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 247
+    interactionCircleOffset: {x: -0.15, y: -0.15}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.50867474, y: -0.50867474}
+    - {x: -0.0036906088, y: -0.88559055}
+    - {x: -0.68032956, y: -0.6803296}
+    - {x: -0.88559055, y: -0.0036906083}
+    - {x: -0.50867474, y: 0.50867474}
+  - definitionIndex: 226
+    interactionCircleOffset: {x: -0.15, y: 0.15}
+    trafficLightOffsets:
+    - {x: -0.0036906083, y: 0.88559055}
+    - {x: 0.50867474, y: 0.50867474}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.50867474, y: -0.50867474}
+    - {x: -0.88559055, y: 0.0036906088}
+    - {x: -0.6803296, y: 0.68032956}
+  - definitionIndex: 142
+    interactionCircleOffset: {x: 0.15, y: 0.15}
+    trafficLightOffsets:
+    - {x: 0.0036906088, y: 0.88559055}
+    - {x: 0.68032956, y: 0.6803296}
+    - {x: 0.88559055, y: 0.0036906083}
+    - {x: 0.50867474, y: -0.50867474}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.50867474, y: 0.50867474}
+  - definitionIndex: 62
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0.015809845}
+    - {x: 0.5413915, y: -0.519033}
+    - {x: 0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 251
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0.015809845, y: -0.7498333}
+    - {x: -0.519033, y: -0.5413915}
+    - {x: -0.75, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 242
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0.015809845}
+    - {x: -0.5413915, y: 0.519033}
+  - definitionIndex: 206
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: 0.015809845, y: 0.7498333}
+    - {x: 0.519033, y: 0.5413915}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 84
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: 0}
+    - {x: 0.75, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0, y: 0}
+  - definitionIndex: 85
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: 0.75, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: 0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 88
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: 0, y: -0}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: 0, y: -0}
+  - definitionIndex: 100
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: -0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: -0.75, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 148
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: 0}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 86
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: 0.75, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: -0.75}
+    - {x: 0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 92
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: 0, y: -0}
+    - {x: -0.75, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 116
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: -0.75, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 212
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: 0}
+    - {x: 0.75, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 89
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: 0, y: 0}
+    - {x: 0.519033, y: -0.5413915}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: 0, y: 0}
+    - {x: -0.7498333, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 104
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: 0, y: -0}
+    - {x: -0.5413915, y: -0.519033}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: 0, y: -0}
+  - definitionIndex: 164
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: -0, y: -0}
+    - {x: 0.7498333, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: -0, y: -0}
+    - {x: -0.519033, y: 0.5413915}
+  - definitionIndex: 149
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5413915, y: 0.519033}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 90
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: 0, y: 0}
+    - {x: 0.5302122, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: 0, y: 0}
+    - {x: -0.7498333, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 108
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: 0, y: -0}
+    - {x: -0.5302123, y: -0.5302122}
+    - {x: -0.75, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 180
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: -0}
+    - {x: 0.7498333, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: -0, y: -0}
+    - {x: -0.5302122, y: 0.5302123}
+  - definitionIndex: 213
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5302123, y: 0.5302122}
+    - {x: 0.75, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 93
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: 0.75, y: 0}
+    - {x: 0.519033, y: -0.5413915}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: 0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 120
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: -0.5413915, y: -0.519033}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: 0, y: -0}
+  - definitionIndex: 228
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: -0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: -0.75, y: -0}
+    - {x: -0.519033, y: 0.5413915}
+  - definitionIndex: 150
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5413915, y: 0.519033}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 94
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302123}
+    - {x: 0.75, y: 0}
+    - {x: 0.5302122, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: 0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 124
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5302123, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302122}
+    - {x: -0.75, y: -0}
+    - {x: 0, y: -0}
+  - definitionIndex: 244
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302123}
+    - {x: -0.75, y: -0}
+    - {x: -0.5302122, y: 0.5302123}
+  - definitionIndex: 214
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302122}
+    - {x: 0.75, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5302123, y: 0.5302123}
+  - definitionIndex: 101
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 152
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 102
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 156
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.75}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 117
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 216
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 105
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.519033, y: -0.5413915}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 168
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5413915, y: -0.519033}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 165
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.519033, y: 0.5413915}
+  - definitionIndex: 153
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5413915, y: 0.519033}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 106
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.5302122, y: -0.5302123}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 172
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5302123, y: -0.5302122}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 181
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.5302122, y: 0.5302123}
+  - definitionIndex: 217
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5302123, y: 0.5302122}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 109
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.519033, y: -0.5413915}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 184
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.75}
+    - {x: -0.5413915, y: -0.519033}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 229
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0.519033, y: 0.5413915}
+  - definitionIndex: 154
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5413915, y: 0.519033}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 110
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.5302122, y: -0.5302123}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 188
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0.7498333, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302122}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 245
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0.5302122, y: 0.5302123}
+  - definitionIndex: 218
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302122}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.7498333, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 118
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0, y: -0}
+  - definitionIndex: 220
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: -0, y: 0}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 121
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.519033, y: -0.5413915}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 232
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5413915, y: -0.519033}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 166
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.519033, y: 0.5413915}
+  - definitionIndex: 157
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5413915, y: 0.519033}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 122
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.5302122, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 236
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5302123, y: -0.5302122}
+    - {x: -0.75, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 182
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.5302122, y: 0.5302123}
+  - definitionIndex: 221
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5302123, y: 0.5302122}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.7498333}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 125
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.519033, y: -0.5413915}
+    - {x: 0.015809845, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 248
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.75}
+    - {x: -0.5413915, y: -0.519033}
+    - {x: -0.7498333, y: -0.015809845}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 230
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0.015809845, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0.519033, y: 0.5413915}
+  - definitionIndex: 158
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5413915, y: 0.519033}
+    - {x: 0.7498333, y: 0.015809845}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 126
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.5302122, y: -0.5302123}
+    - {x: 0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 252
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0, y: -0}
+    - {x: 0.75, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.75}
+    - {x: -0.5302123, y: -0.5302122}
+    - {x: -0.75, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 246
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: -0, y: -0}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0.5302122, y: 0.5302123}
+  - definitionIndex: 222
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5302123, y: 0.5302122}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0, y: 0}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 169
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 170
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 173
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 185
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 233
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 174
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 189
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 249
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 234
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 186
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 237
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 190
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.7498333, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: 0, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 253
+    interactionCircleOffset: {x: 0, y: -0}
+    trafficLightOffsets:
+    - {x: 0, y: -0}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: 0, y: -0.7498333}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 250
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: -0, y: -0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.7498333, y: -0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 238
+    interactionCircleOffset: {x: -0, y: 0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.7498333}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: 0}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 254
+    interactionCircleOffset: {x: -0, y: -0}
+    trafficLightOffsets:
+    - {x: -0, y: 0.75}
+    - {x: 0.5303301, y: 0.5303301}
+    - {x: 0.75, y: 0}
+    - {x: 0.5303301, y: -0.5303301}
+    - {x: -0, y: -0.75}
+    - {x: -0.5303301, y: -0.5303301}
+    - {x: -0.75, y: 0}
+    - {x: -0.5303301, y: 0.5303301}
+  - definitionIndex: 263
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 295
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 327
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 359
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 264
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 296
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 328
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 360
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 265
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 297
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 329
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 361
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 266
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 298
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 330
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 362
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 267
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 299
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 331
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 363
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 268
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 300
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 332
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 364
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 269
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 301
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 333
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 365
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 270
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 302
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 334
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 366
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 271
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 303
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 335
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 367
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 272
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 304
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 336
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 368
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 273
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 305
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 337
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 369
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 274
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 306
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 338
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 370
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 275
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 307
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 339
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 371
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 276
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 308
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 340
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 372
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 277
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 309
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 341
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 373
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 278
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 310
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 342
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 374
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 279
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 311
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 343
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 375
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 280
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 312
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 344
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 376
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 281
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 313
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 345
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 377
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 282
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 314
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 346
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 378
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 283
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 315
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 347
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 379
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 284
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 316
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 348
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 380
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 285
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 317
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 349
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 381
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 286
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 318
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 350
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 382
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 287
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 319
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 351
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 383
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 288
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 320
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 352
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 384
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 289
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 321
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 353
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 385
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 290
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 322
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 354
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 386
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 291
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 323
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 355
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 387
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 292
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 324
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 356
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 388
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 293
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 325
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 357
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 389
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 294
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 326
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 358
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 390
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 255
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 256
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 257
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 258
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 259
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 260
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 261
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 262
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 391
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 392
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 393
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 394
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 395
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 396
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 397
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 398
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 399
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 400
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 401
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 402
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 403
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 404
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 405
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+  - definitionIndex: 406
+    interactionCircleOffset: {x: 0, y: 0}
+    trafficLightOffsets:
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: 0}

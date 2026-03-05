@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1196374876, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: RioDeJaneiro
+  m_EditorClassIdentifier:
+  cityName: RioDeJaneiro
+  mapName: RioDeJaneiro
+  mapDescription: RioDeJaneiroDescription
+  mapAssetBundle: riodejaneiro
+  mapPrefabName: RioDeJaneiro
+  themes:
+  - {fileID: 11400000, guid: 4a05030285892474d86e6f72d11c8312, type: 2}
+  - {fileID: 11400000, guid: 1b533942698347a42aecac455f13de60, type: 2}
+  - {fileID: 11400000, guid: c873da6f142a79d4fa1848ffe4b95eb4, type: 2}
+  - {fileID: 11400000, guid: 25153fb09b5a03746963869c391c92c9, type: 2}
+  - {fileID: 11400000, guid: c5d7d45086acc924a85d0aa737b74df5, type: 2}
+  themePreviewSprites:
+  - {fileID: 21300000, guid: ad325ba6c9b5fa04fb4c1850463baa2f, type: 2}
+  - {fileID: 21300000, guid: 123fe8bf3d42ce5459ab33f1a94aea36, type: 2}
+  - {fileID: 21300000, guid: 8fbc4288911b63b49a693e3cf6481587, type: 2}
+  - {fileID: 21300000, guid: 8fbc4288911b63b49a693e3cf6481587, type: 2}
+  - {fileID: 21300000, guid: 123fe8bf3d42ce5459ab33f1a94aea36, type: 2}
+  availableUpgrades: 000000000100000002000000030000000500000004000000
+  challengeModeTargetScore: 1000
+  cityChallenges:
+  - {fileID: 11400000, guid: 8f585be1c8f356b47b9597fba61f8595, type: 2}
+  - {fileID: 11400000, guid: 97ef8d092f1378a4b882f71976ea3eb2, type: 2}
+  _expertRequiredAchievement: {fileID: 11400000, guid: 9bd0916c7d33aff40a9ea53f0c3c9653, type: 2}
+  _achievementsThatUnlockMap:
+  - {fileID: 11400000, guid: 6c455f79e297c7347857b3de11b4331e, type: 2}
+  - {fileID: 11400000, guid: a2ae5c872a3be33438b820d5b292a1ec, type: 2}
+  - {fileID: 11400000, guid: 50472d7720640454ba7a791d8eddd6f4, type: 2}
+  - {fileID: 11400000, guid: ed5495ffb08633a4b93375fdda67ec6b, type: 2}
+  - {fileID: 11400000, guid: 92c91bacb7a0fac4f914659b699e54c5, type: 2}
+  howToUnlockDescription: AchievementDescription_MapUnlock_Score200
+  isTrainMap: 0
+  isBoatMap: 0

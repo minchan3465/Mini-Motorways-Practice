@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Warsaw_Theme_Dark
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 357ca1446b32708469251f49c4e3d3fd, type: 2}
+  - {fileID: 11400000, guid: de64d857310bac448a63bf027b452a17, type: 2}
+  - {fileID: 11400000, guid: a2306a9941c3d654587c9f36e271b254, type: 2}
+  - {fileID: 11400000, guid: 2a42e0505029e7447b89a7a380b6ac23, type: 2}
+  - {fileID: 11400000, guid: 60e612700bd25794a8d77ef94bdb79cf, type: 2}
+  - {fileID: 11400000, guid: ac282d38dc5aab846bcf4f68d25d2484, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: f49f766e71fff894a8e0c09e4c06c730, type: 2}
+  - {fileID: 11400000, guid: 792e1ea94520f6347b86157bf57883b7, type: 2}
+  - {fileID: 11400000, guid: 2d37ad30ad3415144b36c9881cfa4704, type: 2}
+  - {fileID: 11400000, guid: 81564463e3b3e5b46b87d06835d74a3c, type: 2}
+  - {fileID: 11400000, guid: 617e2be70b2ec2c4c861c05b9e82ea7b, type: 2}
+  - {fileID: 11400000, guid: bed8bca10fbddbc49af4dfc31156efd0, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.733
+  overrideSaturationMultiplier: 0.72
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: f14eb719ca83e494d835b4db7bdcf0ee, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.1
+    blurLevelsOffset: 0.25

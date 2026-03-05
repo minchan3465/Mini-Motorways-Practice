@@ -1,0 +1,74 @@
+﻿{
+    "id": "city",
+
+    "constants":
+    {
+    },
+
+    "modules":
+    [  
+        {
+            "id"      : "Clock",
+            "type"    : "Clock",
+            "filter"  : { "type" : "ClockStart" },
+            "mute"    : false
+        },
+
+        {
+            "name"   : "DemandTimer",
+            "type"    : "DemandTimer",
+            "pulse"   : 4,
+            "filter"  : {"type" : "DestinationOvercrowding"}
+        },
+        
+        {
+            "name"    : "CityStart",
+            "pulse"   : 6,
+            "type"    : "Experiment",
+            "sample"  : "LineCreated_C2",
+            "mute"    : true,
+            "filter"  : {"type" : "CityStart" }
+        },
+        
+        {
+            "name"    : "House",
+            "pulse"   : 4,
+            "type"    : "House",
+            "filter"  : {"type" : "HouseSpawned" }
+        },    
+        
+        {
+            "name" : "Road",
+            "pulse"   : 8,
+            "type" : "Road",
+            "filter" : {"type": "BuildRoad, BuildBridge, MothballRoad, TreeBulldozed, BuildTunnel" }
+        },
+
+        {
+            "name"  : "Motorway",
+            "type": "Motorway",
+            "pulse" : 4,
+            "filter"  : {"type": "MotorwayHandlePulled, MotorwayHandleReleased" }
+        },
+        
+        {
+            "name" : "TrafficLight",
+            "type" : "TrafficLight",
+            "pulse"   : 4,
+            "filter" : {"type": "TrafficLightGreen, TrafficLightAmber"}
+        },
+
+        {
+            "name" : "DestinationInstancer",
+            "type" : "DestinationInstancer",
+            "filter" : {"type": "DestinationActivated"}
+        },
+        
+        {
+            "name"  : "VehicleInstancer",
+            "type"  : "VehicleInstancer",
+            "mute"  :  false,
+            "filter": {"type": "VehicleSpawned"}
+        }
+    ]
+}

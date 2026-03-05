@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Dubai_Theme_Dark
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 09bedfc23b4060d4192786e453f86ddf, type: 2}
+  - {fileID: 11400000, guid: 147af7735b2821042bc6605271f169a4, type: 2}
+  - {fileID: 11400000, guid: dad037abcc2d83844a88537c84bdfee9, type: 2}
+  - {fileID: 11400000, guid: 3c898fda78563dd4e9e0377a20d5fe62, type: 2}
+  - {fileID: 11400000, guid: 21a40d741c688c04eb5636cfc4c40462, type: 2}
+  - {fileID: 11400000, guid: e50f5dbd8ac61294d9b7c1bb1092dd78, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: f49f766e71fff894a8e0c09e4c06c730, type: 2}
+  - {fileID: 11400000, guid: e2c2112d3fc4cfb40bfc8c323c58b391, type: 2}
+  - {fileID: 11400000, guid: a4c1ee151e260ef4cb00153b1258d85a, type: 2}
+  - {fileID: 11400000, guid: 43fe5f838d2509545899f66610849db1, type: 2}
+  - {fileID: 11400000, guid: a78e665582142e94782a786aafc50879, type: 2}
+  - {fileID: 11400000, guid: 9ad5dc2496f2d6c4f89daff014e54b8a, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.733
+  overrideSaturationMultiplier: 0.72
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 768a5f90d2d0b4844bb0c5a8cf19b9bb, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.1
+    blurLevelsOffset: 0.25

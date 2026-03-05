@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 87834540, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  scoreText: {fileID: 11400000, guid: b6122923e7f32e742842f27f8e8472b8, type: 2}
+  scoreButton: {fileID: 0}
+  electiveUpgradeTicker: {fileID: 0}
+  electiveUpgradeAnimator: {fileID: 0}
+  tickerMeshRenderer: {fileID: 0}
+  _tickerInnerColorType: 2
+  _tickerOuterColorType: 1
+  _innerTickerSpeed: 1
+  _tickerCompleteSpeedMultiplier: 30
+  _outerTickerSpeed: 1
+  _floatingElement: {fileID: 0}

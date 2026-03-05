@@ -1,0 +1,49 @@
+ManifestFileVersion: 0
+CRC: 782476523
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e4a0b599424046129bfaf3da5f698ba3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 84401bb4b4470642923c5873dc289707
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: e4a0b599424046129bfaf3da5f698ba3
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 703a0d9df24a24d198a5efb0362bcb60, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e0342d15ba40d4e39a3678ec8616a5ec, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 035d6fcfaf34247159ba5dfd24395099, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b3f473b436b41401bac8156dcb908759, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 06ee92222cf464e1ead24af52b13a15f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7fe159ab3c1164d709b5606843ed6da0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ff44b5a75331a4f94a6b594f269cab8e, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 225
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: App
+  ClassName: Motorways.Themes.Theme/BlurSettings
+- AssemblyName: App
+  ClassName: Motorways.Themes.ThemedColor
+- AssemblyName: App
+  ClassName: Motorways.UI.DelegateCanvasGroup/FieldToggledEvent
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+Assets:
+- Assets/Prefabs/Screens/TestStartupScreen.prefab
+- Assets/Data/MapDefinitions/TestMap.asset
+Dependencies: []

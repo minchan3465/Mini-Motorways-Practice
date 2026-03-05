@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1922163413, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: London_Theme_Colorful_Road
+  m_EditorClassIdentifier:
+  title: Road
+  themedColors:
+  - type: RoadInner
+    color: {r: 0.9686275, g: 0.9686275, b: 0.9686275, a: 1}
+    propertyToChange: _Color
+  - type: RoadOutline
+    color: {r: 0.74241567, g: 0.81519854, b: 0.83137256, a: 1}
+    propertyToChange: _Color
+  - type: RoadMothballed
+    color: {r: 0.839943, g: 0.8581622, b: 0.8867924, a: 1}
+    propertyToChange: _Color
+  - type: CarparkOutline
+    color: {r: 0.70980394, g: 0.79313725, b: 0.80784315, a: 1}
+    propertyToChange: _Color
+  - type: CarparkDetail
+    color: {r: 0.8862746, g: 0.91372555, b: 0.909804, a: 1}
+    propertyToChange: _Color
+  - type: BridgeOutline
+    color: {r: 0.29803923, g: 0.2392157, b: 0.21960786, a: 1}
+    propertyToChange: _Color
+  - type: BridgeRamp
+    color: {r: 0.93725497, g: 0.9450981, b: 0.9568628, a: 1}
+    propertyToChange: _Color
+  - type: MotorwayHeader
+    color: {r: 0.9686275, g: 0.6901961, b: 0.48627454, a: 1}
+    propertyToChange: _Color
+  - type: TunnelOutline
+    color: {r: 0.29803923, g: 0.2392157, b: 0.21960786, a: 1}
+    propertyToChange: _Color
+  - type: RoadCursor
+    color: {r: 0.574, g: 0.51872593, b: 0.43794072, a: 0.15686275}
+    propertyToChange: _Color
+  - type: RoundaboutFilling
+    color: {r: 0.8117648, g: 0.86274517, b: 0.86274517, a: 1}
+    propertyToChange: _Color
+  - type: RoundaboutInnerOutline
+    color: {r: 0.74509805, g: 0.81568635, b: 0.8313726, a: 1}
+    propertyToChange: _Color
+  - type: RoadInner
+    color: {r: 0.8078432, g: 0.86274517, b: 0.86274517, a: 1}
+    propertyToChange: _DryingColor
+  - type: DryingTunnel
+    color: {r: 0.29803923, g: 0.2392157, b: 0.21960786, a: 1}
+    propertyToChange: _Color

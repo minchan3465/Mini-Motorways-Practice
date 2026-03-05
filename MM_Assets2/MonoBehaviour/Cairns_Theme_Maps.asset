@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1051835429, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Cairns_Theme_Maps
+  m_EditorClassIdentifier:
+  buildingColorGroups:
+  - {fileID: 11400000, guid: 186cd80a513c1474caf03de72a58f9b0, type: 2}
+  - {fileID: 11400000, guid: 55d16fd2fd09c4c4bb750381c7595051, type: 2}
+  - {fileID: 11400000, guid: ecac0a6a3a8fa3d44a46f2f0b6a74f0e, type: 2}
+  - {fileID: 11400000, guid: ec8db1c6bf3c66347a8930d7bdc38577, type: 2}
+  - {fileID: 11400000, guid: f01d22736026b7b4587e64918b1705cd, type: 2}
+  - {fileID: 11400000, guid: 3d41e03df1ad5e243aca1c83eed9632d, type: 2}
+  themedColors:
+  - {fileID: 11400000, guid: 662aa0f2882e60242b6301d2a68fb569, type: 2}
+  - {fileID: 11400000, guid: 2a592e9b27da70445ac6ce9396bd0699, type: 2}
+  - {fileID: 11400000, guid: 78bb1d52ef606b34297fc81906612a84, type: 2}
+  - {fileID: 11400000, guid: cd1d1af0c9b9c5940b7845c7cbb4ea1a, type: 2}
+  - {fileID: 11400000, guid: 9481a1b8d1eb936468477bcc75db0d24, type: 2}
+  - {fileID: 11400000, guid: fdc868355aa895747a576e7aae869f7f, type: 2}
+  - {fileID: 11400000, guid: 2d7fa61e6fe709942a75998a6c2ef76c, type: 2}
+  deleteModeOverrides: {fileID: 11400000, guid: 93ac5572901f2ee43a48934fb3466eb2, type: 2}
+  overrideDarkenMultiplier: 0.788
+  overrideSaturationMultiplier: 0.821
+  additionalDeleteModeOverrides: []
+  customDeleteModeOverrides: {fileID: 11400000, guid: 2674e0ed288d90848b1249868ededc6b, type: 2}
+  screenBackgroundBlur:
+    blurLevelsRange: 0.15
+    blurLevelsOffset: 0.8

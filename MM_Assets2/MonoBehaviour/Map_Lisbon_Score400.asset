@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1787052330, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name: Map_Lisbon_Score400
+  m_EditorClassIdentifier:
+  achievementIcon: {fileID: 0}
+  platformSpecificData:
+  - forPlatform: 1
+    dataKey: 1
+    intData: 0
+    stringData: grp.lisbon_score_1
+  - forPlatform: 2
+    dataKey: 1
+    intData: 0
+    stringData: lisbon_score400
+  cityName: Lisbon
+  challengeIndex: -1
+  intValue: 400
+  type: 0
+  scale: 0
+  gameMode: 5
+  upgradeType: 0
+  DescriptionId: AchievementDescription_Lisbon_Score_1

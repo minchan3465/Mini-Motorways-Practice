@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1291807990921825
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4870824294298293}
+  - component: {fileID: 114823673712570318}
+  m_Layer: 0
+  m_Name: BuildingsIndicatorPrefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4870824294298293
+Transform:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291807990921825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114823673712570318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291807990921825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 193882131, guid: 343f86ac616e9a8f959b5c95d5d28941, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _echoRate: 0.45
+  _arrowExitDelay: 3.5
+  _arrowKnockNumber: 2
+  _arrowKnockDelayInSeconds: 0.89
+  _houseSharedSettings:
+    echoDelayInSeconds: 0.2
+    echoDurationInSeconds: 1.33
+    echoRingWidthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.15
+        inSlope: 0.22226903
+        outSlope: 0.22226903
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.036836404
+      - serializedVersion: 3
+        time: 1
+        value: 0.22019073
+        inSlope: 0
+        outSlope: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    echoScaleMin: 0.25
+    echoScaleMax: 1.65
+    echoRepeatDelayInSeconds: 0.3
+    darkEchoDelayInSeconds: 0.1
+    darkEchoScaleMax: 2.2
+    arrowDelayInSeconds: 1
+  _destinationSharedSettings:
+    echoDelayInSeconds: 0.22
+    echoDurationInSeconds: 1.2
+    echoRingWidthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.2
+        inSlope: 0.45415697
+        outSlope: 0.45415697
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030335858
+      - serializedVersion: 3
+        time: 1
+        value: 0.34
+        inSlope: -0
+        outSlope: -0
+        weightedMode: 0
+        inWeight: 0.057421446
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    echoScaleMin: 0.7
+    echoScaleMax: 3.5
+    echoRepeatDelayInSeconds: 0.55
+    darkEchoDelayInSeconds: 0
+    darkEchoScaleMax: 3.5
+    arrowDelayInSeconds: 1
+  _houseAppearIndicatorSettings:
+    echoCount: 1
+    clampToScreen: 0
+    hasDarkEcho: 0
+    arrowType: 0
+  _destinationAppearIndicatorSettings:
+    echoCount: 0
+    clampToScreen: 1
+    hasDarkEcho: 0
+    arrowType: 0
+  _destinationDemandUpgradedIndicatorSettings:
+    echoCount: 3
+    clampToScreen: 1
+    hasDarkEcho: 0
+    arrowType: 1
+  _destinationBigPinIndicatorSettings:
+    echoCount: 1
+    clampToScreen: 1
+    hasDarkEcho: 1
+    arrowType: 2
+  _destinationImminentFailIndicatorSettings:
+    echoCount: 3
+    clampToScreen: 1
+    hasDarkEcho: 1
+    arrowType: 3
+  _pulseDelayInSeconds: 10
+  _pulseRateInSeconds: 1.95
