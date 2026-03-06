@@ -66,41 +66,35 @@ namespace Motorways.Actions {
 
 		//---------- 건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
+			if (GridView.Instance != null) GridView.Instance.SetVisible(true, false);
 			if (_currentAction != null || !IsPointerValid) return;
 
 			_currentAction = new DrawRoadAction();
 			_currentAction.Initialize(this);
 			_currentAction.OnActionBegin(Time.time);
-
-			//그리드 표시
-			if (GridView.Instance != null) GridView.Instance.SetVisible(true, false);
 		}
 
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
+			if (GridView.Instance != null) GridView.Instance.SetVisible(false);
 			if (_currentAction is DrawRoadAction) {
 				_currentAction.OnActionComplete();
-				//그리드 숨김
-				if (GridView.Instance != null) GridView.Instance.SetVisible(false);
 			}
 		}
 
 		//---------- 삭제(우클릭)
 		private void OnRemoveStarted(InputAction.CallbackContext context) {
+			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);    //삭제라서 뒤 매개변수 true
 			if (_currentAction != null || !IsPointerValid) return;
 
 			_currentAction = new RemoveRoadAction();
 			_currentAction.Initialize(this);
-			_currentAction.OnActionBegin(Time.time);
-
-			//그리드 표시
-			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);    //삭제라서 뒤 매개변수 true
+			_currentAction.OnActionBegin(Time.time);	
 		}
 
 		private void OnRemoveCanceled(InputAction.CallbackContext context) {
+			if (GridView.Instance != null) GridView.Instance.SetVisible(false);
 			if (_currentAction is RemoveRoadAction) {
 				_currentAction.OnActionComplete();
-				//그리드 숨김
-				if (GridView.Instance != null) GridView.Instance.SetVisible(false);
 			}
 		}
 

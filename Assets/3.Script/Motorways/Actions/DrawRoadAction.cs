@@ -67,6 +67,11 @@ namespace Motorways.Actions {
 			RoadPreviewView.Instance?.Hide();
 		}
 
+		public override void OnActionCancel() {
+			base.OnActionCancel();
+			RoadPreviewView.Instance?.Hide();
+		}
+
 		//---------- 건설(드래그) => 핵심 로직.
 		private void ProcessBuildDrag(Vector3 mousePos) {
 			//혹시 리소스 부족 처리.

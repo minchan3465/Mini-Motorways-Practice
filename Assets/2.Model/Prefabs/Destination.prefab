@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 381036525910700164}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 0.195, z: 0}
+  m_LocalPosition: {x: -1, y: 0.195, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 1305395044767331156}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 1, y: 0.195, z: 0}
+  m_LocalPosition: {x: 1, y: 0.195, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -316,7 +316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6004845640200108993
 Transform:
   m_ObjectHideFlags: 0
@@ -1083,7 +1083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3326976026767447030
 Transform:
   m_ObjectHideFlags: 0
@@ -1342,7 +1342,7 @@ Transform:
   m_GameObject: {fileID: 5570796537766299358}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1, y: 0.19, z: 0}
+  m_LocalPosition: {x: -1, y: 0.19, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2213,7 +2213,7 @@ Transform:
   m_GameObject: {fileID: 7866425411867003436}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
-  m_LocalPosition: {x: 1, y: 0.19, z: 0}
+  m_LocalPosition: {x: 1, y: 0.19, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3102,7 +3102,7 @@ Transform:
   m_GameObject: {fileID: 8943887245018740801}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 7, z: -7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3123,6 +3123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad89ebc580c4fe4096e6a5a61bc8466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.Views.DestinationView
+  effect_prefab: {fileID: 5287120673612540989, guid: 807ed83fcb0d5184a967c386155f7047, type: 3}
   West: {fileID: 1957009702804761128}
   South: {fileID: 3563784880963767619}
   Plus: {fileID: 4982566872004579644}
@@ -3139,6 +3140,8 @@ MonoBehaviour:
   South_Top_Entrance_Side: {fileID: 8391120685895026274}
   South_Bottom_Top: {fileID: 983637028921066554}
   South_Bottom_Side: {fileID: 5793020875719342186}
+  Circle_Fill: {fileID: 0}
+  Circle_Outline: {fileID: 0}
 --- !u!1 &9213443616369701858
 GameObject:
   m_ObjectHideFlags: 0
