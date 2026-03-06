@@ -7,8 +7,21 @@ namespace Motorways.Process {
 	using Motorways.Navigation;
 	using Motorways.Managers;
 
-	public class VehiclePathfindingProcess : MonoBehaviour {
-		private void Update() {
+	public class VehiclePathfindingProcess : MonoBehaviour, ISimulationProcess {
+
+		private void Start() {
+			if (SimulationManager.Instance != null) {
+				SimulationManager.Instance.RegisterProcess(this);
+			}
+		}
+
+		private void OnDestroy() {
+			if (SimulationManager.Instance != null) {
+				SimulationManager.Instance.RemoveProcess(this);
+			}
+		}
+
+		public void Tick(float dt) {
 			if (VehicleMovementProcess.Instance == null) return;
 
 			List<Vehicle> allVehicles = VehicleMovementProcess.Instance._activeVehicle;
@@ -89,7 +102,8 @@ namespace Motorways.Process {
 
 					if (v.State == VehicleState.Driving) {
 						if (startNode != v.DestNode) {
-							List<Lane> newPathRemaining = Pathfinder.FindPath(startNode, v.DestNode);
+							// U턴을 방지하기 위해 committedLane을 매개변수로 넘깁니다.
+							List<Lane> newPathRemaining = Pathfinder.FindPath(startNode, v.DestNode, committedLane);
 							if (TryStitchPath(newPathRemaining, v.DestNode)) {
 								v.AssignPath(newPathRemaining);
 							}
@@ -100,7 +114,8 @@ namespace Motorways.Process {
 						}
 					} else if (v.State == VehicleState.Returning) {
 						if (startNode != v.HomeNode) {
-							List<Lane> newPathRemaining = Pathfinder.FindPath(startNode, v.HomeNode);
+							// U턴 방지
+							List<Lane> newPathRemaining = Pathfinder.FindPath(startNode, v.HomeNode, committedLane);
 							if (TryStitchPath(newPathRemaining, v.HomeNode)) {
 								v.AssignPath(newPathRemaining);
 							}

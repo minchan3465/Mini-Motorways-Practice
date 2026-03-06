@@ -21,11 +21,14 @@ namespace Motorways.Managers {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
 		}
-		private void Update() {
-			//매 프레임 삭제 대기 중인 도로가 비었는지 확인
-			ProcessMothballedLanes();
 
-			//변경된 타일이 있다면 시각적 갱신 요청
+		private void Update() {
+			// 매 프레임 삭제 대기 중인 도로가 비었는지 확인 (Manager의 자체 Update에서 처리)
+			ProcessMothballedLanes();
+		}
+
+		private void LateUpdate() {
+			//변경된 타일이 있다면 시각적 갱신 요청 (렌더 루프에 맞춤)
 			if (CityModel.ChangedNodes.Count > 0) {
 				TilemapView.Instance.UpdateTiles(CityModel.ChangedNodes);
 				CityModel.ChangedNodes.Clear();

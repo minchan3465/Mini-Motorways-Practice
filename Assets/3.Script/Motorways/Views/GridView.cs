@@ -11,7 +11,7 @@ namespace Motorways.Views {
 
 		[Header("Transition Settings")]
 		[SerializeField] 
-		private float _transitionDuration = 0.18f; // 0.15~0.2초 권장 (두께가 자라나는 시간)
+		private float _transitionDuration = 0.1f; // 0.15~0.2초 권장 (두께가 자라나는 시간)
 
 		private readonly Color _buildColor = new Color(0.933f, 0.871f, 0.769f, 1.0f);    // 0.6f, 0.75f, 0.8f 강제 색상 변경
 		private readonly Color _removeColor = new Color(1.0f, 0.35f, 0.35f, 1.0f);

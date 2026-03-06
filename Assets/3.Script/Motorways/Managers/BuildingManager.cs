@@ -16,6 +16,7 @@ namespace Motorways.Managers {
 		public List<ScheduledBuilding> ScheduleList { get; private set; } = new List<ScheduledBuilding>();
 		public List<BuildingLayout> HouseLayouts { get; private set; }
 		public List<BuildingLayout> DestinationLayouts { get; private set; }
+		public List<Destination> ActiveDestinations { get; private set; } = new List<Destination>();
 
 		private void Awake() {
 			if (Instance == null) Instance = this;

@@ -22,12 +22,14 @@ namespace Motorways.Views {
 
 			//1.활성 도로용 View 생성
 			//2.Mothballed 도로용 View 생성
-			_activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 1);
+			_activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 10);
+			_activeRoadView.transform.localPosition = new Vector3(0, 0.01f, 0);
+
 			_mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, outlineMat, 5);
 
 			//3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
 			_activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
-			_activeCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0, MapSettings.HALF_TILE);
+			_activeCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0.01f, MapSettings.HALF_TILE);
 
 			_mothballedCornerView = CreateRoadView("MothballedCorner", mothballedMat, outlineMat, 6);
 			_mothballedCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0, MapSettings.HALF_TILE);

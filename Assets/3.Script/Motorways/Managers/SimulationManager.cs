@@ -6,9 +6,8 @@ namespace Motorways.Managers {
 	public class SimulationManager : MonoBehaviour {
         public static SimulationManager Instance;
 
-        // °ÔÀÓ ¼Óµµ (0: Á¤Áö, 1: º¸Åë, 2: 2¹è¼Ó)
         [Range(0, 5)]
-        public float TimeScale = 1.0f;
+		public float TimeScale { get; private set; } = 1.0f;
         public bool IsPaused = false;
 
 		private List<ISimulationProcess> _processes = new List<ISimulationProcess>();
@@ -30,11 +29,16 @@ namespace Motorways.Managers {
 			}
 		}
 
+		public void changeTimeScale(float timeSacle) {
+			TimeScale = timeSacle;
+		}
+
 		private void Update() {
 			if (IsPaused) return;
 
-			float dt = Time.deltaTime * Time.timeScale;
-
+			float dt = Time.deltaTime * TimeScale;
+			
+			//ì˜µì €ë²„ íŒ¨í„´!
 			for(int i = 0; i < _processes.Count; i++) {
 				_processes[i].Tick(dt);
 			}

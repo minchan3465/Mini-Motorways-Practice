@@ -111,14 +111,16 @@ namespace Motorways.Models {
 		public void AssignReturnPath(List<Lane> newReturnPath) {
 			if(ReturnPath != null) {
 				foreach (Lane lane in ReturnPath) {
-					lane.CancelReservation(this.Id);
+					// 현재 진행 중인 경로에 포함되어 있다면 예약을 취소하지 않음 (U턴 등에서 예약 증발 방지)
+					if (CurrentPath == null || !CurrentPath.Contains(lane)) {
+						lane.CancelReservation(this.Id);
+					}
 				}
 			}
 
 			if (State == VehicleState.Returning && CurrentPath != null) {
-				foreach (Lane lane in CurrentPath) {
-					lane.CancelReservation(this.Id);
-				}
+				// Returning 상태일 때는 CurrentPath가 곧 귀환 경로이므로 여기선 건드리지 않습니다.
+				// (원래 여기서 취소하는 로직이 있었으나, 중복/버그 방지를 위해 제거 또는 조건 변경)
 			}
 
 			ReturnPath = new Queue<Lane>(newReturnPath);

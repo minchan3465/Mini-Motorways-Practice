@@ -16,10 +16,10 @@ namespace Motorways.Views {
 			transform.localScale = Vector3.one;
 
 			float scale_duration = 1.5f;
-			float fade_start = 1.0f;
+			float fade_start = 1.25f;
 			float fade_duration = scale_duration - fade_start;
 			float Outline_max_sacle = isHouse ? 0.75f : 1.25f;
-			float Fill_max_sacle = 4.0f;
+			float Fill_max_sacle = 7.5f;
 			Color color = GroupColor.GetGroupColor(groupIndex);
 
 			Circle_Outline_Mat.material.color = color;

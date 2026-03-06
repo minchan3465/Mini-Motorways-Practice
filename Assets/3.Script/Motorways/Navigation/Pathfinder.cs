@@ -30,14 +30,14 @@ namespace Motorways.Navigation {
 			return endNode.G; // G값이 총 이동 비용
 		}
 
-		public static List<Lane> FindPath(Vector2Int start, Vector2Int target) {
-			Node endNode = SolveAStar(start, target);
+		public static List<Lane> FindPath(Vector2Int start, Vector2Int target, Lane restrictUTurnLane = null) {
+			Node endNode = SolveAStar(start, target, restrictUTurnLane);
 			if (endNode == null) return null;
 
 			return RetracePath(endNode);
 		}
 
-		private static Node SolveAStar(Vector2Int start, Vector2Int target) {
+		private static Node SolveAStar(Vector2Int start, Vector2Int target, Lane restrictUTurnLane = null) {
 			var grid = MapManager.Instance._grid;
 
 			if (start == target) return null;
@@ -67,6 +67,14 @@ namespace Motorways.Navigation {
 
 				foreach (Lane outboundLane in currentTile.Lanes) {
 					if (outboundLane == null) continue;
+
+					// U턴 방지 로직 (원작 방식)
+					// 첫 번째 스텝에서 restrictUTurnLane과 반대 방향인 Lane을 선택하는 것을 막습니다.
+					if (current.Parent == null && restrictUTurnLane != null) {
+						if (outboundLane.EndNode == restrictUTurnLane.StartNode) {
+							continue; // 왔던 길로 바로 되돌아가는 U턴 불가능!
+						}
+					}
 
 					Vector2Int neighborCoord = outboundLane.EndNode;
 

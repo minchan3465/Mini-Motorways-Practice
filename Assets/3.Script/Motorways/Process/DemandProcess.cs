@@ -6,7 +6,7 @@ namespace Motorways.Process {
 	using Motorways.Models;
 	using Motorways.Managers;
 
-	//¸ñÀûÁö¿¡¼­ ÇÉÀ» »ı¼ºÇÏ´Â ÇÁ·Î¼¼½ºÀÔ´Ï´Ù.
+	//ëª©ì ì§€ì˜ ìˆ˜ìš”ë¥¼ ìƒì„±í•˜ëŠ” í”„ë¡œì„¸ìŠ¤ì…ë‹ˆë‹¤.
 	public class DemandProcess : MonoBehaviour, ISimulationProcess {
 		public static DemandProcess Instance;
 
@@ -36,37 +36,63 @@ namespace Motorways.Process {
 		}
 
 		public void Tick(float dt) {
-			foreach (var dest in _activeDestinations) {
-				UpdatePinGeneration(dest, dt);
+			// ì›ì‘ ë‚œì´ë„ ìŠ¤ì¼€ì¼ë§ ê³„ì‚° (CalculateSpawnRamp)
+			// ì¼ìˆ˜(Day)ê°€ ì§€ë‚ ìˆ˜ë¡ í•€ ìƒì„± ì†ë„(ì‹œê°„ íë¦„)ê°€ ë¹¨ë¼ì§‘ë‹ˆë‹¤.
+			float spawnScale = 1.0f;
+			if (ClockProcess.Instance != null && ClockProcess.Instance.Model != null) {
+				int startDay = 7; // ì˜ˆ: 7ì¼(1ì£¼) í›„ë¶€í„° ë‚œì´ë„ ì¦ê°€ ì‹œì‘
+				float dailyIncrement = 0.05f; // í•˜ë£¨ë§ˆë‹¤ ìƒì„± ì†ë„ 5%ì”© ì¦ê°€
+				int daysPast = ClockProcess.Instance.Model.ExpansionDay - startDay;
+
+				if (daysPast > 0) {
+					spawnScale += daysPast * dailyIncrement;
+				}
+			}
+
+			for (int i = 0; i < _activeDestinations.Count; i++) {
+				var dest = _activeDestinations[i];
+				if (!dest.isActive) continue;
+
+				UpdatePinGeneration(dest, dt, spawnScale);
 				UpdateOvercrowding(dest, dt);
 			}
 		}
 
-		private void UpdatePinGeneration(Destination dest, float dt) {
-			if(!dest.isOverCrowding) {
-				dest.PinSpawnTimer -= dt;
+		private void UpdatePinGeneration(Destination dest, float dt, float spawnScale) {
+			// ìµœëŒ€ í•€ ê°œìˆ˜ë¥¼ ë„˜ì§€ ì•Šì„ ë•Œë§Œ ìƒì„±
+			if (dest.TotalDemand < Destination.MAX_PINS) {
+				// ì›ì‘ì²˜ëŸ¼ ì‹¤ì œ íë¥¸ ì‹œê°„ì— ë°°ìœ¨(spawnScale)ì„ ê³±í•´ì„œ íƒ€ì´ë¨¸ë¥¼ ê¹ìŒ
+				dest.PinSpawnTimer -= (dt * spawnScale);
 
 				if (dest.PinSpawnTimer <= 0) {
 					dest.UnassignedPins++;
-					dest.PinSpawnTimer = 10.0f;	//ÃßÈÄ »ı»ê ½Ã°£ÀÌ ÁÙ¾îµé°Ô²û ¼³Á¤ÇÏ¸é µÊ!
+					// ì›ì‘ì€ ê±´ë¬¼ì˜ ì¢…ë¥˜ì™€ ì˜¤ì‹¤ë ˆì´ì…˜(ì§„ë™)ì— ë”°ë¼ Intervalì´ ë‹¤ë¦„
+					// í˜„ì¬ëŠ” ê¸°ë³¸ê°’ 10.0ì´ˆ(ë˜ëŠ” ì›ì‘ ê¸°ë³¸ ë² ì´ìŠ¤) ìœ ì§€
+					dest.PinSpawnTimer = 10.0f; 
 				}
 			}
-
 		}
 
 		private void UpdateOvercrowding(Destination dest, float dt) {
-			if(dest.isOverCrowding) {
-				dest.OverCrowdingTimer -= dt;
+			if (dest.isOverCrowding) {
+				// í•€ì´ 6ê°œ ì´ìƒì´ë©´ ê³¼ë°€í™” ì‹œì‘
+				// í•€ì´ ë” ë§ì„ìˆ˜ë¡ ë” ë¹¨ë¦¬ ì†Œëª¨ë˜ê²Œ (ë²Œì¹™ ê³„ìˆ˜)
+				float penalty = 1.0f + (dest.TotalDemand - Destination.GAUGE_START_PINS) * 0.2f;
+				dest.OverCrowdingTimer -= dt * penalty;
 
-				//TODO : UI ÀÛ¾÷ Ã³¸® (¿øÇü °ÔÀÌÁö)
+				// ê²Œì´ì§€ ì—…ë°ì´íŠ¸ëŠ” DestinationViewì˜ Updateì—ì„œ ì²˜ë¦¬ ì¤‘
 
-				if(dest.OverCrowdingTimer <= 0) {
-					// TODO : °ÔÀÓ ¿À¹ö Ã³¸®
-				} else {
-					//TODO : ½ÇÁ¦ ±â´ÉÀº Å¸ÀÌ¸Ó°¡ ÀÏÁ¤ Ãë¼ÒµÊ. ÀÌÈÄ 30.0fÀ» ³ÑÀ¸¸é ´Ù½Ã ÇÉ 6°³·Î º¯°æ ÀÛ¾÷. (°úºÎÈ­ ÇØÁ¦)
-					if(dest.OverCrowdingTimer < 30.0f) {
-						dest.OverCrowdingTimer += dt * 2.0f;
-					}
+				if (dest.OverCrowdingTimer <= 0) {
+					Debug.Log("<color=red>GAME OVER!</color> Destination " + dest.GroupIndex + " is overcrowded!");
+#if UNITY_EDITOR
+					UnityEditor.EditorApplication.isPlaying = false;
+#endif
+					// TODO : ê²Œì„ ì˜¤ë²„ ì²˜ë¦¬
+				}
+			} else {
+				// 6ê°œ ë¯¸ë§Œì´ë©´ íƒ€ì´ë¨¸ ì„œì„œíˆ íšŒë³µ (ìµœëŒ€ 30ì´ˆ)
+				if (dest.OverCrowdingTimer < 30.0f) {
+					dest.OverCrowdingTimer = Mathf.Min(30.0f, dest.OverCrowdingTimer + dt * 1.5f);
 				}
 			}
 		}

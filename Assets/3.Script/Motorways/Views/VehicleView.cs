@@ -11,7 +11,7 @@ namespace Motorways.Views {
         private Lane _currentLane;
 
         [SerializeField] private MeshRenderer CarBody;
-
+        [SerializeField] private GameObject CarPin; // 지붕 위 핀 오브젝트
 
 		public void Initialize(Vehicle model) {
 			_vehicleModel = model;
@@ -19,6 +19,10 @@ namespace Motorways.Views {
 
 		public void UpdateColor(int groupIndex) {
             CarBody.material.color = GroupColor.GetGroupColor(groupIndex);
+            if (CarPin != null) {
+                // 핀 색상도 목적지/그룹 색상으로 맞춤
+                CarPin.GetComponent<MeshRenderer>().material.color = GroupColor.GetGroupColor(groupIndex);
+            }
         }
 
         private void Start() {
@@ -26,6 +30,7 @@ namespace Motorways.Views {
                 //모델이 명시적으로 할당되지 않은 경우 자신과 같은 GameObject에 있는지 시도해봅니다.
                 TryGetComponent(out _vehicleModel);
             }
+            if (CarPin != null) CarPin.SetActive(false);
         }
 
         private void Update() {
@@ -34,10 +39,13 @@ namespace Motorways.Views {
             //주행 중일 때만 비주얼 업데이트 수행
             if (_vehicleModel.State == VehicleState.Driving || _vehicleModel.State == VehicleState.Returning) {
                 UpdateVisuals();
+                // 귀가 중일 때만 핀 표시
+                if (CarPin != null) CarPin.SetActive(_vehicleModel.State == VehicleState.Returning);
             } else {
                 //주행 중이 아닐 때는 캐시된 레인 초기화 (새로운 경로를 위해)
                 _prevLane = null;
                 _currentLane = null;
+                if (CarPin != null) CarPin.SetActive(false);
             }
         }
 
@@ -96,6 +104,7 @@ namespace Motorways.Views {
             //미니 모터웨이는 보통 좌측 통행을 하므로, 진행 방향의 좌측(-normal)으로 오프셋을 줍니다.
             //우측 통행을 원하시면 + normal * laneOffset 으로 변경하시면 됩니다.
             position += -normal * laneOffset;
+            position += Vector3.up * 0.2f;
 
             //Transform 업데이트
             transform.position = position;

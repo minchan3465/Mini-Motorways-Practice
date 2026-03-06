@@ -129,14 +129,27 @@ namespace Motorways.Process {
 
 		private void HandleArrival(Vehicle v) {
 			if (v.State == VehicleState.Driving) {
-				// 목적지 도착 알림 (이벤트 처리 권장)
+				// 목적지 도착
 				v.State = VehicleState.Arrived;
 				v.ParkingTimer = 0f;
+
+				// 목적지 건물에 도착 알림
+				if (MapManager.Instance._grid.TryGetValue(v.DestNode, out TileData targetTile)) {
+					if (targetTile.Building != null) {
+						targetTile.Building.OnVehicleArrived(v.Id);
+					}
+				}
 			} else if (v.State == VehicleState.Returning) {
 				// 집으로 귀환 완료
 				v.State = VehicleState.Ready;
-
 				v.ClearAllReservations();
+
+				// 집 건물에 귀환 알림
+				if (MapManager.Instance._grid.TryGetValue(v.HomeNode, out TileData targetTile)) {
+					if (targetTile.Building != null) {
+						targetTile.Building.OnVehicleArrived(v.Id);
+					}
+				}
 			}
 		}
 
