@@ -10,6 +10,8 @@ namespace Motorways.Managers {
 		public float TimeScale { get; private set; } = 1.0f;
         public bool IsPaused = false;
 
+		public event System.Action OnSimulationStateChanged;
+
 		private List<ISimulationProcess> _processes = new List<ISimulationProcess>();
 
 		private void Awake() {
@@ -29,8 +31,31 @@ namespace Motorways.Managers {
 			}
 		}
 
+		private float _savedTimeScale = 1.0f;
+
+		public void TogglePause() {
+			if (IsPaused) {
+				// 일시정지 해제: 이전에 저장해둔 배속으로 복구
+				TimeScale = _savedTimeScale;
+				IsPaused = false;
+			} else {
+				// 일시정지 시작: 현재 배속을 저장하고 배속을 0으로 (논리적 정지)
+				_savedTimeScale = TimeScale;
+				IsPaused = true;
+			}
+			//Debug.Log(IsPaused ? "Simulation Paused" : "Simulation Resumed (Speed: " + TimeScale + ")");
+			OnSimulationStateChanged?.Invoke();
+		}
+
 		public void changeTimeScale(float timeSacle) {
 			TimeScale = timeSacle;
+			if (TimeScale > 0) {
+				_savedTimeScale = TimeScale;
+				IsPaused = false;
+			} else {
+				IsPaused = true;
+			}
+			OnSimulationStateChanged?.Invoke();
 		}
 
 		private void Update() {

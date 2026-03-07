@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 namespace Motorways.Actions {
 	using Views;
@@ -10,6 +11,7 @@ namespace Motorways.Actions {
 	public class InteractionController : MonoBehaviour {
 		[Header("Settings")]
 		[SerializeField] private Camera _mainCamera;
+		public Camera MainCamera => _mainCamera;
 
 		//클릭 후 드래그로 인정받기 위한 최소 거리 (픽셀 단위 아님, 월드 단위) = 클릭 노이즈를 방지하는 Deadzone
 		[SerializeField, Range(0.1f, 1.0f)] private float _initialDragDeadzone = 0.3f;
@@ -46,6 +48,10 @@ namespace Motorways.Actions {
 			_input.Player.Build.canceled += OnBuildCanceled; //건설 끝
 			_input.Player.Remove.started += OnRemoveStarted;
 			_input.Player.Remove.canceled += OnRemoveCanceled;
+
+			// 일시정지 및 줌 액션 연결
+			_input.Player.Pause.started += OnPause;
+			_input.Player.Zoom.performed += OnZoom;
 		}
 
 		private void OnDisable() {
@@ -55,6 +61,9 @@ namespace Motorways.Actions {
 			_input.Player.Build.canceled -= OnBuildCanceled;
 			_input.Player.Remove.started -= OnRemoveStarted;
 			_input.Player.Remove.canceled -= OnRemoveCanceled;
+
+			_input.Player.Pause.started -= OnPause;
+			_input.Player.Zoom.performed -= OnZoom;
 		}
 
 		private void Update() {
@@ -64,8 +73,11 @@ namespace Motorways.Actions {
 			}
 		}
 
+
 		//---------- 건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
+			if (IsPointerOverUI()) return;
+
 			if (GridView.Instance != null) GridView.Instance.SetVisible(true, false);
 			if (_currentAction != null || !IsPointerValid) return;
 
@@ -83,6 +95,8 @@ namespace Motorways.Actions {
 
 		//---------- 삭제(우클릭)
 		private void OnRemoveStarted(InputAction.CallbackContext context) {
+			if (IsPointerOverUI()) return;
+
 			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);    //삭제라서 뒤 매개변수 true
 			if (_currentAction != null || !IsPointerValid) return;
 
@@ -123,6 +137,35 @@ namespace Motorways.Actions {
 			}
 		}
 
+		//---------- 일시정지(스페이스바)
+		private void OnPause(InputAction.CallbackContext context) {
+			TimePauseAction pauseAction = new TimePauseAction();
+			pauseAction.Initialize(this);
+			pauseAction.OnActionBegin(Time.time);
+		}
+
+		//---------- 줌(마우스 휠)
+		private void OnZoom(InputAction.CallbackContext context) {
+			CameraZoomAction zoomAction = new CameraZoomAction();
+			zoomAction.Initialize(this);
+			// Vector2로 들어오는 휠 입력을 y값만 추출하여 float로 전달
+			float scrollDelta = context.ReadValue<Vector2>().y;
+			zoomAction.SetScrollDelta(scrollDelta);
+			zoomAction.OnActionBegin(Time.time);
+
+			// 줌 이후 일정 시간 뒤 그리드 숨김 처리
+			CancelInvoke(nameof(HideGridAfterZoom));
+			Invoke(nameof(HideGridAfterZoom), 0.5f);
+		}
+
+		private void HideGridAfterZoom() {
+			if (_currentAction == null && GridView.Instance != null) {
+				GridView.Instance.SetVisible(false);
+			}
+		}
+
+
+		//--- 액션 헬퍼들---
 		public Vector3 GetWorldPositionFromMouse() {
 			Ray ray = _mainCamera.ScreenPointToRay(_mouseScreenPos);
 			if (_groundPlane.Raycast(ray, out float enter)) {
@@ -146,6 +189,21 @@ namespace Motorways.Actions {
 				Mathf.RoundToInt(diff.x / max),
 				Mathf.RoundToInt(diff.z / max)
 			);
+		}
+
+		private bool IsPointerOverUI() {
+			if (EventSystem.current == null) return false;
+
+			// 현재 추적 중인 커서 좌표(_mouseScreenPos)를 기반으로 레이캐스트 데이터 생성
+			PointerEventData eventData = new PointerEventData(EventSystem.current) {
+				position = _mouseScreenPos
+			};
+
+			List<RaycastResult> results = new List<RaycastResult>();
+			EventSystem.current.RaycastAll(eventData, results);
+
+			// UI에 적중한 결과가 하나라도 있으면 true 반환
+			return results.Count > 0;
 		}
 	}
 }

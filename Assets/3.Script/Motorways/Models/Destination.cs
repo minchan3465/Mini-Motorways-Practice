@@ -11,7 +11,7 @@ namespace Motorways.Models {
 		public int IncomingPins { get; set; }   // 차량이 오고 있는 핀 수
 
 		public const int MAX_PINS = 10;
-		public const int GAUGE_START_PINS = 6;
+		public const int GAUGE_START_PINS = 7;
 
 		public float PinSpawnTimer;     // 다음 핀 생성까지 남은 시간
 		public float OverCrowdingTimer; // 과밀화(게임 오버)까지 남은 시간
@@ -38,11 +38,26 @@ namespace Motorways.Models {
 
 		public override void OnVehicleArrived(int vehicleId) {
 			// 차량이 도착하면 핀 하나를 해결
+			bool pinResolved = false;
 			if (IncomingPins > 0) {
 				IncomingPins--;
+				pinResolved = true;
 			} else if (UnassignedPins > 0) {
 				UnassignedPins--;
+				pinResolved = true;
 			}
+
+			if (pinResolved) {
+				// 핀을 해결했을 때만 점수 추가
+				if (Managers.ScoreManager.Instance != null) {
+					Managers.ScoreManager.Instance.AddScore(1);
+				}
+			}
+
+			// [원작 방식] 차량이 도착하면 과밀화 타이머를 즉시 일정량(예: 20%) 회복시킵니다.
+			// 30초의 20%인 6초를 즉시 더해줍니다.
+			OverCrowdingTimer = Mathf.Min(30.0f, OverCrowdingTimer + 6.0f);
+
 			_CarPark.TryParkVehicle(vehicleId, 2.0f);
 		}
 

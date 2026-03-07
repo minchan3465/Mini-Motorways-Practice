@@ -34,13 +34,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "f2157d6d-1f19-472c-9eff-e050fcb5948b",
+                    "id": "4e8a2ba8-68a5-44a5-a7f7-80f3cc8e9ae5",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "e07ceb96-e4aa-4e33-8c35-6bcf8bf85f25",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -68,23 +77,34 @@
                 },
                 {
                     "name": "",
-                    "id": "c7c2738a-176b-4941-a6f3-cbb0710049a8",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Test",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "05033d7f-d2e0-4230-997e-cd088dfdacd3",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Remove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b614b4f1-ffdd-4d2d-93c7-fe4c0b95b42b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5e29c02-7413-4f25-a41d-e67fb64c4833",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

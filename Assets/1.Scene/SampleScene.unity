@@ -143,13 +143,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34546211}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1656411275}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 879844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &49892118
 GameObject:
@@ -175,15 +175,59 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49892118}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1254157566}
   - {fileID: 79609436}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 879844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &60965552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 60965553}
+  - component: {fileID: 60965554}
+  m_Layer: 0
+  m_Name: ClockProcess
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &60965553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60965552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1862150355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &60965554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60965552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b02c26e3144c34fb3d5a8b6296fbe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.Process.ClockProcess
 --- !u!1 &79609435
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,8 +322,8 @@ GameObject:
   - component: {fileID: 90256812}
   - component: {fileID: 90256814}
   - component: {fileID: 90256813}
-  - component: {fileID: 90256816}
   - component: {fileID: 90256815}
+  - component: {fileID: 90256816}
   m_Layer: 5
   m_Name: Faster
   m_TagString: Untagged
@@ -321,7 +365,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 7a6c06fe2a1a08d45b7672f15b4c1087, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -10, y: 0, z: -10, w: -15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -353,6 +397,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bfef30351624848be11b91dd140006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.TimerBtn
+  normalAlpha: 1
+  selectedAlpha: 0.5
+  timeScale: 2
+  isSelected: 0
 --- !u!114 &90256816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,9 +410,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 90256811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -394,10 +442,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 90256813}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 600765335}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 90256815}
@@ -412,7 +457,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
 --- !u!1 &116334051
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,8 +603,8 @@ GameObject:
   - component: {fileID: 227145268}
   - component: {fileID: 227145270}
   - component: {fileID: 227145269}
-  - component: {fileID: 227145272}
   - component: {fileID: 227145271}
+  - component: {fileID: 227145272}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -602,7 +646,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 7a6c06fe2a1a08d45b7672f15b4c1087, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -10, y: 0, z: -10, w: -15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -634,6 +678,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bfef30351624848be11b91dd140006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.TimerBtn
+  normalAlpha: 1
+  selectedAlpha: 0.5
+  timeScale: 0
+  isSelected: 0
 --- !u!114 &227145272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,9 +691,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 227145267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -675,10 +723,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 227145269}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 600765335}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 90256815}
@@ -693,7 +738,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
 --- !u!1 &256125949
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,8 +764,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256125949}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.80349, y: 0.36315, z: 1.11007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -998,6 +1042,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 370271148}
+  - component: {fileID: 370271149}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -1025,6 +1070,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 300, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &370271149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370271147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68774eb7a94a54d409ea6ad5c7b2e113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.Inv_Road
+  Road_Text: {fileID: 782338325}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 2100000, guid: 7a6c06fe2a1a08d45b7672f15b4c1087, type: 2}
+  m_Material: {fileID: 2100000, guid: 1fb6bf38f6f9be34c84e25c58864c53c, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1235,8 +1293,8 @@ GameObject:
   - component: {fileID: 472693887}
   - component: {fileID: 472693889}
   - component: {fileID: 472693888}
-  - component: {fileID: 472693891}
   - component: {fileID: 472693890}
+  - component: {fileID: 472693891}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -1278,7 +1336,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 7a6c06fe2a1a08d45b7672f15b4c1087, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -10, y: 0, z: -10, w: -15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1310,6 +1368,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bfef30351624848be11b91dd140006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.TimerBtn
+  normalAlpha: 1
+  selectedAlpha: 0.5
+  timeScale: 1
+  isSelected: 0
 --- !u!114 &472693891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1319,9 +1381,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 472693886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -1351,10 +1413,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 472693888}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 600765335}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 90256815}
@@ -1369,7 +1428,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
 --- !u!1 &500646894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,7 +1529,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 600765334}
-  - component: {fileID: 600765335}
   m_Layer: 5
   m_Name: TimerBtn
   m_TagString: Untagged
@@ -1501,19 +1558,6 @@ RectTransform:
   m_AnchoredPosition: {x: -45, y: -50}
   m_SizeDelta: {x: 90, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &600765335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600765333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ToggleGroup
-  m_AllowSwitchOff: 0
 --- !u!1 &683057485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,12 +1640,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683057485}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 850617339}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &701140696
 GameObject:
@@ -1699,7 +1743,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755371849}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.80349, y: -0.36315, z: -1.11007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1707,7 +1751,7 @@ Transform:
   - {fileID: 781274280}
   - {fileID: 256125950}
   - {fileID: 1893307191}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 879844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &756662590
 GameObject:
@@ -2157,6 +2201,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &850617338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 850617339}
+  m_Layer: 0
+  m_Name: Map
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &850617339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850617338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1014198465}
+  - {fileID: 683057488}
+  - {fileID: 901282426}
+  - {fileID: 1316057350}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &879844680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,6 +2267,11 @@ Transform:
   m_Children:
   - {fileID: 182996874}
   - {fileID: 1426934639}
+  - {fileID: 34546212}
+  - {fileID: 1037315744}
+  - {fileID: 1862150355}
+  - {fileID: 49892119}
+  - {fileID: 755371850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &898314367
@@ -2345,12 +2429,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901282423}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 850617339}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &946394388
 GameObject:
@@ -2749,12 +2833,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014198462}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 850617339}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1015796510
 GameObject:
@@ -2837,6 +2921,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1018093832}
+  - component: {fileID: 1018093833}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -2865,6 +2950,24 @@ RectTransform:
   m_AnchoredPosition: {x: -65, y: -37.5}
   m_SizeDelta: {x: 130, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1018093833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018093831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e681438c775a16498df71a3a14539d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.TimerVisualManager
+  pauseButton: {fileID: 227145271}
+  playButton: {fileID: 472693890}
+  fastForwardButton: {fileID: 90256815}
+  clockPip: {fileID: 1106185134}
+  stopColor: {r: 0.7529412, g: 0.30588236, b: 0.25490198, a: 1}
+  clockView: {fileID: 1718229317}
 --- !u!1 &1037315743
 GameObject:
   m_ObjectHideFlags: 0
@@ -2889,16 +2992,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037315743}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2105449972}
   - {fileID: 500646895}
   - {fileID: 1949103845}
   - {fileID: 1832514385}
   - {fileID: 189409552}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 879844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1075851984
 GameObject:
@@ -3215,12 +3319,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316057347}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 850617339}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1395079944
 GameObject:
@@ -11842,6 +11946,7 @@ GameObject:
   - component: {fileID: 1718229314}
   - component: {fileID: 1718229315}
   - component: {fileID: 1718229316}
+  - component: {fileID: 1718229317}
   m_Layer: 5
   m_Name: Clock
   m_TagString: Untagged
@@ -11948,6 +12053,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1718229317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718229313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86cc03dcfe4c74f44b94aa464c41cc50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.Views.ClockView
+  _clockHand_transform: {fileID: 446465118}
+  _clockPip: {fileID: 1106185134}
+  _clockHand: {fileID: 446465119}
+  _clockFace: {fileID: 2102462223}
+  _dayText: {fileID: 990647432}
+  _dayColor: {r: 1, g: 1, b: 1, a: 1}
+  _nightColor: {r: 0.18823531, g: 0.20000002, b: 0.21176472, a: 1}
+  _timerManager: {fileID: 1018093833}
 --- !u!1 &1739928060
 GameObject:
   m_ObjectHideFlags: 0
@@ -18303,6 +18428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Managers.ResourceManager
   _startRoadCount: 50
+  Inv_UI: {fileID: 370271149}
 --- !u!1 &1843662041
 GameObject:
   m_ObjectHideFlags: 0
@@ -18374,7 +18500,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862150354}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18386,7 +18512,8 @@ Transform:
   - {fileID: 1690107664}
   - {fileID: 1801908802}
   - {fileID: 1807001620}
-  m_Father: {fileID: 0}
+  - {fileID: 60965553}
+  m_Father: {fileID: 879844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868698643
 GameObject:
@@ -18677,6 +18804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032296283}
+  - component: {fileID: 2032296284}
   m_Layer: 5
   m_Name: Point
   m_TagString: Untagged
@@ -18705,6 +18833,19 @@ RectTransform:
   m_AnchoredPosition: {x: 52.5, y: -37.5}
   m_SizeDelta: {x: 105, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2032296284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032296282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c062d261b9ebb8841a6af36ed29acf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreView
+  Score_Text: {fileID: 756662592}
 --- !u!1 &2102462221
 GameObject:
   m_ObjectHideFlags: 0
@@ -18754,7 +18895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 2100000, guid: 7a6c06fe2a1a08d45b7672f15b4c1087, type: 2}
+  m_Material: {fileID: 2100000, guid: 1fb6bf38f6f9be34c84e25c58864c53c, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -18777,6 +18918,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102462221}
   m_CullTransparentMesh: 1
+--- !u!1 &2105449971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105449972}
+  - component: {fileID: 2105449973}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2105449972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105449971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1037315744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2105449973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105449971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5db084a883fe709468c5db65563024d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.Managers.ScoreManager
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -18787,14 +18972,6 @@ SceneRoots:
   - {fileID: 1961561591}
   - {fileID: 1843662043}
   - {fileID: 879844681}
-  - {fileID: 34546212}
-  - {fileID: 1037315744}
-  - {fileID: 1862150355}
-  - {fileID: 49892119}
-  - {fileID: 755371850}
-  - {fileID: 1014198465}
-  - {fileID: 683057488}
-  - {fileID: 901282426}
-  - {fileID: 1316057350}
   - {fileID: 950334098}
   - {fileID: 771384838}
+  - {fileID: 850617339}

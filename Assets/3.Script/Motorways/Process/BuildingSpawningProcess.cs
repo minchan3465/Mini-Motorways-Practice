@@ -27,12 +27,19 @@ namespace Motorways.Process {
 			if (scheduleList.Count > 0) {
 				ScheduledBuilding ticket = scheduleList[0];
 
-				if (ticket.SpawnTime <= Time.time) {
+				float currentTime = 0f;
+				if (ClockProcess.Instance != null && ClockProcess.Instance.Model != null) {
+					currentTime = ClockProcess.Instance.Model.ExpansionTime;
+				} else {
+					currentTime = Time.time;
+				}
+
+				if (ticket.SpawnTime <= currentTime) {
 					if (TrySpawnBuilding(ticket)) {
 						scheduleList.RemoveAt(0);
 					} else {
 						ticket.SpawnAttempts++;
-						ticket.SpawnTime += 5.0f;
+						ticket.SpawnTime = currentTime + 5.0f; // 다음 시도 시간도 시뮬레이션 기반으로 갱신
 						scheduleList.Sort((a, b) => a.SpawnTime.CompareTo(b.SpawnTime));
 					}
 				}
@@ -160,7 +167,8 @@ private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
 				bool isHorizontal = finalLayout.Footprint.x > finalLayout.Footprint.y;
 				TileDirection doorDir = finalLayout.Driveways[0];
 				bool isPositive = (doorDir == TileDirection.South || doorDir == TileDirection.East);
-				
+
+				destView.Initialize(building as Destination); // 모델 초기화 연결
 				destView.UpdateVisuals(isHorizontal, isPositive);
 				destView.UpdateColor(ticket.GroupIndex);
 			}

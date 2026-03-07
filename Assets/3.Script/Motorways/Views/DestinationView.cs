@@ -26,6 +26,7 @@ namespace Motorways.Views {
 		[SerializeField] private MeshRenderer South_Bottom_Side;
 
 		[Header("Pins & Gauge")]
+		[SerializeField] private GameObject Pins;
 		[SerializeField] private PinView[] _normalPins;   // 6개 (3x2)
 		[SerializeField] private PinView[] _overflowPins; // 4개 (맨 아래)
 		[SerializeField] private GameObject _timerPinGroup;  // 큰 게이지 부모
@@ -63,6 +64,7 @@ namespace Motorways.Views {
 				Plus.SetActive(false);
 				Minus.SetActive(true);
 			}
+			SetPinsPos();
 		}
 
 		private void Update() {
@@ -110,7 +112,11 @@ namespace Motorways.Views {
 					// _PreviewAmount: 진짜 칠해져야 할 빨간색 영역
 					_timerGaugeRenderer.material.SetFloat("_FillAmount", _ghostRatio);
 					_timerGaugeRenderer.material.SetFloat("_PreviewAmount", ratio);
-					_timerGaugeRenderer.material.SetColor("_Color", Color.Lerp(Color.white, Color.red, ratio));
+
+					// [수정] 후반부에 더 급격하게 빨간색으로 변하도록 곡선(Pow) 적용
+					float colorCurve = Mathf.Pow(ratio, 1.5f);
+					Color targetColor = Color.Lerp(new Color(0.15f, 0.15f, 0.15f), Color.red, colorCurve);
+					_timerGaugeRenderer.material.SetColor("_Color", targetColor);
 				}
 
 				// 추가 핀(7~10번째) 표시. (수요가 떨어져도 0 이하로 내려가지 않도록 처리)
@@ -160,6 +166,19 @@ namespace Motorways.Views {
 
 			if (effect.TryGetComponent(out BuildingSpawnCircle component)) {
 				component.SpawnEffect(groupIndex, isHouse: false);
+			}
+		}
+
+		private void SetPinsPos() {
+			if (Pins == null) return;
+			
+			if(_isHorizontal) {
+				Pins.transform.localPosition = Vector3.zero;
+				Pins.transform.localRotation = Quaternion.identity;
+			} else {
+				// 월드 좌표가 아닌 지역(Local) 좌표와 회전을 사용해야 건물을 따라갑니다.
+				Pins.transform.localPosition = new Vector3(1f, 0, 1f); // 사용자님이 설정한 오프셋 유지
+				Pins.transform.localRotation = Quaternion.Euler(0, 90f, 0);
 			}
 		}
 	}

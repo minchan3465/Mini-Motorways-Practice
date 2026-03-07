@@ -34,8 +34,8 @@ namespace Motorways.Process {
 		public void Tick(float dt) {
 			if (Model == null || Model.IsPaused) return;
 
-			// 시간 흐름 배율 적용 (SimulationManager의 TimeScale)
-			float scaledDelta = dt * SimulationManager.Instance.TimeScale;
+			// SimulationManager에서 이미 TimeScale이 곱해진 dt가 넘어오므로 그대로 사용합니다.
+			float scaledDelta = dt;
 
 			// 기본 시간 누적
 			Model.Time += scaledDelta;

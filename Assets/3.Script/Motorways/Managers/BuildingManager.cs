@@ -49,7 +49,14 @@ namespace Motorways.Managers {
 		}
 
 		public void ScheduleBuilding(BuildingType type, int groupIndex, float delay) {
-			float spawnTime = Time.time + delay;
+			float currentTime = 0f;
+			if (Process.ClockProcess.Instance != null && Process.ClockProcess.Instance.Model != null) {
+				currentTime = Process.ClockProcess.Instance.Model.ExpansionTime;
+			} else {
+				currentTime = Time.time; // 백업용
+			}
+
+			float spawnTime = currentTime + delay;
 			ScheduledBuilding ticket = new ScheduledBuilding {
 				Type = type,
 				GroupIndex = groupIndex,

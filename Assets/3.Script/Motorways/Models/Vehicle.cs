@@ -39,7 +39,7 @@ namespace Motorways.Models {
 		public float Braking = 6.0f;     //초당 속도 감소량 (제동)
 
 		public float ParkingTimer = 0f;
-		public float ParkingDuration = 2.0f; //
+		public float ParkingDuration = 3.0f; //
 
 		public PathfindUrgency RepathUrgency = PathfindUrgency.NotRequired;
 		public int LatestAttemptedPathfindFrame = 0;

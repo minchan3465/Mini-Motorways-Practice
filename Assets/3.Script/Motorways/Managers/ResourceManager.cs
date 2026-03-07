@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Motorways.UI;
 
 namespace Motorways {
-
 	public class ResourceManager : MonoBehaviour {
 		public static ResourceManager Instance = null;
 
@@ -15,6 +15,8 @@ namespace Motorways {
 
 		//나중에 UI 연동이나 자원 변경 시에 호출할 이벤트들. 어떻게 활용할지는 미정.
 		//public event Action<ItemType, int> OnResourceChanged;
+		[Header("UI")]
+		[SerializeField] private Inv_Road Inv_UI;
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
@@ -62,6 +64,7 @@ namespace Motorways {
 
 		//나중에 UI 알릴때 사용.
 		private void NotifyChange(ItemType type) {
+			Inv_UI.ChangeRoadCount();
 			//OnResourceChanged?.Invoke(type, _inventory[type]);
 			//Debug.Log($"[Resource] {type}: {_inventory[type]}");
 		}
