@@ -52,54 +52,58 @@ namespace Motorways.Process {
 			}
 		}
 
-		// [사용자님의 앞차 거리 유지 로직 복구]
 		private void ProcessDriving(Vehicle v, float dt) {
 			Lane lane = v.GetCurrentLane();
 			if (lane == null) return;
 
 			v.TargetSpeed = v.MaxSpeed;
-			float minDistanceToBrake = 0.5f * MapSettings.TILE_SIZE;
+			float lookAhead = 1.2f * MapSettings.TILE_SIZE;
+			float stopDistance = 0.45f * MapSettings.TILE_SIZE;
 
-			// 앞차와의 간격 유지 및 부드러운 감속 로직 (사용자님 원본)
+			// 앞차 체크
 			foreach (int otherId in lane.VehiclesOnLane) {
 				if (otherId == v.Id) continue;
 				Vehicle other = GetVehicle(otherId);
 				if (other == null) continue;
 
-				float dist = other.DistanceAlongLane - v.DistanceAlongLane;
-				if (dist > 0 && dist < minDistanceToBrake) {
-					// 앞차 속도의 80%로 줄여서 거리를 벌림
-					v.TargetSpeed = Mathf.Min(v.TargetSpeed, other.CurrentSpeed * 0.8f);
+				float d = other.DistanceAlongLane - v.DistanceAlongLane;
+				if (d > 0 && d < lookAhead) {
+					if (d < stopDistance) v.TargetSpeed = 0f;
+					else v.TargetSpeed = Mathf.Min(v.TargetSpeed, other.CurrentSpeed * 0.8f);
 				}
 			}
 
-			// 교차로 진입 대기 로직 (초기 안정 버전)
-			if (v.DistanceAlongLane > lane.Length - minDistanceToBrake) {
-				Lane nextLane = v.CurrentPath.Count > 1 ? v.CurrentPath.ElementAt(1) : null;
-				if (nextLane != null) {
-					if (nextLane.VehiclesOnLane.Count > 0) {
-						v.TargetSpeed = 0f;
+			// 다음 차선 체크
+			Lane nextLane = v.CurrentPath.Count > 1 ? v.CurrentPath.ElementAt(1) : null;
+			if (nextLane != null) {
+				float distToNode = lane.Length - v.DistanceAlongLane;
+				if (distToNode < lookAhead) {
+					foreach (int otherId in nextLane.VehiclesOnLane) {
+						Vehicle other = GetVehicle(otherId);
+						if (other == null) continue;
+						float d = distToNode + other.DistanceAlongLane;
+						if (d < stopDistance) {
+							v.TargetSpeed = 0f;
+							break;
+						}
 					}
-				} else {
-					// 목적지 도착 감속
-					v.TargetSpeed = Mathf.Lerp(0.5f, v.MaxSpeed, (lane.Length - v.DistanceAlongLane) / minDistanceToBrake);
+				}
+			} else {
+				float distToDest = lane.Length - v.DistanceAlongLane;
+				if (distToDest < lookAhead) {
+					v.TargetSpeed = Mathf.Lerp(0.5f, v.MaxSpeed, distToDest / lookAhead);
 				}
 			}
 
-			float speedDiff = v.TargetSpeed - v.CurrentSpeed;
-			if (speedDiff > 0) {
-				v.CurrentSpeed = Mathf.MoveTowards(v.CurrentSpeed, v.TargetSpeed, v.Acceleration * dt);
-			} else {
-				v.CurrentSpeed = Mathf.MoveTowards(v.CurrentSpeed, v.TargetSpeed, v.Braking * dt);
-			}
-
+			v.CurrentSpeed = Mathf.MoveTowards(v.CurrentSpeed, v.TargetSpeed, v.Acceleration * dt);
 			v.DistanceAlongLane += v.CurrentSpeed * dt;
 
 			if (v.DistanceAlongLane >= lane.Length) {
 				float overflow = v.DistanceAlongLane - lane.Length;
-
+				
 				lane.Exit(v.Id);
-				lane.CancelReservation(v.Id); // Mothball 도로 삭제 보장
+				lane.CancelReservation(v.Id);
+
 				v.CurrentPath.Dequeue();
 				v.DistanceAlongLane = overflow;
 
@@ -117,36 +121,21 @@ namespace Motorways.Process {
 		}
 
 		private void HandleArrival(Vehicle v) {
-			if (v.State == VehicleState.Driving) {
+			if (!v.IsReturning) {
 				v.State = VehicleState.Arrived;
 				v.ParkingTimer = 0f;
-
-				if (MapManager.Instance._grid.TryGetValue(v.DestNode, out TileData targetTile)) {
-					if (targetTile.Building != null) targetTile.Building.OnVehicleArrived(v.Id);
-				}
-			} else if (v.State == VehicleState.Returning) {
+				if (v.TargetDestination != null) v.TargetDestination.OnVehicleArrived(v.Id);
+			} else {
 				v.State = VehicleState.Ready;
 				v.ClearAllReservations();
-
-				if (MapManager.Instance._grid.TryGetValue(v.HomeNode, out TileData targetTile)) {
-					if (targetTile.Building != null) targetTile.Building.OnVehicleArrived(v.Id);
-				}
+				if (v.HomeObject != null) v.HomeObject.OnVehicleArrived(v.Id);
 			}
 		}
 
 		private void StartReturnTrip(Vehicle v) {
-			if (v.ReturnPath != null && v.ReturnPath.Count > 0) {
-				v.CurrentPath = v.ReturnPath;
-				v.ReturnPath = new Queue<Lane>();
-				v.CurrentLaneIndex = 0;
-				v.DistanceAlongLane = 0f;
-				v.State = VehicleState.Returning;
-
-				v.GetCurrentLane()?.Enter(v.Id);
-			} else {
-				v.State = VehicleState.Ready;
-				v.ClearAllReservations();
-			}
+			// [수정] 미리 예약해둔 귀환 경로를 사용합니다. 
+			// 만약 그 사이에 도로가 지워졌더라도, 예약 덕분에 Mothballed 상태로 살아있어 무사히 돌아갈 수 있습니다.
+			v.UseReturnPath();
 		}
 	}
 }

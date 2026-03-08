@@ -33,7 +33,8 @@ namespace Motorways.Models {
             }
         }
 
-        public bool TryDispatchVehicle(Vector2Int destNode) {
+        // [수정] Destination 객체를 직접 받도록 변경
+        public bool TryDispatchVehicle(Destination dest) {
             float currentTime = ClockProcess.Instance != null ? ClockProcess.Instance.Model.Time : Time.time;
             if (currentTime < _nextDispatchTime) return false;
 
@@ -45,7 +46,9 @@ namespace Motorways.Models {
             Vehicle vehicle = VehicleMovementProcess.Instance.GetVehicle(vehicleId);
             
             _nextDispatchTime = currentTime + DISPATCH_COOLDOWN;
-            vehicle.Dispatch(this.EntranceCoordinate, destNode); 
+
+            // [수정] 차량에게 직접 목적지 객체를 할당하며 출발 명령
+            vehicle.Dispatch(dest); 
             
             return true;
         }   

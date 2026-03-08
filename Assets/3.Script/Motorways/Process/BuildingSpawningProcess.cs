@@ -184,7 +184,7 @@ namespace Motorways.Process {
 				BuildingManager.Instance.ActiveHouses.Add(house);
 			} else if (building is Destination dest) {
 				if (DemandProcess.Instance != null)	DemandProcess.Instance.RegisterDestination(dest);
-				if (ParkVehicleProcess.Instance != null) ParkVehicleProcess.Instance.RegisterCarpark(dest._CarPark);
+				//if (ParkVehicleProcess.Instance != null) ParkVehicleProcess.Instance.RegisterCarpark(dest._CarPark);
 				if (DispatchProcess.Instance != null) DispatchProcess.Instance.RegisterDestination(dest);
 				BuildingManager.Instance.ActiveDestinations.Add(dest);
 			}
@@ -238,6 +238,7 @@ namespace Motorways.Process {
 			for (int i = 0; i < vehiclesPerHouse; i++) {
 				GameObject vehicleObj = Instantiate(BuildingManager.Instance.VehiclePrefab, pos, rot);
 				if (vehicleObj.TryGetComponent(out Vehicle vehicle)) {
+					vehicle.SetHome(house); 
 					if (VehicleMovementProcess.Instance != null) VehicleMovementProcess.Instance.RegisterVehicle(vehicle);
 					if (vehicleObj.TryGetComponent(out VehicleView vehicleView)) {
 						vehicleView.Initialize(vehicle);

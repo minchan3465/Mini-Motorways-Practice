@@ -38,8 +38,8 @@ namespace Motorways.Process {
 					House bestHouse = FindNearestConnectionHouse(dest);
 
 					if(bestHouse != null) {
-						// 태초의 좌표 기반 배차로 롤백
-						if(bestHouse.TryDispatchVehicle(dest.EntranceCoordinate)) {
+						// [수정] 좌표가 아닌 Destination 객체 자체를 전달합니다.
+						if(bestHouse.TryDispatchVehicle(dest)) {
 							dest.ReserverPin();
 						}
 					}

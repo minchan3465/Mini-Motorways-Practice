@@ -32,7 +32,7 @@ namespace Motorways.Process {
 					v.RequestPathfind();
 				}
 
-				if (v.NeedsPathfind) {
+				if (v.NeedsPathfind && v.State == VehicleState.Ready) {
 					ProcessPathfindForVehicle(v);
 					v.LatestAttemptedPathfindFrame = Time.frameCount; 
 				}
@@ -41,17 +41,12 @@ namespace Motorways.Process {
 
 		private bool TryStitchPath(List<Lane> path, Vector2Int targetNode) {
 			if (path == null) return false;
-			if (path.Count == 0 && targetNode != null) {
-				// 이미 도착지에 있는 경우 등 예외 처리
-				return true;
-			}
+			if (path.Count == 0 && targetNode != null) return true;
 
-			Lane lastLane = path.Count > 0 ? path[path.Count - 1] : null;
-			Vector2Int lastNode = lastLane != null ? lastLane.EndNode : targetNode; 
+			Lane lastLane = path[path.Count - 1];
+			if (lastLane.EndNode == targetNode) return true;
 
-			if (lastNode == targetNode && path.Count > 0) return true;
-
-			if (MapManager.Instance._grid.TryGetValue(lastNode, out TileData roadTile)) {
+			if (MapManager.Instance._grid.TryGetValue(lastLane.EndNode, out TileData roadTile)) {
 				foreach (var lane in roadTile.Lanes) {
 					if (lane != null && lane.EndNode == targetNode) {
 						path.Add(lane);
@@ -63,25 +58,25 @@ namespace Motorways.Process {
 		}
 
 		private void ProcessPathfindForVehicle(Vehicle v) {
-			switch (v.State) {
-				case VehicleState.Ready:
-					List<Lane> toDest = Pathfinder.FindPath(v.HomeNode, v.DestNode);
-					if (toDest == null && v.HomeNode == v.DestNode) toDest = new List<Lane>();
+			// 현재 상태가 Ready일 때만 길을 찾습니다.
+			Vector2Int start = v.IsReturning ? v.DestNode : v.HomeNode;
+			Vector2Int target = v.IsReturning ? v.HomeNode : v.DestNode;
 
-					if (TryStitchPath(toDest, v.DestNode)) {
-						v.AssignPath(toDest);
-						v.State = VehicleState.Driving;
-						
-						List<Lane> toHome = Pathfinder.FindPath(v.DestNode, v.HomeNode);
-						if (toHome == null && v.HomeNode == v.DestNode) toHome = new List<Lane>();
-						if (TryStitchPath(toHome, v.HomeNode)) v.AssignReturnPath(toHome);
+			List<Lane> path = Pathfinder.FindPath(start, target);
+			if (path == null && start == target) path = new List<Lane>();
+
+			if (TryStitchPath(path, target)) {
+				v.AssignPath(path);
+				v.State = v.IsReturning ? VehicleState.Returning : VehicleState.Driving;
+
+				// [고립 방지 핵심] 목적지로 출발하는 순간, 귀환 경로도 미리 계산해서 예약해둡니다.
+				if (!v.IsReturning) {
+					List<Lane> toHome = Pathfinder.FindPath(v.DestNode, v.HomeNode);
+					if (toHome == null && v.DestNode == v.HomeNode) toHome = new List<Lane>();
+					if (TryStitchPath(toHome, v.HomeNode)) {
+						v.AssignReturnPath(toHome);
 					}
-					return;
-
-				case VehicleState.Driving:
-				case VehicleState.Returning:
-					v.NeedsPathfind = false;
-					return;
+				}
 			}
 		}
 	}
