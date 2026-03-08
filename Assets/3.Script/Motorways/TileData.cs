@@ -32,12 +32,22 @@ namespace Motorways {
 		All = 255
 	}
 
+	public class InboundVehicle {
+		public int VehicleId;
+		public TileDirection FromDir;
+		public TileDirection ToDir;
+		public float DistanceToNode;
+		public bool IsShoving;
+	}
+
 	public class TileData {
 		public Vector2Int coordinate { get; private set; }
 		public TileLogicType type { get; set; }
 
 		public RoadState[] RoadStates { get; private set; } // 8방향 도로 연결 상태
 		public Lane[] Lanes { get; private set; } // 8방향 실제 차선 데이터
+
+		public List<InboundVehicle> InboundVehicles = new List<InboundVehicle>(); // 교차로 진입 대기 차량들
 
 		public BuildingBase Building { get; set; }   // 타일 위에 있는 건물 정보
 

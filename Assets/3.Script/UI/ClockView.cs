@@ -20,7 +20,7 @@ namespace Motorways.UI {
         [SerializeField] private Color _nightColor;
         [SerializeField] private TimerVisualManager _timerManager;
 
-        private readonly string[] _dayNames = { "월", "화", "수", "목", "금", "토", "일" };
+        private readonly string[] _dayNames = { "일", "월", "화", "수", "목", "금", "토" };
         private int _lastDayIndex = -1;
 
         private bool _isDaytime = true;

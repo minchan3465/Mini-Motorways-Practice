@@ -31,6 +31,8 @@ namespace Motorways.Process {
 			}
 		}
 
+		private int _lastWeek = 0;
+
 		public void Tick(float dt) {
 			if (Model == null || Model.IsPaused) return;
 
@@ -43,6 +45,16 @@ namespace Motorways.Process {
 			// 확장에 관여하는 시간 누적 (게임 진행 상황, 주간 보상 등)
 			if (!Model.ExpansionTimeManuallyPaused) {
 				Model.ExpansionTime += scaledDelta;
+			}
+
+			// 주간 변화 체크 (0->1, 1->2 ...)
+			int currentWeek = Model.Day / 7;
+			if (currentWeek > _lastWeek) {
+				_lastWeek = currentWeek;
+				// 주간 보상 트리거
+				if (WeeklyRewardManager.Instance != null) {
+					WeeklyRewardManager.Instance.ShowRewardPopup();
+				}
 			}
 		}
 	}

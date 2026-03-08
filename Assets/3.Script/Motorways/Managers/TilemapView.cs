@@ -12,6 +12,7 @@ namespace Motorways.Managers {
 		public Material roadMaterial;
 		public Material outlineMaterial;
 		public Material mothballedMaterial;
+		public Material bridgeOutlineMaterial; // 다리 전용 아웃라인 매테리얼
 
 		private Dictionary<Vector2Int, TileView> _tileViews = new Dictionary<Vector2Int, TileView>();
 
@@ -28,13 +29,6 @@ namespace Motorways.Managers {
 			}
 		}
 
-		//public TileView GetTileView(Vector2Int coord) {
-		//	if (_tileViews.TryGetValue(coord, out TileView view)) {
-		//		return view;
-		//	}
-		//	return null;
-		//}
-
 		private TileView GetOrCreateTileView(Vector2Int coord) {
 			if (_tileViews.TryGetValue(coord, out TileView existingView)) {
 				return existingView;
@@ -44,7 +38,7 @@ namespace Motorways.Managers {
 			tileObj.transform.SetParent(this.transform);
 
 			TileView newView = tileObj.AddComponent<TileView>();
-			newView.Initialize(coord, roadAtlas, roadMaterial, outlineMaterial, mothballedMaterial);
+			newView.Initialize(coord, roadAtlas, roadMaterial, outlineMaterial, mothballedMaterial, bridgeOutlineMaterial);
 
 			_tileViews.Add(coord, newView);
 			return newView;

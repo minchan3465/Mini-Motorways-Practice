@@ -13,6 +13,7 @@ namespace Motorways.Views {
         [SerializeField] private MeshRenderer CarBody;
         [SerializeField] private GameObject CarPinParent; // 지붕 위 핀 오브젝트 방향용
         [SerializeField] private GameObject CarPin; // 지붕 위 핀 오브젝트
+        private PinView _pinView;
 
         private float _pinDisplayTimer = 0f;
         private const float PIN_VISIBLE_DURATION = 1.5f; // 원작 교차검증 반영
@@ -28,10 +29,9 @@ namespace Motorways.Views {
             Color color = GroupColor.GetGroupColor(groupIndex);
             CarBody.material.color = color;
             
-            if (CarPin != null) {
-                if (CarPin.TryGetComponent(out PinView pv)) {
-                    pv.SetColor(color);
-                }
+            if (_pinView == null && CarPin != null) _pinView = CarPin.GetComponent<PinView>();
+            if (_pinView != null) {
+                _pinView.SetColor(color);
             }
         }
 
@@ -39,8 +39,9 @@ namespace Motorways.Views {
             if (_vehicleModel == null) {
                 TryGetComponent(out _vehicleModel);
             }
+            if (CarPin != null) _pinView = CarPin.GetComponent<PinView>();
             // 시작 시 핀은 꺼둡니다.
-            if (CarPin != null) CarPin.SetActive(false);
+            if (_pinView != null) _pinView.SetVisibility(false);
         }
 
         private void Update() {
@@ -60,7 +61,7 @@ namespace Motorways.Views {
                 // 대기 중일 때는 비주얼 업데이트를 중단하고 핀을 끕니다.
                 _prevLane = null;
                 _currentLane = null;
-                if (CarPin != null && CarPin.activeSelf) CarPin.SetActive(false);
+                if (_pinView != null) _pinView.SetVisibility(false);
                 _pinDisplayTimer = 0f;
             }
 
@@ -68,24 +69,24 @@ namespace Motorways.Views {
         }
 
         private void HandleCarPinLogic() {
-            if (CarPin == null) return;
+            if (_pinView == null) return;
 
             // 1. 등장 조건: 목적지 주차 시작 시점에만 핀을 켜고 타이머를 시작.
             if (_vehicleModel.State == VehicleState.Arrived && _lastFrameState != VehicleState.Arrived) {
-                if (!CarPin.activeSelf) CarPin.SetActive(true);
+                _pinView.SetVisibility(true);
                 _pinDisplayTimer = PIN_VISIBLE_DURATION;
             }
 
             // 2. 소멸 로직: 핀이 켜져 있다면 타이머를 깎습니다.
-            if (CarPin.activeSelf) {
+            if (_pinDisplayTimer > 0) {
                 _pinDisplayTimer -= Time.deltaTime;
                 if (_pinDisplayTimer <= 0) {
-                    CarPin.SetActive(false);
+                    _pinView.SetVisibility(false);
                 }
             }
 
             // 3. 방향 고정 (Billboard)
-            if (CarPin.activeSelf && CarPinParent != null) {
+            if (CarPinParent != null && CarPin.activeSelf) {
                 CarPinParent.transform.rotation = Quaternion.identity;
             }
         }

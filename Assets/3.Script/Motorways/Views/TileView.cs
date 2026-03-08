@@ -14,24 +14,31 @@ namespace Motorways.Views {
 
 		private RoadTileAtlas _atlas;
 
-		public void Initialize(Vector2Int coord, RoadTileAtlas atlas, Material roadMat, Material outlineMat, Material mothballedMat) {
+		public void Initialize(Vector2Int coord, RoadTileAtlas atlas, Material roadMat, Material outlineMat, Material mothballedMat, Material bridgeOutlineMat = null) {
 			this.Coordinates = coord;
 			this._atlas = atlas;
 			//타일 중심 좌표 설정
 			this.transform.position = new Vector3(coord.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, coord.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 
+			// 물 타일인지 검사하여 다리 전용 아웃라인 설정
+			Material activeOutline = outlineMat;
+			TileData data = MapManager.Instance.GetTileData(coord);
+			if (data != null && data.type == TileLogicType.Water && bridgeOutlineMat != null) {
+				activeOutline = bridgeOutlineMat;
+			}
+
 			//1.활성 도로용 View 생성
 			//2.Mothballed 도로용 View 생성
-			_activeRoadView = CreateRoadView("ActiveRoad", roadMat, outlineMat, 10);
+			_activeRoadView = CreateRoadView("ActiveRoad", roadMat, activeOutline, 10);
 			_activeRoadView.transform.localPosition = new Vector3(0, 0.01f, 0);
 
-			_mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, outlineMat, 5);
+			_mothballedRoadView = CreateRoadView("MothballedRoad", mothballedMat, activeOutline, 5);
 
 			//3. 코너용 View 생성 (위치는 타일 우측 하단 모서리)
-			_activeCornerView = CreateRoadView("ActiveCorner", roadMat, outlineMat, 11);
+			_activeCornerView = CreateRoadView("ActiveCorner", roadMat, activeOutline, 11);
 			_activeCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0.01f, MapSettings.HALF_TILE);
 
-			_mothballedCornerView = CreateRoadView("MothballedCorner", mothballedMat, outlineMat, 6);
+			_mothballedCornerView = CreateRoadView("MothballedCorner", mothballedMat, activeOutline, 6);
 			_mothballedCornerView.transform.localPosition = new Vector3(MapSettings.HALF_TILE, 0, MapSettings.HALF_TILE);
 		}
 

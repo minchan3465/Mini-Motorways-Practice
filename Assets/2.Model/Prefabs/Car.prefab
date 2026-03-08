@@ -89,12 +89,15 @@ MonoBehaviour:
   CurrentSpeed: 0
   MaxSpeed: 2
   TargetSpeed: 10
-  Acceleration: 5
-  Braking: 6
+  Acceleration: 3
+  Braking: 4
   ParkingTimer: 0
   ParkingDuration: 3
   RepathUrgency: 0
   LatestAttemptedPathfindFrame: 0
+  BlockingVehicleId: -1
+  IsShoving: 0
+  StuckTimer: 0
 --- !u!114 &783865973156856669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +570,10 @@ PrefabInstance:
     - target: {fileID: 355278786947257475, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 609287815993909421, guid: 587d62135b6388b4191917bc925ce559, type: 3}
+      propertyPath: _animationDuration
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5231452007260490570, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_Name

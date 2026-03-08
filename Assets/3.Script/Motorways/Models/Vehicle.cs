@@ -25,7 +25,9 @@ namespace Motorways.Models {
 
 		public Vector2Int HomeNode { get; private set; }
 		public Vector2Int DestNode { get; private set; }
-		//public Lane HomeIncomingLane { get; private set; }
+		
+		// [추가] 현재 목표가 목적지인지, 집인지 구분하기 위한 플래그
+		public bool IsReturning { get; private set; } = false;
 
 		public Queue<Lane> CurrentPath = new Queue<Lane>();
 		public Queue<Lane> ReturnPath = new Queue<Lane>();
@@ -44,8 +46,17 @@ namespace Motorways.Models {
 		public PathfindUrgency RepathUrgency = PathfindUrgency.NotRequired;
 		public int LatestAttemptedPathfindFrame = 0;
 
+		public int BlockingVehicleId = -1; // 현재 이 차량을 막고 있는 차량 ID
+		public bool IsShoving = false;      // 교차로 억지 진입 여부 (교착 상태 해소용)
+		public float StuckTimer = 0f;       // 정지 상태 유지 시간
+
 		public Vehicle() {
 			Id = _nextId++;
+		}
+
+		// [추가] 차량 스폰 시 한 번만 호출되어 집 위치를 고정합니다.
+		public void SetHome(Vector2Int homeNode) {
+			HomeNode = homeNode;
 		}
 
 		public Lane GetCurrentLane() {
@@ -53,25 +64,27 @@ namespace Motorways.Models {
 			else return null;
 		}
 
-		public void Dispatch(Vector2Int homeNode, Vector2Int destNode) {
-			HomeNode = homeNode;
+		// [수정] 목적지로 출발할 때 호출
+		public void Dispatch(Vector2Int destNode) {
 			DestNode = destNode;
+			IsReturning = false;
 
 			CurrentLaneIndex = 0;
 			DistanceAlongLane = 0f;
-
 			State = VehicleState.Ready;
-
-			//HomeIncomingLane = homeInLane;
-			//if (HomeIncomingLane != null) {
-			//	HomeIncomingLane.Reserve(this.Id);
-			//}
 
 			RequestPathfind();
 		}
 
-		public void RequestPathfind() {
-			RepathUrgency = PathfindUrgency.WhenPossible;
+		// [추가] 집으로 돌아갈 때 호출
+		public void DispatchHome() {
+			IsReturning = true;
+
+			CurrentLaneIndex = 0;
+			DistanceAlongLane = 0f;
+			State = VehicleState.Ready;
+
+			RequestPathfind();
 		}
 
 		public Lane LastCommittedLane {

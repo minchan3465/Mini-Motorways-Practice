@@ -58,7 +58,8 @@ namespace Motorways.Process {
 			var vehicle = VehicleMovementProcess.Instance.GetVehicle(vehicleId);
 
 			if (vehicle != null) {
-				vehicle.Dispatch(carpark.CarparkCoordinate, vehicle.HomeNode);
+				// [수정] 집으로 돌아가는 전용 메서드 호출
+				vehicle.DispatchHome();
 			}
 		}
 	}

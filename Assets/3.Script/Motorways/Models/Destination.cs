@@ -23,8 +23,10 @@ namespace Motorways.Models {
 			base.Initialize(groupIndex, entranceCoord, layout);
 			Type = BuildingType.Destination;
 
+			// [수정] roadCoord와 carparkCoord의 순서가 바뀌어 있었습니다. 
+			// IncomingLane.StartNode가 외부 도로, EndNode가 내부 주차장(빌딩 타일)입니다.
 			_CarPark = new CarPark();
-			_CarPark.Initialize(this, IncomingLane.EndNode, IncomingLane.StartNode);
+			_CarPark.Initialize(this, IncomingLane.StartNode, IncomingLane.EndNode);
 
 			UnassignedPins = 0;
 			IncomingPins = 0;

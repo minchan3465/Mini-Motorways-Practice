@@ -38,7 +38,9 @@ namespace Motorways.Process {
 					House bestHouse = FindNearestConnectionHouse(dest);
 
 					if(bestHouse != null) {
-						Vector2Int targetNode = dest._CarPark.EntranceLane.StartNode;
+						// [수정] 목적지 외부 도로가 아닌, 빌딩 타일(EntranceCoordinate) 자체를 목적지로 설정합니다.
+						// 그래야 차량이 빌딩 안으로 진입하며 HandleArrival이 실행됩니다.
+						Vector2Int targetNode = dest.EntranceCoordinate;
 						if(bestHouse.TryDispatchVehicle(targetNode)) {
 							dest.ReserverPin();
 						}
@@ -51,7 +53,8 @@ namespace Motorways.Process {
 			House bestHouse = null;
 			float minCost = int.MaxValue;
 
-			Vector2Int destNode = dest._CarPark.EntranceLane.StartNode;
+			// [수정] 거리 계산 시에도 빌딩 타일 기준으로 경로를 탐색합니다.
+			Vector2Int destNode = dest.EntranceCoordinate;
 			foreach(var house in _houses) {
 				if (house.GroupIndex == dest.GroupIndex && house.WaitingVehicles.Count > 0) {
 					Vector2Int startNode = house.EntranceLane.EndNode;

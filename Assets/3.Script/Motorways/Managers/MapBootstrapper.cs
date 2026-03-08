@@ -35,8 +35,13 @@ namespace Motorways.Managers {
 				TileData tile = new TileData(gridCoord);
 
 				// 지형 데이터 설정
-				if (_terrainLayer.HasTile(localPos)) {
-					tile.type = TileLogicType.Empty;
+				TileBase tb = _terrainLayer.GetTile(localPos);
+				if (tb != null) {
+					if (tb is SmartTile st) {
+						tile.type = st.logicType;
+					} else {
+						tile.type = TileLogicType.Empty;
+					}
 				} else {
 					tile.type = TileLogicType.None;
 				}

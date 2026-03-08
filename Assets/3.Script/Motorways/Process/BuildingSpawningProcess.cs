@@ -22,6 +22,11 @@ namespace Motorways.Process {
 		}
 
 		public void Tick(float dt) {
+			ProcessScheduledBuildings();
+			ProcessDynamicHouseSpawning(dt);
+		}
+
+		private void ProcessScheduledBuildings() {
 			var scheduleList = BuildingManager.Instance.ScheduleList;
 
 			if (scheduleList.Count > 0) {
@@ -42,6 +47,71 @@ namespace Motorways.Process {
 						ticket.SpawnTime = currentTime + 5.0f; // 다음 시도 시간도 시뮬레이션 기반으로 갱신
 						scheduleList.Sort((a, b) => a.SpawnTime.CompareTo(b.SpawnTime));
 					}
+				}
+			}
+		}
+
+		private float _houseCheckTimer = 0f;
+		private void ProcessDynamicHouseSpawning(float dt) {
+			_houseCheckTimer += dt;
+			if (_houseCheckTimer < 3.0f) return; // 3초마다 수요/공급 점검
+			_houseCheckTimer = 0f;
+
+			var activeDestinations = BuildingManager.Instance.ActiveDestinations;
+			var activeHouses = BuildingManager.Instance.ActiveHouses;
+
+			// [수정] 원작의 'ScheduleHousesFromCityHouseCurve' 로직 100% 동일 적용
+			// 목적지 1개당 기본 1개의 집이 필요하고, 그룹(색상)이 활성화되면 추가로 1개의 보너스 집(AdditionalHousesPerGroup)을 요구합니다.
+			Dictionary<int, int> minimumHousesPerGroup = new Dictionary<int, int>();
+			
+			foreach (var dest in activeDestinations) {
+				if (!dest.isActive) continue;
+
+				if (!minimumHousesPerGroup.ContainsKey(dest.GroupIndex)) {
+					minimumHousesPerGroup[dest.GroupIndex] = 0;
+				}
+				
+				// 목적지 1개당 집 1개 기본 할당
+				minimumHousesPerGroup[dest.GroupIndex]++;
+
+				// 핀이 심하게 밀리면 추가 집을 동적으로 요구 (원작의 !IsSupplySufficient 흉내)
+				if (dest.TotalDemand >= 4) {
+					minimumHousesPerGroup[dest.GroupIndex]++;
+				}
+			}
+
+			// 그룹별 추가 기본 집 할당 (원작의 AdditionalHousesPerGroup 역할)
+			// 그룹이 맵에 존재하기만 하면 보너스 집을 더 얹어줍니다.
+			List<int> activeGroups = new List<int>(minimumHousesPerGroup.Keys);
+			foreach (int group in activeGroups) {
+				minimumHousesPerGroup[group] += 1; // 기본적으로 여유분 1개 추가
+			}
+
+			// 현재 색상별 공급(Supply) 계산
+			Dictionary<int, int> supplyPerColor = new Dictionary<int, int>();
+			foreach (var house in activeHouses) {
+				if (!supplyPerColor.ContainsKey(house.GroupIndex)) supplyPerColor[house.GroupIndex] = 0;
+				supplyPerColor[house.GroupIndex]++;
+			}
+
+			// 아직 스폰되지 않고 대기 중인 예약표(Ticket)도 미래의 공급으로 간주
+			foreach (var ticket in BuildingManager.Instance.ScheduleList) {
+				if (ticket.Type == BuildingType.House) {
+					if (!supplyPerColor.ContainsKey(ticket.GroupIndex)) supplyPerColor[ticket.GroupIndex] = 0;
+					supplyPerColor[ticket.GroupIndex]++;
+				}
+			}
+
+			// 수요 대비 공급이 부족하다면 집을 동적으로 예약
+			foreach (var kvp in minimumHousesPerGroup) {
+				int color = kvp.Key;
+				int requiredDemand = kvp.Value;
+				int currentSupply = supplyPerColor.ContainsKey(color) ? supplyPerColor[color] : 0;
+
+				if (currentSupply < requiredDemand) {
+					// 1~2초 내에 긴급 스폰되도록 스케줄표 발행
+					float randomDelay = Random.Range(1.0f, 3.0f);
+					BuildingManager.Instance.ScheduleBuilding(BuildingType.House, color, randomDelay);
 				}
 			}
 		}
@@ -150,10 +220,12 @@ private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
 			if (building is House house) {
 				if (DispatchProcess.Instance != null) DispatchProcess.Instance.RegisterHouse(house);
 				SpawnVehiclesForHouse(house, centerPos, rotation);
+				BuildingManager.Instance.ActiveHouses.Add(house); // 동적 수요 계산을 위한 등록
 			} else if (building is Destination dest) {
 				if (DemandProcess.Instance != null)	DemandProcess.Instance.RegisterDestination(dest);
 				if (ParkVehicleProcess.Instance != null) ParkVehicleProcess.Instance.RegisterCarpark(dest._CarPark);
 				if (DispatchProcess.Instance != null) DispatchProcess.Instance.RegisterDestination(dest);
+				BuildingManager.Instance.ActiveDestinations.Add(dest); // 동적 수요 계산을 위한 등록
 			}
 
 			GameObject instance = Instantiate(prefab, centerPos, rotation);
@@ -217,12 +289,14 @@ private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
 			for (int i = 0; i < vehiclesPerHouse; i++) {
 				GameObject vehicleObj = Instantiate(BuildingManager.Instance.VehiclePrefab, pos, rot);
 				if (vehicleObj.TryGetComponent(out Vehicle vehicle)) {
+					vehicle.SetHome(house.OriginCoordinate); // [추가] 집 위치 영구 설정
 					if (VehicleMovementProcess.Instance != null) {
 						VehicleMovementProcess.Instance.RegisterVehicle(vehicle);
 					}
 				}
 				house.RegisterVehicle(vehicle.Id);
 				if(vehicleObj.TryGetComponent(out VehicleView vehicleView)) {
+					vehicleView.Initialize(vehicle); // [추가] 뷰에 모델 연결
 					vehicleView.UpdateColor(house.GroupIndex);
 				}
 			}

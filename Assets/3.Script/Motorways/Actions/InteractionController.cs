@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
 namespace Motorways.Actions {
+	using Managers;
 	using Views;
 
 	public class InteractionController : MonoBehaviour {
@@ -34,9 +35,15 @@ namespace Motorways.Actions {
 		public float InitialDragDeadzone => _initialDragDeadzone * MapSettings.TILE_SIZE;
 		public float ConnectionDistanceThreshold => _connectionDistanceThreshold * MapSettings.TILE_SIZE;
 		public bool IsDragging => _currentAction != null;
+		public bool IsBuildingRoad => _currentAction is DrawRoadAction;
 		#endregion
 
+		public static InteractionController Instance { get; private set; }
+
 		private void Awake() {
+			if (Instance == null) Instance = this;
+			else Destroy(gameObject);
+
 			_input = new PlayerInput();
 			_groundPlane = new Plane(Vector3.up, Vector3.zero);
 			if (_mainCamera == null) _mainCamera = Camera.main;
@@ -131,7 +138,7 @@ namespace Motorways.Actions {
 		}
 
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
-			// [수정] 현재 카메라가 확대 상태(Size 10)라면 그리드를 끄지 않고 유지합니다.
+			// 현재 카메라가 확대 상태(Size 10)라면 그리드를 끄지 않고 유지합니다.
 			bool isZoomedIn = _mainCamera != null && _mainCamera.orthographicSize < 14.9f;
 			if (!isZoomedIn && GridView.Instance != null) {
 				GridView.Instance.SetVisible(false);
@@ -139,6 +146,11 @@ namespace Motorways.Actions {
 
 			if (_currentAction is DrawRoadAction) {
 				_currentAction.OnActionComplete();
+			}
+
+			// 다리 붕괴 규칙 검사 (드래그 종료 시)
+			if (RoadNetworkManager.Instance != null) {
+				RoadNetworkManager.Instance.ValidateAllBridges();
 			}
 		}
 
@@ -165,6 +177,11 @@ namespace Motorways.Actions {
 
 			if (_currentAction is RemoveRoadAction) {
 				_currentAction.OnActionComplete();
+			}
+
+			// 다리 붕괴 규칙 검사 (드래그 종료 시)
+			if (RoadNetworkManager.Instance != null) {
+				RoadNetworkManager.Instance.ValidateAllBridges();
 			}
 		}
 

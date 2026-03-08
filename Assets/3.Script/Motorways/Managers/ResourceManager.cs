@@ -10,61 +10,77 @@ namespace Motorways {
 
 		[Header("Initial Settings")]
 		[SerializeField] private int _startRoadCount = 30;
+		[SerializeField] private int _startBridgeCount = 1;
 
 		private Dictionary<ItemType, int> _inventory = new Dictionary<ItemType, int>();
 
-		//³ªÁß¿¡ UI ¿¬µ¿ÀÌ³ª ÀÚ¿ø º¯°æ ½Ã¿¡ È£ÃâÇÒ ÀÌº¥Æ®µé. ¾î¶»°Ô È°¿ëÇÒÁö´Â ¹ÌÁ¤.
+		//ï¿½ï¿½ï¿½ß¿ï¿½ UI ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½. ï¿½î¶»ï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		//public event Action<ItemType, int> OnResourceChanged;
 		[Header("UI")]
-		[SerializeField] private Inv_Road Inv_UI;
+		[SerializeField] private Inv_Road Inv_RoadUI;
+		[SerializeField] private Inv_Bridge Inv_BridgeUI;
 
 		private void Awake() {
 			if (Instance == null) Instance = this;
 			else Destroy(gameObject);
 
-			//ÃÊ±âÈ­
+			//ì´ˆê¸°í™”
 			_inventory.Add(ItemType.Road, _startRoadCount);
 			_inventory.Add(ItemType.TrafficLight, 0);
 			_inventory.Add(ItemType.Roundabout, 0);
 			_inventory.Add(ItemType.Motorway, 0);
+			_inventory.Add(ItemType.Bridge, _startBridgeCount);
 		}
 
 		private void Start() {
 			NotifyChange(ItemType.Road);
 		}
 
-		//------------------- Á¶È¸
+		//------------------- ï¿½ï¿½È¸
 		public int GetCount(ItemType type) {
 			if (_inventory.TryGetValue(type, out int count)) return count;
 			return 0;
 		}
 		public bool HasResource(ItemType type, int amount = 1) { 
-			//°¹¼ö°¡ ÀÌ»óÀÏ¶§¸¸ true
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ true
 			return GetCount(type) >= amount; 
 		}
 
-		//------------------- Á¶ÀÛ
+		//------------------- ï¿½ï¿½ï¿½ï¿½
 		public void AddResource(ItemType type, int amount) {
-			if (!_inventory.ContainsKey(type)) _inventory[type] = 0;    //È¤½Ã ¸ð¸¦ ¿¹¿ÜÃ³¸® ¹× ÃÊ±âÈ­.
+			if (!_inventory.ContainsKey(type)) _inventory[type] = 0;    //È¤ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê±ï¿½È­.
 			
 			_inventory[type] += amount;
 			NotifyChange(type);
 		}
 
-		//¾ÆÀÌÅÛ ¼ÒºñÇÕ´Ï´Ù. ±Ùµ¥ ÀÎ°ÔÀÓ¿¡¼­´Â ¸ðµçÁö Å¸ÀÏ ÇÑÄ­¿¡ 1°³¾¿ ¼Ò¸ðÇÏ±â ¶§¹®¿¡ amount = 1·Î ¼³Á¤.
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Òºï¿½ï¿½Õ´Ï´ï¿½. ï¿½Ùµï¿½ ï¿½Î°ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ amount = 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		public bool TryConsumeResource(ItemType type, int amount = 1) {
 			if (HasResource(type, amount)) {
 				_inventory[type] -= amount;
 				NotifyChange(type);
 				return true;
 			}
-			//¼Òºñ ¸øÇßÀ½¿ä ¤·¤µ¤·...
+			//ï¿½Òºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 			return false;
 		}
 
-		//³ªÁß¿¡ UI ¾Ë¸±¶§ »ç¿ë.
+		//ï¿½ï¿½ï¿½ß¿ï¿½ UI ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½.
 		private void NotifyChange(ItemType type) {
-			Inv_UI.ChangeRoadCount();
+			switch (type) {
+				case ItemType.Road:
+					Inv_RoadUI.ChangeRoadCount();
+					break;
+				case ItemType.TrafficLight:
+					break;
+				case ItemType.Roundabout:
+					break;
+				case ItemType.Motorway:
+					break;
+				case ItemType.Bridge:
+					Inv_BridgeUI.ChangeRoadCount();
+					break;
+			}
 			//OnResourceChanged?.Invoke(type, _inventory[type]);
 			//Debug.Log($"[Resource] {type}: {_inventory[type]}");
 		}

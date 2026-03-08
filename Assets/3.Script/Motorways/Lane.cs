@@ -37,11 +37,16 @@ namespace Motorways {
 
         public Utils.Spline.BezierSpline PathSpline { get; private set; }
 
+        public bool IsBridge { get; private set; } // 다리 여부 추가
+        public bool IsBridgeHead { get; private set; } // 자원을 소모한 다리의 시작점 여부
+
         // 일반 도로 생성자
-        public Lane(Vector2Int start, Vector2Int end, Vector2? controlPoint = null) {
+        public Lane(Vector2Int start, Vector2Int end, Vector2? controlPoint = null, bool isBridge = false, bool isBridgeHead = false) {
             Id = _nextId++;
             StartNode = start;
             EndNode = end;
+            IsBridge = isBridge;
+            IsBridgeHead = isBridgeHead;
 
             //월드 좌표 계산 (타일 중심)
             Vector3 pStart = new Vector3(start.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, start.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);

@@ -74,8 +74,8 @@ namespace Motorways.Models {
             // 배차 성공 시 다음 가능한 배차 시간 설정 (쿨다운 적용)
             _nextDispatchTime = currentTime + DISPATCH_COOLDOWN;
 
-            // 원작 느낌: 엔진 시동 소리와 함께 잠시 멈췄다 출발
-            vehicle.Dispatch(this.OriginCoordinate, destNode); 
+            // [수정] 집 위치를 굳이 넘기지 않고 목적지만 설정합니다.
+            vehicle.Dispatch(destNode); 
             
             return true;
         }   
