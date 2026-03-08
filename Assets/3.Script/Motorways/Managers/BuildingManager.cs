@@ -26,6 +26,7 @@ namespace Motorways.Managers {
 
 		private void Start() {
 			ScheduleBuilding(BuildingType.House, 1, 2.0f);
+			ScheduleBuilding(BuildingType.House, 1, 2.0f);
 			ScheduleBuilding(BuildingType.Destination, 1, 4.0f);
 		}
 

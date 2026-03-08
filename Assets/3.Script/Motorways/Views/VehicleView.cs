@@ -15,7 +15,7 @@ namespace Motorways.Views {
         [SerializeField] private GameObject CarPin; // 지붕 위 핀 오브젝트
 
         private float _pinDisplayTimer = 0f;
-        private const float PIN_VISIBLE_DURATION = 0.3f; // 귀환 시작 후 핀이 유지될 시간
+        private const float PIN_VISIBLE_DURATION = 1.5f; // 원작 교차검증 반영
         private VehicleState _lastFrameState;
 
         //----------------------- 메서드
@@ -42,21 +42,22 @@ namespace Motorways.Views {
             // 시작 시 핀은 꺼둡니다.
             if (CarPin != null) CarPin.SetActive(false);
         }
+
         private void Update() {
             if (_vehicleModel == null) return;
 
-            // 차량 활성화 상태 체크
-            bool isActiveState = (_vehicleModel.State == VehicleState.Driving || 
-                                  _vehicleModel.State == VehicleState.Returning || 
-                                  _vehicleModel.State == VehicleState.Arrived);
-
-            if (isActiveState) {
+            // 주행 중이거나 주차 중일 때만 비주얼 업데이트 수행
+            if (_vehicleModel.State == VehicleState.Driving || 
+                _vehicleModel.State == VehicleState.Returning || 
+                _vehicleModel.State == VehicleState.Arrived) {
+                
                 if (_vehicleModel.State != VehicleState.Arrived) {
                     UpdateVisuals();
                 }
                 
                 HandleCarPinLogic();
             } else {
+                // 대기 중일 때는 비주얼 업데이트를 중단하고 핀을 끕니다.
                 _prevLane = null;
                 _currentLane = null;
                 if (CarPin != null && CarPin.activeSelf) CarPin.SetActive(false);
@@ -69,13 +70,13 @@ namespace Motorways.Views {
         private void HandleCarPinLogic() {
             if (CarPin == null) return;
 
-            // 1. 등장 조건: 목적지 주차 시작(Arrived로 상태 전환되는 순간)에만 핀을 켜고 타이머를 시작.
+            // 1. 등장 조건: 목적지 주차 시작 시점에만 핀을 켜고 타이머를 시작.
             if (_vehicleModel.State == VehicleState.Arrived && _lastFrameState != VehicleState.Arrived) {
                 if (!CarPin.activeSelf) CarPin.SetActive(true);
                 _pinDisplayTimer = PIN_VISIBLE_DURATION;
             }
 
-            // 2. 소멸 로직: 핀이 켜져 있다면 상태와 관계없이 타이머를 깎습니다.
+            // 2. 소멸 로직: 핀이 켜져 있다면 타이머를 깎습니다.
             if (CarPin.activeSelf) {
                 _pinDisplayTimer -= Time.deltaTime;
                 if (_pinDisplayTimer <= 0) {
@@ -83,7 +84,7 @@ namespace Motorways.Views {
                 }
             }
 
-            // 3. 방향 고정 (Billboard): 사용자님의 기존 설정(Quaternion.identity) 유지
+            // 3. 방향 고정 (Billboard)
             if (CarPin.activeSelf && CarPinParent != null) {
                 CarPinParent.transform.rotation = Quaternion.identity;
             }

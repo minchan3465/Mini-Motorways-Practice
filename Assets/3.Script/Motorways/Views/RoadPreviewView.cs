@@ -45,7 +45,7 @@ namespace Motorways.Views {
 
 			// �ڿ� üũ: ���ΰ� ������ 0.2ĭ�� �þ
 			bool hasResource = ResourceManager.Instance.HasResource(ItemType.Road);
-			float limit = hasResource ? 1.0f : 1.0f;
+			float limit = 1.5f;
 
 			Vector3 dirVec = new Vector3(snappedDir.x, 0, snappedDir.y).normalized;
 			float projection = Vector3.Dot(mousePos - origin, dirVec);

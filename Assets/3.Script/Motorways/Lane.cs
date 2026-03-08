@@ -37,7 +37,7 @@ namespace Motorways {
 
         public Utils.Spline.BezierSpline PathSpline { get; private set; }
 
-        //controlPoint를 받는 생성자로 원복
+        // 일반 도로 생성자
         public Lane(Vector2Int start, Vector2Int end, Vector2? controlPoint = null) {
             Id = _nextId++;
             StartNode = start;
@@ -48,15 +48,23 @@ namespace Motorways {
             Vector3 pEnd = new Vector3(end.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, end.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
             
             if (controlPoint.HasValue) {
-                //곡선: 주어진 제어점을 사용
                 Vector3 pMid = new Vector3(controlPoint.Value.x, 0, controlPoint.Value.y);
                 PathSpline = new Utils.Spline.BezierSpline(pStart, pMid, pEnd);
             } else {
-                //직선: 시작과 끝의 중간점을 제어점으로 사용
                 Vector3 pMid = Vector3.Lerp(pStart, pEnd, 0.5f);
                 PathSpline = new Utils.Spline.BezierSpline(pStart, pMid, pEnd);
             }
 
+            Length = PathSpline.Length(10);
+        }
+
+        // 주차장 내부 등 특수 목적용 (월드 좌표 직접 주입) 생성자
+        public Lane(Vector2Int node, Vector3 worldStart, Vector3 worldMid, Vector3 worldEnd) {
+            Id = _nextId++;
+            StartNode = node;
+            EndNode = node; // 내부 경로는 시작과 끝 노드가 동일함
+            
+            PathSpline = new Utils.Spline.BezierSpline(worldStart, worldMid, worldEnd);
             Length = PathSpline.Length(10);
         }
 

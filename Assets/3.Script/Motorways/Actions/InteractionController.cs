@@ -22,6 +22,7 @@ namespace Motorways.Actions {
 		private PlayerInput _input;
 		private Plane _groundPlane;
 		private Vector2 _mouseScreenPos;
+		public Vector2 MouseScreenPos => _mouseScreenPos;
 
 		//마우스가 가리키고 있는 그리드 좌표
 		public Vector2Int CurrentGridPointer { get; private set; }
@@ -44,14 +45,16 @@ namespace Motorways.Actions {
 		private void OnEnable() {
 			_input.Enable();
 			_input.Player.CursorPosition.performed += OnCursorMove;
-			_input.Player.Build.started += OnBuildStarted;   //건설 시작
-			_input.Player.Build.canceled += OnBuildCanceled; //건설 끝
+			_input.Player.Build.started += OnBuildStarted;
+			_input.Player.Build.canceled += OnBuildCanceled;
 			_input.Player.Remove.started += OnRemoveStarted;
 			_input.Player.Remove.canceled += OnRemoveCanceled;
 
-			// 일시정지 및 줌 액션 연결
+			// 일시정지, 줌, 팬 액션 연결
 			_input.Player.Pause.started += OnPause;
 			_input.Player.Zoom.performed += OnZoom;
+			_input.Player.ZoomMove.started += OnPanStarted;
+			_input.Player.ZoomMove.canceled += OnPanCanceled;
 		}
 
 		private void OnDisable() {
@@ -64,6 +67,8 @@ namespace Motorways.Actions {
 
 			_input.Player.Pause.started -= OnPause;
 			_input.Player.Zoom.performed -= OnZoom;
+			_input.Player.ZoomMove.started -= OnPanStarted;
+			_input.Player.ZoomMove.canceled -= OnPanCanceled;
 		}
 
 		private void Update() {
@@ -73,6 +78,45 @@ namespace Motorways.Actions {
 			}
 		}
 
+		public Vector3 GetMapCenter() {
+			if (MapManager.Instance == null) return Vector3.zero;
+			RectInt area = MapManager.Instance.PlayableArea;
+			float centerX = (area.xMin + area.xMax) * MapSettings.TILE_SIZE * 0.5f;
+			float centerZ = (area.yMin + area.yMax) * MapSettings.TILE_SIZE * 0.5f;
+			float currentY = (_mainCamera != null) ? _mainCamera.transform.position.y : 10f;
+			return new Vector3(centerX, currentY, centerZ);
+		}
+
+		//---------- 일시정지(스페이스바)
+		private void OnPause(InputAction.CallbackContext context) {
+			TimePauseAction pauseAction = new TimePauseAction();
+			pauseAction.Initialize(this);
+			pauseAction.OnActionBegin(Time.time);
+		}
+
+		//---------- 줌(마우스 휠)
+		private void OnZoom(InputAction.CallbackContext context) {
+			CameraZoomAction zoomAction = new CameraZoomAction();
+			zoomAction.Initialize(this);
+			float scrollDelta = context.ReadValue<Vector2>().y;
+			zoomAction.SetScrollDelta(scrollDelta);
+			zoomAction.OnActionBegin(Time.time);
+		}
+
+		//---------- 화면 이동(휠 클릭 드래그)
+		private void OnPanStarted(InputAction.CallbackContext context) {
+			if (_currentAction != null) return;
+
+			_currentAction = new CameraPanAction();
+			_currentAction.Initialize(this);
+			_currentAction.OnActionBegin(Time.time);
+		}
+
+		private void OnPanCanceled(InputAction.CallbackContext context) {
+			if (_currentAction is CameraPanAction) {
+				_currentAction.OnActionComplete();
+			}
+		}
 
 		//---------- 건설(좌클릭)
 		private void OnBuildStarted(InputAction.CallbackContext context) {
@@ -87,7 +131,12 @@ namespace Motorways.Actions {
 		}
 
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
-			if (GridView.Instance != null) GridView.Instance.SetVisible(false);
+			// [수정] 현재 카메라가 확대 상태(Size 10)라면 그리드를 끄지 않고 유지합니다.
+			bool isZoomedIn = _mainCamera != null && _mainCamera.orthographicSize < 14.9f;
+			if (!isZoomedIn && GridView.Instance != null) {
+				GridView.Instance.SetVisible(false);
+			}
+
 			if (_currentAction is DrawRoadAction) {
 				_currentAction.OnActionComplete();
 			}
@@ -97,7 +146,7 @@ namespace Motorways.Actions {
 		private void OnRemoveStarted(InputAction.CallbackContext context) {
 			if (IsPointerOverUI()) return;
 
-			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);    //삭제라서 뒤 매개변수 true
+			if (GridView.Instance != null) GridView.Instance.SetVisible(true, true);
 			if (_currentAction != null || !IsPointerValid) return;
 
 			_currentAction = new RemoveRoadAction();
@@ -106,29 +155,31 @@ namespace Motorways.Actions {
 		}
 
 		private void OnRemoveCanceled(InputAction.CallbackContext context) {
-			if (GridView.Instance != null) GridView.Instance.SetVisible(false);
+			// [수정] 현재 카메라가 확대 상태(Size 10)라면 그리드를 끄지 않고 유지하되, 
+			// 삭제 모드에서 일반 모드(isRemoving = false)로 색상만 되돌립니다.
+			bool isZoomedIn = _mainCamera != null && _mainCamera.orthographicSize < 14.9f;
+			if (GridView.Instance != null) {
+				if (isZoomedIn) GridView.Instance.SetVisible(true, false);
+				else GridView.Instance.SetVisible(false);
+			}
+
 			if (_currentAction is RemoveRoadAction) {
 				_currentAction.OnActionComplete();
 			}
 		}
 
-		//---------- 이동(마우스 이동)
 		private void OnCursorMove(InputAction.CallbackContext context) {
 			_mouseScreenPos = context.ReadValue<Vector2>();
-
-			//그리드 좌표 갱신
 			UpdateGridPointer();
 		}
 
 		private void UpdateGridPointer() {
-			//마우스 좌표(그리드상) 계산
 			Vector3 hitPoint = GetWorldPositionFromMouse();
 			if (IsPointerValid) {
 				int x = Mathf.FloorToInt(hitPoint.x / MapSettings.TILE_SIZE);
 				int y = Mathf.FloorToInt(hitPoint.z / MapSettings.TILE_SIZE);
 				Vector2Int coord = new Vector2Int(x, y);
 
-				//맵 범위 내에 있는지 체크
 				if (MapManager.Instance.IsInPlayableArea(coord)) {
 					CurrentGridPointer = coord;
 				} else {
@@ -137,54 +188,20 @@ namespace Motorways.Actions {
 			}
 		}
 
-		//---------- 일시정지(스페이스바)
-		private void OnPause(InputAction.CallbackContext context) {
-			TimePauseAction pauseAction = new TimePauseAction();
-			pauseAction.Initialize(this);
-			pauseAction.OnActionBegin(Time.time);
-		}
-
-		//---------- 줌(마우스 휠)
-		private void OnZoom(InputAction.CallbackContext context) {
-			CameraZoomAction zoomAction = new CameraZoomAction();
-			zoomAction.Initialize(this);
-			// Vector2로 들어오는 휠 입력을 y값만 추출하여 float로 전달
-			float scrollDelta = context.ReadValue<Vector2>().y;
-			zoomAction.SetScrollDelta(scrollDelta);
-			zoomAction.OnActionBegin(Time.time);
-
-			// 줌 이후 일정 시간 뒤 그리드 숨김 처리
-			CancelInvoke(nameof(HideGridAfterZoom));
-			Invoke(nameof(HideGridAfterZoom), 0.5f);
-		}
-
-		private void HideGridAfterZoom() {
-			if (_currentAction == null && GridView.Instance != null) {
-				GridView.Instance.SetVisible(false);
-			}
-		}
-
-
-		//--- 액션 헬퍼들---
 		public Vector3 GetWorldPositionFromMouse() {
 			Ray ray = _mainCamera.ScreenPointToRay(_mouseScreenPos);
 			if (_groundPlane.Raycast(ray, out float enter)) {
-				//바닥면 히트!! (인식된 지점 반환)
 				IsPointerValid = true;
-				return ray.GetPoint(enter); //좌표 저장하고 반환.
+				return ray.GetPoint(enter);
 			}
-			//바닥없으면 그냥 0반환 (불가)
 			IsPointerValid = false;
 			return Vector3.zero;
 		}
 
-		//마우스가 이동한 좌표 (클릭->드래그) 기반으로 방향을 구하는것. 정규화 후 8방향으로 스냅핑합니다.
 		public Vector2Int CalculateSnappedDirection(Vector3 diff) {
-			// 8방향 스냅 최적화: 절대값 중 큰 값을 기준으로 나누어 정규화
 			float max = Mathf.Max(Mathf.Abs(diff.x), Mathf.Abs(diff.z));
-			if (max < 0.05f) return Vector2Int.zero;	//미세한 움직임은 무시.
+			if (max < 0.05f) return Vector2Int.zero;
 
-			// x, z를 max로 나누면 -1, 0, 1 중 하나로 반올림됩니다.
 			return new Vector2Int(
 				Mathf.RoundToInt(diff.x / max),
 				Mathf.RoundToInt(diff.z / max)
@@ -193,16 +210,11 @@ namespace Motorways.Actions {
 
 		private bool IsPointerOverUI() {
 			if (EventSystem.current == null) return false;
-
-			// 현재 추적 중인 커서 좌표(_mouseScreenPos)를 기반으로 레이캐스트 데이터 생성
 			PointerEventData eventData = new PointerEventData(EventSystem.current) {
 				position = _mouseScreenPos
 			};
-
 			List<RaycastResult> results = new List<RaycastResult>();
 			EventSystem.current.RaycastAll(eventData, results);
-
-			// UI에 적중한 결과가 하나라도 있으면 true 반환
 			return results.Count > 0;
 		}
 	}

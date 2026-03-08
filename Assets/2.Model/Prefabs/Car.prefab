@@ -87,9 +87,9 @@ MonoBehaviour:
   CurrentLaneIndex: 0
   DistanceAlongLane: 0
   CurrentSpeed: 0
-  MaxSpeed: 3
+  MaxSpeed: 2
   TargetSpeed: 10
-  Acceleration: 7
+  Acceleration: 5
   Braking: 6
   ParkingTimer: 0
   ParkingDuration: 3
@@ -564,6 +564,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5777931256866882108}
     m_Modifications:
+    - target: {fileID: 355278786947257475, guid: 587d62135b6388b4191917bc925ce559, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5231452007260490570, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_Name
       value: SmallPin
@@ -571,6 +575,10 @@ PrefabInstance:
     - target: {fileID: 5231452007260490570, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278378764136306146, guid: 587d62135b6388b4191917bc925ce559, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7382559712240346387, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_LocalScale.x
@@ -594,7 +602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7382559712240346387, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7382559712240346387, guid: 587d62135b6388b4191917bc925ce559, type: 3}
       propertyPath: m_LocalRotation.w

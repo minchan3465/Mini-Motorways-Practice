@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Models {
-
-
 	public class CarPark {
 		public Destination Owner { get; private set; }
 
@@ -17,27 +15,27 @@ namespace Motorways.Models {
 		public Dictionary<int, float> ParkingTimers { get; private set; } = new Dictionary<int, float>();
 
 		public Vector2Int CarparkCoordinate { get; private set; }
-		public Vector2Int RoadCoordinate { get; private set; } // ¿¬°áµÈ µµ·ÎÀÇ ÁÂÇ¥
+		public Vector2Int RoadCoordinate { get; private set; } // ë„ë¡œì™€ ì—°ê²°ëœ ì¢Œí‘œ
 
-		//--- ÃÊ±âÈ­ ---
+		//--- ì´ˆê¸°í™” ---
 		public void Initialize(Destination owner, Vector2Int roadCoord, Vector2Int carparkCoord) {
 			Owner = owner;
 			RoadCoordinate = roadCoord;
 			CarparkCoordinate = carparkCoord;
 
-			// 1. µé¾î¿À´Â ±æ (µµ·Î -> ÁÖÂ÷Àå)
+			// 1. ë“¤ì–´ì˜¤ëŠ” ê¸¸ (ë„ë¡œ -> ì£¼ì°¨ì¥)
 			EntranceLane = new Lane(roadCoord, carparkCoord);
 
-			// 2. ³ª°¡´Â ±æ (ÁÖÂ÷Àå -> µµ·Î)
+			// 2. ë‚˜ê°€ëŠ” ê¸¸ (ì£¼ì°¨ì¥ -> ë„ë¡œ)
 			ExitLane = new Lane(carparkCoord, roadCoord);
 
 			ParkedVehicles.Clear();
 		}
 
 		public bool TryParkVehicle(int vehicleId, float duration) {
-			if (ParkedVehicles.Count >= Capacity) return false; //ÁÖÂ÷ ÀÚ¸® ¾øÀ½.
+			if (ParkedVehicles.Count >= Capacity) return false; //ì£¼ì°¨ ìë¦¬ ì—†ìŒ.
 
-			//ÀÚ¸®°¡ ÀÖÀ¸¸é Ãß°¡
+			//ì°¨ëŸ‰ì„ ì£¼ì°¨ì¥ì— ì¶”ê°€
 			if (!ParkedVehicles.Contains(vehicleId)) {
 				ParkedVehicles.Add(vehicleId);
 				ParkingTimers[vehicleId] = duration;
@@ -53,4 +51,3 @@ namespace Motorways.Models {
 		}
 	}
 }
-

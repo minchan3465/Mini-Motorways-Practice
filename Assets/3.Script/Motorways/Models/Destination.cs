@@ -58,7 +58,7 @@ namespace Motorways.Models {
 			// 30초의 20%인 6초를 즉시 더해줍니다.
 			OverCrowdingTimer = Mathf.Min(30.0f, OverCrowdingTimer + 6.0f);
 
-			_CarPark.TryParkVehicle(vehicleId, 2.0f);
+			_CarPark.TryParkVehicle(vehicleId, 3.0f);
 		}
 
 		public void ReserverPin() {
