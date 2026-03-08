@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Motorways.Actions {
-	
+	using Managers;
+
+	/// <summary>
+	/// ESC ë©”ë‰´ í† ê¸€ì„ ì²˜ë¦¬í•˜ëŠ” ì•¡ì…˜ì…ë‹ˆë‹¤.
+	/// </summary>
 	public class GamePauseAction : MotorwaysPlayerAction {
+		
 		public override void OnActionBegin(float timestamp) {
-			//¸Ş´º È­¸é ¿­±â.
-			OnActionComplete(); // Áï½Ã ¿Ï·á Ã³¸®
+			base.OnActionBegin(timestamp);
+
+			if (GameMenuManager.Instance != null) {
+				GameMenuManager.Instance.ToggleMenu();
+			}
+
+			OnActionComplete(); 
 		}
 	}
 }
