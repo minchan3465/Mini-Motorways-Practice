@@ -265,6 +265,9 @@ namespace Motorways.Managers {
 				lane.State = RoadState.Active;
 				_mothballedLanes.Remove(lane);
 
+				// [수정] 끊겼던 도로 정보를 다시 맵 그리드 데이터에 연결합니다.
+				MapManager.Instance.ConnectLaneToMap(lane);
+
 				SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
 				CityModel.LatestLaneChangeFrame = Time.frameCount;
 			}

@@ -58,8 +58,9 @@ namespace Motorways.Process {
 			var vehicle = VehicleMovementProcess.Instance.GetVehicle(vehicleId);
 
 			if (vehicle != null) {
-				// [수정] 집으로 돌아가는 전용 메서드 호출
-				vehicle.DispatchHome();
+				// [롤백] 객체 참조 방식인 DispatchHome을 제거하고, 태초의 좌표 기반 Dispatch로 복구합니다.
+				// 목적지(carpark)에서 집(homeNode)으로 가도록 설정합니다.
+				vehicle.Dispatch(carpark.CarparkCoordinate, vehicle.HomeNode);
 			}
 		}
 	}

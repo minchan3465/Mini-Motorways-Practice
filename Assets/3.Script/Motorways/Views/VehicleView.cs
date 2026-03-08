@@ -3,7 +3,7 @@ using System.Linq;
 using Motorways.Models;
 
 namespace Motorways.Views {
-    //Vehicle 모델의 논리적 데이터를 바탕으로 시각적인 위치(Transform)를 업데이트합니다.
+    // Vehicle 모델의 논리적 데이터를 바탕으로 시각적인 위치(Transform)를 업데이트합니다.
     public class VehicleView : MonoBehaviour {
         [SerializeField] private Vehicle _vehicleModel;
 
@@ -11,15 +11,13 @@ namespace Motorways.Views {
         private Lane _currentLane;
 
         [SerializeField] private MeshRenderer CarBody;
-        [SerializeField] private GameObject CarPinParent; // 지붕 위 핀 오브젝트 방향용
-        [SerializeField] private GameObject CarPin; // 지붕 위 핀 오브젝트
+        [SerializeField] private GameObject CarPinParent; 
+        [SerializeField] private GameObject CarPin; 
         private PinView _pinView;
 
         private float _pinDisplayTimer = 0f;
-        private const float PIN_VISIBLE_DURATION = 1.5f; // 원작 교차검증 반영
+        private const float PIN_VISIBLE_DURATION = 1.5f; 
         private VehicleState _lastFrameState;
-
-        //----------------------- 메서드
 
 		public void Initialize(Vehicle model) {
 			_vehicleModel = model;
@@ -30,24 +28,18 @@ namespace Motorways.Views {
             CarBody.material.color = color;
             
             if (_pinView == null && CarPin != null) _pinView = CarPin.GetComponent<PinView>();
-            if (_pinView != null) {
-                _pinView.SetColor(color);
-            }
+            if (_pinView != null) _pinView.SetColor(color);
         }
 
         private void Start() {
-            if (_vehicleModel == null) {
-                TryGetComponent(out _vehicleModel);
-            }
+            if (_vehicleModel == null) TryGetComponent(out _vehicleModel);
             if (CarPin != null) _pinView = CarPin.GetComponent<PinView>();
-            // 시작 시 핀은 꺼둡니다.
             if (_pinView != null) _pinView.SetVisibility(false);
         }
 
         private void Update() {
             if (_vehicleModel == null) return;
 
-            // 주행 중이거나 주차 중일 때만 비주얼 업데이트 수행
             if (_vehicleModel.State == VehicleState.Driving || 
                 _vehicleModel.State == VehicleState.Returning || 
                 _vehicleModel.State == VehicleState.Arrived) {
@@ -58,7 +50,6 @@ namespace Motorways.Views {
                 
                 HandleCarPinLogic();
             } else {
-                // 대기 중일 때는 비주얼 업데이트를 중단하고 핀을 끕니다.
                 _prevLane = null;
                 _currentLane = null;
                 if (_pinView != null) _pinView.SetVisibility(false);
@@ -71,29 +62,24 @@ namespace Motorways.Views {
         private void HandleCarPinLogic() {
             if (_pinView == null) return;
 
-            // 1. 등장 조건: 목적지 주차 시작 시점에만 핀을 켜고 타이머를 시작.
             if (_vehicleModel.State == VehicleState.Arrived && _lastFrameState != VehicleState.Arrived) {
                 _pinView.SetVisibility(true);
                 _pinDisplayTimer = PIN_VISIBLE_DURATION;
             }
 
-            // 2. 소멸 로직: 핀이 켜져 있다면 타이머를 깎습니다.
             if (_pinDisplayTimer > 0) {
                 _pinDisplayTimer -= Time.deltaTime;
-                if (_pinDisplayTimer <= 0) {
-                    _pinView.SetVisibility(false);
-                }
+                if (_pinDisplayTimer <= 0) _pinView.SetVisibility(false);
             }
 
-            // 3. 방향 고정 (Billboard)
             if (CarPinParent != null && CarPin.activeSelf) {
                 CarPinParent.transform.rotation = Quaternion.identity;
             }
         }
 
+        // [사용자님의 핵심 주행 비주얼 로직 복구]
         private void UpdateVisuals() {
             Lane activeLane = _vehicleModel.GetCurrentLane();
-            
             if (activeLane == null || activeLane.PathSpline == null) return;
 
             if (_currentLane != activeLane) {
@@ -101,12 +87,11 @@ namespace Motorways.Views {
                 _currentLane = activeLane;
             }
 
-            float t = _vehicleModel.DistanceAlongLane / activeLane.Length;
-            t = Mathf.Clamp01(t);
-
+            float t = Mathf.Clamp01(_vehicleModel.DistanceAlongLane / activeLane.Length);
             Vector3 position = activeLane.PathSpline.Evaluate(t);
             Vector3 tangent = activeLane.PathSpline.EvaluateTangent(t);
 
+            // 베지어 곡선 기반 부드러운 코너링 로직
             Lane nextLane = _vehicleModel.CurrentPath.Count > 1 ? _vehicleModel.CurrentPath.ElementAt(1) : null;
 
             if (t > 0.5f && nextLane != null && nextLane.PathSpline != null) {
@@ -128,6 +113,7 @@ namespace Motorways.Views {
                 tangent = Utils.BezierUtils.GetTangent(p0, p1, p2, s);
             }
 
+            // 사용자님의 차량 오프셋 설정
             float laneOffset = 0.2f;
             Vector3 normal = Vector3.Cross(Vector3.up, tangent).normalized;
             
