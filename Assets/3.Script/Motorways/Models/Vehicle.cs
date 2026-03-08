@@ -47,6 +47,8 @@ namespace Motorways.Models {
 			Id = _nextId++;
 		}
 
+		public static void ResetId() => _nextId = 0;
+
 		public void SetHome(House home) {
 			HomeObject = home;
 			HomeNode = home.EntranceCoordinate;

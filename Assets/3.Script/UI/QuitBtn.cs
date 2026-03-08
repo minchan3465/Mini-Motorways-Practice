@@ -6,8 +6,8 @@ using DG.Tweening;
 using Motorways.Models;
 
 namespace Motorways.UI {
-	public class PlayBtn : MonoBehaviour {
-		public void PlayRuntime() {
+	public class QuitBtn : MonoBehaviour {
+		public void QuitRuntime() {
 			// [사용자 요청] 매니저 없이 직접 씬 전환 및 데이터 초기화 수행
 			DOTween.KillAll();
 			Time.timeScale = 1f;
@@ -18,7 +18,7 @@ namespace Motorways.UI {
 			CityModel.LatestLaneChangeFrame = -1;
 			CityModel.ChangedNodes.Clear();
 
-			SceneManager.LoadScene("RunTime");
+			SceneManager.LoadScene("Main");
 		}
 	}
 }

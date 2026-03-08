@@ -14,46 +14,65 @@ namespace Motorways.UI {
         [SerializeField] private Vector3 hoverScale = new Vector3(1.05f, 1.05f, 1.05f);
 
         [Header("UI References")]
-        [SerializeField] private RectTransform yellowBarRect; // 노란색 Bar의 RectTransform
+        [SerializeField] private RectTransform yellowBarRect;
 
+        private RectTransform myRect;
         private Vector3 originalScale;
 
         private void Awake() {
-            // 원본 스케일 저장
+            myRect = GetComponent<RectTransform>();
             originalScale = transform.localScale;
 
-            // 시작할 때 노란색 Bar의 가로 스케일을 0으로 초기화
+            SetPivotToLeftAndKeepPosition(myRect);
+
             if (yellowBarRect != null) {
+                SetPivotToLeftAndKeepPosition(yellowBarRect);
                 yellowBarRect.localScale = new Vector3(0f, 1f, 1f);
             }
         }
 
+        private void SetPivotToLeftAndKeepPosition(RectTransform targetRect) {
+            if (targetRect == null) return;
+
+            Vector2 currentPivot = targetRect.pivot;
+            Vector2 targetPivot = new Vector2(0f, currentPivot.y);
+
+            Vector2 pivotDifference = targetPivot - currentPivot;
+
+            targetRect.anchoredPosition += new Vector2(
+                pivotDifference.x * targetRect.rect.width,
+                pivotDifference.y * targetRect.rect.height
+            );
+
+            targetRect.pivot = targetPivot;
+        }
+
         public void OnPointerEnter(PointerEventData eventData) {
-            // 진행 중인 트윈을 취소하여 애니메이션 충돌 방지
             transform.DOKill();
             if (yellowBarRect != null) yellowBarRect.DOKill();
 
-            // UI 스케일 확대
-            transform.DOScale(hoverScale, duration).SetEase(Ease.OutQuad);
+            transform.DOScale(hoverScale, duration).SetEase(Ease.OutQuad).SetUpdate(true);
 
-            // 노란색 Bar 채우기 (가로 스케일을 1로)
             if (yellowBarRect != null) {
-                yellowBarRect.DOScaleX(1f, duration).SetEase(Ease.OutQuad);
+                yellowBarRect.DOScaleX(1f, duration).SetEase(Ease.OutQuad).SetUpdate(true);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData) {
-            // 진행 중인 트윈 취소
             transform.DOKill();
             if (yellowBarRect != null) yellowBarRect.DOKill();
 
-            // UI 스케일 원상태로 복구
-            transform.DOScale(originalScale, duration).SetEase(Ease.OutQuad);
+            transform.DOScale(originalScale, duration).SetEase(Ease.OutQuad).SetUpdate(true);
 
-            // 노란색 Bar 가라앉기 (가로 스케일을 0으로)
             if (yellowBarRect != null) {
-                yellowBarRect.DOScaleX(0f, duration).SetEase(Ease.OutQuad);
+                yellowBarRect.DOScaleX(0f, duration).SetEase(Ease.OutQuad).SetUpdate(true);
             }
+        }
+
+        // 씬 전환이나 오브젝트 삭제 시 DOTween 에러를 방지하는 부분
+        private void OnDestroy() {
+            transform.DOKill();
+            if (yellowBarRect != null) yellowBarRect.DOKill();
         }
     }
 }

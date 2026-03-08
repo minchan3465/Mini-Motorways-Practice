@@ -22,6 +22,8 @@ namespace Motorways {
         public int Id { get; private set; }
         private static int _nextId = 0;
 
+        public static void ResetId() => _nextId = 0;
+
         //연결 정보
         public Vector2Int StartNode;
         public Vector2Int EndNode;

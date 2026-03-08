@@ -83,10 +83,15 @@ namespace Motorways.Process {
 				// 게이지 업데이트는 DestinationView의 Update에서 처리 중
 
 				if (dest.OverCrowdingTimer <= 0) {
-					Debug.Log("<color=red>GAME OVER!</color> Destination " + dest.GroupIndex + " is overcrowded!");
-#if UNITY_EDITOR
-					UnityEditor.EditorApplication.isPlaying = false;
-#endif
+					// [수정] 이미 게임 오버 시퀀스가 진행 중인지 확인하여 중복 호출 차단
+					if (GameOverManager.Instance != null && !GameOverManager.Instance.IsSequenceActive) {
+						Vector3 focusPoint = new Vector3(
+							dest.OriginCoordinate.x * MapSettings.TILE_SIZE,
+							0,
+							dest.OriginCoordinate.y * MapSettings.TILE_SIZE
+						);
+						GameOverManager.Instance.TriggerGameOver(focusPoint);
+					}
 				}
 			} else {
 				// 6개 미만이면 타이머 서서히 회복 (최대 30초)
