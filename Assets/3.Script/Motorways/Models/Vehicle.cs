@@ -82,28 +82,51 @@ namespace Motorways.Models {
 			NeedsPathfind = true;
 		}
 
-		// [수정] 기존 예약을 확실히 지우고 새 경로 할당 (데이터 누수 방지)
-		public void AssignPath(List<Lane> newPath) {
-			ClearCurrentPathReservations();
-			CurrentPath = new Queue<Lane>(newPath);
-			foreach (var lane in CurrentPath) lane.Reserve(this.Id);
+		// [사용자님의 안전한 경로 갱신 로직 복구]
+		public void AssignPath(List<Lane> newPathRemaining) {
+			if (newPathRemaining == null) return;
+
+			// 1. 현재 달리고 있는 차선(0번)은 유지하여 텔레포트를 방지합니다.
+			Lane currentLane = null;
+			if (CurrentPath.Count > 0) {
+				currentLane = CurrentPath.Dequeue();
+			}
+
+			// 2. 나머지 대기 중인 차선들의 예약만 취소합니다.
+			while (CurrentPath.Count > 0) {
+				CurrentPath.Dequeue().CancelReservation(this.Id);
+			}
+
+			// 3. 현재 차선을 다시 넣고, 그 뒤로 새 경로를 잇습니다.
+			if (currentLane != null) {
+				CurrentPath.Enqueue(currentLane);
+			}
+
+			foreach (var lane in newPathRemaining) {
+				// 중복 예약 방지
+				if (lane != currentLane) {
+					lane.Reserve(this.Id);
+					CurrentPath.Enqueue(lane);
+				}
+			}
 			NeedsPathfind = false;
 		}
 
-		// [수정] 기존 귀환 예약을 확실히 지우고 새 귀환 경로 할당
 		public void AssignReturnPath(List<Lane> newReturnPath) {
+			// 귀환 경로 예약 갱신 (고립 방지 핵심)
 			ClearReturnPathReservations();
 			ReturnPath = new Queue<Lane>(newReturnPath);
-			foreach (var lane in ReturnPath) lane.Reserve(this.Id);
+			foreach (var lane in ReturnPath) {
+				lane.Reserve(this.Id);
+			}
 		}
 
-		// [추가] 미리 예약된 귀환 경로를 현재 주행 경로로 전환 (고립 방지 핵심)
 		public void UseReturnPath() {
 			IsReturning = true;
 			CurrentLaneIndex = 0;
 			DistanceAlongLane = 0f;
 			
-			// ReturnPath를 CurrentPath로 이동 (이미 예약되어 있으므로 추가 Reserve 불필요)
+			// 이미 예약된 ReturnPath를 CurrentPath로 전환
 			CurrentPath = new Queue<Lane>(ReturnPath);
 			ReturnPath.Clear();
 			
@@ -111,7 +134,6 @@ namespace Motorways.Models {
 				State = VehicleState.Returning;
 				CurrentPath.Peek().Enter(this.Id);
 			} else {
-				// 경로가 정말 없다면 어쩔 수 없이 재탐색 요청
 				DispatchHome();
 			}
 		}

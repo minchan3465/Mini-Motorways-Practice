@@ -13,7 +13,7 @@ namespace Motorways.Managers {
 
 		[Header("UI References")]
 		public GameObject RewardPopupUI; // 보상 팝업 부모 오브젝트
-		public GameObject CornerUI; //시간 안보이게 하기
+		public GameObject CornerUI; // 시간 UI 등 (팝업 시 숨김 처리)
 
 		[Header("Shader Effect")]
 		public Material FrostedMaterial; // Full Screen Pass에 사용 중인 매테리얼
@@ -31,25 +31,22 @@ namespace Motorways.Managers {
 
 		// 주간 보상 팝업 표시
 		public void ShowRewardPopup() {
-			// 1. 시뮬레이션 일시정지
+			// 1. 시뮬레이션 일시정지 (SimulationManager 직접 호출)
 			if (SimulationManager.Instance != null && !SimulationManager.Instance.IsPaused) {
 				SimulationManager.Instance.TogglePause();
 			}
 
 			// 2. UI 활성화
-			if (RewardPopupUI != null) {
-				RewardPopupUI.SetActive(true);
-				CornerUI.SetActive(false);
-			}
+			if (RewardPopupUI != null) RewardPopupUI.SetActive(true);
+			if (CornerUI != null) CornerUI.SetActive(false);
 
-			// 3. 화면 뽀얗게 만들기 (원작 효과)
+			// 3. 화면 뽀얗게 만들기 (원작 효과) - 일시정지 중에도 돌아가도록 SetUpdate(true)
 			if (FrostedMaterial != null) {
 				DOTween.To(() => _currentStrength, x => {
 					_currentStrength = x;
 					FrostedMaterial.SetFloat("_Strength", _currentStrength);
-				}, 1.0f, 0.5f).SetUpdate(true); // 일시정지 상태에서도 동작하도록 SetUpdate(true)
+				}, 1.0f, 0.5f).SetUpdate(true); 
 			} else {
-				Debug.LogWarning("[WeeklyReward] 보상 팝업 UI가 할당되지 않았습니다. 임시로 즉시 보상을 지급합니다.");
 				if (RewardPopupUI == null) GiveReward(0);
 			}
 		}
@@ -65,18 +62,18 @@ namespace Motorways.Managers {
 					FrostedMaterial.SetFloat("_Strength", _currentStrength);
 				}, 0.0f, 0.3f).SetUpdate(true).OnComplete(() => {
 					if (RewardPopupUI != null) RewardPopupUI.SetActive(false);
-					CornerUI.SetActive(true);
+					if (CornerUI != null) CornerUI.SetActive(true);
 
-					// 2. 시뮬레이션 재개 (효과가 완전히 끝난 뒤)
+					// 2. 시뮬레이션 재개
 					if (SimulationManager.Instance != null && SimulationManager.Instance.IsPaused) {
 						SimulationManager.Instance.TogglePause();
 					}
 				});
 			} else {
 				if (RewardPopupUI != null) RewardPopupUI.SetActive(false);
+				if (CornerUI != null) CornerUI.SetActive(true);
 				if (SimulationManager.Instance != null && SimulationManager.Instance.IsPaused) {
 					SimulationManager.Instance.TogglePause();
-					CornerUI.SetActive(true);
 				}
 			}
 		}

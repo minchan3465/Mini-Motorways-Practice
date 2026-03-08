@@ -127,6 +127,7 @@ namespace Motorways.Process {
 				if (v.TargetDestination != null) v.TargetDestination.OnVehicleArrived(v.Id);
 			} else {
 				v.State = VehicleState.Ready;
+				v.IsReturning = false; // [핵심 수정] 퇴근 완료 후 플래그 초기화
 				v.ClearAllReservations();
 				if (v.HomeObject != null) v.HomeObject.OnVehicleArrived(v.Id);
 			}

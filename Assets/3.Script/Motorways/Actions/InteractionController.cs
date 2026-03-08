@@ -83,6 +83,13 @@ namespace Motorways.Actions {
 				_currentAction.Tick(Time.deltaTime);
 				if (_currentAction.IsComplete) _currentAction = null;
 			}
+
+			// [사용자 요청] ESC 키 입력 시 GamePauseAction 실행
+			if (Keyboard.current.escapeKey.wasPressedThisFrame) {
+				GamePauseAction menuAction = new GamePauseAction();
+				menuAction.Initialize(this);
+				menuAction.OnActionBegin(Time.time);
+			}
 		}
 
 		public Vector3 GetMapCenter() {

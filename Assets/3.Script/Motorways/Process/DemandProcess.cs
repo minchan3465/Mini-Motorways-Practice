@@ -87,7 +87,6 @@ namespace Motorways.Process {
 #if UNITY_EDITOR
 					UnityEditor.EditorApplication.isPlaying = false;
 #endif
-					// TODO : 게임 오버 처리
 				}
 			} else {
 				// 6개 미만이면 타이머 서서히 회복 (최대 30초)
