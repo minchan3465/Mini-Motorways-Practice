@@ -30,14 +30,14 @@ namespace Motorways.Navigation {
 			return endNode.G; // G값이 총 이동 비용
 		}
 
-		public static List<Lane> FindPath(Vector2Int start, Vector2Int target, Lane restrictUTurnLane = null) {
-			Node endNode = SolveAStar(start, target, restrictUTurnLane);
+		public static List<Lane> FindPath(Vector2Int start, Vector2Int target, bool allowMothballed = false, Lane restrictUTurnLane = null) {
+			Node endNode = SolveAStar(start, target, allowMothballed, restrictUTurnLane);
 			if (endNode == null) return null;
 
 			return RetracePath(endNode);
 		}
 
-		private static Node SolveAStar(Vector2Int start, Vector2Int target, Lane restrictUTurnLane = null) {
+		private static Node SolveAStar(Vector2Int start, Vector2Int target, bool allowMothballed = false, Lane restrictUTurnLane = null) {
 			var grid = MapManager.Instance._grid;
 
 			if (start == target) return null;
@@ -67,6 +67,11 @@ namespace Motorways.Navigation {
 
 				foreach (Lane outboundLane in currentTile.Lanes) {
 					if (outboundLane == null) continue;
+
+					// [수정] Mothballed 도로 처리 로직 (원작 방식)
+					if (outboundLane.State == RoadState.Mothballed && !allowMothballed) {
+						continue; // 일반 탐색 중에는 삭제 중인 도로 무시
+					}
 
 					// U턴 방지 로직 (원작 방식)
 					// 첫 번째 스텝에서 restrictUTurnLane과 반대 방향인 Lane을 선택하는 것을 막습니다.

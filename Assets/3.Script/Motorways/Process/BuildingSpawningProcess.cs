@@ -135,6 +135,12 @@ namespace Motorways.Process {
 
 		private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
 			var grid = MapManager.Instance._grid;
+
+			// [수정] 입구 타일 지형 검사: 물 타일에는 설치 불가
+			if (grid.TryGetValue(entrance, out TileData entranceTile)) {
+				if (entranceTile.type == TileLogicType.Water) return false;
+			}
+
 			Vector2Int bottomLeft = entrance - layout.LocalEntrance;
 			for (int x = 0; x < layout.Footprint.x; x++) {
 				for (int y = 0; y < layout.Footprint.y; y++) {
@@ -143,10 +149,14 @@ namespace Motorways.Process {
 					if (!grid.TryGetValue(pos, out TileData tile) || !tile.IsBuildable()) return false;
 				}
 			}
+
+			// [수정] 도로 연결 타일(roadTarget) 검사: Empty(빈 땅)이거나 이미 도로가 있는 경우에만 허용
 			Vector2Int roadTarget = entrance + TileUtils.GetDirectionVector(layout.Driveways[0]);
 			if (!MapManager.Instance.IsInPlayableArea(roadTarget)) return false;
 			if (grid.TryGetValue(roadTarget, out TileData roadTile)) {
-				return roadTile.IsBuildable() || roadTile.HasAnyRoad || roadTile.type == TileLogicType.Motorway;
+				// 물이나 산 등은 제외하고, 건설 가능(Empty)하거나 이미 도로가 있는 타일이어야 함
+				bool isAllowedType = (roadTile.type == TileLogicType.Empty || roadTile.type == TileLogicType.None);
+				return (isAllowedType && roadTile.IsBuildable()) || roadTile.HasAnyRoad || roadTile.type == TileLogicType.Motorway;
 			}
 			return false;
 		}

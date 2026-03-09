@@ -18,6 +18,11 @@ namespace Motorways.UI {
 			CityModel.LatestLaneChangeFrame = -1;
 			CityModel.ChangedNodes.Clear();
 
+			// [추가] 화면 블러 초기화
+			if (Managers.WeeklyRewardManager.Instance != null && Managers.WeeklyRewardManager.Instance.FrostedMaterial != null) {
+				Managers.WeeklyRewardManager.Instance.FrostedMaterial.SetFloat("_Strength", 0f);
+			}
+
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}

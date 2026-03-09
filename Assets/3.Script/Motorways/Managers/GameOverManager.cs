@@ -46,7 +46,8 @@ namespace Motorways.Managers {
         }
 
         private IEnumerator GameOverRoutine(Vector3 focusPoint) {
-            // 1. 입력 차단
+            // 1. 정지 및 입력 차단
+            Time.timeScale = 0f;
             if (InteractionController.Instance != null) {
                 InteractionController.Instance.enabled = false;
             }
@@ -86,8 +87,7 @@ namespace Motorways.Managers {
 
             yield return new WaitForSecondsRealtime(_waitBeforeUI);
 
-            // 5. 정지 및 UI 표시
-            Time.timeScale = 0f;
+            // 5. UI 표시
             if (GameOverPanel != null) {
                 GameOverPanel.SetActive(true);
                 _canvasGroup.DOFade(1f, 0.5f).SetUpdate(true);
