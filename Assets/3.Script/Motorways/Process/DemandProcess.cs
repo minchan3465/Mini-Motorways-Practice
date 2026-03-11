@@ -6,7 +6,6 @@ namespace Motorways.Process {
 	using Motorways.Models;
 	using Motorways.Managers;
 
-	//목적지의 수요를 생성하는 프로세스입니다.
 	public class DemandProcess : MonoBehaviour, ISimulationProcess {
 		public static DemandProcess Instance;
 
@@ -36,12 +35,11 @@ namespace Motorways.Process {
 		}
 
 		public void Tick(float dt) {
-			// 원작 난이도 스케일링 계산 (CalculateSpawnRamp)
-			// 일수(Day)가 지날수록 핀 생성 속도(시간 흐름)가 빨라집니다.
+			//일수(Day)가 지날수록 핀 생성 속도(시간 흐름)가 빨라집니다.
 			float spawnScale = 1.0f;
 			if (ClockProcess.Instance != null && ClockProcess.Instance.Model != null) {
-				int startDay = 7; // 예: 7일(1주) 후부터 난이도 증가 시작
-				float dailyIncrement = 0.05f; // 하루마다 생성 속도 5%씩 증가
+				int startDay = 7; //예: 7일(1주) 후부터 난이도 증가 시작
+				float dailyIncrement = 0.05f; //하루마다 생성 속도 5%씩 증가
 				int daysPast = ClockProcess.Instance.Model.ExpansionDay - startDay;
 
 				if (daysPast > 0) {
@@ -59,15 +57,12 @@ namespace Motorways.Process {
 		}
 
 		private void UpdatePinGeneration(Destination dest, float dt, float spawnScale) {
-			// 최대 핀 개수를 넘지 않을 때만 생성
+			//최대 핀 개수를 넘지 않을 때만 생성
 			if (dest.TotalDemand < Destination.MAX_PINS) {
-				// 원작처럼 실제 흐른 시간에 배율(spawnScale)을 곱해서 타이머를 깎음
 				dest.PinSpawnTimer -= (dt * spawnScale);
 
 				if (dest.PinSpawnTimer <= 0) {
 					dest.UnassignedPins++;
-					// 원작은 건물의 종류와 오실레이션(진동)에 따라 Interval이 다름
-					// 현재는 기본값 10.0초(또는 원작 기본 베이스) 유지
 					dest.PinSpawnTimer = 10.0f; 
 				}
 			}
@@ -75,15 +70,13 @@ namespace Motorways.Process {
 
 		private void UpdateOvercrowding(Destination dest, float dt) {
 			if (dest.isOverCrowding) {
-				// 핀이 6개 이상이면 과밀화 시작
-				// 핀이 더 많을수록 더 빨리 소모되게 (벌칙 계수)
+				//핀이 6개 이상이면 과밀화 시작
+				//핀이 더 많을수록 더 빨리 소모되게 (벌칙 계수)
 				float penalty = 1.0f + (dest.TotalDemand - Destination.GAUGE_START_PINS) * 0.2f;
 				dest.OverCrowdingTimer -= dt * penalty;
 
-				// 게이지 업데이트는 DestinationView의 Update에서 처리 중
-
 				if (dest.OverCrowdingTimer <= 0) {
-					// [수정] 이미 게임 오버 시퀀스가 진행 중인지 확인하여 중복 호출 차단
+					//이미 게임 오버 시퀀스가 진행 중인지 확인하여 중복 호출 차단
 					if (GameOverManager.Instance != null && !GameOverManager.Instance.IsSequenceActive) {
 						Vector3 focusPoint = new Vector3(
 							dest.OriginCoordinate.x * MapSettings.TILE_SIZE,
@@ -94,7 +87,7 @@ namespace Motorways.Process {
 					}
 				}
 			} else {
-				// 6개 미만이면 타이머 서서히 회복 (최대 30초)
+				//6개 미만이면 타이머 서서히 회복 (최대 30초)
 				if (dest.OverCrowdingTimer < 30.0f) {
 					dest.OverCrowdingTimer = Mathf.Min(30.0f, dest.OverCrowdingTimer + dt * 1.5f);
 				}

@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8474439240380253125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb33aa8a3be0ac64ca8c7ec2d5fde97d, type: 3}
+  m_Name: WhiteOutFeature
+  m_EditorClassIdentifier: Assembly-CSharp::WhiteOutFeature
+  m_Active: 1
+  settings: {whiteOutMaterial: {fileID: 0}, renderPassEvent: 600}
 --- !u!114 &-5105879506007840662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16,7 +30,7 @@ MonoBehaviour:
   settings:
     material: {fileID: 2100000, guid: eb1588cc07901344192a4bf962cc6daa, type: 2}
     renderPassEvent: 500
---- !u!114 &-2799283687644286398
+--- !u!114 &-2402148811149382487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32,7 +46,7 @@ MonoBehaviour:
   injectionPoint: 600
   fetchColorBuffer: 1
   requirements: 0
-  passMaterial: {fileID: 2100000, guid: 6bf1c2b3e9b826f42a4cd8ad2af20a40, type: 2}
+  passMaterial: {fileID: 2100000, guid: f0d242f7c1d12274b885d61d4ae16b9c, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0
   m_Version: 1
@@ -62,8 +76,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: -2799283687644286398}
-  m_RendererFeatureMap: ad6b866f10d7b46c42b26a3c51f226d9
+  - {fileID: -2402148811149382487}
+  m_RendererFeatureMap: ad6b866f10d7b46ca96cd02562daa9de
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -92,6 +106,20 @@ MonoBehaviour:
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 0
+--- !u!114 &599132376994668540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3ca2146570d1943b2fb872149b3c4d, type: 3}
+  m_Name: WhiteoutRenderFeature
+  m_EditorClassIdentifier: Assembly-CSharp::WhiteoutRenderFeature
+  m_Active: 1
+  settings: {whiteoutMaterial: {fileID: 0}, renderPassEvent: 600}
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0
