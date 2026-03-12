@@ -35,6 +35,8 @@ namespace Motorways.Views {
 		private Destination _model;
 		private bool _isHorizontal;
 
+		private bool _isOverCrowdingDownSound = false;
+		private bool _isOverCrowdingUpSound = true;
 		// 갑작스러운 게이지 감소 시 회색 잔상(Ghost)을 보여주기 위한 변수
 		private float _ghostRatio = 0f;
 
@@ -45,6 +47,8 @@ namespace Motorways.Views {
 		//isHorizontal	: true면 가로형(3x2), false면 세로형(2x3)
 		//isPositive	: true면 위/왼쪽 입구, false면 아래/오른쪽 입구
 		public void UpdateVisuals(bool isHorizontal, bool isPositive) {
+			SoundManager.Instance.PlaySFX(SoundEffect.DestinationBuild);
+
 			_isHorizontal = isHorizontal;
 			
 			if (isHorizontal) {
@@ -92,8 +96,13 @@ namespace Motorways.Views {
 
 			if (!showGauge) {
 				// 게이지 숨김, 일반 핀 표시
-				if (_timerPinGroup != null) _timerPinGroup.SetActive(false);
-				for (int i = 0; i < _normalPins.Length; i++) {
+				if (_timerPinGroup != null && _isOverCrowdingDownSound == true) {
+					SoundManager.Instance.PlaySFX(SoundEffect.OverCrowdingDown);
+					_isOverCrowdingDownSound = false;
+					_timerPinGroup.SetActive(false);
+					_isOverCrowdingUpSound = true;
+				}
+				for (int i = 0; i < _normalPins.Length; i++) {					
 					if (_normalPins[i] != null) _normalPins[i].SetVisibility(i < demand);
 				}
 				for (int i = 0; i < _overflowPins.Length; i++) {
@@ -104,7 +113,12 @@ namespace Motorways.Views {
 				for (int i = 0; i < _normalPins.Length; i++) {
 					if (_normalPins[i] != null) _normalPins[i].SetVisibility(false);
 				}
-				if (_timerPinGroup != null) _timerPinGroup.SetActive(true);
+				if (_timerPinGroup != null && _isOverCrowdingUpSound == true) {
+					SoundManager.Instance.PlaySFX(SoundEffect.OverCrowdingUp);
+					_isOverCrowdingUpSound = false;
+					_timerPinGroup.SetActive(true); 
+					_isOverCrowdingDownSound = true;
+				}
 
 				if (_timerGaugeRenderer != null) {
 					// 쉐이더로 값 전달

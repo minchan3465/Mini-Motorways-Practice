@@ -12,6 +12,10 @@ namespace Motorways.Views {
 		[SerializeField] private MeshRenderer HouseRoof2;
 
 		public void UpdateColor(int groupIndex) {
+
+			SoundEffect houseRnd = Random.Range(0, 2) + SoundEffect.HouseBuild1;
+			SoundManager.Instance.PlaySFX(houseRnd);
+
 			Color color = GroupColor.GetGroupColor(groupIndex);
 			HouseRoof.material.color = color;
 			HouseRoof2.material.color = color;

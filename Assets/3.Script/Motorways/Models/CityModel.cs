@@ -7,7 +7,7 @@ namespace Motorways.Models {
 		public static int LatestLaneChangeFrame = -1;
 		//public static HashSet<Lane> ChangedLanes = new HashSet<Lane>();
 		public static HashSet<Vector2Int> ChangedNodes = new HashSet<Vector2Int>();
-		//Å×½ºÆ®¸¦ À§ÇØ Lane(µµ·Î)¿¡¼­ Vector2Int(Å¸ÀÏ)·Î ±âÁØÀ» º¯°æ.
+		//ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Lane(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ Vector2Int(Å¸ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	}
 }
 

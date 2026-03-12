@@ -54,23 +54,44 @@ namespace Motorways.Process {
 		private float _houseCheckTimer = 0f;
 		private void ProcessDynamicHouseSpawning(float dt) {
 			_houseCheckTimer += dt;
-			if (_houseCheckTimer < 3.0f) return;
+			if (_houseCheckTimer < 1.0f) return; // [최적화] 집 체크 주기를 3초에서 1초로 줄여 더 민감하게 반응
 			_houseCheckTimer = 0f;
 
 			var activeDestinations = BuildingManager.Instance.ActiveDestinations;
 			var activeHouses = BuildingManager.Instance.ActiveHouses;
 
-			Dictionary<int, int> minimumHousesPerGroup = new Dictionary<int, int>();
-			foreach (var dest in activeDestinations) {
-				if (!dest.isActive) continue;
-				if (!minimumHousesPerGroup.ContainsKey(dest.GroupIndex)) minimumHousesPerGroup[dest.GroupIndex] = 0;
-				minimumHousesPerGroup[dest.GroupIndex]++;
-				if (dest.TotalDemand >= 4) minimumHousesPerGroup[dest.GroupIndex]++;
+			// 1. 현재 게임의 난이도 배율 (핀 생성 가속도) 가져오기
+			float spawnScale = 1.0f;
+			if (DemandProcess.Instance != null) {
+				spawnScale = DemandProcess.Instance.CurrentSpawnScale;
 			}
 
-			List<int> activeGroups = new List<int>(minimumHousesPerGroup.Keys);
-			foreach (int group in activeGroups) minimumHousesPerGroup[group] += 1;
+			Dictionary<int, float> demandPerGroup = new Dictionary<int, float>();
+			
+			// 2. 목적지별 '수요량(Demand Power)' 계산
+			foreach (var dest in activeDestinations) {
+				if (!dest.isActive) continue;
+				if (!demandPerGroup.ContainsKey(dest.GroupIndex)) demandPerGroup[dest.GroupIndex] = 0f;
 
+				// [수정: 난이도 조절] 집이 너무 많은 것을 방지하기 위해 기본 요구량을 1.5로 낮춤 (원래 2.0)
+				float baseDemand = 1.5f; 
+				
+				// 난이도가 올라가 핀 생성 속도(spawnScale)가 빨라지면, 요구하는 집의 수도 그에 비례해 증가함
+				// [수정: 난이도 조절] spawnScale의 영향을 절반으로 줄임
+				float scaledDemand = baseDemand * (1.0f + (spawnScale - 1.0f) * 0.5f);
+
+				// 목적지에 핀이 쌓이기 시작했다면 (도로가 막혔거나 거리가 멀어 공급이 딸리는 상태) 긴급 추가 수요 발생
+				// [수정: 난이도 조절] 긴급 배율도 낮춤
+				if (dest.TotalDemand >= 4) {
+					scaledDemand *= 1.3f; 
+				} else if (dest.TotalDemand >= 2) {
+					scaledDemand *= 1.1f;
+				}
+
+				demandPerGroup[dest.GroupIndex] += scaledDemand;
+			}
+
+			// 3. 현재 맵과 스케줄에 있는 '공급량(Supply Power)' 계산
 			Dictionary<int, int> supplyPerColor = new Dictionary<int, int>();
 			foreach (var house in activeHouses) {
 				if (!supplyPerColor.ContainsKey(house.GroupIndex)) supplyPerColor[house.GroupIndex] = 0;
@@ -84,14 +105,29 @@ namespace Motorways.Process {
 				}
 			}
 
-			foreach (var kvp in minimumHousesPerGroup) {
+			// 4. 수요(Demand)가 공급(Supply)을 앞지르면 즉시 집 스폰 예약
+			foreach (var kvp in demandPerGroup) {
 				int color = kvp.Key;
-				int requiredDemand = kvp.Value;
-				int currentSupply = supplyPerColor.ContainsKey(color) ? supplyPerColor[color] : 0;
+				// 요구량은 올림(Ceil) 처리하여 소수점 수요라도 무조건 집 한 채를 더 주도록 보수적으로 잡음
+				int requiredHouses = Mathf.CeilToInt(kvp.Value); 
+				int currentHouses = supplyPerColor.ContainsKey(color) ? supplyPerColor[color] : 0;
 
-				if (currentSupply < requiredDemand) {
-					float randomDelay = Random.Range(1.0f, 3.0f);
-					BuildingManager.Instance.ScheduleBuilding(BuildingType.House, color, randomDelay);
+				if (currentHouses < requiredHouses) {
+					// 얼마나 부족한지 계산
+					int shortage = requiredHouses - currentHouses;
+
+					// 부족한 만큼 집을 한 번에 스케줄링 (단, 한 프레임에 너무 많이 쏟아지지 않게 최대 2채까지만)
+					int spawnCount = Mathf.Min(shortage, 2); 
+
+					for (int i = 0; i < spawnCount; i++) {
+						// 핀이 밀려서 다급한 상황(shortage가 큼)일수록 딜레이를 0에 가깝게 줄임
+						float randomDelay = Random.Range(0.1f, Mathf.Max(0.5f, 3.0f / shortage));
+						BuildingManager.Instance.ScheduleBuilding(BuildingType.House, color, randomDelay);
+						
+						// 스케줄에 넣었으니 가상 공급량 증가
+						if (!supplyPerColor.ContainsKey(color)) supplyPerColor[color] = 0;
+						supplyPerColor[color]++;
+					}
 				}
 			}
 		}
@@ -135,8 +171,17 @@ namespace Motorways.Process {
 
 		private bool IsValidPlacement(Vector2Int entrance, BuildingLayout layout) {
 			var grid = MapManager.Instance._grid;
+			var playableArea = MapManager.Instance.PlayableArea;
 
-			// [수정] 입구 타일 지형 검사: 물 타일에는 설치 불가
+			// [수정: 맵 가장자리 갇힘 방지] 건물이 맵 경계에서 1칸 안쪽에만 생성되도록 축소된 범위 사용
+			RectInt innerPlayableArea = new RectInt(
+				playableArea.x + 1, 
+				playableArea.y + 1, 
+				playableArea.width - 2, 
+				playableArea.height - 2
+			);
+
+			// 입구 타일 지형 검사: 물 타일에는 설치 불가
 			if (grid.TryGetValue(entrance, out TileData entranceTile)) {
 				if (entranceTile.type == TileLogicType.Water) return false;
 			}
@@ -145,15 +190,24 @@ namespace Motorways.Process {
 			for (int x = 0; x < layout.Footprint.x; x++) {
 				for (int y = 0; y < layout.Footprint.y; y++) {
 					Vector2Int pos = bottomLeft + new Vector2Int(x, y);
-					if (!MapManager.Instance.IsInPlayableArea(pos)) return false;
+					
+					// 건물의 모든 칸이 innerPlayableArea 안에 있어야 함
+					if (!innerPlayableArea.Contains(pos)) return false;
+					
 					if (!grid.TryGetValue(pos, out TileData tile) || !tile.IsBuildable()) return false;
 				}
 			}
 
-			// [수정] 도로 연결 타일(roadTarget) 검사: Empty(빈 땅)이거나 이미 도로가 있는 경우에만 허용
+			// [수정: 입구 충돌 방지] 도로 연결 타일(roadTarget) 검사
 			Vector2Int roadTarget = entrance + TileUtils.GetDirectionVector(layout.Driveways[0]);
-			if (!MapManager.Instance.IsInPlayableArea(roadTarget)) return false;
+			
+			// 입구 앞 도로는 플레이어 영역(playableArea) 안이면 됨 (가장자리에 닿아도 무방)
+			if (!playableArea.Contains(roadTarget)) return false;
+
 			if (grid.TryGetValue(roadTarget, out TileData roadTile)) {
+				// 건물이 이미 있으면 무조건 불가 (House, Destination 등)
+				if (roadTile.type == TileLogicType.House || roadTile.type == TileLogicType.Destination || roadTile.Building != null) return false;
+
 				// 물이나 산 등은 제외하고, 건설 가능(Empty)하거나 이미 도로가 있는 타일이어야 함
 				bool isAllowedType = (roadTile.type == TileLogicType.Empty || roadTile.type == TileLogicType.None);
 				return (isAllowedType && roadTile.IsBuildable()) || roadTile.HasAnyRoad || roadTile.type == TileLogicType.Motorway;

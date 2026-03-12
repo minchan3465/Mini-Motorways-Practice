@@ -84,7 +84,7 @@ namespace Motorways.Models {
 			NeedsPathfind = true;
 		}
 
-		// [사용자님의 안전한 경로 갱신 로직 복구]
+		// [사용자님의 안전한 경로 갱신 로직 복구 및 예약 관리 강화]
 		public void AssignPath(List<Lane> newPathRemaining) {
 			if (newPathRemaining == null) return;
 
@@ -94,18 +94,20 @@ namespace Motorways.Models {
 				currentLane = CurrentPath.Dequeue();
 			}
 
-			// 2. 나머지 대기 중인 차선들의 예약만 취소합니다.
+			// 2. 나머지 대기 중인(버려질) 차선들의 예약을 확실하게 취소합니다.
 			while (CurrentPath.Count > 0) {
-				CurrentPath.Dequeue().CancelReservation(this.Id);
+				Lane discardedLane = CurrentPath.Dequeue();
+				discardedLane.CancelReservation(this.Id);
 			}
 
-			// 3. 현재 차선을 다시 넣고, 그 뒤로 새 경로를 잇습니다.
+			// 3. 현재 차선을 다시 넣습니다. (이 차선은 이미 진입했거나 예약된 상태이므로 Reserve를 다시 부르지 않습니다)
 			if (currentLane != null) {
 				CurrentPath.Enqueue(currentLane);
 			}
 
+			// 4. 새로 찾은 경로를 잇습니다.
 			foreach (var lane in newPathRemaining) {
-				// 중복 예약 방지
+				// 중복 예약 방지 (새 경로의 시작점이 현재 차선과 겹칠 수 있음)
 				if (lane != currentLane) {
 					lane.Reserve(this.Id);
 					CurrentPath.Enqueue(lane);

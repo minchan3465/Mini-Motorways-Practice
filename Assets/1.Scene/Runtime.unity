@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1\uC8FC\uCC28"
+  m_text: "N\uC8FC\uCC28"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d14d8b7e45761ed4c8a7461c6dabf834, type: 2}
   m_sharedMaterial: {fileID: -6280187342797481978, guid: d14d8b7e45761ed4c8a7461c6dabf834, type: 2}
@@ -3797,7 +3797,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 45, y: 45}
+  m_SizeDelta: {x: 47, y: 47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &774264626
 MonoBehaviour:
@@ -6263,6 +6263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.RewardBtn
   fadeDuration: 0.2
+  yellow: {r: 0.9882353, g: 0.7921569, b: 0.41960785, a: 1}
 --- !u!1 &1283098531
 GameObject:
   m_ObjectHideFlags: 0
@@ -17958,6 +17959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.UI.RewardBtn
   fadeDuration: 0.2
+  yellow: {r: 0.9882353, g: 0.7921569, b: 0.41960785, a: 1}
 --- !u!1 &1718229313
 GameObject:
   m_ObjectHideFlags: 0
@@ -18129,7 +18131,7 @@ MonoBehaviour:
   startPoint: {fileID: 1470129800}
   cornerPoint: {fileID: 1227926088}
   endPoint: {fileID: 1236135583}
-  duration: 2.5
+  duration: 2
   pauseUI: {fileID: 153565764}
   gameoverUI: {fileID: 1783051096}
   clockUI: {fileID: 1005082578}

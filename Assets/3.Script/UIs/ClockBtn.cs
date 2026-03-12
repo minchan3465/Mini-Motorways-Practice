@@ -35,10 +35,16 @@ namespace Motorways.UI {
 			Vector2 originPos = Vector2.zero;
 
 			if (!isDown) {
+				//시계 클릭으로 인하여, 버튼 나오는 ClockOpen
+				SoundManager.Instance.PlaySFX(SoundEffect.ClockOpen);
+
 				seq.Append(AnimateOutMove(pauseBtn, duration, originPos + Vector2.down * moveDistance));
 				seq.Join(AnimateOutMove(playBtn, duration - 0.05f, originPos + Vector2.down * (moveDistance + btnDistance), 0.3f));
 				seq.Join(AnimateOutMove(fasterBtn, duration - 0.1f, originPos + Vector2.down * (moveDistance + btnDistance * 2), 0.35f));
 			} else {
+				//시계 클릭으로 인하여, 버튼 사라지는 ClockClose
+				SoundManager.Instance.PlaySFX(SoundEffect.ClockClose);
+
 				seq.Append(AnimateInMove(pauseBtn, duration, originPos, 0.05f));
 				seq.Join(AnimateInMove(playBtn,duration - 0.05f, originPos, 0.15f));
 				seq.Join(AnimateInMove(fasterBtn, duration - 0.1f, originPos, 0.17f));

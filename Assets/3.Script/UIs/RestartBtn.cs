@@ -18,6 +18,8 @@ namespace Motorways.UI {
 			CityModel.LatestLaneChangeFrame = -1;
 			CityModel.ChangedNodes.Clear();
 
+			SoundManager.Instance.PlaySFX(SoundEffect.ButtonSub);
+
 			WhiteoutController.Instance.OffWhiteOut();
 
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

@@ -127,15 +127,13 @@ namespace Motorways.Process {
 				if (v.TargetDestination != null) v.TargetDestination.OnVehicleArrived(v.Id);
 			} else {
 				v.State = VehicleState.Ready;
-				v.IsReturning = false; // [핵심 수정] 퇴근 완료 후 플래그 초기화
+				v.IsReturning = false;
 				v.ClearAllReservations();
 				if (v.HomeObject != null) v.HomeObject.OnVehicleArrived(v.Id);
 			}
 		}
 
 		private void StartReturnTrip(Vehicle v) {
-			// [수정] 미리 예약해둔 귀환 경로를 사용합니다. 
-			// 만약 그 사이에 도로가 지워졌더라도, 예약 덕분에 Mothballed 상태로 살아있어 무사히 돌아갈 수 있습니다.
 			v.UseReturnPath();
 		}
 	}

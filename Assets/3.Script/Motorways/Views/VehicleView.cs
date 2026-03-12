@@ -12,12 +12,12 @@ namespace Motorways.Views {
 
         [SerializeField] private MeshRenderer CarBody;
         [SerializeField] private GameObject CarPinParent; 
-        [SerializeField] private GameObject CarPin; 
-        private PinView _pinView;
+        [SerializeField] private GameObject CarPin;
+        [SerializeField] private PinView _pinView;
 
-        private float _pinDisplayTimer = 0f;
+        //private float _pinDisplayTimer = 0f;
         private const float PIN_VISIBLE_DURATION = 1.5f; 
-        private VehicleState _lastFrameState;
+        //private VehicleState _lastFrameState;
 
 		public void Initialize(Vehicle model) {
 			_vehicleModel = model;
@@ -26,14 +26,14 @@ namespace Motorways.Views {
 		public void UpdateColor(int groupIndex) {
             Color color = GroupColor.GetGroupColor(groupIndex);
             CarBody.material.color = color;
-            
-            if (_pinView == null && CarPin != null) _pinView = CarPin.GetComponent<PinView>();
+
+            if (_pinView == null && CarPin != null) CarPin.TryGetComponent(out _pinView);
             if (_pinView != null) _pinView.SetColor(color);
         }
 
         private void Start() {
             if (_vehicleModel == null) TryGetComponent(out _vehicleModel);
-            if (CarPin != null) _pinView = CarPin.GetComponent<PinView>();
+            if (CarPin != null) CarPin.TryGetComponent(out _pinView);
             if (_pinView != null) _pinView.SetVisibility(false);
         }
 
@@ -47,29 +47,31 @@ namespace Motorways.Views {
                 if (_vehicleModel.State != VehicleState.Arrived) {
                     UpdateVisuals();
                 }
-                
+
                 HandleCarPinLogic();
             } else {
                 _prevLane = null;
                 _currentLane = null;
                 if (_pinView != null) _pinView.SetVisibility(false);
-                _pinDisplayTimer = 0f;
+                //_pinDisplayTimer = 0f;
             }
 
-            _lastFrameState = _vehicleModel.State;
+            //_lastFrameState = _vehicleModel.State;
         }
 
         private void HandleCarPinLogic() {
             if (_pinView == null) return;
 
-            if (_vehicleModel.State == VehicleState.Arrived && _lastFrameState != VehicleState.Arrived) {
-                _pinView.SetVisibility(true);
-                _pinDisplayTimer = PIN_VISIBLE_DURATION;
-            }
-
-            if (_pinDisplayTimer > 0) {
-                _pinDisplayTimer -= Time.deltaTime;
-                if (_pinDisplayTimer <= 0) _pinView.SetVisibility(false);
+            // 차량이 도착(Arrived) 상태일 때만 핀을 켭니다.
+            if (_vehicleModel.State == VehicleState.Arrived) {
+                // 주차 중인 전체 시간(ParkingDuration) 중, 설정한 시간(PIN_VISIBLE_DURATION) 동안만 보여줍니다.
+                if (_vehicleModel.ParkingTimer <= PIN_VISIBLE_DURATION) {
+                    _pinView.SetVisibility(true);
+                } else {
+                    _pinView.SetVisibility(false);
+                }
+            } else {
+                _pinView.SetVisibility(false);
             }
 
             if (CarPinParent != null && CarPin.activeSelf) {
@@ -77,7 +79,6 @@ namespace Motorways.Views {
             }
         }
 
-        // [사용자님의 핵심 주행 비주얼 로직 복구]
         private void UpdateVisuals() {
             Lane activeLane = _vehicleModel.GetCurrentLane();
             if (activeLane == null || activeLane.PathSpline == null) return;
@@ -113,7 +114,7 @@ namespace Motorways.Views {
                 tangent = Utils.BezierUtils.GetTangent(p0, p1, p2, s);
             }
 
-            // 사용자님의 차량 오프셋 설정
+            // 차량 오프셋 설정
             float laneOffset = 0.2f;
             Vector3 normal = Vector3.Cross(Vector3.up, tangent).normalized;
             

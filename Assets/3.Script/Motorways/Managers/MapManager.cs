@@ -11,7 +11,7 @@ namespace Motorways {
 		public Dictionary<Vector2Int, TileData> _grid =  new Dictionary<Vector2Int, TileData>();
 		//현재 플레이 가능한 맵 범위
 		[SerializeField] 
-		private RectInt _initialPlayableArea = new RectInt(-9, -5, 18, 10);
+		private RectInt _initialPlayableArea = new RectInt(-9, -6, 20, 12);
 		public RectInt PlayableArea { get; private set; }
 
 		//코너 데이터를 관리하는 딕셔너리

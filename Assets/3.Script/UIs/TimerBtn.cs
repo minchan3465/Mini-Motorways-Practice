@@ -35,8 +35,10 @@ namespace Motorways.UI {
 		public void OnPointerClick(PointerEventData eventData) {
 			if (isSelected) return;
 
+			SoundManager.Instance.PlaySFX(SoundEffect.ButtonMain);
 			// 매니저에게 자신이 클릭되었음을 알림
 			manager.OnButtonClicked(this, timeScale);
+
 		}
 
 		public void OnPointerEnter(PointerEventData eventData) {

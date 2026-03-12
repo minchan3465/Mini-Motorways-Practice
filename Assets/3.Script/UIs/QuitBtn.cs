@@ -21,6 +21,7 @@ namespace Motorways.UI {
 			CityModel.ChangedNodes.Clear();
 
 			//WhiteoutController.Instance.OffWhiteOut();
+			SoundManager.Instance.PlaySFX(SoundEffect.ButtonMain);
 
 			rc.MovementToEndPoint();
 		}

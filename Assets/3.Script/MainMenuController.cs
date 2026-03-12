@@ -40,6 +40,8 @@ public class MainMenuController : MonoBehaviour {
 		Vector3 endPos = endPoint.position;
 
 		Sequence seq = DOTween.Sequence();
+
+		SoundManager.Instance.PlaySFX(SoundEffect.SwingCamera);
 		seq.Append(
 			DOVirtual.Float(0f, 1f, duration, (t) => {
 				mainCamera.transform.position = BezierUtils.GetPoint(startPos, cornerPos, endPos, t);

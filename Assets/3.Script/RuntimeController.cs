@@ -51,6 +51,8 @@ public class RuntimeController : MonoBehaviour {
 
 		WhiteoutController.Instance.OffWhiteOut();
 
+		SoundManager.Instance.PlaySFX(SoundEffect.SwingCamera);
+
 		DOVirtual.Float(0f, 1f, duration, (t) => {
 			mainCamera.transform.position = BezierUtils.GetPoint(startPos, cornerPos, endPos, t);
 		}).SetEase(Ease.InCubic).OnComplete(() => {

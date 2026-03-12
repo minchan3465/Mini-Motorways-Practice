@@ -21,6 +21,8 @@ namespace Motorways.UI {
 			CityModel.LatestLaneChangeFrame = -1;
 			CityModel.ChangedNodes.Clear();
 
+			SoundManager.Instance.PlaySFX(SoundEffect.ButtonMain);
+
 			mc.MovementToEndPoint();
 		}
 	}

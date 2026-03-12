@@ -91,8 +91,8 @@ namespace Motorways.Managers {
             if (ResultText == null) return;
 
             //데이터 수집
-            int days = 0;
-            int score = 0;
+            int days;
+            int score;
             days = ClockProcess.Instance.Model.ExpansionDay;
             score = ScoreManager.Instance.CurrentScore;
 

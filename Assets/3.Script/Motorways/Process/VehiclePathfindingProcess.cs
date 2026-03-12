@@ -28,11 +28,7 @@ namespace Motorways.Process {
 			int latestLaneChange = CityModel.LatestLaneChangeFrame;
 
 			foreach (Vehicle v in allVehicles) {
-				// [사용자님 원본 로직] 도로가 변했으면 즉시 재탐색 예약
-				if (v.LatestAttemptedPathfindFrame < latestLaneChange) {
-					v.RequestPathfind();
-				}
-
+				// LaneUpdateProcess에 의해 NeedsPathfind가 true가 된 차량만 재탐색
 				if (v.NeedsPathfind) {
 					ProcessPathfindForVehicle(v);
 					v.LatestAttemptedPathfindFrame = latestLaneChange; 
@@ -106,6 +102,12 @@ namespace Motorways.Process {
 			else {
 				Lane currLane = v.GetCurrentLane();
 				if (currLane != null) {
+					// 현재 주행 중인 도로가 삭제 중(Mothballed)이라면 기존 경로를 유지하여 U턴 방지
+					if (currLane.State == RoadState.Mothballed) {
+						v.NeedsPathfind = false;
+						return;
+					}
+
 					Vector2Int target = v.IsReturning ? v.HomeNode : v.DestNode;
 					
 					// 일반 탐색

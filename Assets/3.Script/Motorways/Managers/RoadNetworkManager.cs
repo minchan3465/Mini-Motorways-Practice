@@ -11,6 +11,7 @@ namespace Motorways.Managers {
 
 		public List<Lane> AllLanes { get; private set; } = new List<Lane>();
 		private List<Lane> _mothballedLanes = new List<Lane>();
+		public List<Lane> MothballedLanes => _mothballedLanes; //[추가] 외부에서 Mothballed 도로에 빠르게 접근하기 위해 노출
 		private HashSet<Lane> _systemLanes = new HashSet<Lane>();
 
 		private void Awake() {
@@ -21,14 +22,14 @@ namespace Motorways.Managers {
 		private void Update() {
 			ProcessMothballedLanes();
 			
-			// 건설 중(드래그)일 때는 완성되지 않은 다리를 붕괴시키지 않습니다.
+			//건설 중(드래그)일 때는 완성되지 않은 다리를 붕괴시키지 않습니다.
 			bool isBuilding = false;
 			if (Actions.InteractionController.Instance != null && Actions.InteractionController.Instance.IsBuildingRoad) {
 				isBuilding = true;
 			}
 
 			if (!isBuilding) {
-				ValidateAllBridges(); // 매 프레임 다리 유효성을 검사하여, 한 칸이라도 끊기면 즉시 전체 붕괴 처리
+				ValidateAllBridges(); //매 프레임 다리 유효성을 검사하여, 한 칸이라도 끊기면 즉시 전체 붕괴 처리
 			}
 		}
 
@@ -45,7 +46,7 @@ namespace Motorways.Managers {
 			Lane existingLane = GetLane(from, to);
 			if (existingLane != null) {
 				if (existingLane.State == RoadState.Mothballed) {
-					// 자원이 충분할 때만 복구
+					//자원이 충분할 때만 복구
 					if (CanRestoreMothballedLane(existingLane)) {
 						RestoreMothballedLane(existingLane);
 						Lane opposite = GetLane(to, from);
@@ -71,27 +72,27 @@ namespace Motorways.Managers {
 				if (isToWater && GetActiveConnectionCount(tTile) >= 2) return;
 			}
 
-			// 다리 규칙 1: 물에서 아무것도 없이 허공 시작 불가
+			//다리 규칙 1: 물에서 아무것도 없이 허공 시작 불가
 			if (isFromWater && !fromHasRoads) return;
 
 			bool isBridge = isFromWater || isToWater;
 			bool isBridgeHead = false;
 
-			// 기본적으로 모든 도로는 타일 1칸당 1개의 도로(Road) 자원을 요구합니다.
+			//기본적으로 모든 도로는 타일 1칸당 1개의 도로(Road) 자원을 요구합니다.
 			if (!ResourceManager.Instance.HasResource(ItemType.Road)) return;
 
 			if (isBridge) {
-				// 다리 규칙 2: 육지 -> 빈 물 타일로 들어갈 때 다리(Bridge) 자원이 '추가로' 필요합니다.
+				//다리 규칙 2: 육지 -> 빈 물 타일로 들어갈 때 다리(Bridge) 자원이 '추가로' 필요합니다.
 				if (!isFromWater && isToWater && !toHasRoads) {
 					if (!ResourceManager.Instance.HasResource(ItemType.Bridge)) return;
 					
-					// 다리 자원 소모
+					//다리 자원 소모
 					ResourceManager.Instance.TryConsumeResource(ItemType.Bridge, 1);
 					isBridgeHead = true;
 				}
 			}
 
-			// 도로 자원 무조건 1개 소모 (물 위를 지나더라도 아스팔트는 깔아야 함)
+			//도로 자원 무조건 1개 소모 (물 위를 지나더라도 아스팔트는 깔아야 함)
 			ResourceManager.Instance.TryConsumeResource(ItemType.Road, 1);
 
 			CreateLane(from, to, isBridge, isBridgeHead);
@@ -149,7 +150,7 @@ namespace Motorways.Managers {
 					}
 				}
 
-				// 다리 규칙 3: 육지 연결이 2곳 미만인 불완전한 다리는 즉시 삭제 대기(붕괴) 처리
+				//다리 규칙 3: 육지 연결이 2곳 미만인 불완전한 다리는 즉시 삭제 대기(붕괴) 처리
 				if (landConnections < 2) {
 					foreach (var p in currentPassage) {
 						TryRemoveRoad(p);
@@ -159,12 +160,12 @@ namespace Motorways.Managers {
 		}
 
 		public void BuildSystemRoad(Vector2Int from, Vector2Int to, out Lane outLane, out Lane inLane) {
-			// [수정] 기존에 동일한 구간의 도로가 있는지 먼저 확인합니다. (회전 시 중복 생성 방지)
+			//기존에 동일한 구간의 도로가 있는지 먼저 확인합니다. (회전 시 중복 생성 방지)
 			outLane = GetLane(from, to);
 			inLane = GetLane(to, from);
 
 			if (outLane != null && inLane != null) {
-				// 이미 있다면 활성화 상태로 돌리고 리턴
+				//이미 있다면 활성화 상태로 돌리고 리턴
 				if (outLane.State == RoadState.Mothballed) RestoreMothballedLane(outLane);
 				if (inLane.State == RoadState.Mothballed) RestoreMothballedLane(inLane);
 				
@@ -223,6 +224,8 @@ namespace Motorways.Managers {
 			SyncVisualsBetweenNodes(start, end);
 
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
+
+			SoundManager.Instance.PlaySFX(SoundEffect.RoadBuild);
 		}
 
 		private Vector2? CalculateControlPoint(Vector2Int start, Vector2Int end) {
@@ -253,10 +256,13 @@ namespace Motorways.Managers {
 
 			SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
 			CityModel.LatestLaneChangeFrame = Time.frameCount;
+
+			//집 방향 회전은 삭제 소리가 없어야함.
+			if(!_systemLanes.Contains(lane)) SoundManager.Instance.PlaySFX(SoundEffect.RoadRemove);
 		}
 
 		private bool CanRestoreMothballedLane(Lane lane) {
-			// 지워지기 전(Mothballed) 상태에서 다시 살리는 것은 자원을 소모하지 않음 (환원된 적이 없으므로)
+			//지워지기 전(Mothballed) 상태에서 다시 살리는 것은 자원을 소모하지 않음 (환원된 적이 없으므로)
 			return true;
 		}
 
@@ -265,7 +271,7 @@ namespace Motorways.Managers {
 				lane.State = RoadState.Active;
 				_mothballedLanes.Remove(lane);
 
-				// [수정] 끊겼던 도로 정보를 다시 맵 그리드 데이터에 연결합니다.
+				//끊겼던 도로 정보를 다시 맵 그리드 데이터에 연결합니다.
 				MapManager.Instance.ConnectLaneToMap(lane);
 
 				SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
@@ -293,7 +299,7 @@ namespace Motorways.Managers {
 			MapManager.Instance.DisconnectLaneFromMap(lane);
 			SyncVisualsBetweenNodes(lane.StartNode, lane.EndNode);
 			
-			// [자원 환원 로직] 차량이 모두 빠져나가고 도로가 완전히 삭제될 때 자원을 돌려줍니다.
+			//차량이 모두 빠져나가고 도로가 완전히 삭제될 때 자원을 돌려줍니다.
 			if (wasPlayerBuilt && !isSystem) {
 				bool isCanonical = (lane.StartNode.x < lane.EndNode.x) ||
 								   (lane.StartNode.x == lane.EndNode.x && lane.StartNode.y < lane.EndNode.y);

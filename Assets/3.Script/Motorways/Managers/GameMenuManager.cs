@@ -42,6 +42,8 @@ namespace Motorways.Managers {
 			bool isOpening = !PausePanel.activeSelf;
 
 			if (isOpening) {
+				SoundManager.Instance.PlaySFX(SoundEffect.ButtonMain);
+
 				WhiteoutController.Instance.OnWhiteOut();
 
 				// 메뉴 열기
@@ -56,6 +58,7 @@ namespace Motorways.Managers {
 				Time.timeScale = 0f;
 
 			} else {
+				SoundManager.Instance.PlaySFX(SoundEffect.ButtonSub);
 				WhiteoutController.Instance.OffWhiteOut();
 
 				// 메뉴 닫기

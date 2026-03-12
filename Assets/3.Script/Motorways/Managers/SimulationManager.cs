@@ -48,6 +48,14 @@ namespace Motorways.Managers {
 		}
 
 		public void changeTimeScale(float timeSacle) {
+			if(timeSacle > TimeScale) {
+				//만약 기존의 시간보다 더 빠르면
+				SoundManager.Instance.PlaySFX(SoundEffect.TimeFast);
+			} else {
+				//시간이 동일한 경우의 세팅은 없으므로, 느릴경우만.
+				SoundManager.Instance.PlaySFX(SoundEffect.TimeSlow);
+			}
+
 			TimeScale = timeSacle;
 			if (TimeScale > 0) {
 				_savedTimeScale = TimeScale;
@@ -63,7 +71,6 @@ namespace Motorways.Managers {
 
 			float dt = Time.deltaTime * TimeScale;
 			
-			//옵저버 패턴!
 			for(int i = 0; i < _processes.Count; i++) {
 				_processes[i].Tick(dt);
 			}

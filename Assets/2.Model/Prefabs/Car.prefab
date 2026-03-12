@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5777931256866882108
 Transform:
   m_ObjectHideFlags: 0
@@ -93,11 +93,9 @@ MonoBehaviour:
   Braking: 4
   ParkingTimer: 0
   ParkingDuration: 3
-  RepathUrgency: 0
+  NeedsPathfind: 0
   LatestAttemptedPathfindFrame: 0
-  BlockingVehicleId: -1
-  IsShoving: 0
-  StuckTimer: 0
+  IsReturning: 0
 --- !u!114 &783865973156856669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +112,7 @@ MonoBehaviour:
   CarBody: {fileID: 5744783996958425159}
   CarPinParent: {fileID: 1661329168385789192}
   CarPin: {fileID: 8326158077579674508}
+  _pinView: {fileID: 0}
 --- !u!1 &3352597350476425416
 GameObject:
   m_ObjectHideFlags: 0

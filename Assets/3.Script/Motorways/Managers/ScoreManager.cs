@@ -16,6 +16,8 @@ namespace Motorways.Managers {
 		public void AddScore(int amount = 1) {
 			CurrentScore += amount;
 			OnScoreChanged?.Invoke(CurrentScore);
+			SoundEffect pinCollectRnd = UnityEngine.Random.Range(0, 2) + SoundEffect.PinCollect1;
+			SoundManager.Instance.PlaySFX(pinCollectRnd);
 		}
 
 		public void ResetScore() {

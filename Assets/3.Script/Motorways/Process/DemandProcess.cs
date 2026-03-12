@@ -34,6 +34,8 @@ namespace Motorways.Process {
 			}
 		}
 
+		public float CurrentSpawnScale { get; private set; } = 1.0f;
+
 		public void Tick(float dt) {
 			//일수(Day)가 지날수록 핀 생성 속도(시간 흐름)가 빨라집니다.
 			float spawnScale = 1.0f;
@@ -46,6 +48,7 @@ namespace Motorways.Process {
 					spawnScale += daysPast * dailyIncrement;
 				}
 			}
+			CurrentSpawnScale = spawnScale;
 
 			for (int i = 0; i < _activeDestinations.Count; i++) {
 				var dest = _activeDestinations[i];
@@ -62,6 +65,7 @@ namespace Motorways.Process {
 				dest.PinSpawnTimer -= (dt * spawnScale);
 
 				if (dest.PinSpawnTimer <= 0) {
+					SoundManager.Instance.PlaySFX(SoundEffect.PinCreate);
 					dest.UnassignedPins++;
 					dest.PinSpawnTimer = 10.0f; 
 				}
