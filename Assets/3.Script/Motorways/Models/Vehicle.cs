@@ -84,7 +84,6 @@ namespace Motorways.Models {
 			NeedsPathfind = true;
 		}
 
-		// [사용자님의 안전한 경로 갱신 로직 복구 및 예약 관리 강화]
 		public void AssignPath(List<Lane> newPathRemaining) {
 			if (newPathRemaining == null) return;
 

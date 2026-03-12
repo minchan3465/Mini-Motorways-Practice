@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5777931256866882108
 Transform:
   m_ObjectHideFlags: 0
@@ -87,10 +87,10 @@ MonoBehaviour:
   CurrentLaneIndex: 0
   DistanceAlongLane: 0
   CurrentSpeed: 0
-  MaxSpeed: 2
-  TargetSpeed: 10
-  Acceleration: 3
-  Braking: 4
+  MaxSpeed: 3
+  TargetSpeed: 3
+  Acceleration: 7
+  Braking: 6
   ParkingTimer: 0
   ParkingDuration: 3
   NeedsPathfind: 0

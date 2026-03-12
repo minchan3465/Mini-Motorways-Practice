@@ -17,7 +17,7 @@ namespace Motorways.Views {
 
         //private float _pinDisplayTimer = 0f;
         private const float PIN_VISIBLE_DURATION = 1.5f; 
-        //private VehicleState _lastFrameState;
+        private VehicleState _lastFrameState = VehicleState.Ready;
 
 		public void Initialize(Vehicle model) {
 			_vehicleModel = model;
@@ -35,49 +35,70 @@ namespace Motorways.Views {
             if (_vehicleModel == null) TryGetComponent(out _vehicleModel);
             if (CarPin != null) CarPin.TryGetComponent(out _pinView);
             if (_pinView != null) _pinView.SetVisibility(false);
+            
+            if (_vehicleModel != null) {
+                _lastFrameState = _vehicleModel.State;
+            }
         }
 
         private void Update() {
             if (_vehicleModel == null) return;
 
-            if (_vehicleModel.State == VehicleState.Driving || 
-                _vehicleModel.State == VehicleState.Returning || 
-                _vehicleModel.State == VehicleState.Arrived) {
-                
-                if (_vehicleModel.State != VehicleState.Arrived) {
-                    UpdateVisuals();
-                }
+            // 1. 상태 전이(State Transition) 감지하여 정확히 한 번만 호출
+            //if (_vehicleModel.State != _lastFrameState) {
+            //    OnStateChanged(_lastFrameState, _vehicleModel.State);
+            //}
 
-                HandleCarPinLogic();
-            } else {
+            // 2. 비주얼 업데이트 (주행 중일 때만)
+            if (_vehicleModel.State == VehicleState.Driving || 
+                _vehicleModel.State == VehicleState.Returning) {
+                UpdateVisuals();
+            } else if (_vehicleModel.State != VehicleState.Arrived) {
+                // 주차 중이 아닐 때만 차선 정보 초기화
                 _prevLane = null;
                 _currentLane = null;
-                if (_pinView != null) _pinView.SetVisibility(false);
-                //_pinDisplayTimer = 0f;
             }
 
-            //_lastFrameState = _vehicleModel.State;
-        }
-
-        private void HandleCarPinLogic() {
-            if (_pinView == null) return;
-
-            // 차량이 도착(Arrived) 상태일 때만 핀을 켭니다.
-            if (_vehicleModel.State == VehicleState.Arrived) {
-                // 주차 중인 전체 시간(ParkingDuration) 중, 설정한 시간(PIN_VISIBLE_DURATION) 동안만 보여줍니다.
-                if (_vehicleModel.ParkingTimer <= PIN_VISIBLE_DURATION) {
-                    _pinView.SetVisibility(true);
+            //핀 타이머 관리
+            if(_vehicleModel.State == VehicleState.Arrived) {
+                if(_vehicleModel.ParkingTimer <= PIN_VISIBLE_DURATION) {
+                    if(!CarPin.activeSelf) _pinView.SetVisibility(true);
                 } else {
-                    _pinView.SetVisibility(false);
-                }
-            } else {
-                _pinView.SetVisibility(false);
-            }
+                    if (CarPin.activeSelf) _pinView.SetVisibility(false);
+				}
+			}
 
+
+
+            //if (_pinDisplayTimer > 0) {
+            //    _pinDisplayTimer -= Time.deltaTime;
+            //    if (_pinDisplayTimer <= 0) {
+            //        if (_pinView != null) _pinView.SetVisibility(false);
+            //    }
+            //}
+
+            //핀의 회전값 고정
             if (CarPinParent != null && CarPin.activeSelf) {
                 CarPinParent.transform.rotation = Quaternion.identity;
             }
+
+            _lastFrameState = _vehicleModel.State;
         }
+
+        // 상태가 변경되었을 때 딱 한 번만 실행되는 함수
+        //private void OnStateChanged(VehicleState oldState, VehicleState newState) {
+        //    if (_pinView == null) return;
+
+        //    if (newState == VehicleState.Arrived) {
+        //        // 목적지에 도착했을 때 핀을 켬
+        //        _pinView.SetVisibility(true);
+        //        _pinDisplayTimer = PIN_VISIBLE_DURATION; // 1.5초 타이머 시작
+        //    } else {
+        //        // 그 외의 상태(출발, 대기 등)에서는 핀을 끔
+        //        _pinView.SetVisibility(false);
+        //        _pinDisplayTimer = 0f;
+        //    }
+        //}
 
         private void UpdateVisuals() {
             Lane activeLane = _vehicleModel.GetCurrentLane();
