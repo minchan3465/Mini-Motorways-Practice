@@ -68,12 +68,12 @@ namespace Motorways.Navigation {
 				foreach (Lane outboundLane in currentTile.Lanes) {
 					if (outboundLane == null) continue;
 
-					//[수정] Mothballed 도로 처리 로직 (원작 방식)
+					//Mothballed 도로 처리 로직
 					if (outboundLane.State == RoadState.Mothballed && !allowMothballed) {
 						continue; //일반 탐색 중에는 삭제 중인 도로 무시
 					}
 
-					//U턴 방지 로직 (원작 방식)
+					//U턴 방지 로직
 					//첫 번째 스텝에서 restrictUTurnLane과 반대 방향인 Lane을 선택하는 것을 막습니다.
 					if (current.Parent == null && restrictUTurnLane != null) {
 						if (outboundLane.EndNode == restrictUTurnLane.StartNode) {

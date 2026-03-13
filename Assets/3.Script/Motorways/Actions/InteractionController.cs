@@ -95,6 +95,12 @@ namespace Motorways.Actions {
 
 		public Vector3 GetMapCenter() {
 			if (MapManager.Instance == null) return Vector3.zero;
+
+			// 맵 확장 중 중앙점이 끊어지지 않고 부드럽게 이동하도록, 연속된 float 기반 중앙값을 가져옵니다.
+			if (Motorways.Process.ExpansionProcess.Instance != null) {
+				return Motorways.Process.ExpansionProcess.Instance.GetSmoothMapCenter();
+			}
+
 			RectInt area = MapManager.Instance.PlayableArea;
 			float centerX = (area.xMin + area.xMax) * MapSettings.TILE_SIZE * 0.5f;
 			float centerZ = (area.yMin + area.yMax) * MapSettings.TILE_SIZE * 0.5f;
@@ -104,7 +110,7 @@ namespace Motorways.Actions {
 
 		//---------- 시간 일시정지 (스페이스바)
 		private void OnTimePause(InputAction.CallbackContext context) {
-			//[사용자 요청] 메뉴가 열려있을 때는 스페이스바 무시
+			//메뉴가 열려있을 때는 스페이스바 무시
 			if (GameMenuManager.Instance != null && GameMenuManager.Instance.IsMenuOpen) return;
 
 			TimePauseAction pauseAction = new TimePauseAction();

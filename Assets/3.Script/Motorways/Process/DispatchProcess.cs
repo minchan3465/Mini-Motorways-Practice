@@ -33,7 +33,7 @@ namespace Motorways.Process {
 		}
 
 		public void Tick(float dt) {
-			//[원작 방식] 매 틱마다 모든 목적지를 돌며 배정이 안 된 핀(수요)을 처리합니다.
+			//매 틱마다 모든 목적지를 돌며 배정이 안 된 핀(수요)을 처리합니다.
 			foreach(var dest in _destinations) {
 				for (int i = 0; i < dest.UnassignedPins; i++) {
 					House bestHouse = FindNearestConnectionHouse(dest);

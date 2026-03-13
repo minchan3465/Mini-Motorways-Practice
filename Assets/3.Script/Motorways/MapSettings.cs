@@ -5,7 +5,7 @@ namespace Motorways {
         public const float TILE_SIZE = 2f;
         public const float HALF_TILE = TILE_SIZE / 2f;
 
-        //원작 Los Angeles 테마 기준 그룹별 색상 코드 (Group Index 0 ~ 4)
+        //Los Angeles 테마 기준 그룹별 색상 코드 (Group Index 0 ~ 4)
         public static readonly Color[] BuildingGroupColors = new Color[] {
             new Color(0.988f, 0.749f, 0.357f, 1f), //Group 0 (A): #FCBF5B
             new Color(0.436f, 0.822f, 0.945f, 1f), //Group 1 (B): #6FD1F1

@@ -55,8 +55,6 @@ namespace Motorways.Process {
 		}
 
 		private void ProcessPathfindForVehicle(Vehicle v) {
-			//[수정] 원작 방식의 단계별 경로 탐색 및 예외 처리
-			
 			//1. Ready 상태: 최초 배차 또는 집으로 귀환 결정 직후
 			if (v.State == VehicleState.Ready) {
 				Vector2Int start = v.IsReturning ? v.DestNode : v.HomeNode;
@@ -104,6 +102,13 @@ namespace Motorways.Process {
 				if (currLane != null) {
 					//현재 주행 중인 도로가 삭제 중(Mothballed)이라면 기존 경로를 유지하여 U턴 방지
 					if (currLane.State == RoadState.Mothballed) {
+						// [Fix] 가던 길(CurrentPath)은 유지하되, 나중에 돌아올 길(ReturnPath)은 반드시 재계산하여 Mothballed 도로 예약을 해제해야 함
+						if (!v.IsReturning) {
+							List<Lane> newReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode, allowMothballed: false);
+							if (newReturnPath == null) newReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode, allowMothballed: true);
+							if (newReturnPath == null && v.DestNode == v.HomeNode) newReturnPath = new List<Lane>();
+							if (TryStitchPath(newReturnPath, v.HomeNode)) v.AssignReturnPath(newReturnPath);
+						}
 						v.NeedsPathfind = false;
 						return;
 					}
@@ -119,6 +124,14 @@ namespace Motorways.Process {
 
 					if (TryStitchPath(remainingPath, target)) {
 						v.AssignPath(remainingPath);
+
+						// [Fix] Driving 상태일 때 ReturnPath에 예약된 Mothballed 도로가 남아있는 버그 방지
+						if (!v.IsReturning) {
+							List<Lane> newReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode, allowMothballed: false);
+							if (newReturnPath == null) newReturnPath = Pathfinder.FindPath(v.DestNode, v.HomeNode, allowMothballed: true);
+							if (newReturnPath == null && v.DestNode == v.HomeNode) newReturnPath = new List<Lane>();
+							if (TryStitchPath(newReturnPath, v.HomeNode)) v.AssignReturnPath(newReturnPath);
+						}
 					} else {
 						//주행 중 경로가 완전히 끊긴 경우 (Mothballed 도로마저 삭제된 경우)
 						//원작은 이런 경우 차량을 인근 유효 도로로 텔레포트시키거나 집으로 리셋합니다.

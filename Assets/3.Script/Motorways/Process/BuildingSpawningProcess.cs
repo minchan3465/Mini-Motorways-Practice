@@ -54,7 +54,7 @@ namespace Motorways.Process {
 		private float _houseCheckTimer = 0f;
 		private void ProcessDynamicHouseSpawning(float dt) {
 			_houseCheckTimer += dt;
-			if (_houseCheckTimer < 1.0f) return; //[최적화] 집 체크 주기를 3초에서 1초로 줄여 더 민감하게 반응
+			if (_houseCheckTimer < 1.0f) return; //집 체크 주기를 3초에서 1초로 줄여 더 민감하게 반응
 			_houseCheckTimer = 0f;
 
 			var activeDestinations = BuildingManager.Instance.ActiveDestinations;
@@ -73,15 +73,14 @@ namespace Motorways.Process {
 				if (!dest.isActive) continue;
 				if (!demandPerGroup.ContainsKey(dest.GroupIndex)) demandPerGroup[dest.GroupIndex] = 0f;
 
-				//[수정: 난이도 조절] 집이 너무 많은 것을 방지하기 위해 기본 요구량을 1.5로 낮춤 (원래 2.0)
 				float baseDemand = 1.5f; 
 				
 				//난이도가 올라가 핀 생성 속도(spawnScale)가 빨라지면, 요구하는 집의 수도 그에 비례해 증가함
-				//[수정: 난이도 조절] spawnScale의 영향을 절반으로 줄임
+				//spawnScale의 영향을 절반으로 줄임
 				float scaledDemand = baseDemand * (1.0f + (spawnScale - 1.0f) * 0.5f);
 
 				//목적지에 핀이 쌓이기 시작했다면 (도로가 막혔거나 거리가 멀어 공급이 딸리는 상태) 긴급 추가 수요 발생
-				//[수정: 난이도 조절] 긴급 배율도 낮춤
+				//긴급 배율도 낮춤
 				if (dest.TotalDemand >= 4) {
 					scaledDemand *= 1.3f; 
 				} else if (dest.TotalDemand >= 2) {
@@ -173,7 +172,7 @@ namespace Motorways.Process {
 			var grid = MapManager.Instance._grid;
 			var playableArea = MapManager.Instance.PlayableArea;
 
-			//[수정: 맵 가장자리 갇힘 방지] 건물이 맵 경계에서 1칸 안쪽에만 생성되도록 축소된 범위 사용
+			//건물이 맵 경계에서 1칸 안쪽에만 생성되도록 축소된 범위 사용
 			RectInt innerPlayableArea = new RectInt(
 				playableArea.x + 1, 
 				playableArea.y + 1, 
@@ -198,7 +197,7 @@ namespace Motorways.Process {
 				}
 			}
 
-			//[수정: 입구 충돌 방지] 도로 연결 타일(roadTarget) 검사
+			//도로 연결 타일(roadTarget) 검사
 			Vector2Int roadTarget = entrance + TileUtils.GetDirectionVector(layout.Driveways[0]);
 			
 			//입구 앞 도로는 플레이어 영역(playableArea) 안이면 됨 (가장자리에 닿아도 무방)

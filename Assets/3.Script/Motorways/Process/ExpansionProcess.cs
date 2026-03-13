@@ -36,6 +36,9 @@ namespace Motorways.Process {
 
 		public void Tick(float dt) {
 			if (ClockProcess.Instance == null || MapManager.Instance == null) return;
+			
+			// 게임 오버 연출 중에는 카메라 동기화를 멈춰 DOTween과 충돌(축소 현상)하는 것을 방지합니다.
+			if (GameOverManager.Instance != null && GameOverManager.Instance.IsSequenceActive) return;
 
 			ClockModel clockModel = ClockProcess.Instance.Model;
 			float currentDays = clockModel.ExpansionTime / ClockModel.SecondsPerDay;
@@ -75,9 +78,27 @@ namespace Motorways.Process {
 				_mainCamera.orthographicSize = Mathf.Lerp(_mainCamera.orthographicSize, zoom, 0.05f);
 
 				// 맵 중앙점 부드럽게 추적 (중앙값 변경 대응)
-				Vector3 targetCenter = controller.GetMapCenter();
+				Vector3 targetCenter = GetSmoothMapCenter();
 				_mainCamera.transform.position = Vector3.Lerp(_mainCamera.transform.position, targetCenter, 0.05f);
 			}
+		}
+
+		public Vector3 GetSmoothMapCenter() {
+			float progress = Mathf.InverseLerp(Model.StartSize, Model.EndSize, Model.CurrentTargetZoom);
+
+			RectInt initial = Model.InitialPlayableArea;
+			RectInt max = Model.MaxPlayableArea;
+
+			float x = Mathf.Lerp(initial.x, max.x, progress);
+			float y = Mathf.Lerp(initial.y, max.y, progress);
+			float width = Mathf.Lerp(initial.width, max.width, progress);
+			float height = Mathf.Lerp(initial.height, max.height, progress);
+
+			float centerX = (x + width * 0.5f) * MapSettings.TILE_SIZE;
+			float centerZ = (y + height * 0.5f) * MapSettings.TILE_SIZE;
+			
+			float currentY = (_mainCamera != null) ? _mainCamera.transform.position.y : 10f;
+			return new Vector3(centerX, currentY, centerZ);
 		}
 
 		private void UpdatePlayableArea(float zoom) {

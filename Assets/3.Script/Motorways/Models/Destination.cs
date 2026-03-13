@@ -23,15 +23,13 @@ namespace Motorways.Models {
 			base.Initialize(groupIndex, entranceCoord, layout);
 			Type = BuildingType.Destination;
 
-			//[수정] roadCoord와 carparkCoord의 순서가 바뀌어 있었습니다. 
-			//IncomingLane.StartNode가 외부 도로, EndNode가 내부 주차장(빌딩 타일)입니다.
 			_CarPark = new CarPark();
 			_CarPark.Initialize(this, IncomingLane.StartNode, IncomingLane.EndNode);
 
 			UnassignedPins = 0;
 			IncomingPins = 0;
 			PinSpawnTimer = 10.0f;
-			OverCrowdingTimer = 30.0f;
+			OverCrowdingTimer = 60.0f;
 			isActive = true;
 
 			//DemandProcess에서 관리하도록 변경
@@ -56,7 +54,7 @@ namespace Motorways.Models {
 				}
 			}
 
-			//[원작 방식] 차량이 도착하면 과밀화 타이머를 즉시 일정량(예: 20%) 회복시킵니다.
+			//차량이 도착하면 과밀화 타이머를 즉시 일정량(예: 20%) 회복시킵니다.
 			//30초의 20%인 6초를 즉시 더해줍니다.
 			OverCrowdingTimer = Mathf.Min(30.0f, OverCrowdingTimer + 6.0f);
 

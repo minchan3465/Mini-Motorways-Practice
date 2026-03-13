@@ -74,7 +74,7 @@ namespace Motorways.Views {
 
 			RectInt area = MapManager.Instance.PlayableArea;
 
-			//1. 원작 방식의 구역 데이터 전달 (minX, minY, maxX, maxY)
+			//1. 구역 데이터 전달 (minX, minY, maxX, maxY)
 			//셰이더 내부의 좌표 판정을 위해 월드 좌표 스케일 적용
 			Vector4 bounds = new Vector4(area.xMin, area.yMin, area.xMax, area.yMax) * MapSettings.TILE_SIZE;
 			_gridMaterial.SetVector("_PLAYABLE_AREA", bounds);

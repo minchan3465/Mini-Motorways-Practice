@@ -17,7 +17,7 @@ namespace Motorways {
 			}
 		}
 
-		//원작 Los Angeles Colorful 테마 순정 데이터 (보정 전)
+		//Los Angeles Colorful 테마 순정 데이터 (보정 전)
 		private static readonly ColorSet[] _groupColors = new ColorSet[6] {
 			//index 0: 테스트용 (White)
 			new ColorSet(

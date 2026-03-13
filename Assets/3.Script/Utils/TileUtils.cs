@@ -71,7 +71,7 @@ namespace Motorways.Utils {
             return (TileDirection)rotated;
         }
 
-        //두 차선(In->Out)이 교차로 내에서 충돌하는지 여부 판정 (원작 로직 기반)
+        //두 차선(In->Out)이 교차로 내에서 충돌하는지 여부 판정
         public static bool ConnectionsIntersect(TileDirection in1, TileDirection out1, TileDirection in2, TileDirection out2) {
             //1. 같은 출구로 나가는 경우 충돌
             if (out1 == out2) return true;

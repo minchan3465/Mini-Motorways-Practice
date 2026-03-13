@@ -2,11 +2,10 @@ using UnityEngine;
 
 namespace Motorways.Models {
 	public class ExpansionModel {
-		// 원작 기준 줌 크기
 		public float StartSize = 15f;
 		public float EndSize = 25f;
-		public float DurationDays = 50f; // 50일에 걸쳐 확장 (원작 기본값 예시)
-		public float DelayDays = 7f;    // 2일 후부터 확장 시작
+		public float DurationDays = 50f; // 50일에 걸쳐 확장
+		public float DelayDays = 7f;    // 일주일 후부터 확장 시작
 
 		// 현재 계산된 타겟 줌 (MapManager 등에서 참조)
 		public float CurrentTargetZoom = 7.5f;

@@ -127,7 +127,7 @@ namespace Motorways.Views {
 					_timerGaugeRenderer.material.SetFloat("_FillAmount", _ghostRatio);
 					_timerGaugeRenderer.material.SetFloat("_PreviewAmount", ratio);
 
-					//[수정] 후반부에 더 급격하게 빨간색으로 변하도록 곡선(Pow) 적용
+					//후반부에 더 급격하게 빨간색으로 변하도록 곡선(Pow) 적용
 					float colorCurve = Mathf.Pow(ratio, 1.5f);
 					Color targetColor = Color.Lerp(new Color(0.15f, 0.15f, 0.15f), Color.red, colorCurve);
 					_timerGaugeRenderer.material.SetColor("_Color", targetColor);

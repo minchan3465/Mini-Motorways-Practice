@@ -11,11 +11,11 @@ namespace Motorways.UI {
 		[SerializeField] private MainMenuController mc;
 
 		public void PlayRuntime() {
-			//[사용자 요청] 매니저 없이 직접 씬 전환 및 데이터 초기화 수행
+			//매니저 없이 직접 씬 전환 및 데이터 초기화 수행
 			DOTween.KillAll();
 			Time.timeScale = 1f;
 
-			//정적 데이터 리셋 (원작 방식)
+			//정적 데이터 리셋
 			Vehicle.ResetId();
 			Lane.ResetId();
 			CityModel.LatestLaneChangeFrame = -1;

@@ -29,7 +29,6 @@ namespace Motorways.Process {
 
 			HashSet<int> affectedVehicleIds = new HashSet<int>();
 
-			//1. [원작 방식 / 최적화] "타일에 있는 VehicleId를 찾아서"
 			//AllLanes를 전부 순회하지 않고, 변경된 타일(ChangedNodes)에 등록된 Lane들만 확인합니다.
 			foreach (Vector2Int coord in CityModel.ChangedNodes) {
 				if (MapManager.Instance._grid.TryGetValue(coord, out TileData tile)) {

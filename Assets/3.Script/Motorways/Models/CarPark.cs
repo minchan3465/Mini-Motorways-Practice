@@ -22,7 +22,7 @@ namespace Motorways.Models {
 			Owner = owner;
 			RoadCoordinate = roadCoord;
 			CarparkCoordinate = carparkCoord;
-			Capacity = 3; //원작 일반 기준
+			Capacity = 3; //일반 기준
 
 			//1. 들어오는 길 (도로 -> 주차장)
 			EntranceLane = new Lane(roadCoord, carparkCoord);
