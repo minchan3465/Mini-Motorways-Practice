@@ -60,7 +60,7 @@ namespace Motorways.Process {
 			float lookAhead = 1.2f * MapSettings.TILE_SIZE;
 			float stopDistance = 0.45f * MapSettings.TILE_SIZE;
 
-			// 앞차 체크
+			//앞차 체크
 			foreach (int otherId in lane.VehiclesOnLane) {
 				if (otherId == v.Id) continue;
 				Vehicle other = GetVehicle(otherId);
@@ -73,7 +73,7 @@ namespace Motorways.Process {
 				}
 			}
 
-			// 다음 차선 체크
+			//다음 차선 체크
 			Lane nextLane = v.CurrentPath.Count > 1 ? v.CurrentPath.ElementAt(1) : null;
 			if (nextLane != null) {
 				float distToNode = lane.Length - v.DistanceAlongLane;

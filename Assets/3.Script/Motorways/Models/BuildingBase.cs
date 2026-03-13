@@ -15,7 +15,7 @@ namespace Motorways.Models {
         public BuildingType Type { get; protected set; }
         public int GroupIndex { get; protected set; }
 
-        public Vector2Int OriginCoordinate { get; protected set; } // 입구(Entrance) 타일 좌표
+        public Vector2Int OriginCoordinate { get; protected set; } //입구(Entrance) 타일 좌표
         public List<Vector2Int> OccupiedCoordinates { get; protected set; }
 
         public TileDirection DrivewayDirection { get; protected set; }
@@ -33,12 +33,12 @@ namespace Motorways.Models {
             Vector2Int entranceNode = entranceCoord;
             Vector2Int roadCoord = EntranceCoordinate + Utils.TileUtils.GetDirectionVector(DrivewayDirection);
 
-            // 시스템 도로 건설 (입구 <-> 도로)
+            //시스템 도로 건설 (입구 <-> 도로)
             RoadNetworkManager.Instance.BuildSystemRoad(entranceNode, roadCoord, out Lane eLane, out Lane iLane);
             EntranceLane = eLane;
             IncomingLane = iLane;
 
-            // 점유 타일 계산 (입구 타일 기준 상대적 역산)
+            //점유 타일 계산 (입구 타일 기준 상대적 역산)
             OccupiedCoordinates = new List<Vector2Int>();
             Vector2Int bottomLeft = entranceCoord - layout.LocalEntrance;
             for (int x = 0; x < layout.Footprint.x; x++) {

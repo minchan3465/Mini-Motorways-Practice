@@ -21,14 +21,14 @@ namespace Motorways {
 	[Flags]
 	public enum TileDirection {
 		None = 0,
-		North = 1 << 0,     // 1
-		NorthEast = 1 << 1, // 2
-		East = 1 << 2,      // 4
-		SouthEast = 1 << 3, // 8
-		South = 1 << 4,     // 16
-		SouthWest = 1 << 5, // 32
-		West = 1 << 6,      // 64
-		NorthWest = 1 << 7, // 128
+		North = 1 << 0,     //1
+		NorthEast = 1 << 1, //2
+		East = 1 << 2,      //4
+		SouthEast = 1 << 3, //8
+		South = 1 << 4,     //16
+		SouthWest = 1 << 5, //32
+		West = 1 << 6,      //64
+		NorthWest = 1 << 7, //128
 		All = 255
 	}
 
@@ -44,16 +44,16 @@ namespace Motorways {
 		public Vector2Int coordinate { get; private set; }
 		public TileLogicType type { get; set; }
 
-		public RoadState[] RoadStates { get; private set; } // 8방향 도로 연결 상태
-		public Lane[] Lanes { get; private set; } // 8방향 실제 차선 데이터
+		public RoadState[] RoadStates { get; private set; } //8방향 도로 연결 상태
+		public Lane[] Lanes { get; private set; } //8방향 실제 차선 데이터
 
-		public List<InboundVehicle> InboundVehicles = new List<InboundVehicle>(); // 교차로 진입 대기 차량들
+		public List<InboundVehicle> InboundVehicles = new List<InboundVehicle>(); //교차로 진입 대기 차량들
 
-		public BuildingBase Building { get; set; }   // 타일 위에 있는 건물 정보
+		public BuildingBase Building { get; set; }   //타일 위에 있는 건물 정보
 
-		public float creationTime { get; private set; }	// 도로가 처음 설치된 시간
+		public float creationTime { get; private set; }	//도로가 처음 설치된 시간
 
-		// 건물 생성 가중치
+		//건물 생성 가중치
 		public float WeightHouseSpawn;
 		public float WeightDestinationSpawn;
 
@@ -89,7 +89,7 @@ namespace Motorways {
 			Lanes[index] = lane;
 			RoadStates[index] = RoadState.Active;
 
-			// 처음 도로가 설치되는 순간의 시간 기록
+			//처음 도로가 설치되는 순간의 시간 기록
 			if (creationTime < 0f) creationTime = Time.time;
 			
 		}
@@ -122,7 +122,7 @@ namespace Motorways {
 		}
 
 
-		// 방향 인덱스 구하기
+		//방향 인덱스 구하기
 		private int GetIndex(TileDirection dir) {
 			if (dir == TileDirection.None) return -1;
 			return TileUtils.GetDirectionIndex(dir);

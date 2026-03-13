@@ -60,6 +60,7 @@ namespace Motorways.Models {
 		}
 
 		public void Dispatch(Destination destination) {
+			ClearAllReservations();
 			TargetDestination = destination;
 			DestNode = destination.EntranceCoordinate;
 			IsReturning = false;
@@ -72,6 +73,7 @@ namespace Motorways.Models {
 		}
 
 		public void DispatchHome() {
+			ClearAllReservations();
 			IsReturning = true;
 			CurrentLaneIndex = 0;
 			DistanceAlongLane = 0f;
@@ -87,26 +89,27 @@ namespace Motorways.Models {
 		public void AssignPath(List<Lane> newPathRemaining) {
 			if (newPathRemaining == null) return;
 
-			// 1. 현재 달리고 있는 차선(0번)은 유지하여 텔레포트를 방지합니다.
+			// 1. 현재 주행 중인 차선(Peek)은 유지하여 흐름을 끊지 않습니다.
 			Lane currentLane = null;
 			if (CurrentPath.Count > 0) {
-				currentLane = CurrentPath.Dequeue();
+				currentLane = CurrentPath.Peek();
 			}
 
-			// 2. 나머지 대기 중인(버려질) 차선들의 예약을 확실하게 취소합니다.
-			while (CurrentPath.Count > 0) {
-				Lane discardedLane = CurrentPath.Dequeue();
-				discardedLane.CancelReservation(this.Id);
+			// 2. 현재 차선을 제외한 모든 '예약된' 차선들의 예약을 취소합니다.
+			// (현재 차선은 이미 Enter 상태이므로 CancelReservation을 해도 VehiclesOnLane에는 남아있어 안전합니다)
+			foreach (Lane lane in CurrentPath) {
+				lane.CancelReservation(this.Id);
 			}
+			CurrentPath.Clear();
 
-			// 3. 현재 차선을 다시 넣습니다. (이 차선은 이미 진입했거나 예약된 상태이므로 Reserve를 다시 부르지 않습니다)
+			// 3. 현재 차선이 있었다면 다시 가장 앞에 넣습니다.
 			if (currentLane != null) {
 				CurrentPath.Enqueue(currentLane);
 			}
 
-			// 4. 새로 찾은 경로를 잇습니다.
+			// 4. 새 경로를 잇습니다.
 			foreach (var lane in newPathRemaining) {
-				// 중복 예약 방지 (새 경로의 시작점이 현재 차선과 겹칠 수 있음)
+				// 중복 방지 (새 경로의 시작점이 현재 차선일 수 있음)
 				if (lane != currentLane) {
 					lane.Reserve(this.Id);
 					CurrentPath.Enqueue(lane);
@@ -116,7 +119,7 @@ namespace Motorways.Models {
 		}
 
 		public void AssignReturnPath(List<Lane> newReturnPath) {
-			// 귀환 경로 예약 갱신 (고립 방지 핵심)
+			//귀환 경로 예약 갱신 (고립 방지 핵심)
 			ClearReturnPathReservations();
 			ReturnPath = new Queue<Lane>(newReturnPath);
 			foreach (var lane in ReturnPath) {
@@ -129,7 +132,7 @@ namespace Motorways.Models {
 			CurrentLaneIndex = 0;
 			DistanceAlongLane = 0f;
 			
-			// 이미 예약된 ReturnPath를 CurrentPath로 전환
+			//이미 예약된 ReturnPath를 CurrentPath로 전환
 			CurrentPath = new Queue<Lane>(ReturnPath);
 			ReturnPath.Clear();
 			

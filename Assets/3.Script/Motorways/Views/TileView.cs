@@ -20,7 +20,7 @@ namespace Motorways.Views {
 			//타일 중심 좌표 설정
 			this.transform.position = new Vector3(coord.x * MapSettings.TILE_SIZE + MapSettings.HALF_TILE, 0, coord.y * MapSettings.TILE_SIZE + MapSettings.HALF_TILE);
 
-			// 물 타일인지 검사하여 다리 전용 아웃라인 설정
+			//물 타일인지 검사하여 다리 전용 아웃라인 설정
 			Material activeOutline = outlineMat;
 			TileData data = MapManager.Instance.GetTileData(coord);
 			if (data != null && data.type == TileLogicType.Water && bridgeOutlineMat != null) {

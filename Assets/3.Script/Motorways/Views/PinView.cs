@@ -37,12 +37,12 @@ namespace Motorways.Views {
                 gameObject.SetActive(true);
                 transform.localScale = Vector3.zero;
 
-                // Pivot이 Bottom일 때 OutBack을 쓰면,
-                // 아래는 고정된 채로 위로 부풀어 올랐다가 살짝 줄어드는 완벽한 풍선 효과가 납니다.
+                //Pivot이 Bottom일 때 OutBack을 쓰면,
+                //아래는 고정된 채로 위로 부풀어 올랐다가 살짝 줄어드는 완벽한 풍선 효과가 납니다.
                 _scaleTween = transform.DOScale(_originalScale, _animationDuration)
                     .SetEase(Ease.OutBack);
             } else {
-                // 사라질 때는 반대로 쪼그라들며 사라집니다.
+                //사라질 때는 반대로 쪼그라들며 사라집니다.
                 _scaleTween = transform.DOScale(Vector3.zero, _animationDuration)
                     .SetEase(Ease.InBack)
                     .OnComplete(() => {

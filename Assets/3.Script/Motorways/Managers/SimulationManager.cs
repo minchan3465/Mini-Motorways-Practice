@@ -33,15 +33,15 @@ namespace Motorways.Managers {
 
 		private float _savedTimeScale = 1.0f;
 
-		public void TogglePause() {
+		public void TogglePause(bool isSoundPlay) {
 			if (IsPaused) {
-				// 일시정지 해제: 이전에 저장해둔 배속으로 복구
-				SoundManager.Instance.PlaySFX(SoundEffect.TimeFast);
+				//일시정지 해제: 이전에 저장해둔 배속으로 복구
+				if(isSoundPlay) SoundManager.Instance.PlaySFX(SoundEffect.TimeFast);
 				TimeScale = _savedTimeScale;
 				IsPaused = false;
 			} else {
-				// 일시정지 시작: 현재 배속을 저장하고 배속을 0으로 (논리적 정지)
-				SoundManager.Instance.PlaySFX(SoundEffect.TimeSlow);
+				//일시정지 시작: 현재 배속을 저장하고 배속을 0으로 (논리적 정지)
+				if(isSoundPlay) SoundManager.Instance.PlaySFX(SoundEffect.TimeSlow);
 				_savedTimeScale = TimeScale;
 				IsPaused = true;
 			}

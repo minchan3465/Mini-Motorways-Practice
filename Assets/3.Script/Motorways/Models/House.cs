@@ -33,7 +33,7 @@ namespace Motorways.Models {
             }
         }
 
-        // [수정] Destination 객체를 직접 받도록 변경
+        //[수정] Destination 객체를 직접 받도록 변경
         public bool TryDispatchVehicle(Destination dest) {
             float currentTime = ClockProcess.Instance != null ? ClockProcess.Instance.Model.Time : Time.time;
             if (currentTime < _nextDispatchTime) return false;
@@ -47,7 +47,7 @@ namespace Motorways.Models {
             
             _nextDispatchTime = currentTime + DISPATCH_COOLDOWN;
 
-            // [수정] 차량에게 직접 목적지 객체를 할당하며 출발 명령
+            //[수정] 차량에게 직접 목적지 객체를 할당하며 출발 명령
             vehicle.Dispatch(dest); 
             
             return true;

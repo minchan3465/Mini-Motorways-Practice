@@ -7,14 +7,14 @@ namespace Motorways.Models {
 	public class Destination : BuildingBase {
 		public CarPark _CarPark { get; private set; }
 
-		public int UnassignedPins { get; set; } // 아직 차량이 배정되지 않은 핀 수
-		public int IncomingPins { get; set; }   // 차량이 오고 있는 핀 수
+		public int UnassignedPins { get; set; } //아직 차량이 배정되지 않은 핀 수
+		public int IncomingPins { get; set; }   //차량이 오고 있는 핀 수
 
 		public const int MAX_PINS = 10;
 		public const int GAUGE_START_PINS = 7;
 
-		public float PinSpawnTimer;     // 다음 핀 생성까지 남은 시간
-		public float OverCrowdingTimer; // 과밀화(게임 오버)까지 남은 시간
+		public float PinSpawnTimer;     //다음 핀 생성까지 남은 시간
+		public float OverCrowdingTimer; //과밀화(게임 오버)까지 남은 시간
 		public int TotalDemand => UnassignedPins + IncomingPins;
 		public bool isOverCrowding => TotalDemand >= GAUGE_START_PINS;
 		public bool isActive = false;
@@ -23,8 +23,8 @@ namespace Motorways.Models {
 			base.Initialize(groupIndex, entranceCoord, layout);
 			Type = BuildingType.Destination;
 
-			// [수정] roadCoord와 carparkCoord의 순서가 바뀌어 있었습니다. 
-			// IncomingLane.StartNode가 외부 도로, EndNode가 내부 주차장(빌딩 타일)입니다.
+			//[수정] roadCoord와 carparkCoord의 순서가 바뀌어 있었습니다. 
+			//IncomingLane.StartNode가 외부 도로, EndNode가 내부 주차장(빌딩 타일)입니다.
 			_CarPark = new CarPark();
 			_CarPark.Initialize(this, IncomingLane.StartNode, IncomingLane.EndNode);
 
@@ -34,12 +34,12 @@ namespace Motorways.Models {
 			OverCrowdingTimer = 30.0f;
 			isActive = true;
 
-			// DemandProcess에서 관리하도록 변경
+			//DemandProcess에서 관리하도록 변경
 			Process.DemandProcess.Instance.RegisterDestination(this);
 		}
 
 		public override void OnVehicleArrived(int vehicleId) {
-			// 차량이 도착하면 핀 하나를 해결
+			//차량이 도착하면 핀 하나를 해결
 			bool pinResolved = false;
 			if (IncomingPins > 0) {
 				IncomingPins--;
@@ -50,14 +50,14 @@ namespace Motorways.Models {
 			}
 
 			if (pinResolved) {
-				// 핀을 해결했을 때만 점수 추가
+				//핀을 해결했을 때만 점수 추가
 				if (Managers.ScoreManager.Instance != null) {
 					Managers.ScoreManager.Instance.AddScore(1);
 				}
 			}
 
-			// [원작 방식] 차량이 도착하면 과밀화 타이머를 즉시 일정량(예: 20%) 회복시킵니다.
-			// 30초의 20%인 6초를 즉시 더해줍니다.
+			//[원작 방식] 차량이 도착하면 과밀화 타이머를 즉시 일정량(예: 20%) 회복시킵니다.
+			//30초의 20%인 6초를 즉시 더해줍니다.
 			OverCrowdingTimer = Mathf.Min(30.0f, OverCrowdingTimer + 6.0f);
 
 			_CarPark.TryParkVehicle(vehicleId, 3.0f);

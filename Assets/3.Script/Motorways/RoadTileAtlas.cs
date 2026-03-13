@@ -21,16 +21,16 @@ namespace Motorways {
                 //��Ʋ�󽺸� ���� �� Definition ���ο� ���� Signature�� �����صδ� ����� ���� �����մϴ�.
                 if (def.signature == null) continue;
 
-                // ���� ���
+                //���� ���
                 _signatureToDefinition[def.signature] = def;
 
-                // [����ȭ/����] 8����(45�� ����) ȸ������ ���� ���� �� ��� ���� �����Ͽ� ĳ��
+                //[����ȭ/����] 8����(45�� ����) ȸ������ ���� ���� �� ��� ���� �����Ͽ� ĳ��
                 for (int step = 0; step < 8; step++) {
                     RoadTileSignature rotatedSignature = def.signature.CreateRotatedSignature(step);
 
-                    // �ߺ� ��� ���� (��Ī�� Ÿ�� ��)
+                    //�ߺ� ��� ���� (��Ī�� Ÿ�� ��)
                     if (!_signatureToDefinition.ContainsKey(rotatedSignature)) {
-                        // ��Ÿ�ӿ� �� �� �ֵ��� ��ȸ����(8-step)�� ������ Definition ����
+                        //��Ÿ�ӿ� �� �� �ֵ��� ��ȸ����(8-step)�� ������ Definition ����
                         //int reverseStep = (8 - step) % 8;
                         //_signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(reverseStep));
                         _signatureToDefinition.Add(rotatedSignature, def.CreateRotatedDefinition(step));
@@ -48,7 +48,7 @@ namespace Motorways {
             if (type == CornerDiagonalType.SW_to_NE) {
                 def.rotationSteps = 0;
             } else if (type == CornerDiagonalType.NW_to_SE) {
-                // 90도 회전 (1 step = 45도이므로 2 steps)
+                //90도 회전 (1 step = 45도이므로 2 steps)
                 def.rotationSteps = 2;
             }
             

@@ -69,7 +69,7 @@ namespace Motorways.UI {
             }
         }
 
-        // 씬 전환이나 오브젝트 삭제 시 DOTween 에러를 방지하는 부분
+        //씬 전환이나 오브젝트 삭제 시 DOTween 에러를 방지하는 부분
         private void OnDestroy() {
             transform.DOKill();
             if (yellowBarRect != null) yellowBarRect.DOKill();

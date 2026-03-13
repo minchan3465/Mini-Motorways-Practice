@@ -13,8 +13,8 @@ namespace Motorways.Actions {
 		public override void OnActionBegin(float timestamp) {
 			if (_camera == null) return;
 
-			// 축소 상태(Size 15)일 때는 화면 이동을 막습니다.
-			if (_camera.orthographicSize > 14.9f) {
+			//확대 7.5가 아닌 상태일 때는 화면 이동을 막습니다.
+			if (_camera.orthographicSize > 7.5f) {
 				OnActionCancel();
 				return;
 			}
@@ -34,7 +34,7 @@ namespace Motorways.Actions {
 
 				Vector3 targetPos = _camera.transform.position - worldDelta;
 
-				// [범위 제한 강화] 가동 범위를 조금 더 좁게 설정 (80% 수준)
+				//가동 범위를 조금 더 좁게 설정 (80% 수준)
 				if (MapManager.Instance != null) {
 					RectInt area = MapManager.Instance.PlayableArea;
 					float tileSize = MapSettings.TILE_SIZE;

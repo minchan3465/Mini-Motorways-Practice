@@ -11,17 +11,17 @@ namespace Motorways.UI {
 		[SerializeField] private RectTransform fasterBtn;
 
 		[Header("Settings")]
-		[SerializeField] private float moveDistance = 65f; // 내려갈 거리
-		[SerializeField] private float btnDistance = 50f; // 버튼 간격
-		[SerializeField] private float duration = 0.4f;     // 애니메이션 시간
+		[SerializeField] private float moveDistance = 65f; //내려갈 거리
+		[SerializeField] private float btnDistance = 50f; //버튼 간격
+		[SerializeField] private float duration = 0.4f;     //애니메이션 시간
 
 		//펀치
 		[SerializeField] private float targetScale = 1.15f;
 		[SerializeField] private float punchAmount = 0.15f;
 		[SerializeField] private float punchDuration = 0.2f;
 
-		private bool isDown = false;      // 현재 내려가 있는 상태인지
-		private bool isAnimating = false; // 이동 애니메이션 중인지
+		private bool isDown = false;      //현재 내려가 있는 상태인지
+		private bool isAnimating = false; //이동 애니메이션 중인지
 
 		public void ToggleTimerBtn() {
 			transform.DOKill(true);

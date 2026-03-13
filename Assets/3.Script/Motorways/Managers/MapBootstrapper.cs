@@ -24,17 +24,17 @@ namespace Motorways.Managers {
 		}
 
 		private void ExtractDataFromTilemap() {
-			_terrainLayer.CompressBounds();    // 타일맵 범위 압축 (0,0 기준 정렬)
-			BoundsInt bounds = _terrainLayer.cellBounds;   // 실제 타일맵 크기 획득
+			_terrainLayer.CompressBounds();    //타일맵 범위 압축 (0,0 기준 정렬)
+			BoundsInt bounds = _terrainLayer.cellBounds;   //실제 타일맵 크기 획득
 
-			// 2. 타일맵 순회 (Extraction Loop)
+			//2. 타일맵 순회 (Extraction Loop)
 			foreach (var pos in bounds.allPositionsWithin) {
 				Vector3Int localPos = new Vector3Int(pos.x, pos.y, pos.z);
 				Vector2Int gridCoord = new Vector2Int(pos.x, pos.y);
 
 				TileData tile = new TileData(gridCoord);
 
-				// 지형 데이터 설정
+				//지형 데이터 설정
 				TileBase tb = _terrainLayer.GetTile(localPos);
 				if (tb != null) {
 					if (tb is SmartTile st) {
@@ -49,11 +49,11 @@ namespace Motorways.Managers {
 				MapManager.Instance._grid.Add(gridCoord, tile);
 			}
 
-			// 가중치 데이터 적용
+			//가중치 데이터 적용
 			ApplyWeightLayer(_houseWeightLayer, isHouse: true);
 			ApplyWeightLayer(_destWeightLayer, isHouse: false);
 
-			// 시각용 타일맵 비활성화 (로직 데이터만 추출 후 가림)
+			//시각용 타일맵 비활성화 (로직 데이터만 추출 후 가림)
 			TileMapRendererDisable(_houseWeightLayer);
 			TileMapRendererDisable(_destWeightLayer);
 		}

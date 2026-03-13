@@ -36,21 +36,21 @@ namespace Motorways.UI {
 			if (isSelected) return;
 
 			SoundManager.Instance.PlaySFX(SoundEffect.ButtonMain);
-			// 매니저에게 자신이 클릭되었음을 알림
+			//매니저에게 자신이 클릭되었음을 알림
 			manager.OnButtonClicked(this, timeScale);
 
 		}
 
 		public void OnPointerEnter(PointerEventData eventData) {
 			if (isSelected) return;
-			// 마우스 올렸을 때 살짝 커짐
+			//마우스 올렸을 때 살짝 커짐
 			transform.DOScale(originalScale * 1.2f, 0.3f).SetEase(Ease.OutQuad);
 		}
 
 		public void OnPointerExit(PointerEventData eventData) {
 			if (isSelected) return;
 
-			// 마우스가 나가면 원래 크기로
+			//마우스가 나가면 원래 크기로
 			transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutQuad);
 		}
 
@@ -65,7 +65,7 @@ namespace Motorways.UI {
 			clickSequence.Append(transform.DOScale(originalScale * 1.1f, 0.1f).SetEase(Ease.OutQuad))
 						 .Append(transform.DOScale(originalScale * 0.9f, 0.15f).SetEase(Ease.InOutQuad));
 
-			// 색상 변경
+			//색상 변경
 			buttonImage.DOFade(selectedAlpha, 0.2f);
 		}
 

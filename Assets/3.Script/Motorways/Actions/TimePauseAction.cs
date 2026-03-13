@@ -8,9 +8,9 @@ namespace Motorways.Actions {
 	public class TimePauseAction : MotorwaysPlayerAction {
 		public override void OnActionBegin(float timestamp) {
 			if (SimulationManager.Instance != null) {
-				SimulationManager.Instance.TogglePause();
+				SimulationManager.Instance.TogglePause(true);
 			}
-			OnActionComplete(); // 즉시 완료 처리
+			OnActionComplete(); //즉시 완료 처리
 		}
 	}
 }

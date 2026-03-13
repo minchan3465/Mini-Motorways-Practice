@@ -18,8 +18,8 @@ namespace Motorways.Baking {
 			TileDirection.NorthWest
 		};
 
-		// 타일의 모든 연결 조합은 2^8 = 256가지임.
-		// 이를 모두 생성하는 대신, 회전 대칭을 고려하여 고유한 시그니처만 추출함.
+		//타일의 모든 연결 조합은 2^8 = 256가지임.
+		//이를 모두 생성하는 대신, 회전 대칭을 고려하여 고유한 시그니처만 추출함.
 
 		public List<RoadTileSignature> GenerateAllUniqueSignatures() {
 			List<RoadTileSignature> uniqueSignatures = new List<RoadTileSignature>();
@@ -28,7 +28,7 @@ namespace Motorways.Baking {
 			for (int i = 1; i < 256; i++) {
 				byte mask = (byte)i;
 
-				// 1. 비트 마스크 회전 중복 검사
+				//1. 비트 마스크 회전 중복 검사
 				bool isDuplicate = false;
 				for (int step = 0; step < 8; step++) {
 					int s = step % 8;
@@ -42,13 +42,13 @@ namespace Motorways.Baking {
 
 				processedMasks.Add(mask);
 
-				// 2. 현재 마스크에 해당하는 활성 방향 추출
+				//2. 현재 마스크에 해당하는 활성 방향 추출
 				List<TileDirection> activeDirs = new List<TileDirection>();
 				for (int dirIndex = 0; dirIndex < 8; dirIndex++) {
 					if ((mask & (1 << dirIndex)) != 0) activeDirs.Add(AllDirections[dirIndex]);
 				}
 
-				// 3. 시그니처 생성 (모든 노드 간 연결 설정)
+				//3. 시그니처 생성 (모든 노드 간 연결 설정)
 				RoadTileSignature tempSignature = new RoadTileSignature();
 				if (activeDirs.Count == 1) {
 					tempSignature.AddConnection(new RoadTileConnection(new RoadTileNode(activeDirs[0], RoadType.TwoLane), new RoadTileNode(activeDirs[0], RoadType.TwoLane)));
@@ -76,10 +76,10 @@ namespace Motorways.Baking {
 			float tightCornerHandleScale = 0.1f * MapSettings.TILE_SIZE;
 			int resolution = 24;
 
-			// 타일 반지름 설정
+			//타일 반지름 설정
 			float tileRadius = MapSettings.HALF_TILE;
 
-			// 대각선 연결 시 추가 확장 거리
+			//대각선 연결 시 추가 확장 거리
 			float diagonalExtension = 0.15f * MapSettings.TILE_SIZE;
 
 			Vector2 inBase = ((Vector2)TileUtils.GetDirectionVector(inDir)).normalized;
@@ -88,11 +88,11 @@ namespace Motorways.Baking {
 			Vector2 inPos = inBase * tileRadius;
 			Vector2 outPos = outBase * tileRadius;
 
-			// 대각선 판별
+			//대각선 판별
 			bool inIsDiagonal = Mathf.Abs(inBase.x) > 0.1f && Mathf.Abs(inBase.y) > 0.1f;
 			bool outIsDiagonal = Mathf.Abs(outBase.x) > 0.1f && Mathf.Abs(outBase.y) > 0.1f;
 
-			// 대각선일 경우 보간 곡선 시작점 조정
+			//대각선일 경우 보간 곡선 시작점 조정
 			Vector2 inCurveStart = inIsDiagonal ? inPos - (inBase * diagonalExtension) : inPos;
 			Vector2 outCurveStart = outIsDiagonal ? outPos - (outBase * diagonalExtension) : outPos;
 
@@ -102,7 +102,7 @@ namespace Motorways.Baking {
 				float inHandleScale = cornerHandleScale;
 				float outHandleScale = cornerHandleScale;
 
-				// 급커브(1단계 차이)일 경우 핸들 스케일 축소
+				//급커브(1단계 차이)일 경우 핸들 스케일 축소
 				if (Vector2.Dot(inBase, outBase) > 0.1f) {
 					inHandleScale = tightCornerHandleScale;
 					outHandleScale = tightCornerHandleScale;
@@ -118,7 +118,7 @@ namespace Motorways.Baking {
 
 				if (outIsDiagonal) pathPoints.Add(outPos);
 			} else {
-				// U턴 처리
+				//U턴 처리
 				pathPoints.Add(inCurveStart);
 				pathPoints.Add(Vector2.zero);
 			}
@@ -127,11 +127,11 @@ namespace Motorways.Baking {
 			return pathPoints;
 		}
 
-		// 대각선 교차점 코너 경로 생성
+		//대각선 교차점 코너 경로 생성
 		public List<Vector2> ConstructCornerPath() {
 			List<Vector2> pathPoints = new List<Vector2>();
 
-			// 타일 경계에 맞춘 코너 반지름 계산
+			//타일 경계에 맞춘 코너 반지름 계산
 			float cornerRadius = (Mathf.Sqrt(2f) - 1f) * MapSettings.HALF_TILE;
 
 			Vector2 dir = new Vector2(1, 1).normalized;
@@ -166,7 +166,7 @@ namespace Motorways.Baking {
 
 			float currentLength = 0f;
 			
-			// 정점 및 UV 생성
+			//정점 및 UV 생성
 			for (int i =0; i< pointCount; i++) {
 				Vector2 currentPoint = visualPoints[i];
 				Vector2 forward = Vector2.zero;

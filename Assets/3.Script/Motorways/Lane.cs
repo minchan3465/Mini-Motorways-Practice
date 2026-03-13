@@ -39,10 +39,10 @@ namespace Motorways {
 
         public Utils.Spline.BezierSpline PathSpline { get; private set; }
 
-        public bool IsBridge { get; private set; } // 다리 여부 추가
-        public bool IsBridgeHead { get; private set; } // 자원을 소모한 다리의 시작점 여부
+        public bool IsBridge { get; private set; } //다리 여부 추가
+        public bool IsBridgeHead { get; private set; } //자원을 소모한 다리의 시작점 여부
 
-        // 일반 도로 생성자
+        //일반 도로 생성자
         public Lane(Vector2Int start, Vector2Int end, Vector2? controlPoint = null, bool isBridge = false, bool isBridgeHead = false) {
             Id = _nextId++;
             StartNode = start;
@@ -65,11 +65,11 @@ namespace Motorways {
             Length = PathSpline.Length(10);
         }
 
-        // 주차장 내부 등 특수 목적용 (월드 좌표 직접 주입) 생성자
+        //주차장 내부 등 특수 목적용 (월드 좌표 직접 주입) 생성자
         public Lane(Vector2Int node, Vector3 worldStart, Vector3 worldMid, Vector3 worldEnd) {
             Id = _nextId++;
             StartNode = node;
-            EndNode = node; // 내부 경로는 시작과 끝 노드가 동일함
+            EndNode = node; //내부 경로는 시작과 끝 노드가 동일함
             
             PathSpline = new Utils.Spline.BezierSpline(worldStart, worldMid, worldEnd);
             Length = PathSpline.Length(10);

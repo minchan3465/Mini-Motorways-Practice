@@ -36,7 +36,12 @@ namespace Motorways.Actions {
 		public float ConnectionDistanceThreshold => _connectionDistanceThreshold * MapSettings.TILE_SIZE;
 		public bool IsDragging => _currentAction != null;
 		public bool IsBuildingRoad => _currentAction is DrawRoadAction;
+		public bool IsPlayerZoomedIn { get; set; } = false;
 		#endregion
+
+		public bool IsZoomingActionActive() {
+			return DG.Tweening.DOTween.IsTweening(_mainCamera);
+		}
 
 		public static InteractionController Instance { get; private set; }
 
@@ -99,7 +104,7 @@ namespace Motorways.Actions {
 
 		//---------- 시간 일시정지 (스페이스바)
 		private void OnTimePause(InputAction.CallbackContext context) {
-			// [사용자 요청] 메뉴가 열려있을 때는 스페이스바 무시
+			//[사용자 요청] 메뉴가 열려있을 때는 스페이스바 무시
 			if (GameMenuManager.Instance != null && GameMenuManager.Instance.IsMenuOpen) return;
 
 			TimePauseAction pauseAction = new TimePauseAction();
@@ -143,7 +148,8 @@ namespace Motorways.Actions {
 
 		private void OnBuildCanceled(InputAction.CallbackContext context) {
 			if (_currentAction is DrawRoadAction) _currentAction.OnActionComplete();
-			if (GridView.Instance != null && _mainCamera.orthographicSize >= 14.9f) GridView.Instance.SetVisible(false);
+			// 최대 줌 상태(전체 지도 보기) 근처일 때 그리드를 숨깁니다.
+			if (GridView.Instance != null && _mainCamera.orthographicSize >= MapManager.Instance.orthographicSizeValue - 0.1f) GridView.Instance.SetVisible(false);
 			if (RoadNetworkManager.Instance != null) RoadNetworkManager.Instance.ValidateAllBridges();
 		}
 
@@ -158,7 +164,8 @@ namespace Motorways.Actions {
 
 		private void OnRemoveCanceled(InputAction.CallbackContext context) {
 			if (_currentAction is RemoveRoadAction) _currentAction.OnActionComplete();
-			if (GridView.Instance != null) GridView.Instance.SetVisible(_mainCamera.orthographicSize < 14.9f, false);
+			// 확대 중일 때만 그리드를 유지합니다.
+			if (GridView.Instance != null) GridView.Instance.SetVisible(_mainCamera.orthographicSize < MapManager.Instance.orthographicSizeValue - 0.1f, false);
 			if (RoadNetworkManager.Instance != null) RoadNetworkManager.Instance.ValidateAllBridges();
 		}
 

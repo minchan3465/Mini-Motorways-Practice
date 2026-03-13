@@ -12,7 +12,7 @@ namespace Motorways.Managers {
 		public Material roadMaterial;
 		public Material outlineMaterial;
 		public Material mothballedMaterial;
-		public Material bridgeOutlineMaterial; // 다리 전용 아웃라인 매테리얼
+		public Material bridgeOutlineMaterial; //다리 전용 아웃라인 매테리얼
 
 		private Dictionary<Vector2Int, TileView> _tileViews = new Dictionary<Vector2Int, TileView>();
 

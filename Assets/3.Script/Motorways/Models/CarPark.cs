@@ -15,19 +15,19 @@ namespace Motorways.Models {
 		public Dictionary<int, float> ParkingTimers { get; private set; } = new Dictionary<int, float>();
 
 		public Vector2Int CarparkCoordinate { get; private set; }
-		public Vector2Int RoadCoordinate { get; private set; } // 도로와 연결된 좌표
+		public Vector2Int RoadCoordinate { get; private set; } //도로와 연결된 좌표
 
 		//--- 초기화 ---
 		public void Initialize(Destination owner, Vector2Int roadCoord, Vector2Int carparkCoord) {
 			Owner = owner;
 			RoadCoordinate = roadCoord;
 			CarparkCoordinate = carparkCoord;
-			Capacity = 3; // 원작 일반 기준
+			Capacity = 3; //원작 일반 기준
 
-			// 1. 들어오는 길 (도로 -> 주차장)
+			//1. 들어오는 길 (도로 -> 주차장)
 			EntranceLane = new Lane(roadCoord, carparkCoord);
 
-			// 2. 나가는 길 (주차장 -> 도로)
+			//2. 나가는 길 (주차장 -> 도로)
 			ExitLane = new Lane(carparkCoord, roadCoord);
 
 			ParkedVehicles.Clear();

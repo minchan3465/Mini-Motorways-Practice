@@ -3,7 +3,7 @@ using System.Linq;
 using Motorways.Models;
 
 namespace Motorways.Views {
-    // Vehicle 모델의 논리적 데이터를 바탕으로 시각적인 위치(Transform)를 업데이트합니다.
+    //Vehicle 모델의 논리적 데이터를 바탕으로 시각적인 위치(Transform)를 업데이트합니다.
     public class VehicleView : MonoBehaviour {
         [SerializeField] private Vehicle _vehicleModel;
 
@@ -44,17 +44,17 @@ namespace Motorways.Views {
         private void Update() {
             if (_vehicleModel == null) return;
 
-            // 1. 상태 전이(State Transition) 감지하여 정확히 한 번만 호출
+            //1. 상태 전이(State Transition) 감지하여 정확히 한 번만 호출
             //if (_vehicleModel.State != _lastFrameState) {
-            //    OnStateChanged(_lastFrameState, _vehicleModel.State);
+            //   OnStateChanged(_lastFrameState, _vehicleModel.State);
             //}
 
-            // 2. 비주얼 업데이트 (주행 중일 때만)
+            //2. 비주얼 업데이트 (주행 중일 때만)
             if (_vehicleModel.State == VehicleState.Driving || 
                 _vehicleModel.State == VehicleState.Returning) {
                 UpdateVisuals();
             } else if (_vehicleModel.State != VehicleState.Arrived) {
-                // 주차 중이 아닐 때만 차선 정보 초기화
+                //주차 중이 아닐 때만 차선 정보 초기화
                 _prevLane = null;
                 _currentLane = null;
             }
@@ -71,10 +71,10 @@ namespace Motorways.Views {
 
 
             //if (_pinDisplayTimer > 0) {
-            //    _pinDisplayTimer -= Time.deltaTime;
-            //    if (_pinDisplayTimer <= 0) {
-            //        if (_pinView != null) _pinView.SetVisibility(false);
-            //    }
+            //   _pinDisplayTimer -= Time.deltaTime;
+            //   if (_pinDisplayTimer <= 0) {
+            //       if (_pinView != null) _pinView.SetVisibility(false);
+            //   }
             //}
 
             //핀의 회전값 고정
@@ -85,19 +85,19 @@ namespace Motorways.Views {
             _lastFrameState = _vehicleModel.State;
         }
 
-        // 상태가 변경되었을 때 딱 한 번만 실행되는 함수
+        //상태가 변경되었을 때 딱 한 번만 실행되는 함수
         //private void OnStateChanged(VehicleState oldState, VehicleState newState) {
-        //    if (_pinView == null) return;
+        //   if (_pinView == null) return;
 
-        //    if (newState == VehicleState.Arrived) {
-        //        // 목적지에 도착했을 때 핀을 켬
-        //        _pinView.SetVisibility(true);
-        //        _pinDisplayTimer = PIN_VISIBLE_DURATION; // 1.5초 타이머 시작
-        //    } else {
-        //        // 그 외의 상태(출발, 대기 등)에서는 핀을 끔
-        //        _pinView.SetVisibility(false);
-        //        _pinDisplayTimer = 0f;
-        //    }
+        //   if (newState == VehicleState.Arrived) {
+        //       //목적지에 도착했을 때 핀을 켬
+        //       _pinView.SetVisibility(true);
+        //       _pinDisplayTimer = PIN_VISIBLE_DURATION; //1.5초 타이머 시작
+        //   } else {
+        //       //그 외의 상태(출발, 대기 등)에서는 핀을 끔
+        //       _pinView.SetVisibility(false);
+        //       _pinDisplayTimer = 0f;
+        //   }
         //}
 
         private void UpdateVisuals() {
@@ -113,7 +113,7 @@ namespace Motorways.Views {
             Vector3 position = activeLane.PathSpline.Evaluate(t);
             Vector3 tangent = activeLane.PathSpline.EvaluateTangent(t);
 
-            // 베지어 곡선 기반 부드러운 코너링 로직
+            //베지어 곡선 기반 부드러운 코너링 로직
             Lane nextLane = _vehicleModel.CurrentPath.Count > 1 ? _vehicleModel.CurrentPath.ElementAt(1) : null;
 
             if (t > 0.5f && nextLane != null && nextLane.PathSpline != null) {
@@ -135,7 +135,7 @@ namespace Motorways.Views {
                 tangent = Utils.BezierUtils.GetTangent(p0, p1, p2, s);
             }
 
-            // 차량 오프셋 설정
+            //차량 오프셋 설정
             float laneOffset = 0.2f;
             Vector3 normal = Vector3.Cross(Vector3.up, tangent).normalized;
             

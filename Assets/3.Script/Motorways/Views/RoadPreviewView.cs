@@ -11,7 +11,7 @@ namespace Motorways.Views {
 
 		[Header("Settings")]
 		[SerializeField] private float _width = 0.8f;
-		[SerializeField] private Color _previewColor = new Color(1, 1, 1, 0.6f); // ������ ���
+		[SerializeField] private Color _previewColor = new Color(1, 1, 1, 0.6f); //������ ���
 		[SerializeField] private int _roundness = 8;
 
 		private void Awake() {
@@ -43,7 +43,7 @@ namespace Motorways.Views {
 		public void UpdatePreview(Vector3 origin, Vector3 mousePos, Vector2Int snappedDir) {
 			if (!gameObject.activeSelf) gameObject.SetActive(true);
 
-			// �ڿ� üũ: ���ΰ� ������ 0.2ĭ�� �þ
+			//�ڿ� üũ: ���ΰ� ������ 0.2ĭ�� �þ
 			bool hasResource = ResourceManager.Instance.HasResource(ItemType.Road);
 			float limit = 1.5f;
 
@@ -55,7 +55,7 @@ namespace Motorways.Views {
 			Vector3 endPos = startPos + (dirVec * length);
 
 
-			// SetPosition ȣ�� �� �� ���� ��Ȯ�� (���� ��õ ����)
+			//SetPosition ȣ�� �� �� ���� ��Ȯ�� (���� ��õ ����)
 			if (_lineRenderer.positionCount != 2) _lineRenderer.positionCount = 2;
 			_lineRenderer.SetPosition(0, startPos);
 			_lineRenderer.SetPosition(1, endPos);

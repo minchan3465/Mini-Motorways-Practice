@@ -3581,8 +3581,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 20, y: 25}
-  m_SizeDelta: {x: 40, y: 50}
+  m_AnchoredPosition: {x: -4.4, y: 25}
+  m_SizeDelta: {x: 80, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756662592
 MonoBehaviour:
@@ -5704,6 +5704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Motorways.Managers.WeeklyRewardManager
   RewardPopupUI: {fileID: 1988680958}
+  RewardWeek: {fileID: 293708095}
   CornerUI: {fileID: 1005082578}
 --- !u!1 &1113110544
 GameObject:
@@ -5969,7 +5970,7 @@ Transform:
   m_GameObject: {fileID: 1236135582}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -84.4, y: 0, z: 54.6}
+  m_LocalPosition: {x: -118, y: 0, z: 61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17374,6 +17375,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524883712}
   m_CullTransparentMesh: 1
+--- !u!1 &1546082643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546082644}
+  - component: {fileID: 1546082645}
+  m_Layer: 0
+  m_Name: ExpansionProcess
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546082644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546082643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1862150355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546082645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546082643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c65e90d9b156e64abea856bccbe31f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Motorways.Process.ExpansionProcess
 --- !u!1 &1555448541
 GameObject:
   m_ObjectHideFlags: 0
@@ -24730,13 +24775,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 508982984}
-  - {fileID: 1109189419}
-  - {fileID: 1446979310}
-  - {fileID: 1690107664}
-  - {fileID: 1801908802}
   - {fileID: 1807001620}
   - {fileID: 60965553}
+  - {fileID: 1801908802}
+  - {fileID: 1109189419}
+  - {fileID: 1546082644}
+  - {fileID: 1690107664}
+  - {fileID: 508982984}
+  - {fileID: 1446979310}
   m_Father: {fileID: 879844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868698643
@@ -24907,6 +24953,7 @@ MonoBehaviour:
     y: -5
     width: 18
     height: 10
+  orthographicSizeValue: 15
 --- !u!1 &1953513248
 GameObject:
   m_ObjectHideFlags: 0

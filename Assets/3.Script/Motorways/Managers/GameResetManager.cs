@@ -5,7 +5,7 @@ using Motorways.Managers;
 using DG.Tweening;
 
 namespace Motorways.Managers {
-    // 게임 재시작, 씬 전환, 프로그램 종료 등 시스템 명령을 전담하는 매니저입니다.
+    //게임 재시작, 씬 전환, 프로그램 종료 등 시스템 명령을 전담하는 매니저입니다.
     public class GameResetManager : MonoBehaviour {
         public static GameResetManager Instance { get; private set; }
 

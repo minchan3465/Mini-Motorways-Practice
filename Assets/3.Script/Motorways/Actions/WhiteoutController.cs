@@ -8,7 +8,7 @@ namespace Motorways {
         public static WhiteoutController Instance = null;
 
         [Header("Settings")]
-        public Material whiteoutMaterial; // 아까 만든 WhiteoutVignetteMat 연결
+        public Material whiteoutMaterial; //아까 만든 WhiteoutVignetteMat 연결
         public float duration = 0.25f;
 
         private static readonly int IntensityID = Shader.PropertyToID("_Intensity");
